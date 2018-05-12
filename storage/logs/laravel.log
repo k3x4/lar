@@ -1,0 +1,9 @@
+[2018-05-12 11:40:50] local.ERROR: Command "optimize" is not defined. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"optimize\" is not defined. at C:\\Apache24\\htdocs\\lar\\vendor\\symfony\\console\\Application.php:611)
+[stacktrace]
+#0 C:\\Apache24\\htdocs\\lar\\vendor\\symfony\\console\\Application.php(224): Symfony\\Component\\Console\\Application->find('optimize')
+#1 C:\\Apache24\\htdocs\\lar\\vendor\\symfony\\console\\Application.php(143): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#2 C:\\Apache24\\htdocs\\lar\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(89): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 C:\\Apache24\\htdocs\\lar\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(122): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 C:\\Apache24\\htdocs\\lar\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
