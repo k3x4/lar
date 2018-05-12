@@ -7,7 +7,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="{{ asset('adminlte/dist/img/avatar.png') }}" class="img-circle" alt="User Image">
+                <img src="<?php echo e(asset('adminlte/dist/img/avatar.png')); ?>" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
                 <p>Admin</p>
@@ -33,70 +33,70 @@
             <!--<li class="header">HEADER</li>-->
             <!-- Optionally, you can add icons to the links -->
             
-            <li {{ bs_active(['admin/media*', 'admin/mediasizes*']) }}>
+            <li <?php echo e(bs_active(['admin/media*', 'admin/mediasizes*'])); ?>>
                 <a href="#"><i class="fa fa-link"></i> <span>Media</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li {{ bs_active('admin/media') }}><a href="{{ url('admin/media') }}">All media</a></li>
-                    <li {{ bs_active('admin/mediasizes*') }}>
-                        <a href="{{ url('admin/mediasizes') }}"> <span>Media Sizes</span>
+                    <li <?php echo e(bs_active('admin/media')); ?>><a href="<?php echo e(url('admin/media')); ?>">All media</a></li>
+                    <li <?php echo e(bs_active('admin/mediasizes*')); ?>>
+                        <a href="<?php echo e(url('admin/mediasizes')); ?>"> <span>Media Sizes</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li {{ bs_active('admin/mediasizes') }}><a href="{{ url('admin/mediasizes') }}">All media sizes</a></li>
-                            <li {{ bs_active('admin/mediasizes/create') }}><a href="{{ url('admin/mediasizes/create') }}">Create media size</a></li>
+                            <li <?php echo e(bs_active('admin/mediasizes')); ?>><a href="<?php echo e(url('admin/mediasizes')); ?>">All media sizes</a></li>
+                            <li <?php echo e(bs_active('admin/mediasizes/create')); ?>><a href="<?php echo e(url('admin/mediasizes/create')); ?>">Create media size</a></li>
                         </ul>
                     </li>
                 </ul>
             </li>
             
-            <li {{ bs_active('admin/products*') }}>
+            <li <?php echo e(bs_active('admin/products*')); ?>>
                 <a href="#"><i class="fa fa-link"></i> <span>Products</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li {{ bs_active('admin/products') }}><a href="{{ url('admin/products') }}">All products</a></li>
-                    <li {{ bs_active('admin/products/create') }}><a href="{{ url('admin/products/create') }}">Create product</a></li>
+                    <li <?php echo e(bs_active('admin/products')); ?>><a href="<?php echo e(url('admin/products')); ?>">All products</a></li>
+                    <li <?php echo e(bs_active('admin/products/create')); ?>><a href="<?php echo e(url('admin/products/create')); ?>">Create product</a></li>
                 </ul>    
             </li>
             
-            <li {{ bs_active('admin/categories*') }}>
+            <li <?php echo e(bs_active('admin/categories*')); ?>>
                 <a href="#"><i class="fa fa-link"></i> <span>Categories</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li {{ bs_active('admin/categories') }}><a href="{{ url('admin/categories') }}">All categories</a></li>
-                    <li {{ bs_active('admin/categories/create') }}><a href="{{ url('admin/categories/create') }}">Create category</a></li>
+                    <li <?php echo e(bs_active('admin/categories')); ?>><a href="<?php echo e(url('admin/categories')); ?>">All categories</a></li>
+                    <li <?php echo e(bs_active('admin/categories/create')); ?>><a href="<?php echo e(url('admin/categories/create')); ?>">Create category</a></li>
                 </ul>    
             </li>
                 
-            <li {{ bs_active(['admin/users*', 'admin/roles*']) }}>
+            <li <?php echo e(bs_active(['admin/users*', 'admin/roles*'])); ?>>
                 <a href="#"><i class="fa fa-link"></i> <span>Users</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li {{ bs_active('admin/users') }}><a href="{{ url('admin/users') }}">All users</a></li>
-                    <li {{ bs_active('admin/users/create') }}><a href="{{ url('admin/users/create') }}">Create user</a></li>
-                    <li {{ bs_active('admin/roles*') }}>
-                        <a href="{{ url('admin/roles') }}"> <span>Roles</span>
+                    <li <?php echo e(bs_active('admin/users')); ?>><a href="<?php echo e(url('admin/users')); ?>">All users</a></li>
+                    <li <?php echo e(bs_active('admin/users/create')); ?>><a href="<?php echo e(url('admin/users/create')); ?>">Create user</a></li>
+                    <li <?php echo e(bs_active('admin/roles*')); ?>>
+                        <a href="<?php echo e(url('admin/roles')); ?>"> <span>Roles</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li {{ bs_active('admin/roles') }}><a href="{{ url('admin/roles') }}">All roles</a></li>
-                            <li {{ bs_active('admin/roles/create') }}><a href="{{ url('admin/roles/create') }}">Create role</a></li>
+                            <li <?php echo e(bs_active('admin/roles')); ?>><a href="<?php echo e(url('admin/roles')); ?>">All roles</a></li>
+                            <li <?php echo e(bs_active('admin/roles/create')); ?>><a href="<?php echo e(url('admin/roles/create')); ?>">Create role</a></li>
                         </ul>
                     </li>
                 </ul>
