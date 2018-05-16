@@ -219,6 +219,8 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
 
+        'BS' => App\Libraries\Bootstrap::class,
+
     ],
 
 ];

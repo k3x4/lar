@@ -33,36 +33,36 @@
             <!--<li class="header">HEADER</li>-->
             <!-- Optionally, you can add icons to the links -->
             
-            <li class="treeview <?php echo e(bs_active('admin/listings*')); ?>">
-                <a href="#"><i class="fa fa-link"></i> <span>Listings</span>
+            <li <?php echo BS::activeClass('admin/listings*');; ?>>
+                <a href="<?php echo e(url('admin/listings')); ?>"><i class="fa fa-link"></i> <span>Listings</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li <?php echo e(bs_active('admin/listings')); ?>><a href="<?php echo e(url('admin/listings')); ?>">All listings</a></li>
-                    <li <?php echo e(bs_active('admin/listings/create')); ?>><a href="<?php echo e(url('admin/listings/create')); ?>">Create listing</a></li>
+                    <li <?php echo BS::activeClass('admin/listings');; ?>><a href="<?php echo e(url('admin/listings')); ?>">All listings</a></li>
+                    <li <?php echo BS::activeClass('admin/listings/create');; ?>><a href="<?php echo e(url('admin/listings/create')); ?>">Create listing</a></li>
                 </ul>    
             </li>
                 
-            <li class="treeview <?php echo e(bs_active(['admin/users*', 'admin/roles*'])); ?>">
-                <a href="#"><i class="fa fa-link"></i> <span>Users</span>
+            <li <?php echo BS::activeClass(['admin/users*', 'admin/roles*']);; ?>>
+                <a href="<?php echo e(url('admin/users')); ?>"><i class="fa fa-link"></i> <span>Users</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li <?php echo e(bs_active('admin/users')); ?>><a href="<?php echo e(url('admin/users')); ?>">All users</a></li>
-                    <li <?php echo e(bs_active('admin/users/create')); ?>><a href="<?php echo e(url('admin/users/create')); ?>">Create user</a></li>
-                    <li <?php echo e(bs_active('admin/roles*')); ?>>
+                    <li <?php echo BS::activeClass('admin/users');; ?>><a href="<?php echo e(url('admin/users')); ?>">All users</a></li>
+                    <li <?php echo BS::activeClass('admin/users/create');; ?>><a href="<?php echo e(url('admin/users/create')); ?>">Create user</a></li>
+                    <li <?php echo BS::activeClass('admin/roles*');; ?>>
                         <a href="<?php echo e(url('admin/roles')); ?>"> <span>Roles</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li <?php echo e(bs_active('admin/roles')); ?>><a href="<?php echo e(url('admin/roles')); ?>">All roles</a></li>
-                            <li <?php echo e(bs_active('admin/roles/create')); ?>><a href="<?php echo e(url('admin/roles/create')); ?>">Create role</a></li>
+                            <li <?php echo BS::activeClass('admin/roles');; ?>><a href="<?php echo e(url('admin/roles')); ?>">All roles</a></li>
+                            <li <?php echo BS::activeClass('admin/roles/create');; ?>><a href="<?php echo e(url('admin/roles/create')); ?>">Create role</a></li>
                         </ul>
                     </li>
                 </ul>
