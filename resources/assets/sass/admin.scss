@@ -1,0 +1,33 @@
+.form-group > strong{
+    display: block;
+}
+
+.img-wrap {
+    position: relative;
+    display: inline-block;
+    font-size: 0;
+    margin-bottom: 5px;
+}
+.img-wrap img{
+    
+}
+.img-wrap .close {
+    position: absolute;
+    top: calc(50% - 15px);
+    left: calc(50% - 15px);
+    z-index: 100;
+    background-color: #FFF;
+    padding: 10px;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: .2;
+    text-align: center;
+    font-size: 22px;
+    line-height: 10px;
+    border-radius: 50%;
+}
+.img-wrap:hover .close {
+    opacity: 1;
+}
+

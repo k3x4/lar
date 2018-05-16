@@ -61,95 +61,28 @@ class PermissionsTableSeeder extends Seeder {
             
             // PRODUCT PERMISSIONS            
             [
-                'name' => 'product-read',
-                'display_name' => 'Display Products',
-                'description' => 'Display Products'
+                'name' => 'listing-read',
+                'display_name' => 'Display Listings',
+                'description' => 'Display Listings'
             ],
             [
-                'name' => 'product-create',
-                'display_name' => 'Create Product',
-                'description' => 'Create New Product'
+                'name' => 'listing-create',
+                'display_name' => 'Create Listing',
+                'description' => 'Create New Listing'
             ],
             [
-                'name' => 'product-edit',
-                'display_name' => 'Edit Product',
-                'description' => 'Edit Product'
+                'name' => 'listing-edit',
+                'display_name' => 'Edit Listing',
+                'description' => 'Edit Listing'
             ],
             [
-                'name' => 'product-delete',
-                'display_name' => 'Delete Product',
-                'description' => 'Delete Product'
-            ],
-            
-            
-            // MEDIA SIZES PERMISSIONS            
-            [
-                'name' => 'mediasize-read',
-                'display_name' => 'Display Media sizes',
-                'description' => 'Display Media sizes'
-            ],
-            [
-                'name' => 'mediasize-create',
-                'display_name' => 'Create Media size',
-                'description' => 'Create New Media size'
-            ],
-            [
-                'name' => 'mediasize-edit',
-                'display_name' => 'Edit Media size',
-                'description' => 'Edit Media size'
-            ],
-            [
-                'name' => 'mediasize-delete',
-                'display_name' => 'Delete Media size',
-                'description' => 'Delete Media size'
+                'name' => 'listing-delete',
+                'display_name' => 'Delete Listing',
+                'description' => 'Delete Listing'
             ],
             
             
-            // MEDIA PERMISSIONS            
-            [
-                'name' => 'media-read',
-                'display_name' => 'Display Media',
-                'description' => 'Display Media'
-            ],
-            [
-                'name' => 'media-create',
-                'display_name' => 'Create Media',
-                'description' => 'Create New Media'
-            ],
-            [
-                'name' => 'media-edit',
-                'display_name' => 'Edit Media',
-                'description' => 'Edit Media'
-            ],
-            [
-                'name' => 'media-delete',
-                'display_name' => 'Delete Media',
-                'description' => 'Delete Media'
-            ],
-            
-            
-            // CATEGORY PERMISSIONS            
-            [
-                'name' => 'category-read',
-                'display_name' => 'Display Category',
-                'description' => 'Display Category'
-            ],
-            [
-                'name' => 'category-create',
-                'display_name' => 'Create Category',
-                'description' => 'Create New Category'
-            ],
-            [
-                'name' => 'category-edit',
-                'display_name' => 'Edit Category',
-                'description' => 'Edit Category'
-            ],
-            [
-                'name' => 'category-delete',
-                'display_name' => 'Delete Category',
-                'description' => 'Delete Category'
-            ]
-            
+        
             
         ];
         

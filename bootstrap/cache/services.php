@@ -27,12 +27,14 @@
     23 => 'Laravel\\Tinker\\TinkerServiceProvider',
     24 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     25 => 'Zizaco\\Entrust\\EntrustServiceProvider',
-    26 => 'Zizaco\\Entrust\\EntrustServiceProvider',
-    27 => 'App\\Providers\\AppServiceProvider',
-    28 => 'App\\Providers\\AuthServiceProvider',
-    29 => 'App\\Providers\\EventServiceProvider',
-    30 => 'App\\Providers\\RouteServiceProvider',
-    31 => 'App\\Providers\\AssetsServiceProvider',
+    26 => 'Collective\\Html\\HtmlServiceProvider',
+    27 => 'Zizaco\\Entrust\\EntrustServiceProvider',
+    28 => 'Collective\\Html\\HtmlServiceProvider',
+    29 => 'App\\Providers\\AppServiceProvider',
+    30 => 'App\\Providers\\AuthServiceProvider',
+    31 => 'App\\Providers\\EventServiceProvider',
+    32 => 'App\\Providers\\RouteServiceProvider',
+    33 => 'App\\Providers\\AssetsServiceProvider',
   ),
   'eager' => 
   array (
@@ -157,6 +159,10 @@
     'validation.presence' => 'Illuminate\\Validation\\ValidationServiceProvider',
     'command.tinker' => 'Laravel\\Tinker\\TinkerServiceProvider',
     'NunoMaduro\\Collision\\Contracts\\Provider' => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+    'html' => 'Collective\\Html\\HtmlServiceProvider',
+    'form' => 'Collective\\Html\\HtmlServiceProvider',
+    'Collective\\Html\\HtmlBuilder' => 'Collective\\Html\\HtmlServiceProvider',
+    'Collective\\Html\\FormBuilder' => 'Collective\\Html\\HtmlServiceProvider',
   ),
   'when' => 
   array (
@@ -200,6 +206,9 @@
     array (
     ),
     'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider' => 
+    array (
+    ),
+    'Collective\\Html\\HtmlServiceProvider' => 
     array (
     ),
   ),
