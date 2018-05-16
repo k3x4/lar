@@ -17,7 +17,7 @@ class CreateListingsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('slug');
-            $table->text('content');
+            $table->text('content')->nullable();
             $table->timestamps();
         });
     }
