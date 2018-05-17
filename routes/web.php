@@ -31,11 +31,17 @@ Route::group([
         'uses' => 'AdminController@index',
     ]);
 
-    // IMAGE UPLOAD
-    Route::post('admin/upload' , [
-        'as' => 'admin.upload',
-        'uses' => 'UploadController@upload',
-        'middleware' => ['permission:upload-read|upload-create|upload-edit|upload-delete'],
+    // MEDIA
+    Route::get('admin/media', [
+        'as' => 'admin.media.index', 
+        'uses' => 'MediaController@index', 
+        'middleware' => ['permission:media-read']
+    ]);
+
+    Route::post('admin/media/upload' , [
+        'as' => 'admin.media.upload',
+        'uses' => 'MediaController@upload',
+        'middleware' => ['permission:media-read|media-create|media-edit|media-delete'],
     ]);
 
     //LISTINGS

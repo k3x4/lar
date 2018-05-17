@@ -4,13 +4,13 @@ $(document).ready(function () {
 
     tinymce.init({
         selector: '.tinymce-textarea',
-        /*skin: 'lightgray',*/
+        skin: 'lightgray',
         height: 300,
         /*toolbar: 'undo redo styleselect bold italic alignleft aligncenter alignright bullist numlist outdent indent code',
          plugins: 'code'*/
 
-        theme: 'modern',
-        skin: 'light',
+        /*theme: 'modern',
+        skin: 'light',*/
         plugins: [
             'advlist autolink lists link image charmap print preview hr anchor pagebreak',
             'searchreplace wordcount visualblocks visualchars code fullscreen',

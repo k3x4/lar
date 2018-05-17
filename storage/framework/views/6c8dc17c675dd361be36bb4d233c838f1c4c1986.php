@@ -32,6 +32,17 @@
         <ul class="sidebar-menu" data-widget="tree">
             <!--<li class="header">HEADER</li>-->
             <!-- Optionally, you can add icons to the links -->
+
+            <li <?php echo BS::activeClass('admin/media*');; ?>>
+                <a href="<?php echo e(url('admin/media')); ?>"><i class="fa fa-link"></i> <span>Media</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li <?php echo BS::activeClass('admin/media'); ?>><a href="<?php echo e(url('admin/media')); ?>">All media</a></li>
+                </ul>
+            </li>
             
             <li <?php echo BS::activeClass('admin/listings*');; ?>>
                 <a href="<?php echo e(url('admin/listings')); ?>"><i class="fa fa-link"></i> <span>Listings</span>

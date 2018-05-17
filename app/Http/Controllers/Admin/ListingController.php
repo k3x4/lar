@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Listing;
+use App\Category;
 use DB;
+use Illuminate\Http\Request;
 
 class ListingController extends Controller
 {
@@ -14,10 +15,11 @@ class ListingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         $listings = Listing::orderBy('id', 'DESC')->paginate(5);
         return view('admin.listings.index', compact('listings'))
-                        ->with('i', ($request->input('page', 1) - 1) * 5);
+            ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -38,7 +40,7 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
-        
+
     }
 
     /**
@@ -50,7 +52,7 @@ class ListingController extends Controller
     public function show($id)
     {
         $listing = Listing::find($id);
-        return view('admin.listings.show',compact('listing'));
+        return view('admin.listings.show', compact('listing'));
     }
 
     /**
@@ -61,7 +63,13 @@ class ListingController extends Controller
      */
     public function edit($id)
     {
+        $listing = Listing::find($id);
         
+        $categories = Category::get();
+        $listingCategories = DB::table("category_listing")->where("category_listing.listing_id", $id)
+            ->pluck('category_listing.category_id', 'category_listing.category_id')->toArray();
+
+        return view('admin.listings.edit', compact('listing', 'categories', 'listingCategories'));
     }
 
     /**
@@ -73,7 +81,7 @@ class ListingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
     }
 
     /**
@@ -86,7 +94,7 @@ class ListingController extends Controller
     {
         Listing::find($id)->delete();
         return redirect()->route('admin.listings.index')
-                        ->with('success','Listing deleted successfully');
+            ->with('success', 'Listing deleted successfully');
     }
-    
+
 }

@@ -60,61 +60,65 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 38);
+/******/ 	return __webpack_require__(__webpack_require__.s = 40);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 38:
+/***/ 40:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(39);
+module.exports = __webpack_require__(41);
 
 
 /***/ }),
 
-/***/ 39:
+/***/ 41:
 /***/ (function(module, exports) {
 
-$(document).ready(function () {
+Dropzone.options.myDropzone = {
+    paramName: 'file',
+    /*maxFilesize: 5, // MB
+    maxFiles: 20,*/
+    acceptedFiles: ".jpeg,.jpg,.png,.gif",
+    init: function init() {
+        this.on("success", function (file, response) {
+            var a = document.createElement('span');
+            a.className = "thumb-url btn btn-primary";
+            a.setAttribute("data-clipboard-text", window.location.origin + "/uploads/" + response);
+            a.innerHTML = "copy url";
+            file.previewTemplate.appendChild(a);
+        });
+    }
+};
 
-    /*** TINYMCE INIT ***/
+$('.thumb-url').tooltip({
+    trigger: 'click',
+    placement: 'bottom'
+});
 
-    tinymce.init({
-        selector: '.tinymce-textarea',
-        skin: 'lightgray',
-        height: 300,
-        /*toolbar: 'undo redo styleselect bold italic alignleft aligncenter alignright bullist numlist outdent indent code',
-         plugins: 'code'*/
+function setTooltip(btn, message) {
+    $(btn).tooltip('hide').attr('data-original-title', message).tooltip('show');
+}
 
-        /*theme: 'modern',
-        skin: 'light',*/
-        plugins: ['advlist autolink lists link image charmap print preview hr anchor pagebreak', 'searchreplace wordcount visualblocks visualchars code fullscreen', 'insertdatetime media nonbreaking save table contextmenu directionality', 'template paste textcolor colorpicker textpattern imagetools codesample toc help emoticons hr'],
-        toolbar1: 'formatselect | bold italic  strikethrough  forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat | code',
-        image_advtab: true,
-        templates: [{ title: 'Test template 1', content: 'Test 1' }, { title: 'Test template 2', content: 'Test 2' }]
+function hideTooltip(btn) {
+    setTimeout(function () {
+        $(btn).tooltip('hide');
+    }, 500);
+}
 
-    });
+var clipboard = new ClipboardJS('.thumb-url');
 
-    /*** DELETE CONFIRM ***/
+clipboard.on('success', function (e) {
+    e.clearSelection();
+    setTooltip(e.trigger, 'Copied!');
+    hideTooltip(e.trigger);
+});
 
-    // Select the submit buttons of forms with data-confirm attribute
-    var submit_buttons = $("form input[type='submit'][data-confirm]");
-
-    // On click of one of these submit buttons
-    submit_buttons.on('click', function (e) {
-
-        // Prevent the form to be submitted
-        e.preventDefault();
-
-        var button = $(this); // Get the button
-        var form = button.closest('form'); // Get the related form
-        var msg = button.data('confirm'); // Get the confirm message
-
-        if (confirm(msg)) {
-            form.submit(); // If the user confirm, submit the form
-        }
-    });
+clipboard.on('error', function (e) {
+    e.clearSelection();
+    setTooltip(e.trigger, 'Failed');
+    hideTooltip(e.trigger);
 });
 
 /***/ })

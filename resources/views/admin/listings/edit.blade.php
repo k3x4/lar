@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-lg-12 margin-bottom">
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('admin.products.index') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('admin.listings.index') }}"> Back</a>
         </div>
     </div>
 </div>
@@ -23,21 +23,13 @@
     <div class="col-lg-12">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Edit Product <strong>{{ $product->title }}</strong></h3>
+                <h3 class="box-title">Edit Listing <strong>{{ $listing->title }}</strong></h3>
             </div>
-            {!! Form::model($product, ['method' => 'PATCH','route' => ['admin.products.update', $product->id]]) !!}
+            {!! Form::model($listing, ['method' => 'PATCH','route' => ['admin.listings.update', $listing->id]]) !!}
             <div class="box-body">
                 <div class="form-group">
                     <strong>Title:</strong>
                     {!! Form::text('title', null, ['placeholder' => 'Title','class' => 'form-control']) !!}
-                </div>
-                <div class="form-group">
-                    <strong>Image:</strong>
-                    <elfinder-controls
-                        name="feature_image"
-                        exists="{{ $productImageRelative }}"
-                        base="{{ url('images') }}"
-                        ></elfinder-controls>
                 </div>
                 <div class="form-group">
                     <strong>Description:</strong>
@@ -47,7 +39,7 @@
                     <strong>Categories:</strong>
                     <br/>
                     @foreach($categories as $category)
-                    <label>{{ Form::checkbox('category[]', $category->id, in_array($category->id, $productCategories) ? true : false) }}
+                    <label>{{ Form::checkbox('category[]', $category->id, in_array($category->id, $listingCategories) ? true : false) }}
                         {{ $category->display_name }}</label>
                     <br/>
                     @endforeach
@@ -62,6 +54,5 @@
 
 @section('footer_scripts')
 @parent
-<script src="{{ asset('js/elfinder.js') }}"></script>
-<script src="{{ asset('js/standalonepopup.k3x4.js') }}"></script>
+
 @endsection

@@ -61,24 +61,24 @@ class PermissionsTableSeeder extends Seeder {
 
             // UPLOAD PERMISSIONS            
             [
-                'name' => 'upload-read',
-                'display_name' => 'Display Uploads',
-                'description' => 'Display Uploads'
+                'name' => 'media-read',
+                'display_name' => 'Display Medias',
+                'description' => 'Display Medias'
             ],
             [
-                'name' => 'upload-create',
-                'display_name' => 'Create Upload',
-                'description' => 'Create New Upload'
+                'name' => 'media-create',
+                'display_name' => 'Create Media',
+                'description' => 'Create New Media'
             ],
             [
-                'name' => 'upload-edit',
-                'display_name' => 'Edit Upload',
-                'description' => 'Edit Upload'
+                'name' => 'media-edit',
+                'display_name' => 'Edit Media',
+                'description' => 'Edit Media'
             ],
             [
-                'name' => 'upload-delete',
-                'display_name' => 'Delete Upload',
-                'description' => 'Delete Upload'
+                'name' => 'media-delete',
+                'display_name' => 'Delete Media',
+                'description' => 'Delete Media'
             ],
             
 

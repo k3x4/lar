@@ -4,9 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
-class UploadController extends Controller
+class MediaController extends Controller
 {
+
+    public function index()
+    {
+        return view('admin.media.index');
+    }
+
     public function upload(Request $request)
     {
         // Creating a new time instance, we'll use it to name our file and declare the path
