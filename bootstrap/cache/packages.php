@@ -1,4 +1,15 @@
 <?php return array (
+  'zizaco/entrust' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Zizaco\\Entrust\\EntrustServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Entrust' => 'Zizaco\\Entrust\\EntrustFacade',
+    ),
+  ),
   'fideloper/proxy' => 
   array (
     'providers' => 
@@ -30,17 +41,6 @@
     'providers' => 
     array (
       0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    ),
-  ),
-  'zizaco/entrust' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Zizaco\\Entrust\\EntrustServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'Entrust' => 'Zizaco\\Entrust\\EntrustFacade',
     ),
   ),
 );
