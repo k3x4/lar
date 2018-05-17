@@ -24,6 +24,11 @@ class PermissionRoleTableSeeder extends Seeder
         $roleCreate = Permission::where('name','=','role-create')->get()->first();
         $roleEdit = Permission::where('name','=','role-edit')->get()->first();
         $roleDelete = Permission::where('name','=','role-delete')->get()->first();
+
+        $uploadRead = Permission::where('name','=','upload-read')->get()->first();
+        $uploadCreate = Permission::where('name','=','upload-create')->get()->first();
+        $uploadEdit = Permission::where('name','=','upload-edit')->get()->first();
+        $uploadDelete = Permission::where('name','=','upload-delete')->get()->first();
         
         $listingRead = Permission::where('name','=','listing-read')->get()->first();
         $listingCreate = Permission::where('name','=','listing-create')->get()->first();
@@ -39,6 +44,11 @@ class PermissionRoleTableSeeder extends Seeder
         $admin->attachPermission($roleCreate);
         $admin->attachPermission($roleEdit);
         $admin->attachPermission($roleDelete);
+
+        $admin->attachPermission($uploadRead);
+        $admin->attachPermission($uploadCreate);
+        $admin->attachPermission($uploadEdit);
+        $admin->attachPermission($uploadDelete);
         
         $admin->attachPermission($listingRead);
         $admin->attachPermission($listingCreate);

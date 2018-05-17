@@ -31,6 +31,13 @@ Route::group([
         'uses' => 'AdminController@index',
     ]);
 
+    // IMAGE UPLOAD
+    Route::post('admin/upload' , [
+        'as' => 'admin.upload',
+        'uses' => 'UploadController@upload',
+        'middleware' => ['permission:upload-read|upload-create|upload-edit|upload-delete'],
+    ]);
+
     //LISTINGS
     Route::get('admin/listings', [
         'as' => 'admin.listings.index',

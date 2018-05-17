@@ -20,6 +20,8 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
+        "clipboard": "^2.0.1",
+        "dropzone": "^5.4.0",
         "tinymce": "^4.7.12"
     }
 }

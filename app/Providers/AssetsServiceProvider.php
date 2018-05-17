@@ -13,6 +13,8 @@ class AssetsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // php artisan vendor:publish --tag=public --force
+
         // ADMIN LTE
         $this->publishes([
             base_path('vendor') . '/almasaeed2010/adminlte/dist' => public_path('adminlte/dist'),
@@ -34,6 +36,16 @@ class AssetsServiceProvider extends ServiceProvider
         // TINYMCE
         $this->publishes([
             base_path('node_modules') . '/tinymce' => public_path('js/lib/tinymce'),
+        ], 'public');
+
+        // DROPZONE
+        $this->publishes([
+            base_path('node_modules') . '/dropzone/dist' => public_path('js/lib/dropzone'),
+        ], 'public');
+
+        // CLIPBOARD
+        $this->publishes([
+            base_path('node_modules') . '/clipboard/dist' => public_path('js/lib/clipboard'),
         ], 'public');
         
     }

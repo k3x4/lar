@@ -58,7 +58,30 @@ class PermissionsTableSeeder extends Seeder {
                 'description' => 'Delete Role'
             ],
             
+
+            // UPLOAD PERMISSIONS            
+            [
+                'name' => 'upload-read',
+                'display_name' => 'Display Uploads',
+                'description' => 'Display Uploads'
+            ],
+            [
+                'name' => 'upload-create',
+                'display_name' => 'Create Upload',
+                'description' => 'Create New Upload'
+            ],
+            [
+                'name' => 'upload-edit',
+                'display_name' => 'Edit Upload',
+                'description' => 'Edit Upload'
+            ],
+            [
+                'name' => 'upload-delete',
+                'display_name' => 'Delete Upload',
+                'description' => 'Delete Upload'
+            ],
             
+
             // PRODUCT PERMISSIONS            
             [
                 'name' => 'listing-read',
