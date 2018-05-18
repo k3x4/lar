@@ -3,6 +3,7 @@
     <script src="<?php echo e(asset('js/lib/dropzone/min/dropzone.min.js')); ?>"></script>
     <script src="<?php echo e(asset('js/lib/clipboard/clipboard.min.js')); ?>"></script>
     <link rel="stylesheet" href="<?php echo e(asset('js/lib/dropzone/min/dropzone.min.css')); ?>">
+    
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -10,11 +11,11 @@
     <div class="col-lg-12">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Upload files <span id="counter"></span></h3>
+                <h3 class="box-title">Upload file</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <?php echo Form::open(array('route' => 'admin.media.store', 'enctype' => 'multipart/form-data', 'id' => 'my-dropzone', 'class' => 'dropzone')); ?>
+                <?php echo Form::open(array('route' => 'admin.media.upload', 'enctype' => 'multipart/form-data', 'id' => 'my-dropzone', 'class' => 'dropzone')); ?>
 
                     <?php echo e(csrf_field()); ?>
 

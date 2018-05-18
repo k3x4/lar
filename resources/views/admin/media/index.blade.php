@@ -5,7 +5,6 @@
     <script src="{{ asset('js/lib/dropzone/min/dropzone.min.js') }}"></script>
     <script src="{{ asset('js/lib/clipboard/clipboard.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('js/lib/dropzone/min/dropzone.min.css') }}">
-    
 @endsection
 
 @section('content')
@@ -13,11 +12,11 @@
     <div class="col-lg-12">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Media files</h3>
+                <h3 class="box-title">Upload files <span id="counter"></span></h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                {!! Form::open(array('route' => 'admin.media.upload', 'enctype' => 'multipart/form-data', 'id' => 'my-dropzone', 'class' => 'dropzone')) !!}
+                {!! Form::open(array('route' => 'admin.media.store', 'enctype' => 'multipart/form-data', 'id' => 'my-dropzone', 'class' => 'dropzone')) !!}
                     {{ csrf_field() }}
                 {!! Form::close() !!}
             </div>
@@ -33,5 +32,5 @@
 
 @section('footer_scripts')
 @parent
-    <script src="{{ asset('js/dropzone.js') }}"></script>
+    <script src="{{ asset('js/dropzone-config.js') }}"></script>
 @endsection

@@ -38,10 +38,16 @@ Route::group([
         'middleware' => ['permission:media-read']
     ]);
 
-    Route::post('admin/media/upload' , [
-        'as' => 'admin.media.upload',
-        'uses' => 'MediaController@upload',
-        'middleware' => ['permission:media-read|media-create|media-edit|media-delete'],
+    Route::post('admin/media/store' , [
+        'as' => 'admin.media.store',
+        'uses' => 'MediaController@store',
+        'middleware' => ['permission:media-create'],
+    ]);
+
+    Route::post('admin/media/destroy' , [
+        'as' => 'admin.media.destroy',
+        'uses' => 'MediaController@destroy',
+        'middleware' => ['permission:media-delete'],
     ]);
 
     //LISTINGS

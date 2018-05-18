@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use Carbon\Carbon;
+use Intervention\Image\Facades\Image;
+use App\Media;
 
 class MediaController extends Controller
 {
@@ -14,8 +17,45 @@ class MediaController extends Controller
         return view('admin.media.index');
     }
 
-    public function upload(Request $request)
+    public function store(Request $request)
     {
+        $photos = $request->file('file');
+        $photos_path = public_path('/uploads');
+
+        if (!is_array($photos)) {
+            $photos = [$photos];
+        }
+
+        if (!is_dir($photos_path)) {
+            mkdir($photos_path, 0777);
+        }
+
+        for ($i = 0; $i < count($photos); $i++) {
+            $photo = $photos[$i];
+            $name = sha1(date('YmdHis') . str_random(30));
+            $save_name = $name . '.' . $photo->getClientOriginalExtension();
+            $resize_name = $name . str_random(2) . '.' . $photo->getClientOriginalExtension();
+
+            Image::make($photo)
+                ->resize(250, null, function ($constraints) {
+                    $constraints->aspectRatio();
+                })
+                ->save($photos_path . '/' . $resize_name);
+
+            $photo->move($photos_path, $save_name);
+
+            $media = new Media();
+            $media->filename = $save_name;
+            $media->resized_name = $resize_name;
+            $media->original_name = basename($photo->getClientOriginalName());
+            $media->save();
+        }
+        return Response::json([
+            'message' => 'Image saved Successfully'
+        ], 200);
+
+
+        /*
         // Creating a new time instance, we'll use it to name our file and declare the path
         $time = Carbon::now();
         // Requesting the file from the form
@@ -36,5 +76,36 @@ class MediaController extends Controller
         else {
             return response()->json('error', 400);
         }
+        */
     }
+
+    public function destroy(Request $request)
+    {
+        $filename = $request->id;
+        $uploaded_image = Media::where('original_name', basename($filename))->first();
+        $photos_path = public_path('/uploads');
+
+        if (empty($uploaded_image)) {
+            return Response::json(['message' => 'Sorry file does not exist'], 400);
+        }
+
+        $file_path = $photos_path . '/' . $uploaded_image->filename;
+        $resized_file = $photos_path . '/' . $uploaded_image->resized_name;
+
+        if (file_exists($file_path)) {
+            unlink($file_path);
+        }
+
+        if (file_exists($resized_file)) {
+            unlink($resized_file);
+        }
+
+        if (!empty($uploaded_image)) {
+            $uploaded_image->delete();
+        }
+
+        return Response::json(['message' => 'File successfully delete'], 200);
+    }
+
+
 }

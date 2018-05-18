@@ -76,12 +76,34 @@ module.exports = __webpack_require__(41);
 /***/ 41:
 /***/ (function(module, exports) {
 
+var total_photos_counter = 0;
 Dropzone.options.myDropzone = {
     paramName: 'file',
     /*maxFilesize: 5, // MB
     maxFiles: 20,*/
+    addRemoveLinks: true,
+    dictRemoveFile: 'Remove file',
     acceptedFiles: ".jpeg,.jpg,.png,.gif",
     init: function init() {
+        this.on("removedfile", function (file) {
+            $.post({
+                url: '/admin/media/destroy',
+                data: { id: file.name, _token: $('[name="_token"]').val() },
+                dataType: 'json',
+                success: function success(data) {
+                    total_photos_counter--;
+                    $("#counter").text("# " + total_photos_counter);
+                }
+            });
+        });
+    },
+    success: function success(file, done) {
+        total_photos_counter++;
+        $("#counter").text("# " + total_photos_counter);
+    }
+
+    /*
+    init: function () {
         this.on("success", function (file, response) {
             var a = document.createElement('span');
             a.className = "thumb-url btn btn-primary";
@@ -90,15 +112,18 @@ Dropzone.options.myDropzone = {
             file.previewTemplate.appendChild(a);
         });
     }
+    */
 };
-
+/*
 $('.thumb-url').tooltip({
     trigger: 'click',
     placement: 'bottom'
 });
 
 function setTooltip(btn, message) {
-    $(btn).tooltip('hide').attr('data-original-title', message).tooltip('show');
+    $(btn).tooltip('hide')
+        .attr('data-original-title', message)
+        .tooltip('show');
 }
 
 function hideTooltip(btn) {
@@ -120,6 +145,7 @@ clipboard.on('error', function (e) {
     setTooltip(e.trigger, 'Failed');
     hideTooltip(e.trigger);
 });
+*/
 
 /***/ })
 
