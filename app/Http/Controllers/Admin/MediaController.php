@@ -12,9 +12,10 @@ use App\Media;
 class MediaController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.media.index');
+        $photos = Media::all();
+        return view('admin.media.index', compact('photos'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     public function store(Request $request)
