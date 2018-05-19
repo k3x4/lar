@@ -33,28 +33,79 @@ Route::group([
 
     // MEDIA
     Route::get('admin/media', [
-        'as' => 'admin.media.index', 
-        'uses' => 'MediaController@index', 
-        'middleware' => ['permission:media-read']
+        'as' => 'admin.media.index',
+        'uses' => 'MediaController@index',
+        'middleware' => ['permission:media-read'],
     ]);
 
-    Route::post('admin/media/store' , [
+    Route::post('admin/media/store', [
         'as' => 'admin.media.store',
         'uses' => 'MediaController@store',
         'middleware' => ['permission:media-create'],
     ]);
 
-    Route::post('admin/media/destroy' , [
+    Route::post('admin/media/destroy', [
         'as' => 'admin.media.destroy',
         'uses' => 'MediaController@destroy',
         'middleware' => ['permission:media-delete'],
+    ]);
+
+    //MEDIA SIZES
+    Route::get('admin/mediasizes', [
+        'as' => 'admin.mediasizes.index',
+        'uses' => 'MediaSizeController@index',
+        'middleware' => ['permission:mediasize-read'],
+    ]);
+
+    Route::get('admin/mediasizes/data', [
+        'as' => 'admin.mediasizes.data',
+        'uses' => 'MediaSizeController@data',
+        'middleware' => ['permission:mediasize-read'],
+    ]);
+
+    Route::get('admin/mediasizes/create', [
+        'as' => 'admin.mediasizes.create',
+        'uses' => 'MediaSizeController@create',
+        'middleware' => ['permission:mediasize-create'],
+    ]);
+
+    Route::post('admin/mediasizes/create', [
+        'as' => 'admin.mediasizes.store',
+        'uses' => 'MediaSizeController@store',
+        'middleware' => ['permission:mediasize-create'],
+    ]);
+
+    Route::get('admin/mediasizes/{id}/edit', [
+        'as' => 'admin.mediasizes.edit',
+        'uses' => 'MediaSizeController@edit',
+        'middleware' => ['permission:mediasize-edit'],
+    ]);
+
+    Route::patch('admin/mediasizes/{id}', [
+        'as' => 'admin.mediasizes.update',
+        'uses' => 'MediaSizeController@update',
+        'middleware' => ['permission:mediasize-edit'],
+    ]);
+
+    /*
+    Route::delete('admin/mediasizes/{id}', [
+        'as' => 'admin.mediasizes.destroy',
+        'uses' => 'MediaSizeController@destroy',
+        'middleware' => ['permission:mediasize-delete'],
+    ]);
+    */
+
+    Route::delete('admin/mediasizes/destroy', [
+        'as' => 'admin.mediasizes.destroy',
+        'uses' => 'MediaSizeController@destroy',
+        'middleware' => ['permission:mediasize-delete'],
     ]);
 
     //LISTINGS
     Route::get('admin/listings', [
         'as' => 'admin.listings.index',
         'uses' => 'ListingController@index',
-        'middleware' => ['permission:listing-read|listing-create|listing-edit|listing-delete'],
+        'middleware' => ['permission:listing-read'],
     ]);
 
     Route::get('admin/listings/create', [

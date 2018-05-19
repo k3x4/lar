@@ -1,31 +1,27 @@
 {
-  "_args": [
-    [
-      "tinymce@4.7.12",
-      "C:\\Apache24\\htdocs\\lar"
-    ]
-  ],
-  "_from": "tinymce@4.7.12",
-  "_id": "tinymce@4.7.12",
+  "_from": "tinymce@4.7.13",
+  "_id": "tinymce@4.7.13",
   "_inBundle": false,
-  "_integrity": "sha512-+D3YDPb0T7vXss6EmE5brD1ldTPLP+VS/db1Y2Q0t0sxleOls+OXaEWp438tA90Aydp2EKja3evocaLy1psDBg==",
+  "_integrity": "sha512-6QbNYGV4VExH+p7+o/5km6jOnVSD5mO7aw0s+eKByKnpyG8gZfajxXPhwBM57r7SIravrCI6LFj8DARNe31qPw==",
   "_location": "/tinymce",
   "_phantomChildren": {},
   "_requested": {
     "type": "version",
     "registry": true,
-    "raw": "tinymce@4.7.12",
+    "raw": "tinymce@4.7.13",
     "name": "tinymce",
     "escapedName": "tinymce",
-    "rawSpec": "4.7.12",
+    "rawSpec": "4.7.13",
     "saveSpec": null,
-    "fetchSpec": "4.7.12"
+    "fetchSpec": "4.7.13"
   },
   "_requiredBy": [
+    "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/tinymce/-/tinymce-4.7.12.tgz",
-  "_spec": "4.7.12",
+  "_resolved": "https://registry.npmjs.org/tinymce/-/tinymce-4.7.13.tgz",
+  "_shasum": "3b139fd95c0b78e3959b2064f043ccb7459bebcb",
+  "_spec": "tinymce@4.7.13",
   "_where": "C:\\Apache24\\htdocs\\lar",
   "author": {
     "name": "Ephox Corporation"
@@ -33,6 +29,8 @@
   "bugs": {
     "url": "https://github.com/tinymce/tinymce/issues"
   },
+  "bundleDependencies": false,
+  "deprecated": false,
   "description": "Web based JavaScript HTML WYSIWYG editor control.",
   "homepage": "https://github.com/tinymce/tinymce-dist#readme",
   "keywords": [
@@ -50,5 +48,5 @@
     "type": "git",
     "url": "git+https://github.com/tinymce/tinymce-dist.git"
   },
-  "version": "4.7.12"
+  "version": "4.7.13"
 }

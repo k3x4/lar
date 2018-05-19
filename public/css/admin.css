@@ -30,3 +30,13 @@
   opacity: 1;
 }
 
+.dataTables_wrapper .dataTable > tbody > tr > th,
+.dataTables_wrapper .dataTable > tbody > tr > td {
+  border-left: none;
+  border-right: none;
+}
+
+.dataTables_wrapper .dataTable > tbody > tr > td:first-child {
+  text-align: center;
+}
+

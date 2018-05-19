@@ -20,8 +20,8 @@ $(document).ready(function () {
         toolbar1: 'formatselect | bold italic  strikethrough  forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat | code',
         image_advtab: true,
         templates: [
-            {title: 'Test template 1', content: 'Test 1'},
-            {title: 'Test template 2', content: 'Test 2'}
+            { title: 'Test template 1', content: 'Test 1' },
+            { title: 'Test template 2', content: 'Test 2' }
         ]
 
     });
@@ -39,6 +39,10 @@ $(document).ready(function () {
         // Prevent the form to be submitted
         e.preventDefault();
 
+        if ($(this).hasClass("disabled")) {
+            return false;
+        }
+
         var button = $(this); // Get the button
         var form = button.closest('form'); // Get the related form
         var msg = button.data('confirm'); // Get the confirm message
@@ -48,7 +52,49 @@ $(document).ready(function () {
         }
 
     });
-    
-    
-    
+
+
+    /*** DATATABLES ***/
+
+    $(document).on('click','.dataTable .select', {} ,function () {
+        var numberAll = $('.dataTable .select').length;
+        var numberOfChecked = $('.dataTable .select:checked').length;
+
+        var i = 0;
+        var vals = [];
+        $('.dataTable .select:checked').each(function(){
+            vals[i++] = $(this).val();
+        });
+        $(".deleteForm input[name='ids']").val(vals);
+        
+        if (numberOfChecked) {
+            $(".deleteForm input[type='submit']").removeClass("disabled");
+        } else {
+            $(".deleteForm input[type='submit']").addClass("disabled");
+        }
+
+        if(numberOfChecked == numberAll){
+            $('.dataTable .selectAll').prop('checked', true);
+        } else {
+            $('.dataTable .selectAll').prop('checked', false);
+        }
+
+
+
+    });
+
+    $(document).on('click','.dataTable .selectAll', {} ,function () {
+        if($(this).is(":checked")){
+            $('.dataTable .select').each(function(){
+                $(this).prop('checked', true);
+                $(".deleteForm input[type='submit']").removeClass("disabled");
+            });
+        } else {
+            $('.dataTable .select').each(function(){
+                $(this).prop('checked', false); 
+                $(".deleteForm input[type='submit']").addClass("disabled");
+            });
+        }
+    });
+
 });

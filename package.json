@@ -21,7 +21,9 @@
     },
     "dependencies": {
         "clipboard": "^2.0.1",
+        "datatables.net": "^1.10.16",
+        "datatables.net-dt": "^1.10.16",
         "dropzone": "^5.4.0",
-        "tinymce": "^4.7.12"
+        "tinymce": "^4.7.13"
     }
 }

@@ -1,20 +1,20 @@
 <?php return array (
-  'zizaco/entrust' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Zizaco\\Entrust\\EntrustServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'Entrust' => 'Zizaco\\Entrust\\EntrustFacade',
-    ),
-  ),
   'fideloper/proxy' => 
   array (
     'providers' => 
     array (
       0 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
+    ),
+  ),
+  'intervention/image' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Intervention\\Image\\ImageServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Image' => 'Intervention\\Image\\Facades\\Image',
     ),
   ),
   'laravel/tinker' => 
@@ -43,15 +43,26 @@
       0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     ),
   ),
-  'intervention/image' => 
+  'yajra/laravel-datatables-oracle' => 
   array (
     'providers' => 
     array (
-      0 => 'Intervention\\Image\\ImageServiceProvider',
+      0 => 'Yajra\\DataTables\\DataTablesServiceProvider',
     ),
     'aliases' => 
     array (
-      'Image' => 'Intervention\\Image\\Facades\\Image',
+      'DataTables' => 'Yajra\\DataTables\\Facades\\DataTables',
+    ),
+  ),
+  'zizaco/entrust' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Zizaco\\Entrust\\EntrustServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Entrust' => 'Zizaco\\Entrust\\EntrustFacade',
     ),
   ),
 );

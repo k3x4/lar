@@ -59,7 +59,7 @@ class PermissionsTableSeeder extends Seeder {
             ],
             
 
-            // UPLOAD PERMISSIONS            
+            // MEDIA PERMISSIONS            
             [
                 'name' => 'media-read',
                 'display_name' => 'Display Medias',
@@ -79,6 +79,29 @@ class PermissionsTableSeeder extends Seeder {
                 'name' => 'media-delete',
                 'display_name' => 'Delete Media',
                 'description' => 'Delete Media'
+            ],
+
+
+            // MEDIA SIZES PERMISSIONS            
+            [
+                'name' => 'mediasize-read',
+                'display_name' => 'Display Media sizes',
+                'description' => 'Display Media sizes'
+            ],
+            [
+                'name' => 'mediasize-create',
+                'display_name' => 'Create Media size',
+                'description' => 'Create New Media size'
+            ],
+            [
+                'name' => 'mediasize-edit',
+                'display_name' => 'Edit Media size',
+                'description' => 'Edit Media size'
+            ],
+            [
+                'name' => 'mediasize-delete',
+                'display_name' => 'Delete Media size',
+                'description' => 'Delete Media size'
             ],
             
 
