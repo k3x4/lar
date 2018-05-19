@@ -3,7 +3,8 @@
 @section('head')
 @parent
     <script src="{{ asset('js/lib/datatables/js/jquery.dataTables.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('js/lib/datatables/css/jquery.dataTables.css') }}">
+    <script src="{{ asset('js/lib/datatables/js/dataTables.bootstrap.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('js/lib/datatables/css/dataTables.bootstrap.css') }}">
 @endsection
 
 @section('content')

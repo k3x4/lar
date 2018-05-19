@@ -1,7 +1,8 @@
 <?php $__env->startSection('head'); ?>
 ##parent-placeholder-1a954628a960aaef81d7b2d4521929579f3541e6##
     <script src="<?php echo e(asset('js/lib/datatables/js/jquery.dataTables.js')); ?>"></script>
-    <link rel="stylesheet" href="<?php echo e(asset('js/lib/datatables/css/jquery.dataTables.css')); ?>">
+    <script src="<?php echo e(asset('js/lib/datatables/js/dataTables.bootstrap.js')); ?>"></script>
+    <link rel="stylesheet" href="<?php echo e(asset('js/lib/datatables/css/dataTables.bootstrap.css')); ?>">
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>

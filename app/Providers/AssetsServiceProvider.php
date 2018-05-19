@@ -53,10 +53,10 @@ class AssetsServiceProvider extends ServiceProvider
             base_path('node_modules') . '/datatables.net/js' => public_path('js/lib/datatables/js'),
         ], 'public');
         $this->publishes([
-            base_path('node_modules') . '/datatables.net-dt/css' => public_path('js/lib/datatables/css'),
+            base_path('node_modules') . '/datatables.net-bs/js' => public_path('js/lib/datatables/js'),
         ], 'public');
         $this->publishes([
-            base_path('node_modules') . '/datatables.net-dt/images' => public_path('js/lib/datatables/images'),
+            base_path('node_modules') . '/datatables.net-bs/css' => public_path('js/lib/datatables/css'),
         ], 'public');
         
     }
