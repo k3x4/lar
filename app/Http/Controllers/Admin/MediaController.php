@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Response;
 use Carbon\Carbon;
 use Intervention\Image\Facades\Image;
 use App\Media;
+use App\Thumb;
+use App\MediaSize;
+use App\Libraries\ImageUtils;
 
 class MediaController extends Controller
 {
@@ -35,7 +38,47 @@ class MediaController extends Controller
             $photo = $photos[$i];
             $name = sha1(date('YmdHis') . str_random(30));
             $save_name = $name . '.' . $photo->getClientOriginalExtension();
-            //$resize_name = $name . str_random(2) . '.' . $photo->getClientOriginalExtension();
+
+            $photo->move($photos_path, $save_name);
+
+            $media = new Media();
+            $media->filename = $save_name;
+            $media->original_name = basename($photo->getClientOriginalName());
+            $media->save();
+
+            $media_sizes = MediaSize::all();
+
+            foreach($media_sizes as $media_size){
+                $image = new ImageUtils($photos_path . '/' .  $save_name);
+                $image_width = $image->width();
+                $image_height = $image->height();
+
+                if( ($media_size->width > $image_width) || ($media_size->height > $image_height) ){
+                    continue;
+                }
+                
+                $width = $media_size->width;
+                $height = $media_size->height;
+                $crop = $media_size->crop;
+                $crop_position = $media_size->crop_position;
+        
+                if($crop){
+                    $image->fit($width, $height, $crop_position);
+                } else {
+                    $image->resize($width, $height);
+                }
+
+                $name = sha1(date('YmdHis') . str_random(30));
+                $resize_name = $name . '.' . $photo->getClientOriginalExtension();
+
+                $image->get()->save($photos_path . '/' . $resize_name);
+
+                $thumb = new Thumb();
+                $thumb->media_id = $media->id;
+                $thumb->media_size_id = $media_size->id;
+                $thumb->filename = $resize_name;
+                $thumb->save();
+            }
 
             /*
             Image::make($photo)
@@ -45,13 +88,7 @@ class MediaController extends Controller
                 ->save($photos_path . '/' . $resize_name);
             */
 
-            $photo->move($photos_path, $save_name);
-
-            $media = new Media();
-            $media->filename = $save_name;
-            //$media->resized_name = $resize_name;
-            $media->original_name = basename($photo->getClientOriginalName());
-            $media->save();
+            
         }
         return Response::json([
             'message' => 'Image saved Successfully'

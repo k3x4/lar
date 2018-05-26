@@ -43,7 +43,6 @@
                         <th>Image</th>
                         <th>Filename</th>
                         <th>Original Filename</th>
-                        <th>Resized Filename</th>
                     </tr>
                     @foreach($photos as $photo)
                     <tr>
@@ -51,7 +50,6 @@
                         <td><img src="/uploads/{{ $photo->resized_name }}"></td>
                         <td>{{ $photo->filename }}</td>
                         <td>{{ $photo->original_name }}</td>
-                        <td>{{ $photo->resized_name }}</td>
                     </tr>
                     @endforeach
                 </table>

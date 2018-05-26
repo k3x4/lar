@@ -44,7 +44,6 @@
                         <th>Image</th>
                         <th>Filename</th>
                         <th>Original Filename</th>
-                        <th>Resized Filename</th>
                     </tr>
                     <?php $__currentLoopData = $photos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $photo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
@@ -52,7 +51,6 @@
                         <td><img src="/uploads/<?php echo e($photo->resized_name); ?>"></td>
                         <td><?php echo e($photo->filename); ?></td>
                         <td><?php echo e($photo->original_name); ?></td>
-                        <td><?php echo e($photo->resized_name); ?></td>
                     </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </table>
