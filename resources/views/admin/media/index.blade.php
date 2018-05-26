@@ -39,15 +39,13 @@
             <div class="box-body">
                 <table class="table table-bordered table-striped">
                     <tr>
-                        <th>No</th>
                         <th>Image</th>
                         <th>Filename</th>
                         <th>Original Filename</th>
                     </tr>
                     @foreach($photos as $photo)
                     <tr>
-                        <td>{{ ++$i }}</td>
-                        <td><img src="/uploads/{{ $photo->resized_name }}"></td>
+                        <td><img src="/uploads/{{ $photo->get('thumb') }}"></td>
                         <td>{{ $photo->filename }}</td>
                         <td>{{ $photo->original_name }}</td>
                     </tr>

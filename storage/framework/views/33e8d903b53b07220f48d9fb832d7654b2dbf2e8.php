@@ -40,15 +40,13 @@
             <div class="box-body">
                 <table class="table table-bordered table-striped">
                     <tr>
-                        <th>No</th>
                         <th>Image</th>
                         <th>Filename</th>
                         <th>Original Filename</th>
                     </tr>
                     <?php $__currentLoopData = $photos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $photo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
-                        <td><?php echo e(++$i); ?></td>
-                        <td><img src="/uploads/<?php echo e($photo->resized_name); ?>"></td>
+                        <td><img src="/uploads/<?php echo e($photo->get('mini')); ?>"></td>
                         <td><?php echo e($photo->filename); ?></td>
                         <td><?php echo e($photo->original_name); ?></td>
                     </tr>

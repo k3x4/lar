@@ -3,10 +3,28 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\MediaSize;
 
 class Media extends Model
 {
+    
     public function thumbs(){
         return $this->hasMany('App\Thumb');
     }
+
+    public function get($tag){
+        $media_size = MediaSize::where('tag', '=', $tag)->first();
+
+        if(!$media_size){
+            return $this->filename;
+        } 
+
+        $thumb = $this->thumbs()->where('media_size_id', '=', $media_size->id)->first();
+        if($thumb){
+            return $thumb->filename;
+        }
+        
+        return $this->filename;
+    }
+
 }

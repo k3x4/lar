@@ -18,7 +18,7 @@ class MediaController extends Controller
     public function index(Request $request)
     {
         $photos = Media::all();
-        return view('admin.media.index', compact('photos'))->with('i', ($request->input('page', 1) - 1) * 5);
+        return view('admin.media.index', compact('photos'));
     }
 
     public function store(Request $request)
