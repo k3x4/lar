@@ -15,9 +15,16 @@ class MediaSizesTableSeeder extends Seeder
         $mediaSizes = [
             
             [
+                'tag' => 'mini',
+                'width' => 80,
+                'height' => 80,
+                'crop' => true
+            ],
+            [
                 'tag' => 'thumb',
                 'width' => 150,
                 'height' => 150,
+                'crop' => true
             ],
             [
                 'tag' => 'medium',

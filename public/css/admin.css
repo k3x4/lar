@@ -43,3 +43,27 @@
   text-align: center;
 }
 
+table.dtable > tbody > tr > td {
+  vertical-align: middle;
+}
+
+table.dtable .minsize {
+  width: 1% !important;
+}
+
+table.dtable .dtable-td-wrapper {
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+table.dtable .dtable-td-wrapper .dtable-helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+table.dtable input.select {
+  display: inline-block;
+}
+

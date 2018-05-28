@@ -42,3 +42,32 @@
 {
     text-align: center;
 }
+
+table.dtable {
+    & > tbody{
+        & > tr{
+            & > td{
+                vertical-align: middle;
+            }
+        }
+    }
+    .minsize{
+        width: 1% !important;
+    }
+    .dtable-td-wrapper {
+        //width: 80px;
+        //height: 80px;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        .dtable-helper {
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+    }
+    input.select{
+        display: inline-block;
+        //vertical-align: middle;
+    }
+}

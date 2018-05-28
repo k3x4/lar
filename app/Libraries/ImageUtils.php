@@ -4,15 +4,18 @@ namespace App\Libraries;
 
 use Image;
 
-class ImageUtils {
-    
+class ImageUtils
+{
+
     private $image;
-    
-    public function __construct($path) {
+
+    public function __construct($path)
+    {
         $this->image = Image::make($path)->orientate();
     }
 
-    public function resize($width, $height) {
+    public function resize($width, $height)
+    {
         $currentWidth = $this->image->width();
         $currentHeight = $this->image->height();
 
@@ -22,20 +25,42 @@ class ImageUtils {
             $this->image->heighten($height);
         }
     }
-    
-    public function fit($width, $height, $position = 'center'){
-        $this->image->fit($width, $height, null, $position);
+
+    public function resizeCanvas($width, $height, $position = 'center')
+    {
+        $currentWidth = $this->image->width();
+        $currentHeight = $this->image->height();
+
+        $newWidth = null;
+        $newHeight = null;
+
+        if ($currentWidth > $width) {
+            $newWidth = $width;
+        }
+
+        if ($currentHeight > $height) {
+            $newHeight = $height;
+        }
+
+        if($newWidth && $newHeight){
+            $this->image->fit($newWidth, $newHeight, null, $position);
+        } else {
+            $this->image->resizeCanvas($newWidth, $newHeight, $position);
+        }
     }
-    
-    public function width(){
+
+    public function width()
+    {
         return $this->image->width();
     }
-    
-    public function height(){
+
+    public function height()
+    {
         return $this->image->height();
     }
-    
-    public function get(){
+
+    public function get()
+    {
         return $this->image;
     }
 

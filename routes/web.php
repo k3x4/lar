@@ -38,6 +38,12 @@ Route::group([
         'middleware' => ['permission:media-read'],
     ]);
 
+    Route::get('admin/media/data', [
+        'as' => 'admin.media.data',
+        'uses' => 'MediaController@data',
+        'middleware' => ['permission:media-read'],
+    ]);
+
     Route::post('admin/media/store', [
         'as' => 'admin.media.store',
         'uses' => 'MediaController@store',

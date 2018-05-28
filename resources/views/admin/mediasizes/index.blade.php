@@ -31,7 +31,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <table class="table table-bordered table-striped">
+                <table class="table dtable table-bordered table-striped">
                     <thead>
                         <tr>
                             <th style="width:5px;"><input type="checkbox" class="selectAll"/></th>
@@ -62,7 +62,7 @@
 @section('footer_scripts')
 @parent
     <script>
-    $('.table').DataTable({
+    $('.dtable').DataTable({
         processing: true,
         serverSide: true,
         ajax: '{{ url("admin/mediasizes/data") }}',

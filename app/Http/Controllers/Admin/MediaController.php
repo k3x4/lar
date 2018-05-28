@@ -11,20 +11,43 @@ use App\Media;
 use App\Thumb;
 use App\MediaSize;
 use App\Libraries\ImageUtils;
+use Yajra\Datatables\Datatables;
 
 class MediaController extends Controller
 {
 
     public function index(Request $request)
     {
-        $photos = Media::all();
-        return view('admin.media.index', compact('photos'));
+        return view('admin.media.index');
+    }
+
+    public function data()
+    {
+        $medias = Media::all();
+        return Datatables::of($medias)
+            //->addColumn('thumb', '<img src="{{ "/uploads/" . $filename }}" />')
+            ->addColumn('thumb', function ($media) {
+                $html  = '<div class="dtable-td-wrapper">';
+                $html .= \Html::tag('span', '', ['class' => 'dtable-helper']);
+                $html .= \Html::image('/uploads/' . $media->get('mini'));
+                $html .= '</div>';
+                return $html;
+            })
+            ->addColumn('action', function ($media) {
+                $html  = '<div class="dtable-td-wrapper">';
+                //'<input type="checkbox" class="select" value="{{ $id }}" />';
+                //$html .= \Form::checkbox('ff', '1');//$media->id, ['class' => 'select']);
+                $html .= \Form::checkbox('action', $media->id, false, ['class' => 'select']);
+                $html .= '</div>';
+                return $html;
+            })
+            ->make(true);
     }
 
     public function store(Request $request)
     {
         $photos = $request->file('file');
-        $photos_path = public_path('/uploads');
+        $photos_path = public_path('uploads');
 
         if (!is_array($photos)) {
             $photos = [$photos];
@@ -47,76 +70,57 @@ class MediaController extends Controller
             $media->save();
 
             $media_sizes = MediaSize::all();
-
-            foreach($media_sizes as $media_size){
-                $image = new ImageUtils($photos_path . '/' .  $save_name);
-                $image_width = $image->width();
-                $image_height = $image->height();
-
-                if( ($media_size->width > $image_width) || ($media_size->height > $image_height) ){
-                    continue;
-                }
-                
-                $width = $media_size->width;
-                $height = $media_size->height;
-                $crop = $media_size->crop;
-                $crop_position = $media_size->crop_position;
-        
-                if($crop){
-                    $image->fit($width, $height, $crop_position);
-                } else {
-                    $image->resize($width, $height);
-                }
-
-                $name = sha1(date('YmdHis') . str_random(30));
-                $resize_name = $name . '.' . $photo->getClientOriginalExtension();
-
-                $image->get()->save($photos_path . '/' . $resize_name);
-
-                $thumb = new Thumb();
-                $thumb->media_id = $media->id;
-                $thumb->media_size_id = $media_size->id;
-                $thumb->filename = $resize_name;
-                $thumb->save();
-            }
-
-            /*
-            Image::make($photo)
-                ->resize(250, null, function ($constraints) {
-                    $constraints->aspectRatio();
-                })
-                ->save($photos_path . '/' . $resize_name);
-            */
-
-            
+            $this->makeThumbs($media->id, $media_sizes, $save_name, $photo->getClientOriginalExtension()); 
         }
+
         return Response::json([
             'message' => 'Image saved Successfully'
         ], 200);
 
+    }
 
-        /*
-        // Creating a new time instance, we'll use it to name our file and declare the path
-        $time = Carbon::now();
-        // Requesting the file from the form
-        $image = $request->file('file');
-        // Getting the extension of the file
-        $extension = $image->getClientOriginalExtension();
-        // Creating the directory, for example, if the date = 18/10/2017, the directory will be 2017/10/
-        $directory = date_format($time, 'Y') . '/' . date_format($time, 'm');
-        // Creating the file name: random string followed by the day, random number and the hour
-        $filename = str_random(5) . date_format($time, 'd') . rand(1, 9) . date_format($time, 'h') . "." . $extension;
-        // This is our upload main function, storing the image in the storage that named 'public'
-        $upload_success = $image->storeAs($directory, $filename, 'public');
-        // If the upload is successful, return the name of directory/filename of the upload.
-        if ($upload_success) {
-            return response()->json($upload_success, 200);
+    private function makeThumbs($media_id, $media_sizes, $save_name, $extension){
+
+        $photos_path = public_path('uploads');
+
+        foreach($media_sizes as $media_size){
+
+            if( ! $media_size->enabled ){
+                continue;
+            }
+
+            $image = new ImageUtils($photos_path . '/' .  $save_name);
+
+            $media_width = $media_size->width;
+            $media_height = $media_size->height;
+            $image_width = $image->width();
+            $image_height = $image->height();
+
+            $image_size_max = ($image_width > $image_height) ? $image_width : $image_height;
+            $media_size_max = ($media_width > $media_height) ? $media_width : $media_height;
+
+            if ($image_size_max <= $media_size_max) {
+                continue;
+            }
+    
+            if ($media_size->crop) {
+                $image->resizeCanvas($media_width, $media_height, $media_size->crop_position);
+            } else {
+                $image->resize($media_width, $media_height);
+            }
+
+            $name = sha1(date('YmdHis') . str_random(30));
+            $resize_name = $name . '.' . $extension;
+
+            $image->get()->save($photos_path . '/' . $resize_name);
+
+            $thumb = new Thumb();
+            $thumb->media_id = $media_id;
+            $thumb->media_size_id = $media_size->id;
+            $thumb->filename = $resize_name;
+            $thumb->save();
+
         }
-        // Else, return error 400
-        else {
-            return response()->json('error', 400);
-        }
-        */
     }
 
     public function destroy(Request $request)
@@ -135,6 +139,8 @@ class MediaController extends Controller
         if (file_exists($file_path)) {
             unlink($file_path);
         }
+
+        //$thumbs = 
 
         /*
         if (file_exists($resized_file)) {
