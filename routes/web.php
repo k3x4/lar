@@ -50,7 +50,7 @@ Route::group([
         'middleware' => ['permission:media-create'],
     ]);
 
-    Route::post('admin/media/destroy', [
+    Route::delete('admin/media/destroy', [
         'as' => 'admin.media.destroy',
         'uses' => 'MediaController@destroy',
         'middleware' => ['permission:media-delete'],

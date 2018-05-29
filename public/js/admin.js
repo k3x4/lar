@@ -158,6 +158,13 @@ $(document).ready(function () {
                 $(".deleteForm input[type='submit']").addClass("disabled");
             });
         }
+
+        var i = 0;
+        var vals = [];
+        $('.dataTable .select:checked').each(function () {
+            vals[i++] = $(this).val();
+        });
+        $(".deleteForm input[name='ids']").val(vals);
     });
 });
 

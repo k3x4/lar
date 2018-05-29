@@ -7,6 +7,16 @@ use App\MediaSize;
 
 class Media extends Model
 {
+
+    // this is a recommended way to declare event handlers
+    protected static function boot() {
+        parent::boot();
+
+        static::deleting(function($media) { // before delete() method call this
+             $media->thumbs()->delete();
+             // do the rest of the cleanup...
+        });
+    }
     
     public function thumbs(){
         return $this->hasMany('App\Thumb');

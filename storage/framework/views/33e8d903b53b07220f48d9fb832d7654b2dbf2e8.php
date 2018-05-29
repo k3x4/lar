@@ -1,5 +1,7 @@
 <?php $__env->startSection('head'); ?>
 ##parent-placeholder-1a954628a960aaef81d7b2d4521929579f3541e6##
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+
     <script src="<?php echo e(asset('js/lib/dropzone/min/dropzone.min.js')); ?>"></script>
     <script src="<?php echo e(asset('js/lib/clipboard/clipboard.min.js')); ?>"></script>
     <link rel="stylesheet" href="<?php echo e(asset('js/lib/dropzone/min/dropzone.min.css')); ?>">
@@ -49,7 +51,8 @@
                             <th style="width: 1%;">ID</th>
                             <th style="width: 1%;">Image</th>
                             <th style="width: 30%;">Filename</th>
-                            <th style="width: 65%;">Original Filename</th>
+                            <th style="width: 58%;">Original filename</th>
+                            <th style="width: 10%;">Uploaded</th>
                         </tr>
                     </thead>
                 </table>
@@ -105,7 +108,8 @@
             {data: 'id', name: 'id'},
             {data: 'thumb', name: 'thumb'},
             {data: 'filename', name: 'filename'},
-            {data: 'original_name', name: 'original_name'}
+            {data: 'original_name', name: 'original_name'},
+            {data: 'created_at', name: 'created_at'}
         ]
     });
     </script>

@@ -41,6 +41,7 @@ class MediaController extends Controller
                 $html .= '</div>';
                 return $html;
             })
+            ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
             ->make(true);
     }
 
@@ -125,35 +126,34 @@ class MediaController extends Controller
 
     public function destroy(Request $request)
     {
-        $filename = $request->id;
-        $uploaded_image = Media::where('original_name', basename($filename))->first();
+        $ids = explode(',', $request->input('ids'));
         $photos_path = public_path('/uploads');
 
-        if (empty($uploaded_image)) {
-            return Response::json(['message' => 'Sorry file does not exist'], 400);
+        $photos = Media::find($ids);
+        foreach($photos as $photo){
+            
+            // delete photos
+            $file_path = $photos_path . '/' . $photo->filename;
+            var_dump($file_path);
+            if (file_exists($file_path)) {
+                unlink($file_path);
+            }
+
+            // delete thumbs
+            $thumbs = $photo->thumbs()->get();
+            foreach($thumbs as $thumb){
+                $file_path_thumb = $photos_path . '/' . $thumb->filename;
+                if (file_exists($file_path_thumb)) {
+                    unlink($file_path_thumb);
+                }
+            }
+
         }
 
-        $file_path = $photos_path . '/' . $uploaded_image->filename;
-        //$resized_file = $photos_path . '/' . $uploaded_image->resized_name;
+        Media::destroy($ids);
 
-        if (file_exists($file_path)) {
-            unlink($file_path);
-        }
-
-        //$thumbs = 
-
-        /*
-        if (file_exists($resized_file)) {
-            unlink($resized_file);
-        }
-        */
-
-        if (!empty($uploaded_image)) {
-            $uploaded_image->delete();
-        }
-
-        return Response::json(['message' => 'File successfully delete'], 200);
+        return redirect()->route('admin.media.index')
+                         ->with('success','Media deleted successfully');
     }
-
 
 }
