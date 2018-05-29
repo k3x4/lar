@@ -29,7 +29,12 @@ class MediaSizeController extends Controller
             ->editColumn('tag', '<a href="{{ route(\'admin.mediasizes.edit\', $id) }}">{{ $tag }}</a>')
             ->editColumn('crop', '{{ $crop ? "yes" : "no" }}')
             ->editColumn('enabled', '{{ $enabled ? "yes" : "no" }}')
-            ->addColumn('action', '<input type="checkbox" class="select" value="{{ $id }}" />')
+            //->addColumn('action', '<input type="checkbox" class="select" value="{{ $id }}" />')
+            ->addColumn('action', function($media_size){
+                if(!in_array($media_size->id, [1, 2, 3, 4])){
+                    return '<input type="checkbox" class="select" value="' . $media_size->id . '" />';
+                }
+            })
             ->make(true);
     }
 
