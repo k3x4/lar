@@ -8435,6 +8435,7 @@ Stack trace:
 #60 C:\\Apache24\\htdocs\\lar\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #61 {main}
 "} 
+<<<<<<< HEAD
 [2018-06-04 20:58:00] local.ERROR: View [admin] not found. {"userId":1,"email":"admin@gmail.com","exception":"[object] (InvalidArgumentException(code: 0): View [admin] not found. at C:\\Apache24\\htdocs\\lar\\vendor\\laravel\\framework\\src\\Illuminate\\View\\FileViewFinder.php:137)
 [stacktrace]
 #0 C:\\Apache24\\htdocs\\lar\\vendor\\laravel\\framework\\src\\Illuminate\\View\\FileViewFinder.php(79): Illuminate\\View\\FileViewFinder->findInPaths('admin', Array)
@@ -9865,3 +9866,5 @@ Stack trace:
 #60 C:\\Apache24\\htdocs\\lar\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #61 {main}
 "} 
+=======
+>>>>>>> be3329743dab2f284ff175d8ae0ccfd180e991b4

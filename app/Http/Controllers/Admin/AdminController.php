@@ -36,7 +36,7 @@ class AdminController extends Controller {
                 'color' => 'success'
             ]
         ];
-        return view('admin.index')->with($data);
+        return view('admin')->with($data);
     }
 
 }

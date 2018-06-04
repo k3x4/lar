@@ -2,7 +2,11 @@
 <div class="row">
     <div class="col-lg-12 margin-bottom">
         <div class="pull-right">
+<<<<<<< HEAD
             <a class="btn btn-primary" href="<?php echo e(route('admin.listings.index')); ?>"> Back</a>
+=======
+            <a class="btn btn-primary" href="<?php echo e(route('admin.listings')); ?>"> Back</a>
+>>>>>>> be3329743dab2f284ff175d8ae0ccfd180e991b4
         </div>
     </div>
 </div>
