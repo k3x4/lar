@@ -18,7 +18,7 @@ class MediaController extends Controller
 
     public function index(Request $request)
     {
-        return view('admin.media');
+        return view('admin.media.index');
     }
 
     public function data()
@@ -149,7 +149,7 @@ class MediaController extends Controller
 
         Media::destroy($ids);
 
-        return redirect()->route('admin.media')
+        return redirect()->route('admin.media.index')
                          ->with('success','Media deleted successfully');
     }
 

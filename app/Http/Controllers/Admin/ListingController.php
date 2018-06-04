@@ -18,11 +18,7 @@ class ListingController extends Controller
      */
     public function index(Request $request)
     {
-<<<<<<< HEAD
         return view('admin.listings.index');
-=======
-        return view('admin.listings');
->>>>>>> be3329743dab2f284ff175d8ae0ccfd180e991b4
     }
 
     public function data()
@@ -112,11 +108,7 @@ class ListingController extends Controller
     {
         $ids = explode(',', $request->input('ids'));
         Listing::destroy($ids);
-<<<<<<< HEAD
         return redirect()->route('admin.listings.index')
-=======
-        return redirect()->route('admin.listings')
->>>>>>> be3329743dab2f284ff175d8ae0ccfd180e991b4
                         ->with('success','Listing deleted successfully');
     }
 

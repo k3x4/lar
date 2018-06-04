@@ -26,7 +26,7 @@ Route::group([
 
     // ADMIN PANEL
     Route::get('admin', [
-        'as' => 'admin',
+        'as' => 'admin.index',
         'middleware' => 'role:admin|editor|author',
         'uses' => 'AdminController@index',
     ]);
@@ -110,7 +110,7 @@ Route::group([
 
     // MEDIA
     Route::get('admin/media', [
-        'as' => 'admin.media',
+        'as' => 'admin.media.index',
         'uses' => 'MediaController@index',
         'middleware' => ['permission:media-read'],
     ]);
@@ -136,7 +136,7 @@ Route::group([
 
     //MEDIA SIZES
     Route::get('admin/mediasizes', [
-        'as' => 'admin.mediasizes',
+        'as' => 'admin.mediasizes.index',
         'uses' => 'MediaSizeController@index',
         'middleware' => ['permission:mediasize-read'],
     ]);
@@ -180,7 +180,7 @@ Route::group([
 
     //LISTINGS
     Route::get('admin/listings', [
-        'as' => 'admin.listings',
+        'as' => 'admin.listings.index',
         'uses' => 'ListingController@index',
         'middleware' => ['permission:listing-read'],
     ]);

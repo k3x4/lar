@@ -33,97 +33,57 @@
             <!--<li class="header">HEADER</li>-->
             <!-- Optionally, you can add icons to the links -->
 
-<<<<<<< HEAD
             <li <?php echo BS::activeClass(['admin.media.index'], true);; ?>>
                 <a href="<?php echo e(route('admin.media.index')); ?>"><i class="fa fa-link"></i> <span>Media</span>
-=======
-            <li <?php echo BS::activeClass(['admin.media', 'admin.mediasizes']);; ?>>
-                <a href="<?php echo e(route('admin.media')); ?>"><i class="fa fa-link"></i> <span>Media</span>
->>>>>>> be3329743dab2f284ff175d8ae0ccfd180e991b4
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-<<<<<<< HEAD
                     <li <?php echo BS::activeClass(['admin.media.index']); ?>><a href="<?php echo e(route('admin.media.index')); ?>">All media</a></li>
                     <li <?php echo BS::activeClass(['admin.mediasizes.index'], true); ?>>
                         <a href="<?php echo e(route('admin.mediasizes.index')); ?>"> <span>Media Sizes</span>
-=======
-                    <li <?php echo BS::activeClass(['admin.media']); ?>><a href="<?php echo e(route('admin.media')); ?>">All media</a></li>
-                    <li <?php echo BS::activeClass(['admin.mediasizes']); ?>>
-                        <a href="<?php echo e(route('admin.mediasizes')); ?>"> <span>Media Sizes</span>
->>>>>>> be3329743dab2f284ff175d8ae0ccfd180e991b4
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
                         <ul class="treeview-menu">
-<<<<<<< HEAD
                             <li <?php echo BS::activeClass(['admin.mediasizes.index']); ?>><a href="<?php echo e(route('admin.mediasizes.index')); ?>">All media sizes</a></li>
-=======
-                            <li <?php echo BS::activeClass(['admin.mediasizes']); ?>><a href="<?php echo e(route('admin.mediasizes')); ?>">All media sizes</a></li>
->>>>>>> be3329743dab2f284ff175d8ae0ccfd180e991b4
                             <li <?php echo BS::activeClass(['admin.mediasizes.create']); ?>><a href="<?php echo e(route('admin.mediasizes.create')); ?>">Create media size</a></li>
                         </ul>
                     </li>
                 </ul>
             </li>
 
-<<<<<<< HEAD
             <li <?php echo BS::activeClass(['admin.listings.index'], true);; ?>>
                 <a href="<?php echo e(route('admin.listings.index')); ?>"><i class="fa fa-link"></i> <span>Listings</span>
-=======
-            <li <?php echo BS::activeClass(['admin.listings']);; ?>>
-                <a href="<?php echo e(route('admin.listings')); ?>"><i class="fa fa-link"></i> <span>Listings</span>
->>>>>>> be3329743dab2f284ff175d8ae0ccfd180e991b4
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-<<<<<<< HEAD
                     <li <?php echo BS::activeClass(['admin.listings.index']);; ?>><a href="<?php echo e(route('admin.listings.index')); ?>">All listings</a></li>
-=======
-                    <li <?php echo BS::activeClass(['admin.listings']);; ?>><a href="<?php echo e(route('admin.listings')); ?>">All listings</a></li>
->>>>>>> be3329743dab2f284ff175d8ae0ccfd180e991b4
                     <li <?php echo BS::activeClass(['admin.listings.create']);; ?>><a href="<?php echo e(route('admin.listings.create')); ?>">Create listing</a></li>
                 </ul>    
             </li>
                 
-<<<<<<< HEAD
             <li <?php echo BS::activeClass(['admin.users.index', 'admin.roles.index'], true);; ?>>
                 <a href="<?php echo e(route('admin.users.index')); ?>"><i class="fa fa-link"></i> <span>Users</span>
-=======
-            <li <?php echo BS::activeClass(['admin.users', 'admin.roles']);; ?>>
-                <a href="<?php echo e(route('admin.users')); ?>"><i class="fa fa-link"></i> <span>Users</span>
->>>>>>> be3329743dab2f284ff175d8ae0ccfd180e991b4
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-<<<<<<< HEAD
                     <li <?php echo BS::activeClass(['admin.users.index']);; ?>><a href="<?php echo e(route('admin.users.index')); ?>">All users</a></li>
                     <li <?php echo BS::activeClass(['admin.users.create']);; ?>><a href="<?php echo e(route('admin.users.create')); ?>">Create user</a></li>
                     <li <?php echo BS::activeClass(['admin.roles.index'], true);; ?>>
                         <a href="<?php echo e(route('admin.roles.index')); ?>"> <span>Roles</span>
-=======
-                    <li <?php echo BS::activeClass(['admin.users']);; ?>><a href="<?php echo e(route('admin.users')); ?>">All users</a></li>
-                    <li <?php echo BS::activeClass(['admin.users.create']);; ?>><a href="<?php echo e(route('admin.users.create')); ?>">Create user</a></li>
-                    <li <?php echo BS::activeClass(['admin.roles']);; ?>>
-                        <a href="<?php echo e(route('admin.roles')); ?>"> <span>Roles</span>
->>>>>>> be3329743dab2f284ff175d8ae0ccfd180e991b4
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
                         <ul class="treeview-menu">
-<<<<<<< HEAD
                             <li <?php echo BS::activeClass(['admin.roles.index']);; ?>><a href="<?php echo e(route('admin.roles.index')); ?>">All roles</a></li>
-=======
-                            <li <?php echo BS::activeClass(['admin.roles']);; ?>><a href="<?php echo e(route('admin.roles')); ?>">All roles</a></li>
->>>>>>> be3329743dab2f284ff175d8ae0ccfd180e991b4
                             <li <?php echo BS::activeClass(['admin.roles.create']);; ?>><a href="<?php echo e(route('admin.roles.create')); ?>">Create role</a></li>
                         </ul>
                     </li>

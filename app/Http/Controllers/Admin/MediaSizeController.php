@@ -19,7 +19,7 @@ class MediaSizeController extends Controller
         //$mediaSizes = MediaSize::orderBy('id', 'ASC')->get();
         //return view('admin.mediasizes', compact('mediaSizes'));
 
-        return view('admin.mediasizes');
+        return view('admin.mediasizes.index');
         // return Datatables::of(User::all())->make(true);
     }
 
@@ -66,7 +66,7 @@ class MediaSizeController extends Controller
 
         MediaSize::create($request->all());
 
-        return redirect()->route('admin.mediasizes')
+        return redirect()->route('admin.mediasizes.index')
                         ->with('success','Media size created successfully');
     }
 
@@ -114,7 +114,7 @@ class MediaSizeController extends Controller
 
         MediaSize::find($id)->update($request->all());
 
-        return redirect()->route('admin.mediasizes')
+        return redirect()->route('admin.mediasizes.index')
                         ->with('success','Media size updated successfully');
     }
 
@@ -136,7 +136,7 @@ class MediaSizeController extends Controller
     {
         $ids = explode(',', $request->input('ids'));
         MediaSize::destroy($ids);
-        return redirect()->route('admin.mediasizes')
+        return redirect()->route('admin.mediasizes.index')
                         ->with('success','Media sizes deleted successfully');
     }
 }

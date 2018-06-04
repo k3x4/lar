@@ -65,11 +65,7 @@
     $('.dtable').DataTable({
         processing: true,
         serverSide: true,
-<<<<<<< HEAD
         ajax: '<?php echo e(route("admin.listings.data")); ?>',
-=======
-        ajax: '<?php echo e(url("admin/listings/data")); ?>',
->>>>>>> be3329743dab2f284ff175d8ae0ccfd180e991b4
         order: [
             [ 1, "desc" ]
         ],

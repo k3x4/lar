@@ -63,11 +63,7 @@
     $('.dtable').DataTable({
         processing: true,
         serverSide: true,
-<<<<<<< HEAD
         ajax: '{{ route("admin.listings.data") }}',
-=======
-        ajax: '{{ url("admin/listings/data") }}',
->>>>>>> be3329743dab2f284ff175d8ae0ccfd180e991b4
         order: [
             [ 1, "desc" ]
         ],

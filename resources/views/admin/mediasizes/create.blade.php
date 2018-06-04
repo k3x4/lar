@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-lg-12 margin-bottom">
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('admin.mediasizes') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('admin.mediasizes.index') }}"> Back</a>
         </div>
     </div>
 </div>
