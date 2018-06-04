@@ -1,3 +1,5 @@
+window.Vue = require('vue');
+
 $(document).ready(function () {
 
     /*** TINYMCE INIT ***/

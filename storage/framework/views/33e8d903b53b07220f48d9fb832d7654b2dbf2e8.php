@@ -82,7 +82,7 @@
     $('.dtable').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '<?php echo e(url("admin/media/data")); ?>',
+        ajax: '<?php echo e(route("admin.media.data")); ?>',
         order: [
             [ 1, "desc" ]
         ],

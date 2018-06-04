@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-lg-12 margin-bottom">
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('admin.listings.index') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('admin.roles.index') }}"> Back</a>
         </div>
     </div>
 </div>
@@ -23,29 +23,30 @@
     <div class="col-lg-12">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Create New Listing</h3>
+                <h3 class="box-title">Create New Role</h3>
             </div>
-            {!! Form::open(['route' => 'admin.listings.store','method'=>'POST']) !!}
+            {!! Form::open(['route' => 'admin.roles.store','method'=>'POST']) !!}
             <div class="box-body">
                 <div class="form-group">
-                    <strong>Title:</strong>
-                    {!! Form::text('title', null, ['placeholder' => 'Title','class' => 'form-control']) !!}
+                    <strong>Name:</strong>
+                    {!! Form::text('name', null, ['placeholder' => 'Name','class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
-                    <strong>Image:</strong>
+                    <strong>Display Name:</strong>
+                    {!! Form::text('display_name', null, ['placeholder' => 'Display Name','class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
                     <strong>Description:</strong>
-                    {!! Form::textarea('description', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']) !!}
+                    {!! Form::textarea('description', null, ['placeholder' => 'Description','class' => 'form-control','style'=>'height:100px']) !!}
                 </div>
                 <div class="form-group">
-                    <strong>Categories:</strong>
+                    <strong>Permission:</strong>
                     <br/>
-                    {{-- @foreach($categories as $category)
-                    <label>{{ Form::checkbox('category[]', $category->id, in_array($category->id, $productCategories) ? true : false) }}
-                        {{ $category->display_name }}</label>
+                    @foreach($permission as $value)
+                    <label>{{ Form::checkbox('permission[]', $value->id, false, ['class' => 'name']) }}
+                        {{ $value->display_name }}</label>
                     <br/>
-                    @endforeach --}}
+                    @endforeach
                 </div>
                 <button type="submit" class="btn btn-success">Submit</button>
             </div>

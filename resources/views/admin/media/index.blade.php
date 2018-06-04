@@ -77,7 +77,7 @@
     $('.dtable').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '{{ url("admin/media/data") }}',
+        ajax: '{{ route("admin.media.data") }}',
         order: [
             [ 1, "desc" ]
         ],
