@@ -18,14 +18,13 @@ class MediaController extends Controller
 
     public function index(Request $request)
     {
-        return view('admin.media.index');
+        return view('admin.media');
     }
 
     public function data()
     {
         $medias = Media::all();
         return Datatables::of($medias)
-            //->addColumn('thumb', '<img src="{{ "/uploads/" . $filename }}" />')
             ->addColumn('thumb', function ($media) {
                 $html  = '<div class="dtable-td-wrapper">';
                 $html .= \Html::tag('span', '', ['class' => 'dtable-helper']);
@@ -35,8 +34,6 @@ class MediaController extends Controller
             })
             ->addColumn('action', function ($media) {
                 $html  = '<div class="dtable-td-wrapper">';
-                //'<input type="checkbox" class="select" value="{{ $id }}" />';
-                //$html .= \Form::checkbox('ff', '1');//$media->id, ['class' => 'select']);
                 $html .= \Form::checkbox('action', $media->id, false, ['class' => 'select']);
                 $html .= '</div>';
                 return $html;
@@ -152,7 +149,7 @@ class MediaController extends Controller
 
         Media::destroy($ids);
 
-        return redirect()->route('admin.media.index')
+        return redirect()->route('admin.media')
                          ->with('success','Media deleted successfully');
     }
 

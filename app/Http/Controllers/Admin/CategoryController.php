@@ -24,7 +24,7 @@ class CategoryController extends Controller
             //->get();
         
         //$categories = Category::orderBy('id', 'DESC')->paginate(5);
-        return view('admin.categories.index', compact('categories'))
+        return view('admin.categories', compact('categories'))
                         ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -61,7 +61,7 @@ class CategoryController extends Controller
         
         $category = Category::create($fillable);
 
-        return redirect()->route('admin.categories.index')
+        return redirect()->route('admin.categories')
                         ->with('success','Category created successfully');
     }
 
@@ -121,7 +121,7 @@ class CategoryController extends Controller
         
         $category->update($fillable);
 
-        return redirect()->route('admin.categories.index')
+        return redirect()->route('admin.categories')
                         ->with('success','Category updated successfully');
     }
 
@@ -134,7 +134,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         Category::find($id)->delete();
-        return redirect()->route('admin.categories.index')
+        return redirect()->route('admin.categories')
                         ->with('success','Category deleted successfully');
     }
 }

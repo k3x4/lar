@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-lg-12 margin-bottom">
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('admin.products.index') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('admin.listings') }}"> Back</a>
         </div>
     </div>
 </div>
@@ -23,9 +23,9 @@
     <div class="col-lg-12">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Create New Product</h3>
+                <h3 class="box-title">Create New Listing</h3>
             </div>
-            {!! Form::open(['route' => 'admin.products.store','method'=>'POST']) !!}
+            {!! Form::open(['route' => 'admin.listings.store','method'=>'POST']) !!}
             <div class="box-body">
                 <div class="form-group">
                     <strong>Title:</strong>
@@ -33,10 +33,6 @@
                 </div>
                 <div class="form-group">
                     <strong>Image:</strong>
-                    <elfinder-controls
-                        name="feature_image"
-                        base="{{ url('images') }}"
-                        ></elfinder-controls>
                 </div>
                 <div class="form-group">
                     <strong>Description:</strong>
@@ -57,10 +53,4 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('footer_scripts')
-@parent
-<script src="{{ asset('js/elfinder.js') }}"></script>
-<script src="{{ asset('js/standalonepopup.k3x4.js') }}"></script>
 @endsection

@@ -1,3 +1,10 @@
+<?php $__env->startSection('head'); ?>
+##parent-placeholder-1a954628a960aaef81d7b2d4521929579f3541e6##
+    <script src="<?php echo e(asset('js/lib/datatables/js/jquery.dataTables.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/lib/datatables/js/dataTables.bootstrap.js')); ?>"></script>
+    <link rel="stylesheet" href="<?php echo e(asset('js/lib/datatables/css/dataTables.bootstrap.css')); ?>">
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
 <div class="row">
     <div class="col-lg-12 margin-bottom">
@@ -22,52 +29,68 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <table class="table table-bordered table-striped">
-                    <tr>
-                        <th>No</th>
-                        <th>Title</th>
-                        <th>Slug</th>
-                        <th>Content</th>
-                        <th width="280px">Action</th>
-                    </tr>
-                    <?php $__currentLoopData = $listings; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $listing): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <tr>
-                        <td><?php echo e(++$i); ?></td>
-                        <td><?php echo e($listing->title); ?></td>
-                        <td><?php echo e($listing->slug); ?></td>
-                        <td><?php echo e(strip_tags($listing->content)); ?></td>
-                        <td>
-                            <?php if (\Entrust::can('listing-edit')) : ?>
-                            <a class="btn btn-primary" href="<?php echo e(route('admin.listings.edit', $listing->id)); ?>">Edit</a>
-                            <?php endif; // Entrust::can ?>
-                            <?php if (\Entrust::can('listing-delete')) : ?>
-                            <?php echo Form::open(['method' => 'DELETE','route' => ['admin.listings.destroy', $listing->id],'style'=>'display:inline']); ?>
-
-                            <?php echo Form::submit('Delete', ['class' => 'btn btn-danger', 'data-confirm' => 'Are you sure you want to delete?']); ?>
-
-                            <?php echo Form::close(); ?>
-
-                            <?php endif; // Entrust::can ?>
-                        </td>
-                    </tr>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <table class="table dtable table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width:5px;"><input type="checkbox" class="selectAll"/></th>
+                            <th style="width: 1%;">ID</th>
+                            <th style="width: 20%;">Title</th>
+                            <th style="width: 20%;">Slug</th>
+                            <th style="width: 50%;">Content</th>
+                            <th style="width: 10%;">Created</th>
+                        </tr>
+                    </thead>
                 </table>
+                <?php if (\Entrust::can('listing-delete')) : ?>
+                    <?php echo Form::open(['method' => 'DELETE', 'route' => ['admin.listings.destroy'], 'class' => 'deleteForm']); ?>
+
+                    <?php echo Form::hidden('ids'); ?>
+
+                    <?php echo Form::submit('Delete', ['class' => 'btn btn-danger disabled', 'data-confirm' => 'Are you sure you want to delete?']); ?>
+
+                    <?php echo Form::close(); ?>
+
+                <?php endif; // Entrust::can ?>
             </div>
             <!-- /.box-body -->
-            <div class="box-footer clearfix">
-                <ul class="pagination pagination-sm no-margin pull-right">
-                    <li><a href="#">&laquo;</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">&raquo;</a></li>
-                </ul>
-            </div>
         </div>
         <!-- /.box -->
     </div>
-</div>            
-<?php echo $listings->render(); ?>
-
+</div>
 <?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('footer_scripts'); ?>
+##parent-placeholder-c55a01b0a8ef1d7b211584e96d51bdf8930d1005##
+    <script>
+    $('.dtable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '<?php echo e(url("admin/listings/data")); ?>',
+        order: [
+            [ 1, "desc" ]
+        ],
+        columnDefs: [
+            {
+                "targets": [ 0 ],
+                "orderable": false,
+                "searchable": false
+            },
+            {
+                "targets": [ 1 ],
+                "visible": false,
+                "searchable": false
+            }
+        ],
+        columns: [
+            {data: 'action', name: 'action'},
+            {data: 'id', name: 'id'},
+            {data: 'title', name: 'title'},
+            {data: 'slug', name: 'slug'},
+            {data: 'content', name: 'content'},
+            {data: 'created_at', name: 'created_at'}
+        ]
+    });
+    </script>
+<?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('admin.layout.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -7,6 +7,7 @@ use App\Listing;
 use App\Category;
 use DB;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 
 class ListingController extends Controller
 {
@@ -17,9 +18,21 @@ class ListingController extends Controller
      */
     public function index(Request $request)
     {
-        $listings = Listing::orderBy('id', 'DESC')->paginate(5);
-        return view('admin.listings.index', compact('listings'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        return view('admin.listings');
+    }
+
+    public function data()
+    {
+        $listings = Listing::all();
+        return Datatables::of($listings)
+            ->addColumn('action', function ($listing) {
+                $html  = '<div class="dtable-td-wrapper">';
+                $html .= \Form::checkbox('action', $listing->id, false, ['class' => 'select']);
+                $html .= '</div>';
+                return $html;
+            })
+            ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
+            ->make(true);
     }
 
     /**
@@ -90,11 +103,13 @@ class ListingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+
+    public function destroy(Request $request)
     {
-        Listing::find($id)->delete();
-        return redirect()->route('admin.listings.index')
-            ->with('success', 'Listing deleted successfully');
+        $ids = explode(',', $request->input('ids'));
+        Listing::destroy($ids);
+        return redirect()->route('admin.listings')
+                        ->with('success','Listing deleted successfully');
     }
 
 }

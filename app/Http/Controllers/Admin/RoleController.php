@@ -17,7 +17,7 @@ class RoleController extends Controller {
      */
     public function index(Request $request) {
         $roles = Role::orderBy('id','ASC')->paginate(5);
-        return view('admin.roles.index',compact('roles'))
+        return view('admin.roles',compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -55,7 +55,7 @@ class RoleController extends Controller {
             $role->attachPermission($value);
         }
 
-        return redirect()->route('admin.roles.index')
+        return redirect()->route('admin.roles')
                         ->with('success','Role created successfully');
     }
 
@@ -119,7 +119,7 @@ class RoleController extends Controller {
             $role->attachPermission($value);
         }
 
-        return redirect()->route('admin.roles.index')
+        return redirect()->route('admin.roles')
                          ->with('success','Role updated successfully');
     }
 
@@ -131,7 +131,7 @@ class RoleController extends Controller {
      */
     public function destroy($id) {
         DB::table("roles")->where('id',$id)->delete();
-        return redirect()->route('admin.roles.index')
+        return redirect()->route('admin.roles')
                          ->with('success','Role deleted successfully');
     }
 
