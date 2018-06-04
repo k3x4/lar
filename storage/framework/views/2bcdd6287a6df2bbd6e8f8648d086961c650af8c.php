@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-lg-12 margin-bottom">
         <div class="pull-right">
-            <a class="btn btn-primary" href="<?php echo e(route('admin.products.index')); ?>"> Back</a>
+            <a class="btn btn-primary" href="<?php echo e(route('admin.listings')); ?>"> Back</a>
         </div>
     </div>
 </div>
@@ -21,9 +21,9 @@
     <div class="col-lg-12">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Create New Product</h3>
+                <h3 class="box-title">Create New Listing</h3>
             </div>
-            <?php echo Form::open(['route' => 'admin.products.store','method'=>'POST']); ?>
+            <?php echo Form::open(['route' => 'admin.listings.store','method'=>'POST']); ?>
 
             <div class="box-body">
                 <div class="form-group">
@@ -33,10 +33,6 @@
                 </div>
                 <div class="form-group">
                     <strong>Image:</strong>
-                    <elfinder-controls
-                        name="feature_image"
-                        base="<?php echo e(url('images')); ?>"
-                        ></elfinder-controls>
                 </div>
                 <div class="form-group">
                     <strong>Description:</strong>
@@ -60,11 +56,5 @@
         </div>
     </div>
 </div>
-<?php $__env->stopSection(); ?>
-
-<?php $__env->startSection('footer_scripts'); ?>
-##parent-placeholder-c55a01b0a8ef1d7b211584e96d51bdf8930d1005##
-<script src="<?php echo e(asset('js/elfinder.js')); ?>"></script>
-<script src="<?php echo e(asset('js/standalonepopup.k3x4.js')); ?>"></script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin.layout.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

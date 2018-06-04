@@ -33,58 +33,58 @@
             <!--<li class="header">HEADER</li>-->
             <!-- Optionally, you can add icons to the links -->
 
-            <li {!! BS::activeClass(['admin/media*', 'admin/mediasizes*']); !!}>
-                <a href="{{ url('admin/media') }}"><i class="fa fa-link"></i> <span>Media</span>
+            <li {!! BS::activeClass(['admin.media', 'admin.mediasizes']); !!}>
+                <a href="{{ route('admin.media') }}"><i class="fa fa-link"></i> <span>Media</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li {!! BS::activeClass('admin/media') !!}><a href="{{ url('admin/media') }}">All media</a></li>
-                    <li {!! BS::activeClass('admin/mediasizes*') !!}>
-                        <a href="{{ url('admin/mediasizes') }}"> <span>Media Sizes</span>
+                    <li {!! BS::activeClass(['admin.media']) !!}><a href="{{ route('admin.media') }}">All media</a></li>
+                    <li {!! BS::activeClass(['admin.mediasizes']) !!}>
+                        <a href="{{ route('admin.mediasizes') }}"> <span>Media Sizes</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li {!! BS::activeClass('admin/mediasizes') !!}><a href="{{ url('admin/mediasizes') }}">All media sizes</a></li>
-                            <li {!! BS::activeClass('admin/mediasizes/create') !!}><a href="{{ url('admin/mediasizes/create') }}">Create media size</a></li>
+                            <li {!! BS::activeClass(['admin.mediasizes']) !!}><a href="{{ route('admin.mediasizes') }}">All media sizes</a></li>
+                            <li {!! BS::activeClass(['admin.mediasizes.create']) !!}><a href="{{ route('admin.mediasizes.create') }}">Create media size</a></li>
                         </ul>
                     </li>
                 </ul>
             </li>
 
-            <li {!! BS::activeClass('admin/listings*'); !!}>
-                <a href="{{ url('admin/listings') }}"><i class="fa fa-link"></i> <span>Listings</span>
+            <li {!! BS::activeClass(['admin.listings']); !!}>
+                <a href="{{ route('admin.listings') }}"><i class="fa fa-link"></i> <span>Listings</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li {!! BS::activeClass('admin/listings'); !!}><a href="{{ url('admin/listings') }}">All listings</a></li>
-                    <li {!! BS::activeClass('admin/listings/create'); !!}><a href="{{ url('admin/listings/create') }}">Create listing</a></li>
+                    <li {!! BS::activeClass(['admin.listings']); !!}><a href="{{ route('admin.listings') }}">All listings</a></li>
+                    <li {!! BS::activeClass(['admin.listings.create']); !!}><a href="{{ route('admin.listings.create') }}">Create listing</a></li>
                 </ul>    
             </li>
                 
-            <li {!! BS::activeClass(['admin/users*', 'admin/roles*']); !!}>
-                <a href="{{ url('admin/users') }}"><i class="fa fa-link"></i> <span>Users</span>
+            <li {!! BS::activeClass(['admin.users', 'admin.roles']); !!}>
+                <a href="{{ route('admin.users') }}"><i class="fa fa-link"></i> <span>Users</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li {!! BS::activeClass('admin/users'); !!}><a href="{{ url('admin/users') }}">All users</a></li>
-                    <li {!! BS::activeClass('admin/users/create'); !!}><a href="{{ url('admin/users/create') }}">Create user</a></li>
-                    <li {!! BS::activeClass('admin/roles*'); !!}>
-                        <a href="{{ url('admin/roles') }}"> <span>Roles</span>
+                    <li {!! BS::activeClass(['admin.users']); !!}><a href="{{ route('admin.users') }}">All users</a></li>
+                    <li {!! BS::activeClass(['admin.users.create']); !!}><a href="{{ route('admin.users.create') }}">Create user</a></li>
+                    <li {!! BS::activeClass(['admin.roles']); !!}>
+                        <a href="{{ route('admin.roles') }}"> <span>Roles</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li {!! BS::activeClass('admin/roles'); !!}><a href="{{ url('admin/roles') }}">All roles</a></li>
-                            <li {!! BS::activeClass('admin/roles/create'); !!}><a href="{{ url('admin/roles/create') }}">Create role</a></li>
+                            <li {!! BS::activeClass(['admin.roles']); !!}><a href="{{ route('admin.roles') }}">All roles</a></li>
+                            <li {!! BS::activeClass(['admin.roles.create']); !!}><a href="{{ route('admin.roles.create') }}">Create role</a></li>
                         </ul>
                     </li>
                 </ul>

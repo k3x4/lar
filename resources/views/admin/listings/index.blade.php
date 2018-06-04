@@ -1,5 +1,12 @@
 @extends('admin.layout.master')
 
+@section('head')
+@parent
+    <script src="{{ asset('js/lib/datatables/js/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('js/lib/datatables/js/dataTables.bootstrap.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('js/lib/datatables/css/dataTables.bootstrap.css') }}">
+@endsection
+
 @section('content')
 <div class="row">
     <div class="col-lg-12 margin-bottom">
@@ -24,47 +31,62 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <table class="table table-bordered table-striped">
-                    <tr>
-                        <th>No</th>
-                        <th>Title</th>
-                        <th>Slug</th>
-                        <th>Content</th>
-                        <th width="280px">Action</th>
-                    </tr>
-                    @foreach ($listings as $key => $listing)
-                    <tr>
-                        <td>{{ ++$i }}</td>
-                        <td>{{ $listing->title }}</td>
-                        <td>{{ $listing->slug }}</td>
-                        <td>{{ strip_tags($listing->content) }}</td>
-                        <td>
-                            @permission('listing-edit')
-                            <a class="btn btn-primary" href="{{ route('admin.listings.edit', $listing->id) }}">Edit</a>
-                            @endpermission
-                            @permission('listing-delete')
-                            {!! Form::open(['method' => 'DELETE','route' => ['admin.listings.destroy', $listing->id],'style'=>'display:inline']) !!}
-                            {!! Form::submit('Delete', ['class' => 'btn btn-danger', 'data-confirm' => 'Are you sure you want to delete?']) !!}
-                            {!! Form::close() !!}
-                            @endpermission
-                        </td>
-                    </tr>
-                    @endforeach
+                <table class="table dtable table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width:5px;"><input type="checkbox" class="selectAll"/></th>
+                            <th style="width: 1%;">ID</th>
+                            <th style="width: 20%;">Title</th>
+                            <th style="width: 20%;">Slug</th>
+                            <th style="width: 50%;">Content</th>
+                            <th style="width: 10%;">Created</th>
+                        </tr>
+                    </thead>
                 </table>
+                @permission('listing-delete')
+                    {!! Form::open(['method' => 'DELETE', 'route' => ['admin.listings.destroy'], 'class' => 'deleteForm']) !!}
+                    {!! Form::hidden('ids') !!}
+                    {!! Form::submit('Delete', ['class' => 'btn btn-danger disabled', 'data-confirm' => 'Are you sure you want to delete?']) !!}
+                    {!! Form::close() !!}
+                @endpermission
             </div>
             <!-- /.box-body -->
-            <div class="box-footer clearfix">
-                <ul class="pagination pagination-sm no-margin pull-right">
-                    <li><a href="#">&laquo;</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">&raquo;</a></li>
-                </ul>
-            </div>
         </div>
         <!-- /.box -->
     </div>
-</div>            
-{!! $listings->render() !!}
+</div>
+@endsection
+
+@section('footer_scripts')
+@parent
+    <script>
+    $('.dtable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '{{ url("admin/listings/data") }}',
+        order: [
+            [ 1, "desc" ]
+        ],
+        columnDefs: [
+            {
+                "targets": [ 0 ],
+                "orderable": false,
+                "searchable": false
+            },
+            {
+                "targets": [ 1 ],
+                "visible": false,
+                "searchable": false
+            }
+        ],
+        columns: [
+            {data: 'action', name: 'action'},
+            {data: 'id', name: 'id'},
+            {data: 'title', name: 'title'},
+            {data: 'slug', name: 'slug'},
+            {data: 'content', name: 'content'},
+            {data: 'created_at', name: 'created_at'}
+        ]
+    });
+    </script>
 @endsection

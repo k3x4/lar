@@ -4,14 +4,24 @@ namespace App\Libraries;
 
 use Request;
 
-class Bootstrap {
+class Bootstrap
+{
 
-    public static function activeClass($routeName, $extraClasses = ''){
+    public static function activeClass($routeNames, $extraClasses = '')
+    {
         $classes = $extraClasses;
-        if (Request::is($routeName)) {
-            $classes .= ' ' . 'active';
+
+        foreach ($routeNames as $routeName) {
+            $routePath = \URL::route($routeName, [], false);
+            $routePath = ltrim($routePath, '/');
+            if (Request::is($routePath) || Request::is($routePath . '*')) {
+                $classes .= ' ' . 'active';
+                return 'class="' . $classes . '"';
+            }
         }
+
         return 'class="' . $classes . '"';
+
     }
 
 }

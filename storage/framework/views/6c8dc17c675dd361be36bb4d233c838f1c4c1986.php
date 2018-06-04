@@ -33,58 +33,58 @@
             <!--<li class="header">HEADER</li>-->
             <!-- Optionally, you can add icons to the links -->
 
-            <li <?php echo BS::activeClass(['admin/media*', 'admin/mediasizes*']);; ?>>
-                <a href="<?php echo e(url('admin/media')); ?>"><i class="fa fa-link"></i> <span>Media</span>
+            <li <?php echo BS::activeClass(['admin.media', 'admin.mediasizes']);; ?>>
+                <a href="<?php echo e(route('admin.media')); ?>"><i class="fa fa-link"></i> <span>Media</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li <?php echo BS::activeClass('admin/media'); ?>><a href="<?php echo e(url('admin/media')); ?>">All media</a></li>
-                    <li <?php echo BS::activeClass('admin/mediasizes*'); ?>>
-                        <a href="<?php echo e(url('admin/mediasizes')); ?>"> <span>Media Sizes</span>
+                    <li <?php echo BS::activeClass(['admin.media']); ?>><a href="<?php echo e(route('admin.media')); ?>">All media</a></li>
+                    <li <?php echo BS::activeClass(['admin.mediasizes']); ?>>
+                        <a href="<?php echo e(route('admin.mediasizes')); ?>"> <span>Media Sizes</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li <?php echo BS::activeClass('admin/mediasizes'); ?>><a href="<?php echo e(url('admin/mediasizes')); ?>">All media sizes</a></li>
-                            <li <?php echo BS::activeClass('admin/mediasizes/create'); ?>><a href="<?php echo e(url('admin/mediasizes/create')); ?>">Create media size</a></li>
+                            <li <?php echo BS::activeClass(['admin.mediasizes']); ?>><a href="<?php echo e(route('admin.mediasizes')); ?>">All media sizes</a></li>
+                            <li <?php echo BS::activeClass(['admin.mediasizes.create']); ?>><a href="<?php echo e(route('admin.mediasizes.create')); ?>">Create media size</a></li>
                         </ul>
                     </li>
                 </ul>
             </li>
 
-            <li <?php echo BS::activeClass('admin/listings*');; ?>>
-                <a href="<?php echo e(url('admin/listings')); ?>"><i class="fa fa-link"></i> <span>Listings</span>
+            <li <?php echo BS::activeClass(['admin.listings']);; ?>>
+                <a href="<?php echo e(route('admin.listings')); ?>"><i class="fa fa-link"></i> <span>Listings</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li <?php echo BS::activeClass('admin/listings');; ?>><a href="<?php echo e(url('admin/listings')); ?>">All listings</a></li>
-                    <li <?php echo BS::activeClass('admin/listings/create');; ?>><a href="<?php echo e(url('admin/listings/create')); ?>">Create listing</a></li>
+                    <li <?php echo BS::activeClass(['admin.listings']);; ?>><a href="<?php echo e(route('admin.listings')); ?>">All listings</a></li>
+                    <li <?php echo BS::activeClass(['admin.listings.create']);; ?>><a href="<?php echo e(route('admin.listings.create')); ?>">Create listing</a></li>
                 </ul>    
             </li>
                 
-            <li <?php echo BS::activeClass(['admin/users*', 'admin/roles*']);; ?>>
-                <a href="<?php echo e(url('admin/users')); ?>"><i class="fa fa-link"></i> <span>Users</span>
+            <li <?php echo BS::activeClass(['admin.users', 'admin.roles']);; ?>>
+                <a href="<?php echo e(route('admin.users')); ?>"><i class="fa fa-link"></i> <span>Users</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li <?php echo BS::activeClass('admin/users');; ?>><a href="<?php echo e(url('admin/users')); ?>">All users</a></li>
-                    <li <?php echo BS::activeClass('admin/users/create');; ?>><a href="<?php echo e(url('admin/users/create')); ?>">Create user</a></li>
-                    <li <?php echo BS::activeClass('admin/roles*');; ?>>
-                        <a href="<?php echo e(url('admin/roles')); ?>"> <span>Roles</span>
+                    <li <?php echo BS::activeClass(['admin.users']);; ?>><a href="<?php echo e(route('admin.users')); ?>">All users</a></li>
+                    <li <?php echo BS::activeClass(['admin.users.create']);; ?>><a href="<?php echo e(route('admin.users.create')); ?>">Create user</a></li>
+                    <li <?php echo BS::activeClass(['admin.roles']);; ?>>
+                        <a href="<?php echo e(route('admin.roles')); ?>"> <span>Roles</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li <?php echo BS::activeClass('admin/roles');; ?>><a href="<?php echo e(url('admin/roles')); ?>">All roles</a></li>
-                            <li <?php echo BS::activeClass('admin/roles/create');; ?>><a href="<?php echo e(url('admin/roles/create')); ?>">Create role</a></li>
+                            <li <?php echo BS::activeClass(['admin.roles']);; ?>><a href="<?php echo e(route('admin.roles')); ?>">All roles</a></li>
+                            <li <?php echo BS::activeClass(['admin.roles.create']);; ?>><a href="<?php echo e(route('admin.roles.create')); ?>">Create role</a></li>
                         </ul>
                     </li>
                 </ul>

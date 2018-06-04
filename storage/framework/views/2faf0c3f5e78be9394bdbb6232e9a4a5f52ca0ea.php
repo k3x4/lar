@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-lg-12 margin-bottom">
         <div class="pull-right">
-            <a class="btn btn-primary" href="<?php echo e(route('admin.listings.index')); ?>"> Back</a>
+            <a class="btn btn-primary" href="<?php echo e(route('admin.listings')); ?>"> Back</a>
         </div>
     </div>
 </div>
