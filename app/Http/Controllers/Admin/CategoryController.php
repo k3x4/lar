@@ -16,33 +16,25 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-        
-        // $categories = DB::table('categories')
-        //     ->leftJoin('categories as cat', 'categories.parent_id', '=', 'cat.id')
-        //     ->select('categories.*', 'cat.display_name as parent_display_name')
-        //     ->orderBy('id', 'DESC')
-        //     ->paginate(5);
-        //     //->get();
-        
-        //$categories = Category::orderBy('id', 'DESC')->paginate(5);
         return view('admin.categories.index');
+    }
+
+    private function makeTree($parentCategories, $list = []){
+        foreach($parentCategories as $category){
+            $list[] = $category;
+            if($category->childs){
+                $list = $list + $this->makeTree($category->childs, $list);
+            }
+        }
+
+        return $list;
     }
 
     public function data()
     {
-        // $medias = Category::all();
-
-        $categories = DB::table('categories')
-            ->leftJoin('categories as cat', 'categories.parent_id', '=', 'cat.id')
-            ->select('categories.*', 'cat.display_name as parent_display_name')
-            //->orderBy('display_name', 'ASC')
-            ->get();
-            //->pluck(['name', 'display_name'], 'id')
-            //->toArray();
-
-        $categories = json_decode(json_encode($categories), true);
-        $categories = $this->arrangeCategoriesByParent($categories);
-        dd($categories);
+        $categories = Category::whereNull('category_id')->get();
+        $categories = $this->makeTree($categories);
+        $categories = collect($categories);
 
         return Datatables::of($categories)
             ->addColumn('action', function ($category) {
@@ -51,7 +43,7 @@ class CategoryController extends Controller
                 $html .= '</div>';
                 return $html;
             })
-            ->editColumn('name', '{{ $parent_id ? "└─ " . $name : $name }}')
+            ->editColumn('catname', '<div class="space">{{ $category_id ? str_pad("", $level - 1, "\t", STR_PAD_LEFT) . "└── " . $name : $name }}</div>')
             ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
             ->make(true);
     }
@@ -81,7 +73,7 @@ class CategoryController extends Controller
         $categoryName = slug($request->input('display_name'));
         
         $fillable = [
-            'parent_id' => $request->input('parent_id'),
+            'category_id' => $request->input('category_id'),
             'name' => $categoryName,
             'display_name' => $request->input('display_name'),
             'description' => $request->input('description'),
@@ -141,7 +133,7 @@ class CategoryController extends Controller
         $categoryName = slug($request->input('display_name'));
         
         $fillable = [
-            'parent_id' => $request->input('parent_id'),
+            'category_id' => $request->input('category_id'),
             'name' => $categoryName,
             'display_name' => $request->input('display_name'),
             'description' => $request->input('description'),
@@ -165,35 +157,6 @@ class CategoryController extends Controller
         Category::destroy($ids);
         return redirect()->route('admin.categories.index')
                         ->with('success','Categories deleted successfully');
-    }
-
-    private function moveElement(&$array, $a, $b) {
-        $out = array_splice($array, $a, 1);
-        array_splice($array, $b, 0, $out);
-    }
-
-    private function arrangeCategoriesByParent($categories){
-        
-        $changes = false;
-        foreach($categories as $keyCat => $cat){
-            foreach($categories as $key => $category){
-                if(isset($category['parent_id']) && $key == $keyCat){
-                    $this->moveElement($categories, $key, $category['parent_id']);
-                    $changes = true;
-                }
-            }
-        }
-
-       
-            return $categories;
-
-
-        // if($changes){
-        //     $this->arrangeCategoriesByParent($categoriesTemp);
-        // } else {
-        //     return $categoriesTemp;
-        // }
-        
     }
 
 }

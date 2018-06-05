@@ -24,7 +24,7 @@ class CategoriesTableSeeder extends Seeder
                                 .'hendrerit velit. Proin et luctus enim.'
             ],
             [
-                'parent_id' => '1',
+                'category_id' => '1',
                 'name' => 'Junk',
                 'display_name' => 'junk',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
@@ -34,7 +34,7 @@ class CategoriesTableSeeder extends Seeder
                                 .'hendrerit velit. Proin et luctus enim.'
             ],
             [
-                'parent_id' => '1',
+                'category_id' => '1',
                 'name' => 'Lite',
                 'display_name' => 'lite',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
@@ -62,7 +62,7 @@ class CategoriesTableSeeder extends Seeder
                                 .'hendrerit velit. Proin et luctus enim.'
             ],
             [
-                'parent_id' => '5',
+                'category_id' => '5',
                 'name' => 'Axel',
                 'display_name' => 'axel',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
@@ -72,7 +72,7 @@ class CategoriesTableSeeder extends Seeder
                                 .'hendrerit velit. Proin et luctus enim.'
             ],
             [
-                'parent_id' => '5',
+                'category_id' => '5',
                 'name' => 'Minus',
                 'display_name' => 'minus',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '

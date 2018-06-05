@@ -84,7 +84,7 @@
         columns: [
             {data: 'action', name: 'action'},
             {data: 'id', name: 'id'},
-            {data: 'name', name: 'name'},
+            {data: 'catname', name: 'catname'},
             {data: 'display_name', name: 'display_name'},
             {data: 'description', name: 'description'},
             {data: 'created_at', name: 'created_at'}

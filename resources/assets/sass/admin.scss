@@ -44,6 +44,11 @@
 }
 
 table.dtable {
+
+    .space{
+        white-space: pre;
+    }
+    
     & > tbody{
         & > tr{
             & > td{

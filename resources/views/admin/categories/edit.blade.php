@@ -39,7 +39,7 @@
                 <div class="form-group">
                     <strong>Parent:</strong>
                     <br/>
-                    {{ Form::select('parent_id', $categories, null, ['placeholder' => 'Select...']) }}
+                    {{ Form::select('category_id', $categories, null, ['placeholder' => 'Select...']) }}
                     <br/>
                 </div>
                 <button type="submit" class="btn btn-success">Submit</button>
