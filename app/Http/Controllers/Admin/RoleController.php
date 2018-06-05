@@ -17,9 +17,23 @@ class RoleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-        $roles = Role::orderBy('id','ASC')->paginate(5);
-        return view('admin.roles.index',compact('roles'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        return view('admin.roles.index');
+    }
+
+    public function data()
+    {
+        $roles = Role::all();
+        return Datatables::of($roles)
+            ->addColumn('action', function ($role) {
+                $html  = '<div class="dtable-td-wrapper">';
+                if(!in_array($role->id, [1, 4])){
+                    $html .= \Form::checkbox('action', $role->id, false, ['class' => 'select']);
+                }
+                $html .= '</div>';
+                return $html;
+            })
+            ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
+            ->make(true);
     }
 
     /**
@@ -130,10 +144,12 @@ class RoleController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
-        DB::table("roles")->where('id',$id)->delete();
+    public function destroy(Request $request)
+    {
+        $ids = explode(',', $request->input('ids'));
+        Role::destroy($ids);
         return redirect()->route('admin.roles.index')
-                         ->with('success','Role deleted successfully');
+                        ->with('success','Listing deleted successfully');
     }
 
 }

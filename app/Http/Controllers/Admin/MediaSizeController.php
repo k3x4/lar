@@ -30,9 +30,12 @@ class MediaSizeController extends Controller
             ->editColumn('crop', '{{ $crop ? "yes" : "no" }}')
             ->editColumn('enabled', '{{ $enabled ? "yes" : "no" }}')
             ->addColumn('action', function($media_size){
+                $html  = '<div class="dtable-td-wrapper">';
                 if(!in_array($media_size->id, [1, 2, 3, 4])){
-                    return '<input type="checkbox" class="select" value="' . $media_size->id . '" />';
+                    $html .= \Form::checkbox('action', $media_size->id, false, ['class' => 'select']);
                 }
+                $html .= '</div>';
+                return $html;
             })
             ->make(true);
     }

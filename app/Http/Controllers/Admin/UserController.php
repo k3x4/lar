@@ -39,7 +39,9 @@ class UserController extends Controller
             })
             ->addColumn('action', function ($user) {
                 $html  = '<div class="dtable-td-wrapper">';
-                $html .= \Form::checkbox('action', $user->id, false, ['class' => 'select']);
+                if(!in_array($user->id, [1])){
+                    $html .= \Form::checkbox('action', $user->id, false, ['class' => 'select']);
+                }
                 $html .= '</div>';
                 return $html;
             })
@@ -81,7 +83,7 @@ class UserController extends Controller
             $user->attachRole($value);
         }
 
-        return redirect()->route('admin.users')
+        return redirect()->route('admin.users.index')
                         ->with('success','User created successfully');
     }
 
