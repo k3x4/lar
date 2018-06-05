@@ -55,7 +55,7 @@
                 </ul>
             </li>
 
-            <li <?php echo BS::activeClass(['admin.listings.index'], true);; ?>>
+            <li <?php echo BS::activeClass(['admin.listings.index', 'admin.categories.index'], true);; ?>>
                 <a href="<?php echo e(route('admin.listings.index')); ?>"><i class="fa fa-link"></i> <span>Listings</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
@@ -64,6 +64,17 @@
                 <ul class="treeview-menu">
                     <li <?php echo BS::activeClass(['admin.listings.index']);; ?>><a href="<?php echo e(route('admin.listings.index')); ?>">All listings</a></li>
                     <li <?php echo BS::activeClass(['admin.listings.create']);; ?>><a href="<?php echo e(route('admin.listings.create')); ?>">Create listing</a></li>
+                    <li <?php echo BS::activeClass(['admin.categories.index'], true); ?>>
+                        <a href="<?php echo e(route('admin.categories.index')); ?>"> <span>Listing categories</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li <?php echo BS::activeClass(['admin.categories.index']); ?>><a href="<?php echo e(route('admin.categories.index')); ?>">All listing categories</a></li>
+                            <li <?php echo BS::activeClass(['admin.categories.create']); ?>><a href="<?php echo e(route('admin.categories.create')); ?>">Create listing category</a></li>
+                        </ul>
+                    </li>
                 </ul>    
             </li>
                 

@@ -34,6 +34,11 @@ class PermissionRoleTableSeeder extends Seeder
         $mediaSizeCreate = Permission::where('name','=','mediasize-create')->get()->first();
         $mediaSizeEdit = Permission::where('name','=','mediasize-edit')->get()->first();
         $mediaSizeDelete = Permission::where('name','=','mediasize-delete')->get()->first();
+
+        $categoryRead = Permission::where('name','=','category-read')->get()->first();
+        $categoryCreate = Permission::where('name','=','category-create')->get()->first();
+        $categoryEdit = Permission::where('name','=','category-edit')->get()->first();
+        $categoryDelete = Permission::where('name','=','category-delete')->get()->first();
         
         $listingRead = Permission::where('name','=','listing-read')->get()->first();
         $listingCreate = Permission::where('name','=','listing-create')->get()->first();
@@ -59,6 +64,11 @@ class PermissionRoleTableSeeder extends Seeder
         $admin->attachPermission($mediaSizeCreate);
         $admin->attachPermission($mediaSizeEdit);
         $admin->attachPermission($mediaSizeDelete);
+
+        $admin->attachPermission($categoryRead);
+        $admin->attachPermission($categoryCreate);
+        $admin->attachPermission($categoryEdit);
+        $admin->attachPermission($categoryDelete);
         
         $admin->attachPermission($listingRead);
         $admin->attachPermission($listingCreate);

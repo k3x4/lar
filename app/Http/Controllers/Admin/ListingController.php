@@ -109,7 +109,7 @@ class ListingController extends Controller
         $ids = explode(',', $request->input('ids'));
         Listing::destroy($ids);
         return redirect()->route('admin.listings.index')
-                        ->with('success','Listing deleted successfully');
+                        ->with('success','Listings deleted successfully');
     }
 
 }

@@ -149,7 +149,7 @@ class RoleController extends Controller {
         $ids = explode(',', $request->input('ids'));
         Role::destroy($ids);
         return redirect()->route('admin.roles.index')
-                        ->with('success','Listing deleted successfully');
+                        ->with('success','Roles deleted successfully');
     }
 
 }

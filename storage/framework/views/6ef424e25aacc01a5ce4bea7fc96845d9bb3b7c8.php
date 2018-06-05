@@ -1,27 +1,25 @@
-@extends('admin.layout.master')
+<?php $__env->startSection('head'); ?>
+##parent-placeholder-1a954628a960aaef81d7b2d4521929579f3541e6##
+    <script src="<?php echo e(asset('js/lib/datatables/js/jquery.dataTables.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/lib/datatables/js/dataTables.bootstrap.js')); ?>"></script>
+    <link rel="stylesheet" href="<?php echo e(asset('js/lib/datatables/css/dataTables.bootstrap.css')); ?>">
+<?php $__env->stopSection(); ?>
 
-@section('head')
-@parent
-    <script src="{{ asset('js/lib/datatables/js/jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('js/lib/datatables/js/dataTables.bootstrap.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('js/lib/datatables/css/dataTables.bootstrap.css') }}">
-@endsection
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="row">
     <div class="col-lg-12 margin-bottom">
         <div class="pull-right">
-            @permission('category-create')
-            <a class="btn btn-success" href="{{ route('admin.categories.create') }}"> New Category</a>
-            @endpermission
+            <?php if (\Entrust::can('category-create')) : ?>
+            <a class="btn btn-success" href="<?php echo e(route('admin.categories.create')); ?>"> New Category</a>
+            <?php endif; // Entrust::can ?>
         </div>
     </div>
 </div>
-@if ($message = Session::get('success'))
+<?php if($message = Session::get('success')): ?>
 <div class="alert alert-success">
-    <p>{{ $message }}</p>
+    <p><?php echo e($message); ?></p>
 </div>
-@endif
+<?php endif; ?>
 
 <div class="row">
     <div class="col-lg-12">
@@ -43,27 +41,31 @@
                         </thead>
                     </tr>
                 </table>
-                @permission('category-delete')
-                    {!! Form::open(['method' => 'DELETE', 'route' => ['admin.categories.destroy'], 'class' => 'deleteForm']) !!}
-                    {!! Form::hidden('ids') !!}
-                    {!! Form::submit('Delete', ['class' => 'btn btn-danger disabled', 'data-confirm' => 'Are you sure you want to delete?']) !!}
-                    {!! Form::close() !!}
-                @endpermission
+                <?php if (\Entrust::can('category-delete')) : ?>
+                    <?php echo Form::open(['method' => 'DELETE', 'route' => ['admin.categories.destroy'], 'class' => 'deleteForm']); ?>
+
+                    <?php echo Form::hidden('ids'); ?>
+
+                    <?php echo Form::submit('Delete', ['class' => 'btn btn-danger disabled', 'data-confirm' => 'Are you sure you want to delete?']); ?>
+
+                    <?php echo Form::close(); ?>
+
+                <?php endif; // Entrust::can ?>
             </div>
             <!-- /.box-body -->
         </div>
         <!-- /.box -->
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('footer_scripts')
-@parent
+<?php $__env->startSection('footer_scripts'); ?>
+##parent-placeholder-c55a01b0a8ef1d7b211584e96d51bdf8930d1005##
     <script>
     $('.dtable').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '{{ route("admin.categories.data") }}',
+        ajax: '<?php echo e(route("admin.categories.data")); ?>',
         order: [
             [ 1, "desc" ]
         ],
@@ -89,4 +91,6 @@
         ]
     });
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.layout.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

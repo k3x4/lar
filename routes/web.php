@@ -234,5 +234,49 @@ Route::group([
     ]);
 
 
+    //CATEGORIES
+    Route::get('admin/categories', [
+        'as' => 'admin.categories.index', 
+        'uses' => 'CategoryController@index', 
+        'middleware' => ['permission:category-read|category-create|category-edit|category-delete']
+        ]);
+
+    Route::get('admin/categories/data', [
+        'as' => 'admin.categories.data',
+        'uses' => 'CategoryController@data',
+        'middleware' => ['permission:category-read'],
+    ]);    
+    
+    Route::get('admin/categories/create', [
+        'as' => 'admin.categories.create', 
+        'uses' => 'CategoryController@create', 
+        'middleware' => ['permission:category-create']
+        ]);
+    
+    Route::post('admin/categories/create', [
+        'as' => 'admin.categories.store', 
+        'uses' => 'CategoryController@store', 
+        'middleware' => ['permission:category-create']
+        ]);
+    
+    Route::get('admin/categories/{id}/edit', [
+        'as' => 'admin.categories.edit', 
+        'uses' => 'CategoryController@edit', 
+        'middleware' => ['permission:category-edit']
+        ]);
+    
+    Route::patch('admin/categories/{id}', [
+        'as' => 'admin.categories.update', 
+        'uses' => 'CategoryController@update', 
+        'middleware' => ['permission:category-edit']
+        ]);
+    
+    Route::delete('admin/categories/destroy', [
+        'as' => 'admin.categories.destroy', 
+        'uses' => 'CategoryController@destroy', 
+        'middleware' => ['permission:category-delete']
+        ]);
+
+
 }
 );

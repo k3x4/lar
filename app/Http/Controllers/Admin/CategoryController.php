@@ -17,16 +17,37 @@ class CategoryController extends Controller
      */
     public function index(Request $request) {
         
+        // $categories = DB::table('categories')
+        //     ->leftJoin('categories as cat', 'categories.parent_id', '=', 'cat.id')
+        //     ->select('categories.*', 'cat.display_name as parent_display_name')
+        //     ->orderBy('id', 'DESC')
+        //     ->paginate(5);
+        //     //->get();
+        
+        //$categories = Category::orderBy('id', 'DESC')->paginate(5);
+        return view('admin.categories.index');
+    }
+
+    public function data()
+    {
+        // $medias = Category::all();
+
         $categories = DB::table('categories')
             ->leftJoin('categories as cat', 'categories.parent_id', '=', 'cat.id')
             ->select('categories.*', 'cat.display_name as parent_display_name')
             ->orderBy('id', 'DESC')
-            ->paginate(5);
-            //->get();
-        
-        //$categories = Category::orderBy('id', 'DESC')->paginate(5);
-        return view('admin.categories', compact('categories'))
-                        ->with('i', ($request->input('page', 1) - 1) * 5);
+            //->paginate(5);
+            ->get();
+
+        return Datatables::of($categories)
+            ->addColumn('action', function ($category) {
+                $html  = '<div class="dtable-td-wrapper">';
+                $html .= \Form::checkbox('action', $category->id, false, ['class' => 'select']);
+                $html .= '</div>';
+                return $html;
+            })
+            ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
+            ->make(true);
     }
 
     /**
@@ -62,7 +83,7 @@ class CategoryController extends Controller
         
         $category = Category::create($fillable);
 
-        return redirect()->route('admin.categories')
+        return redirect()->route('admin.categories.index')
                         ->with('success','Category created successfully');
     }
 
@@ -122,7 +143,7 @@ class CategoryController extends Controller
         
         $category->update($fillable);
 
-        return redirect()->route('admin.categories')
+        return redirect()->route('admin.categories.index')
                         ->with('success','Category updated successfully');
     }
 
@@ -132,10 +153,12 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        Category::find($id)->delete();
-        return redirect()->route('admin.categories')
-                        ->with('success','Category deleted successfully');
+        $ids = explode(',', $request->input('ids'));
+        Category::destroy($ids);
+        return redirect()->route('admin.categories.index')
+                        ->with('success','Categories deleted successfully');
     }
+
 }

@@ -37,7 +37,7 @@
                             <th style="width: 20%;">Name</th>
                             <th style="width: 70%;">Description</th>
                             <th style="width: 10%;">Created</th>
-                        </thead>    
+                        </thead>
                     </tr>
                 </table>
                 @permission('role-delete')

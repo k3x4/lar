@@ -160,7 +160,7 @@ class UserController extends Controller
         $ids = explode(',', $request->input('ids'));
         User::destroy($ids);
         return redirect()->route('admin.users.index')
-                        ->with('success','Listing deleted successfully');
+                        ->with('success','Users deleted successfully');
     }
 
 }
