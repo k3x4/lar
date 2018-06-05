@@ -38,6 +38,12 @@ Route::group([
         'uses' => 'UserController@index', 
         'middleware' => ['permission:user-read|user-create|user-edit|user-delete']
         ]);
+
+    Route::get('admin/users/data', [
+        'as' => 'admin.users.data',
+        'uses' => 'UserController@data',
+        'middleware' => ['permission:user-read'],
+    ]);    
     
     Route::get('admin/users/create', [
         'as' => 'admin.users.create', 
@@ -63,7 +69,7 @@ Route::group([
         'middleware' => ['permission:user-edit']
         ]);
     
-    Route::delete('admin/users/{id}', [
+    Route::delete('admin/users/destroy', [
         'as' => 'admin.users.destroy', 
         'uses' => 'UserController@destroy', 
         'middleware' => ['permission:user-delete']
@@ -76,6 +82,12 @@ Route::group([
         'uses' => 'RoleController@index', 
         'middleware' => ['permission:role-read|role-create|role-edit|role-delete']
         ]);
+
+    Route::get('admin/roles/data', [
+        'as' => 'admin.roles.data',
+        'uses' => 'RoleController@data',
+        'middleware' => ['permission:role-read'],
+    ]);      
     
     Route::get('admin/roles/create', [
         'as' => 'admin.roles.create', 
@@ -101,7 +113,7 @@ Route::group([
         'middleware' => ['permission:role-edit']
         ]);
     
-    Route::delete('admin/roles/{id}', [
+    Route::delete('admin/roles/destroy', [
         'as' => 'admin.roles.destroy', 
         'uses' => 'RoleController@destroy', 
         'middleware' => ['permission:role-delete']

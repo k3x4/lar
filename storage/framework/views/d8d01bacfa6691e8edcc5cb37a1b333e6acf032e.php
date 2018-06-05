@@ -1,3 +1,10 @@
+<?php $__env->startSection('head'); ?>
+##parent-placeholder-1a954628a960aaef81d7b2d4521929579f3541e6##
+    <script src="<?php echo e(asset('js/lib/datatables/js/jquery.dataTables.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/lib/datatables/js/dataTables.bootstrap.js')); ?>"></script>
+    <link rel="stylesheet" href="<?php echo e(asset('js/lib/datatables/css/dataTables.bootstrap.css')); ?>">
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
 <div class="row">
     <div class="col-lg-12 margin-bottom">
@@ -20,54 +27,68 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <table class="table table-bordered table-striped">
+                <table class="table dtable table-bordered table-striped">
                     <tr>
-                        <th>No</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Roles</th>
-                        <th width="280px">Action</th>
+                        <thead>
+                            <th style="width:5px;"><input type="checkbox" class="selectAll"/></th>
+                            <th style="width: 1%;">ID</th>
+                            <th style="width: 20%;">Name</th>
+                            <th style="width: 20%;">Email</th>
+                            <th style="width: 50%;">Roles</th>
+                            <th style="width: 10%;">Created</th>
+                        </thead>    
                     </tr>
-                    <?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <tr>
-                        <td><?php echo e(++$i); ?></td>
-                        <td><?php echo e($user->name); ?></td>
-                        <td><?php echo e($user->email); ?></td>
-                        <td>
-                            <?php if(!empty($user->roles)): ?>
-                            <?php $__currentLoopData = $user->roles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $v): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <label class="label label-success"><?php echo e($v->display_name); ?></label>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            <?php endif; ?>
-                        </td>
-                        <td>
-                            <a class="btn btn-primary" href="<?php echo e(route('admin.users.edit',$user->id)); ?>">Edit</a>
-                            <?php echo Form::open(['method' => 'DELETE','route' => ['admin.users.destroy', $user->id],'style'=>'display:inline']); ?>
-
-                            <?php echo Form::submit('Delete', ['class' => 'btn btn-danger', 'data-confirm' => 'Are you sure you want to delete?']); ?>
-
-                            <?php echo Form::close(); ?>
-
-                        </td>
-                    </tr>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </table>
+                <?php if (\Entrust::can('user-delete')) : ?>
+                    <?php echo Form::open(['method' => 'DELETE', 'route' => ['admin.users.destroy'], 'class' => 'deleteForm']); ?>
+
+                    <?php echo Form::hidden('ids'); ?>
+
+                    <?php echo Form::submit('Delete', ['class' => 'btn btn-danger disabled', 'data-confirm' => 'Are you sure you want to delete?']); ?>
+
+                    <?php echo Form::close(); ?>
+
+                <?php endif; // Entrust::can ?>
             </div>
             <!-- /.box-body -->
-            <div class="box-footer clearfix">
-                <ul class="pagination pagination-sm no-margin pull-right">
-                    <li><a href="#">&laquo;</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">&raquo;</a></li>
-                </ul>
-            </div>
         </div>
         <!-- /.box -->
     </div>
 </div>
-<?php echo $data->render(); ?>
-
 <?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('footer_scripts'); ?>
+##parent-placeholder-c55a01b0a8ef1d7b211584e96d51bdf8930d1005##
+    <script>
+    $('.dtable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '<?php echo e(route("admin.users.data")); ?>',
+        order: [
+            [ 1, "desc" ]
+        ],
+        columnDefs: [
+            {
+                "targets": [ 0 ],
+                "orderable": false,
+                "searchable": false
+            },
+            {
+                "targets": [ 1 ],
+                "visible": false,
+                "searchable": false
+            }
+        ],
+        columns: [
+            {data: 'action', name: 'action'},
+            {data: 'id', name: 'id'},
+            {data: 'name', name: 'name'},
+            {data: 'email', name: 'email'},
+            {data: 'roles', name: 'roles'},
+            {data: 'created_at', name: 'created_at'}
+        ]
+    });
+    </script>
+<?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('admin.layout.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -8,6 +8,7 @@ use App\User;
 use App\Role;
 use DB;
 use Hash;
+use Yajra\Datatables\Datatables;
 
 class UserController extends Controller
 {
@@ -18,9 +19,32 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $data = User::orderBy('id','ASC')->paginate(5);
-        return view('admin.users.index',compact('data'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        return view('admin.users.index');
+    }
+
+    public function data()
+    {
+        $users = User::all();
+        return Datatables::of($users)
+            ->addColumn('roles', function ($user) {
+                $html  = '<div class="dtable-td-wrapper" style="text-align:left;">';
+                if(!empty($user->roles)){
+                    foreach($user->roles as $v){
+                        $class = 'label-' . strtolower($v->display_name);
+                        $html .= '<label class="label label-success ' . $class . '">' . $v->display_name . '</label>';
+                    }
+                }
+                $html .= '</div>';
+                return $html;
+            })
+            ->addColumn('action', function ($user) {
+                $html  = '<div class="dtable-td-wrapper">';
+                $html .= \Form::checkbox('action', $user->id, false, ['class' => 'select']);
+                $html .= '</div>';
+                return $html;
+            })
+            ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
+            ->make(true);
     }
 
     /**
@@ -129,10 +153,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        User::find($id)->delete();
+        $ids = explode(',', $request->input('ids'));
+        User::destroy($ids);
         return redirect()->route('admin.users.index')
-                         ->with('success','User deleted successfully');
+                        ->with('success','Listing deleted successfully');
     }
+
 }

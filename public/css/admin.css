@@ -63,6 +63,10 @@ table.dtable .dtable-td-wrapper .dtable-helper {
   vertical-align: middle;
 }
 
+table.dtable .dtable-td-wrapper .label-administrator {
+  background-color: #dd4b39 !important;
+}
+
 table.dtable input.select {
   display: inline-block;
 }
