@@ -66,9 +66,9 @@
         processing: true,
         serverSide: true,
         ajax: '<?php echo e(route("admin.categories.data")); ?>',
-        order: [
+        /*order: [
             [ 1, "desc" ]
-        ],
+        ],*/
         columnDefs: [
             {
                 "targets": [ 0 ],

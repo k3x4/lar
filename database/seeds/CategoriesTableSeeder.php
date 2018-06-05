@@ -61,6 +61,26 @@ class CategoriesTableSeeder extends Seeder
                                 .'Duis eu euismod elit. Aliquam vitae dapibus neque. Morbi dapibus '
                                 .'hendrerit velit. Proin et luctus enim.'
             ],
+            [
+                'parent_id' => '5',
+                'name' => 'Axel',
+                'display_name' => 'axel',
+                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
+                                .'Sed tristique interdum vestibulum. Phasellus vel nunc sem. '
+                                .'Sed egestas diam felis, faucibus dignissim urna condimentum id. '
+                                .'Duis eu euismod elit. Aliquam vitae dapibus neque. Morbi dapibus '
+                                .'hendrerit velit. Proin et luctus enim.'
+            ],
+            [
+                'parent_id' => '5',
+                'name' => 'Minus',
+                'display_name' => 'minus',
+                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
+                                .'Sed tristique interdum vestibulum. Phasellus vel nunc sem. '
+                                .'Sed egestas diam felis, faucibus dignissim urna condimentum id. '
+                                .'Duis eu euismod elit. Aliquam vitae dapibus neque. Morbi dapibus '
+                                .'hendrerit velit. Proin et luctus enim.'
+            ],
             
 
         ];

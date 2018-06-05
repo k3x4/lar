@@ -64,9 +64,9 @@
         processing: true,
         serverSide: true,
         ajax: '{{ route("admin.categories.data") }}',
-        order: [
+        /*order: [
             [ 1, "desc" ]
-        ],
+        ],*/
         columnDefs: [
             {
                 "targets": [ 0 ],
