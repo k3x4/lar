@@ -9,6 +9,7 @@ use DB;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Libraries\Category as CategoryTools;
+use App\Libraries\Tools;
 
 class ListingController extends Controller
 {
@@ -32,6 +33,7 @@ class ListingController extends Controller
                 $html .= '</div>';
                 return $html;
             })
+            ->editColumn('title', '{!! Html::link(route("admin.listings.edit", [$id]), $title) !!}')
             ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
             ->make(true);
     }
@@ -59,7 +61,25 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'title' => 'required',
+            'category_id' => 'required',
+        ]);
+        
+        //$product = Product::create($request->except('feature_image'));
+        
+        $listing = new Listing();
+        $listing->category_id = $request->input('category_id');
+        $listing->title = $request->input('title');
+        $listing->slug = Tools::slug($request->input('title'));
+        $listing->content = $request->input('content');
+        $listing->save();
 
+        // $mediaConverter = new MediaConverter($product);
+        // $mediaConverter->saveImage($request->input('feature_image'));
+
+        return redirect()->route('admin.listings.index')
+                        ->with('success','Listing created successfully');
     }
 
     /**
@@ -83,12 +103,14 @@ class ListingController extends Controller
     public function edit($id)
     {
         $listing = Listing::find($id);
-        
-        $categories = Category::get();
-        $listingCategories = DB::table("category_listing")->where("category_listing.listing_id", $id)
-            ->pluck('category_listing.category_id', 'category_listing.category_id')->toArray();
 
-        return view('admin.listings.edit', compact('listing', 'categories', 'listingCategories'));
+        $categories = Category::whereNull('category_id')->get();
+        $categories = CategoryTools::makeTree($categories, true, true);
+        $categories = collect($categories);
+
+        $categories = $categories->pluck('display_name', 'id')->toArray();
+
+        return view('admin.listings.edit', compact('listing', 'categories'));
     }
 
     /**
@@ -100,7 +122,16 @@ class ListingController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'title' => 'required',
+            'category_id' => 'required',
+        ]);
 
+        $listing = Listing::find($id);
+        $listing->update($request->all());
+
+        return redirect()->route('admin.listings.index')
+                        ->with('success','Listing updated successfully');
     }
 
     /**

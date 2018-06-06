@@ -8,7 +8,7 @@ class Listing extends Model
 {
     protected $fillable = ['title', 'slug', 'content'];
     
-    public function categories(){
-        return $this->hasMany('App\Category');
+    public function category(){
+        return $this->belongsTo('App\Category');
     }
 }

@@ -15,6 +15,7 @@ class CreateListingsTable extends Migration
     {
         Schema::create('listings', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('category_id')->unsigned()->default('1');
             $table->string('title');
             $table->string('slug');
             $table->text('content')->nullable();

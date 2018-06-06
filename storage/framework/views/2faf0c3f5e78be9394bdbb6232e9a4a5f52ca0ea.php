@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-lg-12 margin-bottom">
         <div class="pull-right">
-            <a class="btn btn-primary" href="<?php echo e(route('admin.listings')); ?>"> Back</a>
+            <a class="btn btn-primary" href="<?php echo e(route('admin.listings.index')); ?>"> Back</a>
         </div>
     </div>
 </div>
@@ -37,14 +37,10 @@
 
                 </div>
                 <div class="form-group">
-                    <strong>Categories:</strong>
-                    <br/>
-                    <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <label><?php echo e(Form::checkbox('category[]', $category->id, in_array($category->id, $listingCategories) ? true : false)); ?>
+                    <strong>Category:</strong>
+                    <?php echo Form::select('category', $categories, $listing->category->id); ?>
 
-                        <?php echo e($category->display_name); ?></label>
                     <br/>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
                 <button type="submit" class="btn btn-success">Submit</button>
             </div>

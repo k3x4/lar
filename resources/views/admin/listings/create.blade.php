@@ -36,11 +36,11 @@
                 </div>
                 <div class="form-group">
                     <strong>Description:</strong>
-                    {!! Form::textarea('description', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']) !!}
+                    {!! Form::textarea('content', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']) !!}
                 </div>
                 <div class="form-group">
                     <strong>Category:</strong>
-                    {!! Form::select('category', $categories, null) !!}
+                    {!! Form::select('category_id', $categories, null) !!}
                     <br/>
                 </div>
                 <button type="submit" class="btn btn-success">Submit</button>
