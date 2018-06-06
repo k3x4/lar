@@ -32,7 +32,11 @@
                     {!! Form::text('title', null, ['placeholder' => 'Title','class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
-                    <strong>Description:</strong>
+                    <strong>Slug:</strong>
+                    {!! Form::text('slug', null, ['placeholder' => 'Slug','class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    <strong>Content:</strong>
                     {!! Form::textarea('content', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']) !!}
                 </div>
                 <div class="form-group">

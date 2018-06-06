@@ -36,12 +36,12 @@
                 </div>
                 <div class="form-group">
                     <strong>Description:</strong>
-                    <?php echo Form::textarea('description', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']); ?>
+                    <?php echo Form::textarea('content', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']); ?>
 
                 </div>
                 <div class="form-group">
                     <strong>Category:</strong>
-                    <?php echo Form::select('category', $categories, null); ?>
+                    <?php echo Form::select('category_id', $categories, null); ?>
 
                     <br/>
                 </div>

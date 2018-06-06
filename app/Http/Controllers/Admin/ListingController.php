@@ -34,6 +34,7 @@ class ListingController extends Controller
                 return $html;
             })
             ->editColumn('title', '{!! Html::link(route("admin.listings.edit", [$id]), $title) !!}')
+            ->editColumn('content', '{{ strip_tags($content) }}')
             ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
             ->make(true);
     }
@@ -128,7 +129,13 @@ class ListingController extends Controller
         ]);
 
         $listing = Listing::find($id);
-        $listing->update($request->all());
+        
+        $data = $request->all();
+        if(!$data['slug']){
+            $data['slug'] = Tools::slug($data['title']);
+        }
+
+        $listing->update($data);
 
         return redirect()->route('admin.listings.index')
                         ->with('success','Listing updated successfully');

@@ -32,13 +32,18 @@
 
                 </div>
                 <div class="form-group">
-                    <strong>Description:</strong>
-                    <?php echo Form::textarea('description', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']); ?>
+                    <strong>Slug:</strong>
+                    <?php echo Form::text('slug', null, ['placeholder' => 'Slug','class' => 'form-control']); ?>
+
+                </div>
+                <div class="form-group">
+                    <strong>Content:</strong>
+                    <?php echo Form::textarea('content', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']); ?>
 
                 </div>
                 <div class="form-group">
                     <strong>Category:</strong>
-                    <?php echo Form::select('category', $categories, $listing->category->id); ?>
+                    <?php echo Form::select('category_id', $categories, $listing->category->id); ?>
 
                     <br/>
                 </div>
