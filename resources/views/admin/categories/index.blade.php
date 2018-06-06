@@ -36,8 +36,8 @@
                         <thead>
                             <th style="width:5px;"><input type="checkbox" class="selectAll"/></th>
                             <th style="width: 1%;">ID</th>
-                            <th style="width: 20%;">Name</th>
                             <th style="width: 20%;">Display Name</th>
+                            <th style="width: 20%;">Slug</th>
                             <th style="width: 50%;">Description</th>
                             <th style="width: 10%;">Created</th>
                         </thead>
@@ -82,8 +82,8 @@
         columns: [
             {data: 'action', name: 'action'},
             {data: 'id', name: 'id'},
-            {data: 'catname', name: 'catname'},
             {data: 'display_name', name: 'display_name'},
+            {data: 'name', name: 'name'},
             {data: 'description', name: 'description'},
             {data: 'created_at', name: 'created_at'}
         ]

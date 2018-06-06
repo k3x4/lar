@@ -40,9 +40,10 @@
 
                 </div>
                 <div class="form-group">
-                    <strong>Categories:</strong>
+                    <strong>Category:</strong>
+                    <?php echo Form::select('category', $categories, null); ?>
+
                     <br/>
-                    
                 </div>
                 <button type="submit" class="btn btn-success">Submit</button>
             </div>

@@ -8,6 +8,7 @@ use App\Category;
 use DB;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
+use App\Libraries\Category as CategoryTools;
 
 class ListingController extends Controller
 {
@@ -42,7 +43,12 @@ class ListingController extends Controller
      */
     public function create()
     {
-        return view('admin.listings.create');
+        $categories = Category::whereNull('category_id')->get();
+        $categories = CategoryTools::makeTree($categories, true, true);
+        $categories = collect($categories);
+
+        $categories = $categories->pluck('display_name', 'id')->toArray();
+        return view('admin.listings.create', compact('categories'));
     }
 
     /**

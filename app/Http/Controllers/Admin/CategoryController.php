@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Category;
 use DB;
 use Yajra\Datatables\Datatables;
+use App\Libraries\Category as CategoryTools;
 
 class CategoryController extends Controller
 {
@@ -19,21 +20,10 @@ class CategoryController extends Controller
         return view('admin.categories.index');
     }
 
-    private function makeTree($parentCategories, $list = []){
-        foreach($parentCategories as $category){
-            $list[] = $category;
-            if($category->childs){
-                $list = $list + $this->makeTree($category->childs, $list);
-            }
-        }
-
-        return $list;
-    }
-
     public function data()
     {
         $categories = Category::whereNull('category_id')->get();
-        $categories = $this->makeTree($categories);
+        $categories = CategoryTools::makeTree($categories);
         $categories = collect($categories);
 
         return Datatables::of($categories)
@@ -43,7 +33,7 @@ class CategoryController extends Controller
                 $html .= '</div>';
                 return $html;
             })
-            ->editColumn('catname', '<div class="space">{{ $category_id ? str_pad("", $level - 1, "\t", STR_PAD_LEFT) . "└── " . $name : $name }}</div>')
+            //->editColumn('display_name', '<div class="space">{{ $category_id ? str_pad("", $level - 1, "\t", STR_PAD_LEFT) . "└── " . $display_name : $display_name }}</div>')
             ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
             ->make(true);
     }
@@ -74,8 +64,8 @@ class CategoryController extends Controller
         
         $fillable = [
             'category_id' => $request->input('category_id'),
-            'name' => $categoryName,
             'display_name' => $request->input('display_name'),
+            'name' => $categoryName,
             'description' => $request->input('description'),
         ];
         
@@ -134,8 +124,8 @@ class CategoryController extends Controller
         
         $fillable = [
             'category_id' => $request->input('category_id'),
-            'name' => $categoryName,
             'display_name' => $request->input('display_name'),
+            'name' => $categoryName,
             'description' => $request->input('description'),
         ];
         

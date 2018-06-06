@@ -15,71 +15,50 @@ class CategoriesTableSeeder extends Seeder
         $categories = [
             
             [
-                'name' => 'Food',
-                'display_name' => 'food',
+                'display_name' => 'Food',
+                'name' => 'food',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
                                 .'Sed tristique interdum vestibulum. Phasellus vel nunc sem. '
-                                .'Sed egestas diam felis, faucibus dignissim urna condimentum id. '
-                                .'Duis eu euismod elit. Aliquam vitae dapibus neque. Morbi dapibus '
-                                .'hendrerit velit. Proin et luctus enim.'
             ],
             [
                 'category_id' => '1',
-                'name' => 'Junk',
-                'display_name' => 'junk',
+                'display_name' => 'Junk',
+                'name' => 'junk',                
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
                                 .'Sed tristique interdum vestibulum. Phasellus vel nunc sem. '
-                                .'Sed egestas diam felis, faucibus dignissim urna condimentum id. '
-                                .'Duis eu euismod elit. Aliquam vitae dapibus neque. Morbi dapibus '
-                                .'hendrerit velit. Proin et luctus enim.'
             ],
             [
                 'category_id' => '1',
-                'name' => 'Lite',
-                'display_name' => 'lite',
+                'display_name' => 'Lite',
+                'name' => 'lite',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
                                 .'Sed tristique interdum vestibulum. Phasellus vel nunc sem. '
-                                .'Sed egestas diam felis, faucibus dignissim urna condimentum id. '
-                                .'Duis eu euismod elit. Aliquam vitae dapibus neque. Morbi dapibus '
-                                .'hendrerit velit. Proin et luctus enim.'
             ],
             [
-                'name' => 'Travel',
-                'display_name' => 'travel',
+                'display_name' => 'Travel',
+                'name' => 'travel',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
                                 .'Sed tristique interdum vestibulum. Phasellus vel nunc sem. '
-                                .'Sed egestas diam felis, faucibus dignissim urna condimentum id. '
-                                .'Duis eu euismod elit. Aliquam vitae dapibus neque. Morbi dapibus '
-                                .'hendrerit velit. Proin et luctus enim.'
             ],
             [
-                'name' => 'Furniture',
-                'display_name' => 'furniture',
+                'display_name' => 'Furniture',
+                'name' => 'furniture',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
                                 .'Sed tristique interdum vestibulum. Phasellus vel nunc sem. '
-                                .'Sed egestas diam felis, faucibus dignissim urna condimentum id. '
-                                .'Duis eu euismod elit. Aliquam vitae dapibus neque. Morbi dapibus '
-                                .'hendrerit velit. Proin et luctus enim.'
             ],
             [
                 'category_id' => '5',
-                'name' => 'Axel',
-                'display_name' => 'axel',
+                'display_name' => 'Axel',
+                'name' => 'axel',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
                                 .'Sed tristique interdum vestibulum. Phasellus vel nunc sem. '
-                                .'Sed egestas diam felis, faucibus dignissim urna condimentum id. '
-                                .'Duis eu euismod elit. Aliquam vitae dapibus neque. Morbi dapibus '
-                                .'hendrerit velit. Proin et luctus enim.'
             ],
             [
                 'category_id' => '5',
-                'name' => 'Minus',
-                'display_name' => 'minus',
+                'display_name' => 'Minus',
+                'name' => 'minus',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
                                 .'Sed tristique interdum vestibulum. Phasellus vel nunc sem. '
-                                .'Sed egestas diam felis, faucibus dignissim urna condimentum id. '
-                                .'Duis eu euismod elit. Aliquam vitae dapibus neque. Morbi dapibus '
-                                .'hendrerit velit. Proin et luctus enim.'
             ],
             
 
@@ -88,5 +67,9 @@ class CategoriesTableSeeder extends Seeder
         foreach ($categories as $category) {
             Category::create($category);
         }
+
+        $cat = Category::find(1);
+        $cat->category_id = 4;
+        $cat->save();
     }
 }

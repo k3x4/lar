@@ -38,17 +38,17 @@
     border-right: none;
 }
 */
+
+.sub-item{
+    padding-left:20px;
+}
+
 .dataTables_wrapper .dataTable>tbody>tr>td:first-child,
 {
     text-align: center;
 }
 
 table.dtable {
-
-    .space{
-        white-space: pre;
-    }
-    
     & > tbody{
         & > tr{
             & > td{

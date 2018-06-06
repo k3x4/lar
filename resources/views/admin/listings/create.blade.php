@@ -39,13 +39,9 @@
                     {!! Form::textarea('description', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']) !!}
                 </div>
                 <div class="form-group">
-                    <strong>Categories:</strong>
+                    <strong>Category:</strong>
+                    {!! Form::select('category', $categories, null) !!}
                     <br/>
-                    {{-- @foreach($categories as $category)
-                    <label>{{ Form::checkbox('category[]', $category->id, in_array($category->id, $productCategories) ? true : false) }}
-                        {{ $category->display_name }}</label>
-                    <br/>
-                    @endforeach --}}
                 </div>
                 <button type="submit" class="btn btn-success">Submit</button>
             </div>

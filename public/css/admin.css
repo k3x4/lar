@@ -39,12 +39,12 @@
 }
 */
 
-.dataTables_wrapper .dataTable > tbody > tr > td:first-child {
-  text-align: center;
+.sub-item {
+  padding-left: 20px;
 }
 
-table.dtable .space {
-  white-space: pre;
+.dataTables_wrapper .dataTable > tbody > tr > td:first-child {
+  text-align: center;
 }
 
 table.dtable > tbody > tr > td {
