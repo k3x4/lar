@@ -69,15 +69,34 @@ class Tools
         return $text;
     }
 
+    public static function checkExistsSlug($slug){
+        $check = \App\Listing::where('slug', '=', $slug)->exists() ||
+                 \App\Category::where('slug', '=', $slug)->exists();
+
+        return $check;
+    }
+
     public static function slug($text, $greeklish = true) {
-        if($greeklish)
+        if($greeklish){
             $text = self::greeklishSlugs($text);
+        }
         
+        $text = trim($text);
         $text = strtolower($text);
         $text = preg_replace('/[^a-z0-9 -]+/', '', $text);
-        $text = str_replace(' ', '-', $text);
+        $text = str_replace('.', ' ', $text);
+        $slug = str_replace(' ', '-', $text);
+
+        $index = 0;
+        $tempSlug = $slug;
+        $exists = self::checkExistsSlug($slug);
+        while($exists){
+            $index++;
+            $slug = $tempSlug . '-' . $index;
+            $exists = self::checkExistsSlug($slug);
+        }
         
-        return trim($text, '-');
+        return $slug;
     }
 
 }

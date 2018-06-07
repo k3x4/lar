@@ -15,48 +15,42 @@ class CategoriesTableSeeder extends Seeder
         $categories = [
             
             [
-                'display_name' => 'Food',
-                'name' => 'food',
+                'title' => 'Food',
+                'slug' => 'food',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
                                 .'Sed tristique interdum vestibulum. Phasellus vel nunc sem. '
             ],
             [
                 'category_id' => '1',
-                'display_name' => 'Junk',
-                'name' => 'junk',                
+                'title' => 'Junk',
+                'slug' => 'junk',                
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
                                 .'Sed tristique interdum vestibulum. Phasellus vel nunc sem. '
             ],
             [
                 'category_id' => '1',
-                'display_name' => 'Lite',
-                'name' => 'lite',
+                'title' => 'Lite',
+                'slug' => 'lite',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
                                 .'Sed tristique interdum vestibulum. Phasellus vel nunc sem. '
             ],
             [
-                'display_name' => 'Travel',
-                'name' => 'travel',
+                'title' => 'Furniture',
+                'slug' => 'furniture',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
                                 .'Sed tristique interdum vestibulum. Phasellus vel nunc sem. '
             ],
             [
-                'display_name' => 'Furniture',
-                'name' => 'furniture',
+                'category_id' => '4',
+                'title' => 'Axel',
+                'slug' => 'axel',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
                                 .'Sed tristique interdum vestibulum. Phasellus vel nunc sem. '
             ],
             [
-                'category_id' => '5',
-                'display_name' => 'Axel',
-                'name' => 'axel',
-                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
-                                .'Sed tristique interdum vestibulum. Phasellus vel nunc sem. '
-            ],
-            [
-                'category_id' => '5',
-                'display_name' => 'Minus',
-                'name' => 'minus',
+                'category_id' => '4',
+                'title' => 'Minus',
+                'slug' => 'minus',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
                                 .'Sed tristique interdum vestibulum. Phasellus vel nunc sem. '
             ],
@@ -68,8 +62,5 @@ class CategoriesTableSeeder extends Seeder
             Category::create($category);
         }
 
-        $cat = Category::find(1);
-        $cat->category_id = 4;
-        $cat->save();
     }
 }

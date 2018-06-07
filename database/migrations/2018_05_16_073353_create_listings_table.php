@@ -17,7 +17,7 @@ class CreateListingsTable extends Migration
             $table->increments('id');
             $table->integer('category_id')->unsigned()->default('1');
             $table->string('title');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->text('content')->nullable();
             $table->timestamps();
         });

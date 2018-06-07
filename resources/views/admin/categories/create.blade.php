@@ -1,5 +1,11 @@
 @extends('admin.layout.master')
 
+@section('head')
+@parent
+    <script src="{{ asset('js/lib/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('js/lib/bootstrap-select/css/bootstrap-select.min.css') }}">
+@endsection
+
 @section('content')
 <div class="row">
     <div class="col-lg-12 margin-bottom">
@@ -28,8 +34,16 @@
             {!! Form::open(['route' => 'admin.categories.store','method'=>'POST']) !!}
             <div class="box-body">
                 <div class="form-group">
-                    <strong>Name:</strong>
-                    {!! Form::text('display_name', null, ['placeholder' => 'Name','class' => 'form-control']) !!}
+                    <strong>Title:</strong>
+                    {!! Form::text('title', null, ['placeholder' => 'Title','class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    <strong>Slug:</strong>
+                    {!! Form::text('slug', null, ['placeholder' => 'Slug','class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    <strong>Parent category:</strong>
+                    {!! Form::select('category_id', $categories, null, ['class' => 'selectpicker']) !!}
                 </div>
                 <div class="form-group">
                     <strong>Description:</strong>
@@ -41,4 +55,13 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('footer_scripts')
+@parent
+    <script>
+        $(function () {
+            $('.selectpicker').selectpicker('toggle');
+        });
+    </script>
 @endsection

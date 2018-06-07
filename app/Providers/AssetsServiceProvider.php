@@ -53,6 +53,11 @@ class AssetsServiceProvider extends ServiceProvider
             base_path('node_modules') . '/bootstrap-select/dist' => public_path('js/lib/bootstrap-select'),
         ], 'public');
 
+        // ICHECK-2
+        $this->publishes([
+            base_path('node_modules') . '/icheck-2' => public_path('js/lib/icheck-2'),
+        ], 'public');
+
         // DATATABLES
         $this->publishes([
             base_path('node_modules') . '/datatables.net/js' => public_path('js/lib/datatables/js'),

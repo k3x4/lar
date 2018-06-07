@@ -8,6 +8,7 @@ use App\Category;
 use DB;
 use Yajra\Datatables\Datatables;
 use App\Libraries\Category as CategoryTools;
+use App\Libraries\Tools;
 
 class CategoryController extends Controller
 {
@@ -33,7 +34,9 @@ class CategoryController extends Controller
                 $html .= '</div>';
                 return $html;
             })
-            //->editColumn('display_name', '<div class="space">{{ $category_id ? str_pad("", $level - 1, "\t", STR_PAD_LEFT) . "└── " . $display_name : $display_name }}</div>')
+            //->editColumn('title', '<div class="space">{{ $category_id ? str_pad("", $level - 1, "\t", STR_PAD_LEFT) . "└── " . $title : $title }}</div>')
+            ->editColumn('title', '{!! Html::link(route("admin.categories.edit", [$id]), $title) !!}')
+            ->editColumn('description', '{{ strip_tags($description) }}')
             ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
             ->make(true);
     }
@@ -45,7 +48,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        $categories = Category::whereNull('category_id')->get();
+        $categories = CategoryTools::makeOptions($categories);
+
+        return view('admin.categories.create', compact('categories'));
     }
 
     /**
@@ -57,15 +63,19 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'display_name' => 'required'
+            'title' => 'required'
         ]);
         
-        $categoryName = slug($request->input('display_name'));
-        
+        if($request->input('slug')){
+            $slug = Tools::slug($request->input('slug'));
+        } else {
+            $slug = Tools::slug($request->input('title'));
+        }
+
         $fillable = [
             'category_id' => $request->input('category_id'),
-            'display_name' => $request->input('display_name'),
-            'name' => $categoryName,
+            'title' => $request->input('title'),
+            'slug' => $slug,
             'description' => $request->input('description'),
         ];
         
@@ -96,12 +106,9 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::find($id);
-        
-        $categories = DB::table('categories')
-            ->select('id', 'display_name')
-            ->where('id', '!=', $id)    
-            ->pluck('display_name', 'id')
-            ->toArray();
+
+        $categories = Category::whereNull('category_id')->get();
+        $categories = CategoryTools::makeOptions($categories);
 
         return view('admin.categories.edit',compact('category', 'categories'));
     }
@@ -116,16 +123,21 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'display_name' => 'required'
+            'title' => 'required'
         ]);
 
         $category = Category::find($id);
-        $categoryName = slug($request->input('display_name'));
+
+        if($request->input('slug')){
+            $slug = Tools::slug($request->input('slug'));
+        } else {
+            $slug = Tools::slug($request->input('title'));
+        }
         
         $fillable = [
             'category_id' => $request->input('category_id'),
-            'display_name' => $request->input('display_name'),
-            'name' => $categoryName,
+            'title' => $request->input('title'),
+            'slug' => $slug,
             'description' => $request->input('description'),
         ];
         

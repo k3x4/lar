@@ -15,6 +15,7 @@ class ListingsTableSeeder extends Seeder
         $listings = [
             
             [
+                'category_id' => 2,
                 'title' => 'Neque porro quisquam est',
                 'slug' => 'neque-porro-quisquam-est',
                 'content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
@@ -24,6 +25,7 @@ class ListingsTableSeeder extends Seeder
                                 .'hendrerit velit. Proin et luctus enim.'
             ],
             [
+                'category_id' => 3,
                 'title' => 'Ut sapien erat, convallis',
                 'slug' => 'ut-sapien-erat-convallis',
                 'content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
@@ -33,6 +35,7 @@ class ListingsTableSeeder extends Seeder
                                 .'hendrerit velit. Proin et luctus enim.'
             ],
             [
+                'category_id' => 5,
                 'title' => 'Sed aliquam felis',
                 'slug' => 'sed-aliquam-felis',
                 'content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
@@ -42,6 +45,7 @@ class ListingsTableSeeder extends Seeder
                                 .'hendrerit velit. Proin et luctus enim.'
             ],
             [
+                'category_id' => 6,
                 'title' => 'Maecenas volutpat ligula',
                 'slug' => 'maecenas-volutpat-ligula',
                 'content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '

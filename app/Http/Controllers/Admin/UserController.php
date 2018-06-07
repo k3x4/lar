@@ -45,6 +45,7 @@ class UserController extends Controller
                 $html .= '</div>';
                 return $html;
             })
+            ->editColumn('name', '{!! Html::link(route("admin.users.edit", [$id]), $name) !!}')
             ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
             ->make(true);
     }

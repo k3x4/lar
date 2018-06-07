@@ -1,5 +1,11 @@
-.form-group > strong {
+.content .form-group {
+  margin-bottom: 20px;
+}
+
+.content .form-group > strong {
   display: block;
+  margin-bottom: 5px;
+  text-decoration: underline;
 }
 
 .img-wrap {
@@ -77,6 +83,8 @@ table.dtable input.select {
 
 .bootstrap-select {
   overflow: hidden;
+  float: left;
+  display: block !important;
 }
 
 .bootstrap-select .dropdown-menu {

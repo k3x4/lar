@@ -3,6 +3,9 @@
     <script src="<?php echo e(asset('js/lib/datatables/js/jquery.dataTables.js')); ?>"></script>
     <script src="<?php echo e(asset('js/lib/datatables/js/dataTables.bootstrap.js')); ?>"></script>
     <link rel="stylesheet" href="<?php echo e(asset('js/lib/datatables/css/dataTables.bootstrap.css')); ?>">
+
+    <script src="<?php echo e(asset('js/lib/icheck-2/icheck.js')); ?>"></script>
+    <link rel="stylesheet" href="<?php echo e(asset('js/lib/icheck-2/skins/minimal/blue.css')); ?>">
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -92,7 +95,12 @@
             {data: 'crop', name: 'crop'},
             {data: 'crop_position', name: 'crop_position'},
             {data: 'enabled', name: 'enabled'}
-        ]
+        ],
+        "initComplete": function( settings, json ) {
+            $('input[type="checkbox"]').icheck({
+                checkboxClass: 'icheckbox_minimal-blue',
+            });
+        }
     });
     </script>
 <?php $__env->stopSection(); ?>

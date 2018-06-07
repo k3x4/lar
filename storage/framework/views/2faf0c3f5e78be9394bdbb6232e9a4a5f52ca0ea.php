@@ -46,7 +46,6 @@
                     <strong>Category:</strong>
                     <?php echo Form::select('category_id', $categories, null, ['class' => 'selectpicker']); ?>
 
-                    <br/>
                 </div>
                 <div class="form-group">
                     <strong>Content:</strong>

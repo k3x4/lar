@@ -38,9 +38,12 @@
                     {!! Form::text('title', null, ['placeholder' => 'Title','class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
+                    <strong>Slug:</strong>
+                    {!! Form::text('slug', null, ['placeholder' => 'Slug','class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
                     <strong>Category:</strong>
                     {!! Form::select('category_id', $categories, null, ['class' => 'selectpicker']) !!}
-                    <br/>
                 </div>
                 <div class="form-group">
                     <strong>Image:</strong>

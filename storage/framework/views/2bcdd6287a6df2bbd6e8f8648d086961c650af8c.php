@@ -38,10 +38,14 @@
 
                 </div>
                 <div class="form-group">
+                    <strong>Slug:</strong>
+                    <?php echo Form::text('slug', null, ['placeholder' => 'Slug','class' => 'form-control']); ?>
+
+                </div>
+                <div class="form-group">
                     <strong>Category:</strong>
                     <?php echo Form::select('category_id', $categories, null, ['class' => 'selectpicker']); ?>
 
-                    <br/>
                 </div>
                 <div class="form-group">
                     <strong>Image:</strong>

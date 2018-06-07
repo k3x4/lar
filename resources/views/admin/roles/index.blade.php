@@ -5,6 +5,9 @@
     <script src="{{ asset('js/lib/datatables/js/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('js/lib/datatables/js/dataTables.bootstrap.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('js/lib/datatables/css/dataTables.bootstrap.css') }}">
+
+    <script src="{{ asset('js/lib/icheck-2/icheck.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('js/lib/icheck-2/skins/minimal/blue.css') }}">
 @endsection
 
 @section('content')
@@ -82,7 +85,12 @@
             {data: 'name', name: 'name'},
             {data: 'description', name: 'description'},
             {data: 'created_at', name: 'created_at'}
-        ]
+        ],
+        "initComplete": function( settings, json ) {
+            $('input[type="checkbox"]').icheck({
+                checkboxClass: 'icheckbox_minimal-blue',
+            });
+        }
     });
     </script>
 @endsection

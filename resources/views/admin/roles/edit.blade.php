@@ -1,5 +1,11 @@
 @extends('admin.layout.master')
 
+@section('head')
+@parent
+    <script src="{{ asset('js/lib/icheck-2/icheck.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('js/lib/icheck-2/skins/minimal/blue.css') }}">
+@endsection
+
 @section('content')
 <div class="row">
     <div class="col-lg-12 margin-bottom">
@@ -50,4 +56,13 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('footer_scripts')
+@parent
+    <script>
+        $('input[type="checkbox"]').icheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+        });
+    </script>
 @endsection

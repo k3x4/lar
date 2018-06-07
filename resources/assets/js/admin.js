@@ -76,21 +76,37 @@ $(document).ready(function () {
         }
 
         if(numberOfChecked == numberAll){
-            $('.dataTable .selectAll').prop('checked', true);
+            $('.dataTable .selectAll').prop('checked', true).icheck('updated');
+            //$('.dataTable .selectAll').icheck('check');
         } else {
-            $('.dataTable .selectAll').prop('checked', false);
+            $('.dataTable .selectAll').prop('checked', false).icheck('updated');
+            //$('.dataTable .selectAll').icheck('uncheck');
         }
     });
+
+    // $('.dataTable .selectAll').on('ifChecked', function (event) {
+    //     $('.dataTable .select').each(function () {
+    //         $(this).prop('checked', true).icheck('updated');
+    //         $(".deleteForm input[type='submit']").removeClass("disabled");
+    //     });
+    // });
+
+    // $('.dataTable .selectAll').on('ifUnchecked', function (event) {
+    //     $('.dataTable .select').each(function () {
+    //         $(this).prop('checked', false).icheck('updated');
+    //         $(".deleteForm input[type='submit']").addClass("disabled");
+    //     });
+    // });
 
     $(document).on('click','.dataTable .selectAll', {} ,function () {
         if($(this).is(":checked")){
             $('.dataTable .select').each(function(){
-                $(this).prop('checked', true);
+                $(this).prop('checked', true).icheck('updated');
                 $(".deleteForm input[type='submit']").removeClass("disabled");
             });
         } else {
             $('.dataTable .select').each(function(){
-                $(this).prop('checked', false); 
+                $(this).prop('checked', false).icheck('updated');
                 $(".deleteForm input[type='submit']").addClass("disabled");
             });
         }

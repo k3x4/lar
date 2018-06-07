@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $fillable = ['display_name', 'name', 'description'];
+    protected $fillable = ['category_id', 'title', 'slug', 'description'];
     protected $appends = ['level'];
     
     public function listings(){

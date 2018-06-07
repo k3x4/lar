@@ -1,3 +1,9 @@
+<?php $__env->startSection('head'); ?>
+##parent-placeholder-1a954628a960aaef81d7b2d4521929579f3541e6##
+    <script src="<?php echo e(asset('js/lib/icheck-2/icheck.js')); ?>"></script>
+    <link rel="stylesheet" href="<?php echo e(asset('js/lib/icheck-2/skins/minimal/blue.css')); ?>">
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
 <div class="row">
     <div class="col-lg-12 margin-bottom">
@@ -53,5 +59,14 @@
         </div>
     </div>
 </div>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('footer_scripts'); ?>
+##parent-placeholder-c55a01b0a8ef1d7b211584e96d51bdf8930d1005##
+    <script>
+        $('input[type="checkbox"]').icheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+        });
+    </script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin.layout.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

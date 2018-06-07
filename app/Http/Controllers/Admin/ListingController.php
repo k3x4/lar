@@ -66,11 +66,19 @@ class ListingController extends Controller
         ]);
         
         //$product = Product::create($request->except('feature_image'));
+
+        $slug = $request->input('slug');
+
+        if($slug){
+            $slug = Tools::slug($request->input('slug'));
+        } else {
+            $slug = Tools::slug($request->input('title'));
+        }
         
         $listing = new Listing();
         $listing->category_id = $request->input('category_id');
         $listing->title = $request->input('title');
-        $listing->slug = Tools::slug($request->input('title'));
+        $listing->slug = $slug;
         $listing->content = $request->input('content');
         $listing->save();
 

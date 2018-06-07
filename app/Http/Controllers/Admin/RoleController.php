@@ -32,6 +32,7 @@ class RoleController extends Controller {
                 $html .= '</div>';
                 return $html;
             })
+            ->editColumn('name', '{!! Html::link(route("admin.roles.edit", [$id]), $name) !!}')
             ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
             ->make(true);
     }
@@ -56,7 +57,6 @@ class RoleController extends Controller {
         $this->validate($request, [
             'name' => 'required|unique:roles,name',
             'display_name' => 'required',
-            'description' => 'required',
             'permission' => 'required',
         ]);
 
@@ -70,7 +70,7 @@ class RoleController extends Controller {
             $role->attachPermission($value);
         }
 
-        return redirect()->route('admin.roles')
+        return redirect()->route('admin.roles.index')
                         ->with('success','Role created successfully');
     }
 
@@ -118,7 +118,6 @@ class RoleController extends Controller {
     public function update(Request $request, $id) {
         $this->validate($request, [
             'display_name' => 'required',
-            'description' => 'required',
             'permission' => 'required',
         ]);
 
