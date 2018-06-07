@@ -79,3 +79,19 @@ table.dtable {
         //vertical-align: middle;
     }
 }
+
+.bootstrap-select{
+    overflow: hidden;
+    .dropdown-menu{
+        display: block !important;
+        position: relative !important;
+        transform: none !important
+    }
+    button.dropdown-toggle{
+        display: none;
+    }
+    .dropdown-header {
+        font-size: inherit;
+        font-weight: bold;
+    }
+}

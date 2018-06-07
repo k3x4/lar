@@ -47,10 +47,8 @@ class ListingController extends Controller
     public function create()
     {
         $categories = Category::whereNull('category_id')->get();
-        $categories = CategoryTools::makeTree($categories, true, true);
-        $categories = collect($categories);
+        $categories = CategoryTools::makeOptionGroup($categories);
 
-        $categories = $categories->pluck('display_name', 'id')->toArray();
         return view('admin.listings.create', compact('categories'));
     }
 
@@ -106,10 +104,7 @@ class ListingController extends Controller
         $listing = Listing::find($id);
 
         $categories = Category::whereNull('category_id')->get();
-        $categories = CategoryTools::makeTree($categories, true, true);
-        $categories = collect($categories);
-
-        $categories = $categories->pluck('display_name', 'id')->toArray();
+        $categories = CategoryTools::makeOptionGroup($categories);
 
         return view('admin.listings.edit', compact('listing', 'categories'));
     }

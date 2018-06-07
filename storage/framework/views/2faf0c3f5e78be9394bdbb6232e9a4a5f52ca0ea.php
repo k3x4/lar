@@ -1,3 +1,9 @@
+<?php $__env->startSection('head'); ?>
+##parent-placeholder-1a954628a960aaef81d7b2d4521929579f3541e6##
+    <script src="<?php echo e(asset('js/lib/bootstrap-select/js/bootstrap-select.min.js')); ?>"></script>
+    <link rel="stylesheet" href="<?php echo e(asset('js/lib/bootstrap-select/css/bootstrap-select.min.css')); ?>">
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
 <div class="row">
     <div class="col-lg-12 margin-bottom">
@@ -37,15 +43,15 @@
 
                 </div>
                 <div class="form-group">
+                    <strong>Category:</strong>
+                    <?php echo Form::select('category_id', $categories, null, ['class' => 'selectpicker']); ?>
+
+                    <br/>
+                </div>
+                <div class="form-group">
                     <strong>Content:</strong>
                     <?php echo Form::textarea('content', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']); ?>
 
-                </div>
-                <div class="form-group">
-                    <strong>Category:</strong>
-                    <?php echo Form::select('category_id', $categories, $listing->category->id); ?>
-
-                    <br/>
                 </div>
                 <button type="submit" class="btn btn-success">Submit</button>
             </div>
@@ -58,6 +64,10 @@
 
 <?php $__env->startSection('footer_scripts'); ?>
 ##parent-placeholder-c55a01b0a8ef1d7b211584e96d51bdf8930d1005##
-
+    <script>
+        $(function () {
+            $('.selectpicker').selectpicker('toggle');
+        });
+    </script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin.layout.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

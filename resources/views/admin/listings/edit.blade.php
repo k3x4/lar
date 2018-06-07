@@ -1,5 +1,11 @@
 @extends('admin.layout.master')
 
+@section('head')
+@parent
+    <script src="{{ asset('js/lib/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('js/lib/bootstrap-select/css/bootstrap-select.min.css') }}">
+@endsection
+
 @section('content')
 <div class="row">
     <div class="col-lg-12 margin-bottom">
@@ -36,13 +42,13 @@
                     {!! Form::text('slug', null, ['placeholder' => 'Slug','class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
-                    <strong>Content:</strong>
-                    {!! Form::textarea('content', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']) !!}
+                    <strong>Category:</strong>
+                    {!! Form::select('category_id', $categories, null, ['class' => 'selectpicker']) !!}
+                    <br/>
                 </div>
                 <div class="form-group">
-                    <strong>Category:</strong>
-                    {!! Form::select('category_id', $categories, $listing->category->id) !!}
-                    <br/>
+                    <strong>Content:</strong>
+                    {!! Form::textarea('content', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']) !!}
                 </div>
                 <button type="submit" class="btn btn-success">Submit</button>
             </div>
@@ -54,5 +60,9 @@
 
 @section('footer_scripts')
 @parent
-
+    <script>
+        $(function () {
+            $('.selectpicker').selectpicker('toggle');
+        });
+    </script>
 @endsection

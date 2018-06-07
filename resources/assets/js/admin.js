@@ -103,4 +103,15 @@ $(document).ready(function () {
         $(".deleteForm input[name='ids']").val(vals);
     });
 
+
+    // BOOTSTRAP-SELECT
+    $(document).on('click','.bootstrap-select .dropdown-menu li', {} ,function () {
+        var current = this;
+        $('.bootstrap-select .dropdown-menu li').each(function(){
+            if($(this).hasClass('active') && this != current){
+                $(this).removeClass('active');
+            }
+        })
+    })
+
 });
