@@ -34,7 +34,6 @@ class CategoryController extends Controller
                 $html .= '</div>';
                 return $html;
             })
-            //->editColumn('title', '<div class="space">{{ $category_id ? str_pad("", $level - 1, "\t", STR_PAD_LEFT) . "└── " . $title : $title }}</div>')
             ->editColumn('title', '{!! Html::link(route("admin.categories.edit", [$id]), $title) !!}')
             ->editColumn('description', '{{ strip_tags($description) }}')
             ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
