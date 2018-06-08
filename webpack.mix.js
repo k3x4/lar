@@ -11,10 +11,14 @@ let mix = require('laravel-mix');
  |
  */
 
-mix     .js('resources/assets/js/app.js', 'public/js')
-        .js('resources/assets/js/admin.js', 'public/js')
-        .js('resources/assets/js/dropzone-config.js', 'public/js')
-        //.js('resources/assets/js/elfinder.js', 'public/js')
+mix     // frontend
+        .js('resources/assets/js/app.js', 'public/assets/js')
+        .js('resources/assets/js/dropzone-config.js', 'public/assets/js')
+        .sass('resources/assets/sass/app.scss', 'public/assets/css')
 
-        .sass('resources/assets/sass/app.scss', 'public/css')
-        .sass('resources/assets/sass/admin.scss', 'public/css');
+        // admin
+        .js('resources/assets/js/admin.js', 'public/assets/admin/js')
+        .sass('resources/assets/sass/admin.scss', 'public/assets/admin/css')
+
+        //.version()
+        ;

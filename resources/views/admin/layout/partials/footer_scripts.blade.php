@@ -1,12 +1,12 @@
 @section('footer_scripts')
 
-<!-- Bootstrap 3.3.6 -->
-<script src="{{ asset('adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
+<!--begin::Base Scripts -->
+<script src="{{ asset('assets/admin/theme/vendors/base/vendors.bundle.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/admin/theme/demo/demo7/base/scripts.bundle.js') }}" type="text/javascript"></script>
+<!--end::Base Scripts -->
 
-<script src="{{ asset('js/lib/tinymce/tinymce.min.js') }}"></script>
-
-<script src="{{ asset('js/admin.js') }}"></script>
+<!--begin::Page Snippets -->
+<script src="{{ asset('assets/admin/theme/app/js/dashboard.js') }}" type="text/javascript"></script>
+<!--end::Page Snippets -->
 
 @show

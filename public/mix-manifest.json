@@ -1,7 +1,7 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css",
-    "/css/admin.css": "/css/admin.css",
-    "/js/admin.js": "/js/admin.js",
-    "/js/dropzone-config.js": "/js/dropzone-config.js"
+    "/assets/js/app.js": "/assets/js/app.js",
+    "/assets/css/app.css": "/assets/css/app.css",
+    "/assets/admin/css/admin.css": "/assets/admin/css/admin.css",
+    "/assets/admin/js/admin.js": "/assets/admin/js/admin.js",
+    "/assets/js/dropzone-config.js": "/assets/js/dropzone-config.js"
 }
