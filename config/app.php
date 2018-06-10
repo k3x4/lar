@@ -221,7 +221,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
 
-        'BS' => App\Libraries\Bootstrap::class,
+        'HT' => App\Libraries\HtmlClasses::class,
 
     ],
 

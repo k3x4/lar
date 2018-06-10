@@ -42,10 +42,12 @@
 
                             <!-- BEGIN: Media -->
                             @component('admin.layout.partials.menu.menu_item_submenu')
+                            @slot('active', ['admin.media.index', 'admin.mediasizes.index'])
                             @slot('title', 'Media')
 
                                 <!-- BEGIN: All media -->
                                 @component('admin.layout.partials.menu.menu_item')
+                                @slot('active', ['admin.media.index'])
                                 @slot('link', route('admin.media.index'))
                                     All media
                                 @endcomponent
@@ -53,10 +55,12 @@
 
                                 <!-- BEGIN: Media sizes -->
                                 @component('admin.layout.partials.menu.menu_item_submenu')
+                                @slot('active', ['admin.mediasizes.index'])
                                 @slot('title', 'Media sizes')
 
                                     <!-- BEGIN: All media sizes -->
                                     @component('admin.layout.partials.menu.menu_item')
+                                    @slot('active', ['admin.mediasizes.index'])
                                     @slot('link', route('admin.mediasizes.index'))
                                         All media sizes
                                     @endcomponent
@@ -64,6 +68,7 @@
 
                                     <!-- BEGIN: Create media size -->
                                     @component('admin.layout.partials.menu.menu_item')
+                                    @slot('active', ['admin.mediasizes.create'])
                                     @slot('link', route('admin.mediasizes.create'))
                                         Create media size
                                     @endcomponent
@@ -80,10 +85,12 @@
 
                             <!-- BEGIN: Listings -->
                             @component('admin.layout.partials.menu.menu_item_submenu')
+                            @slot('active', ['admin.listings.index', 'admin.categories.index'])
                             @slot('title', 'Listings')
 
                                 <!-- BEGIN: All listings -->
                                 @component('admin.layout.partials.menu.menu_item')
+                                @slot('active', ['admin.listings.index'])
                                 @slot('link', route('admin.listings.index'))
                                     All listings
                                 @endcomponent
@@ -91,10 +98,12 @@
 
                                 <!-- BEGIN: Listing categories -->
                                 @component('admin.layout.partials.menu.menu_item_submenu')
+                                @slot('active', ['admin.categories.index'])
                                 @slot('title', 'Listing categories')
 
                                     <!-- BEGIN: All listing categories -->
                                     @component('admin.layout.partials.menu.menu_item')
+                                    @slot('active', ['admin.categories.index'])
                                     @slot('link', route('admin.categories.index'))
                                         All listing categories
                                     @endcomponent
@@ -102,6 +111,7 @@
 
                                     <!-- BEGIN: Create listing category -->
                                     @component('admin.layout.partials.menu.menu_item')
+                                    @slot('active', ['admin.categories.create'])
                                     @slot('link', route('admin.categories.create'))
                                         Create listing category
                                     @endcomponent
@@ -118,10 +128,12 @@
 
                             <!-- BEGIN: Users -->
                             @component('admin.layout.partials.menu.menu_item_submenu')
+                            @slot('active', ['admin.users.index', 'admin.roles.index'])
                             @slot('title', 'Media')
 
                                 <!-- BEGIN: All users -->
                                 @component('admin.layout.partials.menu.menu_item')
+                                @slot('active', ['admin.users.index'])
                                 @slot('link', route('admin.users.index'))
                                     All users
                                 @endcomponent
@@ -129,10 +141,12 @@
 
                                 <!-- BEGIN: Roles -->
                                 @component('admin.layout.partials.menu.menu_item_submenu')
+                                @slot('active', ['admin.roles.index'])
                                 @slot('title', 'Roles')
 
                                     <!-- BEGIN: All roles -->
                                     @component('admin.layout.partials.menu.menu_item')
+                                    @slot('active', ['admin.roles.index'])
                                     @slot('link', route('admin.roles.index'))
                                         All roles
                                     @endcomponent
@@ -140,6 +154,7 @@
 
                                     <!-- BEGIN: Create role -->
                                     @component('admin.layout.partials.menu.menu_item')
+                                    @slot('active', ['admin.roles.create'])
                                     @slot('link', route('admin.roles.create'))
                                         Create role
                                     @endcomponent

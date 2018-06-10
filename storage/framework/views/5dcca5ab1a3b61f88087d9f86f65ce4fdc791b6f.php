@@ -28,6 +28,8 @@
 
 		<script src="<?php echo e(asset('assets/js/lib/jquery/jquery.min.js')); ?>"></script>
 
+		<link href="<?php echo e(asset('assets/admin/css/admin.css')); ?>" rel="stylesheet">
+
         <!--begin::Base Styles -->
 		<link href="<?php echo e(asset('assets/admin/theme/vendors/base/vendors.bundle.css')); ?>" rel="stylesheet" type="text/css" />
 		<link href="<?php echo e(asset('assets/admin/theme/demo/demo7/base/style.bundle.css')); ?>" rel="stylesheet" type="text/css" />

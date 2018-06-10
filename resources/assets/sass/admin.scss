@@ -104,3 +104,7 @@ table.dtable {
         font-weight: bold;
     }
 }
+
+.m-page .m-aside-menu.m-aside-menu--skin-light .m-menu__nav>.m-menu__item .m-menu__submenu .m-menu__item.m-menu__item--expanded>.m-menu__link{
+    background-color: #ccc !important;
+}

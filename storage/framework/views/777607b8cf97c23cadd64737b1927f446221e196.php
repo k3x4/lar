@@ -42,10 +42,12 @@
 
                             <!-- BEGIN: Media -->
                             <?php $__env->startComponent('admin.layout.partials.menu.menu_item_submenu'); ?>
+                            <?php $__env->slot('active', ['admin.media.index', 'admin.mediasizes.index']); ?>
                             <?php $__env->slot('title', 'Media'); ?>
 
                                 <!-- BEGIN: All media -->
                                 <?php $__env->startComponent('admin.layout.partials.menu.menu_item'); ?>
+                                <?php $__env->slot('active', ['admin.media.index']); ?>
                                 <?php $__env->slot('link', route('admin.media.index')); ?>
                                     All media
                                 <?php echo $__env->renderComponent(); ?>
@@ -53,10 +55,12 @@
 
                                 <!-- BEGIN: Media sizes -->
                                 <?php $__env->startComponent('admin.layout.partials.menu.menu_item_submenu'); ?>
+                                <?php $__env->slot('active', ['admin.mediasizes.index']); ?>
                                 <?php $__env->slot('title', 'Media sizes'); ?>
 
                                     <!-- BEGIN: All media sizes -->
                                     <?php $__env->startComponent('admin.layout.partials.menu.menu_item'); ?>
+                                    <?php $__env->slot('active', ['admin.mediasizes.index']); ?>
                                     <?php $__env->slot('link', route('admin.mediasizes.index')); ?>
                                         All media sizes
                                     <?php echo $__env->renderComponent(); ?>
@@ -64,6 +68,7 @@
 
                                     <!-- BEGIN: Create media size -->
                                     <?php $__env->startComponent('admin.layout.partials.menu.menu_item'); ?>
+                                    <?php $__env->slot('active', ['admin.mediasizes.create']); ?>
                                     <?php $__env->slot('link', route('admin.mediasizes.create')); ?>
                                         Create media size
                                     <?php echo $__env->renderComponent(); ?>
@@ -80,10 +85,12 @@
 
                             <!-- BEGIN: Listings -->
                             <?php $__env->startComponent('admin.layout.partials.menu.menu_item_submenu'); ?>
+                            <?php $__env->slot('active', ['admin.listings.index', 'admin.categories.index']); ?>
                             <?php $__env->slot('title', 'Listings'); ?>
 
                                 <!-- BEGIN: All listings -->
                                 <?php $__env->startComponent('admin.layout.partials.menu.menu_item'); ?>
+                                <?php $__env->slot('active', ['admin.listings.index']); ?>
                                 <?php $__env->slot('link', route('admin.listings.index')); ?>
                                     All listings
                                 <?php echo $__env->renderComponent(); ?>
@@ -91,10 +98,12 @@
 
                                 <!-- BEGIN: Listing categories -->
                                 <?php $__env->startComponent('admin.layout.partials.menu.menu_item_submenu'); ?>
+                                <?php $__env->slot('active', ['admin.categories.index']); ?>
                                 <?php $__env->slot('title', 'Listing categories'); ?>
 
                                     <!-- BEGIN: All listing categories -->
                                     <?php $__env->startComponent('admin.layout.partials.menu.menu_item'); ?>
+                                    <?php $__env->slot('active', ['admin.categories.index']); ?>
                                     <?php $__env->slot('link', route('admin.categories.index')); ?>
                                         All listing categories
                                     <?php echo $__env->renderComponent(); ?>
@@ -102,6 +111,7 @@
 
                                     <!-- BEGIN: Create listing category -->
                                     <?php $__env->startComponent('admin.layout.partials.menu.menu_item'); ?>
+                                    <?php $__env->slot('active', ['admin.categories.create']); ?>
                                     <?php $__env->slot('link', route('admin.categories.create')); ?>
                                         Create listing category
                                     <?php echo $__env->renderComponent(); ?>
@@ -118,10 +128,12 @@
 
                             <!-- BEGIN: Users -->
                             <?php $__env->startComponent('admin.layout.partials.menu.menu_item_submenu'); ?>
+                            <?php $__env->slot('active', ['admin.users.index', 'admin.roles.index']); ?>
                             <?php $__env->slot('title', 'Media'); ?>
 
                                 <!-- BEGIN: All users -->
                                 <?php $__env->startComponent('admin.layout.partials.menu.menu_item'); ?>
+                                <?php $__env->slot('active', ['admin.users.index']); ?>
                                 <?php $__env->slot('link', route('admin.users.index')); ?>
                                     All users
                                 <?php echo $__env->renderComponent(); ?>
@@ -129,10 +141,12 @@
 
                                 <!-- BEGIN: Roles -->
                                 <?php $__env->startComponent('admin.layout.partials.menu.menu_item_submenu'); ?>
+                                <?php $__env->slot('active', ['admin.roles.index']); ?>
                                 <?php $__env->slot('title', 'Roles'); ?>
 
                                     <!-- BEGIN: All roles -->
                                     <?php $__env->startComponent('admin.layout.partials.menu.menu_item'); ?>
+                                    <?php $__env->slot('active', ['admin.roles.index']); ?>
                                     <?php $__env->slot('link', route('admin.roles.index')); ?>
                                         All roles
                                     <?php echo $__env->renderComponent(); ?>
@@ -140,6 +154,7 @@
 
                                     <!-- BEGIN: Create role -->
                                     <?php $__env->startComponent('admin.layout.partials.menu.menu_item'); ?>
+                                    <?php $__env->slot('active', ['admin.roles.create']); ?>
                                     <?php $__env->slot('link', route('admin.roles.create')); ?>
                                         Create role
                                     <?php echo $__env->renderComponent(); ?>

@@ -1,4 +1,10 @@
-<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  m-menu-submenu-toggle="click" m-menu-submenu-mode="accordion">
+<li 
+    <?php if(isset($active)): ?>
+        <?php echo HT::activeClassSubMenu(json_encode($active), 'm-menu__item  m-menu__item--submenu'); ?> 
+    <?php endif; ?>
+    aria-haspopup="true" 
+    m-menu-submenu-toggle="click" 
+    m-menu-submenu-mode="accordion">
     <a  href="javascript:;" class="m-menu__link m-menu__toggle">
         <span class="m-menu__link-text">
             <?php echo e($title); ?>
