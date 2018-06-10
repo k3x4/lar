@@ -25,6 +25,17 @@ class AssetsServiceProvider extends ServiceProvider
             base_path('node_modules') . '/dropzone/dist' => public_path('assets/js/lib/dropzone'),
         ], 'public');
 
+        // DATATABLES
+        $this->publishes([
+            base_path('node_modules') . '/datatables.net/js' => public_path('assets/js/lib/datatables/js'),
+        ], 'public');
+        // $this->publishes([
+        //     base_path('node_modules') . '/datatables.net-bs/js' => public_path('assets/js/lib/datatables/js'),
+        // ], 'public');
+        // $this->publishes([
+        //     base_path('node_modules') . '/datatables.net-bs/css' => public_path('assets/js/lib/datatables/css'),
+        // ], 'public');
+
         // METRONIC
         $this->publishes([
             base_path('resources') . '/assets/metronic/dist/demo7/assets' => public_path('assets/admin/theme'),

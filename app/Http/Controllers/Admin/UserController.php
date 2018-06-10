@@ -8,7 +8,6 @@ use App\User;
 use App\Role;
 use DB;
 use Hash;
-use Yajra\Datatables\Datatables;
 
 class UserController extends Controller
 {

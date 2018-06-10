@@ -11,7 +11,6 @@ use App\Media;
 use App\Thumb;
 use App\MediaSize;
 use App\Libraries\ImageUtils;
-use Yajra\Datatables\Datatables;
 
 class MediaController extends Controller
 {

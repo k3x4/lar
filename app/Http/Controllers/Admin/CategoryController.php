@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Category;
 use DB;
-use Yajra\Datatables\Datatables;
 use App\Libraries\Category as CategoryTools;
 use App\Libraries\Tools;
 

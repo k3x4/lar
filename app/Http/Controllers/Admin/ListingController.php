@@ -7,9 +7,9 @@ use App\Listing;
 use App\Category;
 use DB;
 use Illuminate\Http\Request;
-use Yajra\Datatables\Datatables;
 use App\Libraries\Category as CategoryTools;
 use App\Libraries\Tools;
+use Yajra\Datatables\Datatables;
 
 class ListingController extends Controller
 {

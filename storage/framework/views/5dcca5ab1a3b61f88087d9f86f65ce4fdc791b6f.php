@@ -88,7 +88,7 @@
         <!-- end::Scroll Top -->
         
         <!-- begin::Quick Nav -->
-		<?php echo $__env->make('admin.layout.partials.quick_nav', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<!---->
 		<!-- end::Quick Nav -->	
         
         <?php echo $__env->make('admin.layout.partials.footer_scripts', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

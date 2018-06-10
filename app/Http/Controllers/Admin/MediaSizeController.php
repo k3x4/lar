@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\MediaSize;
-use Yajra\Datatables\Datatables;
 
 class MediaSizeController extends Controller
 {

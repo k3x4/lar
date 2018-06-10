@@ -88,7 +88,7 @@
         <!-- end::Scroll Top -->
         
         <!-- begin::Quick Nav -->
-		@include('admin.layout.partials.quick_nav')
+		<!--{{-- @include('admin.layout.partials.quick_nav') --}}-->
 		<!-- end::Quick Nav -->	
         
         @include('admin.layout.partials.footer_scripts')

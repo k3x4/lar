@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Role;
 use App\Permission;
 use DB;
-use Yajra\Datatables\Datatables;
 
 class RoleController extends Controller {
 
