@@ -9,9 +9,6 @@
     <script src="<?php echo e(asset('js/lib/datatables/js/jquery.dataTables.js')); ?>"></script>
     <script src="<?php echo e(asset('js/lib/datatables/js/dataTables.bootstrap.js')); ?>"></script>
     <link rel="stylesheet" href="<?php echo e(asset('js/lib/datatables/css/dataTables.bootstrap.css')); ?>">
-
-    <script src="<?php echo e(asset('js/lib/icheck-2/icheck.js')); ?>"></script>
-    <link rel="stylesheet" href="<?php echo e(asset('js/lib/icheck-2/skins/minimal/blue.css')); ?>">
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -79,48 +76,16 @@
 
 <?php $__env->startSection('footer_scripts'); ?>
 ##parent-placeholder-c55a01b0a8ef1d7b211584e96d51bdf8930d1005##
-    <script src="<?php echo e(asset('js/dropzone-config.js')); ?>"></script>
-
-    <script>
-    $('.dtable').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: '<?php echo e(route("admin.media.data")); ?>',
-        order: [
-            [ 1, "desc" ]
-        ],
-        columnDefs: [
-            {
-                "targets": [ 0 ],
-                "orderable": false,
-                "searchable": false
-            },
-            {
-                "targets": [ 1 ],
-                "visible": false,
-                "searchable": false
-            },
-            {
-                "targets": [ 2 ],
-                "orderable": false,
-                "searchable": false
-            }
-        ],
-        columns: [
-            {data: 'action', name: 'action'},
-            {data: 'id', name: 'id'},
-            {data: 'thumb', name: 'thumb'},
-            {data: 'filename', name: 'filename'},
-            {data: 'original_name', name: 'original_name'},
-            {data: 'created_at', name: 'created_at'}
-        ],
-        "initComplete": function( settings, json ) {
-            $('input[type="checkbox"]').icheck({
-                checkboxClass: 'icheckbox_minimal-blue',
-            });
-        }
-    });
-    </script>
+    <?php echo $__env->make('admin.datatables_script', [
+        'url' => route('admin.media.data'),
+        'columns' => json_encode([
+            ['data' => 'action', 'name' => 'action'],
+            ['data' => 'id', 'name' => 'id'],
+            ['data' => 'thumb', 'name' => 'thumb'],
+            ['data' => 'filename', 'name' => 'filename'],
+            ['data' => 'original_name', 'name' => 'original_name'],
+            ['data' => 'created_at', 'name' => 'created_at']
+        ])
+    ], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <?php $__env->stopSection(); ?>
-
 <?php echo $__env->make('admin.layout.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

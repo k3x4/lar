@@ -5,9 +5,6 @@
     <script src="{{ asset('js/lib/datatables/js/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('js/lib/datatables/js/dataTables.bootstrap.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('js/lib/datatables/css/dataTables.bootstrap.css') }}">
-
-    <script src="{{ asset('js/lib/icheck-2/icheck.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('js/lib/icheck-2/skins/minimal/blue.css') }}">
 @endsection
 
 @section('content')
@@ -60,39 +57,15 @@
 
 @section('footer_scripts')
 @parent
-    <script>
-    $('.dtable').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: '{{ route("admin.users.data") }}',
-        order: [
-            [ 1, "desc" ]
-        ],
-        columnDefs: [
-            {
-                "targets": [ 0 ],
-                "orderable": false,
-                "searchable": false
-            },
-            {
-                "targets": [ 1 ],
-                "visible": false,
-                "searchable": false
-            }
-        ],
-        columns: [
-            {data: 'action', name: 'action'},
-            {data: 'id', name: 'id'},
-            {data: 'name', name: 'name'},
-            {data: 'email', name: 'email'},
-            {data: 'roles', name: 'roles'},
-            {data: 'created_at', name: 'created_at'}
-        ],
-        "initComplete": function( settings, json ) {
-            $('input[type="checkbox"]').icheck({
-                checkboxClass: 'icheckbox_minimal-blue',
-            });
-        }
-    });
-    </script>
+    @include('admin.datatables_script', [
+        'url' => route('admin.users.data'),
+        'columns' => json_encode([
+            ['data' => 'action', 'name' => 'action'],
+            ['data' => 'id', 'name' => 'id'],
+            ['data' => 'name', 'name' => 'name'],
+            ['data' => 'email', 'name' => 'email'],
+            ['data' => 'roles', 'name' => 'roles'],
+            ['data' => 'created_at', 'name' => 'created_at']
+        ])
+    ])
 @endsection

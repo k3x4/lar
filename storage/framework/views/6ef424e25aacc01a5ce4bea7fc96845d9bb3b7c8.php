@@ -65,39 +65,17 @@
 <?php $__env->startSection('footer_scripts'); ?>
 ##parent-placeholder-c55a01b0a8ef1d7b211584e96d51bdf8930d1005##
     <script>
-    $('.dtable').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: '<?php echo e(route("admin.categories.data")); ?>',
-        order: [
-            [ 1, "desc" ]
-        ],
-        columnDefs: [
-            {
-                "targets": [ 0 ],
-                "orderable": false,
-                "searchable": false
-            },
-            {
-                "targets": [ 1 ],
-                "visible": false,
-                "searchable": false
-            }
-        ],
-        columns: [
-            {data: 'action', name: 'action'},
-            {data: 'id', name: 'id'},
-            {data: 'title', name: 'title'},
-            {data: 'slug', name: 'slug'},
-            {data: 'description', name: 'description'},
-            {data: 'created_at', name: 'created_at'}
-        ],
-        "initComplete": function( settings, json ) {
-            $('input[type="checkbox"]').icheck({
-                checkboxClass: 'icheckbox_minimal-blue',
-            });
-        }
-    });
+        <?php echo $__env->make('admin.datatables_script', [
+            'url' => route('admin.categories.data'),
+            'columns' => json_encode([
+                ['data' => 'action', 'name' => 'action'],
+                ['data' => 'id', 'name' => 'id'],
+                ['data' => 'title', 'name' => 'title'],
+                ['data' => 'slug', 'name' => 'slug'],
+                ['data' => 'description', 'name' => 'description'],
+                ['data' => 'created_at', 'name' => 'created_at']
+            ])
+        ], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     </script>
 <?php $__env->stopSection(); ?>
 

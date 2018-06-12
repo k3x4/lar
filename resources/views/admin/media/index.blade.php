@@ -11,9 +11,6 @@
     <script src="{{ asset('js/lib/datatables/js/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('js/lib/datatables/js/dataTables.bootstrap.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('js/lib/datatables/css/dataTables.bootstrap.css') }}">
-
-    <script src="{{ asset('js/lib/icheck-2/icheck.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('js/lib/icheck-2/skins/minimal/blue.css') }}">
 @endsection
 
 @section('content')
@@ -74,46 +71,15 @@
 
 @section('footer_scripts')
 @parent
-    <script src="{{ asset('js/dropzone-config.js') }}"></script>
-
-    <script>
-    $('.dtable').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: '{{ route("admin.media.data") }}',
-        order: [
-            [ 1, "desc" ]
-        ],
-        columnDefs: [
-            {
-                "targets": [ 0 ],
-                "orderable": false,
-                "searchable": false
-            },
-            {
-                "targets": [ 1 ],
-                "visible": false,
-                "searchable": false
-            },
-            {
-                "targets": [ 2 ],
-                "orderable": false,
-                "searchable": false
-            }
-        ],
-        columns: [
-            {data: 'action', name: 'action'},
-            {data: 'id', name: 'id'},
-            {data: 'thumb', name: 'thumb'},
-            {data: 'filename', name: 'filename'},
-            {data: 'original_name', name: 'original_name'},
-            {data: 'created_at', name: 'created_at'}
-        ],
-        "initComplete": function( settings, json ) {
-            $('input[type="checkbox"]').icheck({
-                checkboxClass: 'icheckbox_minimal-blue',
-            });
-        }
-    });
-    </script>
+    @include('admin.datatables_script', [
+        'url' => route('admin.media.data'),
+        'columns' => json_encode([
+            ['data' => 'action', 'name' => 'action'],
+            ['data' => 'id', 'name' => 'id'],
+            ['data' => 'thumb', 'name' => 'thumb'],
+            ['data' => 'filename', 'name' => 'filename'],
+            ['data' => 'original_name', 'name' => 'original_name'],
+            ['data' => 'created_at', 'name' => 'created_at']
+        ])
+    ])
 @endsection
