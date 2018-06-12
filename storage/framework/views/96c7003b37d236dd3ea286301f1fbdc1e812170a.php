@@ -6,7 +6,7 @@
 <!--end::Base Scripts -->
 
 <!--begin::Page Snippets -->
-<script src="<?php echo e(asset('assets/admin/theme/app/js/dashboard.js')); ?>" type="text/javascript"></script>
+<!--<script src="" type="text/javascript"></script>-->
 <!--end::Page Snippets -->
 
 <?php echo $__env->yieldSection(); ?>

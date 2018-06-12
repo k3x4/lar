@@ -3,6 +3,9 @@
 <?php $__env->startSection('head'); ?>
 ##parent-placeholder-1a954628a960aaef81d7b2d4521929579f3541e6##
     <script src="<?php echo e(asset('assets/js/lib/datatables/js/jquery.dataTables.js')); ?>"></script>
+
+    <script src="<?php echo e(asset('assets/js/lib/icheck-2/icheck.js')); ?>"></script>
+    <link rel="stylesheet" href="<?php echo e(asset('assets/js/lib/icheck-2/skins/flat/blue.css')); ?>">
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -102,12 +105,7 @@
                 <table class="table m_datatable dtable table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th style="width:5px;">
-                                <label class="m-checkbox m-checkbox--single m-checkbox--all m-checkbox--solid m-checkbox--brand">
-                                    <input type="checkbox" class="selectAll"/>
-                                    <span></span>
-                                </label>
-                            </th>
+                            <th style="width:5px;"><input type="checkbox" class="selectAll"/></th>
                             <th style="width: 1%;">ID</th>
                             <th style="width: 20%;">Title</th>
                             <th style="width: 20%;">Slug</th>

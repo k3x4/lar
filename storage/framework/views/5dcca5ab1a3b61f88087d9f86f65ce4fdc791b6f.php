@@ -28,6 +28,7 @@
 
 		<script src="<?php echo e(asset('assets/js/lib/jquery/jquery.min.js')); ?>"></script>
 
+		<script src="<?php echo e(asset('assets/admin/js/admin.js')); ?>"></script>
 		<link href="<?php echo e(asset('assets/admin/css/admin.css')); ?>" rel="stylesheet">
 
         <!--begin::Base Styles -->

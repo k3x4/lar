@@ -301,21 +301,30 @@ $(document).ready(function () {
 
     /*** TINYMCE INIT ***/
 
-    tinymce.init({
-        selector: '.tinymce-textarea',
-        skin: 'lightgray',
-        height: 300,
-        /*toolbar: 'undo redo styleselect bold italic alignleft aligncenter alignright bullist numlist outdent indent code',
-         plugins: 'code'*/
+    // tinymce.init({
+    //     selector: '.tinymce-textarea',
+    //     skin: 'lightgray',
+    //     height: 300,
+    //     /*toolbar: 'undo redo styleselect bold italic alignleft aligncenter alignright bullist numlist outdent indent code',
+    //      plugins: 'code'*/
 
-        /*theme: 'modern',
-        skin: 'light',*/
-        plugins: ['advlist autolink lists link image charmap print preview hr anchor pagebreak', 'searchreplace wordcount visualblocks visualchars code fullscreen', 'insertdatetime media nonbreaking save table contextmenu directionality', 'template paste textcolor colorpicker textpattern imagetools codesample toc help emoticons hr'],
-        toolbar1: 'formatselect | bold italic  strikethrough  forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat | code',
-        image_advtab: true,
-        templates: [{ title: 'Test template 1', content: 'Test 1' }, { title: 'Test template 2', content: 'Test 2' }]
+    //     /*theme: 'modern',
+    //     skin: 'light',*/
+    //     plugins: [
+    //         'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+    //         'searchreplace wordcount visualblocks visualchars code fullscreen',
+    //         'insertdatetime media nonbreaking save table contextmenu directionality',
+    //         'template paste textcolor colorpicker textpattern imagetools codesample toc help emoticons hr'
+    //     ],
+    //     toolbar1: 'formatselect | bold italic  strikethrough  forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat | code',
+    //     image_advtab: true,
+    //     templates: [
+    //         { title: 'Test template 1', content: 'Test 1' },
+    //         { title: 'Test template 2', content: 'Test 2' }
+    //     ]
 
-    });
+    // });
+
 
     /*** DELETE CONFIRM ***/
 
@@ -361,38 +370,23 @@ $(document).ready(function () {
         }
 
         if (numberOfChecked == numberAll) {
-            $('.dataTable .selectAll').prop('checked', true); //.icheck('updated');
-            //$('.dataTable .selectAll').icheck('check');
+            $('.dataTable .selectAll').prop('checked', true).icheck('updated');
+            // $('.dataTable .selectAll').icheck('check');
         } else {
-            $('.dataTable .selectAll').prop('checked', false); //.icheck('updated');
-            //$('.dataTable .selectAll').icheck('uncheck');
+            $('.dataTable .selectAll').prop('checked', false).icheck('updated');
+            // $('.dataTable .selectAll').icheck('uncheck');
         }
     });
 
-    // $('.dataTable .selectAll').on('ifChecked', function (event) {
-    //     $('.dataTable .select').each(function () {
-    //         $(this).prop('checked', true).icheck('updated');
-    //         $(".deleteForm input[type='submit']").removeClass("disabled");
-    //     });
-    // });
-
-    // $('.dataTable .selectAll').on('ifUnchecked', function (event) {
-    //     $('.dataTable .select').each(function () {
-    //         $(this).prop('checked', false).icheck('updated');
-    //         $(".deleteForm input[type='submit']").addClass("disabled");
-    //     });
-    // });
-
     $(document).on('click', '.dataTable .selectAll', {}, function () {
-        alert("dfg");
         if ($(this).is(":checked")) {
             $('.dataTable .select').each(function () {
-                $(this).prop('checked', true); //.icheck('updated');
+                $(this).prop('checked', true).icheck('updated');
                 $(".deleteForm input[type='submit']").removeClass("disabled");
             });
         } else {
             $('.dataTable .select').each(function () {
-                $(this).prop('checked', false); //.icheck('updated');
+                $(this).prop('checked', false).icheck('updated');
                 $(".deleteForm input[type='submit']").addClass("disabled");
             });
         }

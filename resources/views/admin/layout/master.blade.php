@@ -28,6 +28,7 @@
 
 		<script src="{{ asset('assets/js/lib/jquery/jquery.min.js') }}"></script>
 
+		<script src="{{ asset('assets/admin/js/admin.js') }}"></script>
 		<link href="{{ asset('assets/admin/css/admin.css') }}" rel="stylesheet">
 
         <!--begin::Base Styles -->

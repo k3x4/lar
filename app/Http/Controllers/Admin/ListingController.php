@@ -29,9 +29,7 @@ class ListingController extends Controller
         return Datatables::of($listings)
             ->addColumn('action', function ($listing) {
                 $html  = '<div class="dtable-td-wrapper">';
-                $checkbox  = \Form::checkbox('action', $listing->id, false, ['class' => 'select']);
-                $checkbox .= \Html::tag('span', '');
-                $html .= \Html::tag('label',$checkbox, ['class' => 'm-checkbox m-checkbox--solid m-checkbox--single m-checkbox--brand']);
+                $html .= \Form::checkbox('action', $listing->id, false, ['class' => 'select']);
                 $html .= '</div>';
                 return $html;
             })

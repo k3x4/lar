@@ -56,9 +56,16 @@
 }
 
 table.dtable {
-    & > tbody{
-        & > tr{
-            & > td{
+    > thead{
+        > tr{
+            > th:first-child { 
+                text-align: center;
+            }
+        }
+    }
+    > tbody{
+        > tr{
+            > td{
                 vertical-align: middle;
             }
         }
@@ -87,6 +94,10 @@ table.dtable {
     }
 }
 
+.dataTables_info{
+    float: right;
+}
+
 .bootstrap-select{
     overflow: hidden;
     float: left;
@@ -107,4 +118,8 @@ table.dtable {
 
 .m-page .m-aside-menu.m-aside-menu--skin-light .m-menu__nav>.m-menu__item .m-menu__submenu .m-menu__item.m-menu__item--expanded>.m-menu__link{
     background-color: #ccc !important;
+}
+
+.icheck-item{
+    transition: all 0.2s;
 }

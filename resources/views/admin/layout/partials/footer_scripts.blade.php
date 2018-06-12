@@ -6,7 +6,7 @@
 <!--end::Base Scripts -->
 
 <!--begin::Page Snippets -->
-<script src="{{ asset('assets/admin/theme/app/js/dashboard.js') }}" type="text/javascript"></script>
+<!--<script src="{{-- asset('assets/admin/theme/app/js/dashboard.js') --}}" type="text/javascript"></script>-->
 <!--end::Page Snippets -->
 
 @show

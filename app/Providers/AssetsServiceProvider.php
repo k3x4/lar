@@ -36,6 +36,11 @@ class AssetsServiceProvider extends ServiceProvider
         //     base_path('node_modules') . '/datatables.net-bs/css' => public_path('assets/js/lib/datatables/css'),
         // ], 'public');
 
+        // ICHECK-2
+        $this->publishes([
+            base_path('node_modules') . '/icheck-2' => public_path('assets/js/lib/icheck-2'),
+        ], 'public');
+
         // METRONIC
         $this->publishes([
             base_path('resources') . '/assets/metronic/dist/demo7/assets' => public_path('assets/admin/theme'),

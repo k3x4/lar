@@ -29,9 +29,10 @@ $(document).ready(function () {
             {data: 'content', name: 'content'},
             {data: 'created_at', name: 'created_at'}
         ],
+        "pagingType": "numbers",
         "initComplete": function( settings, json ) {
             $('input[type="checkbox"]').icheck({
-                checkboxClass: 'icheckbox_minimal-blue',
+                checkboxClass: 'icheckbox_flat-blue',
             });
         }
     });
