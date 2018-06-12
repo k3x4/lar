@@ -24,7 +24,8 @@
 <?php endif; ?>
 
 <div class="row">
-    <div class="col-lg-12">
+
+    <div class="col-lg-8">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Create New Listing</h3>
@@ -43,14 +44,6 @@
 
                 </div>
                 <div class="form-group">
-                    <strong>Category:</strong>
-                    <?php echo Form::select('category_id', $categories, null, ['class' => 'selectpicker']); ?>
-
-                </div>
-                <div class="form-group">
-                    <strong>Image:</strong>
-                </div>
-                <div class="form-group">
                     <strong>Description:</strong>
                     <?php echo Form::textarea('content', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']); ?>
 
@@ -61,6 +54,34 @@
 
         </div>
     </div>
+
+    <div class="col-lg-4">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Category</h3>
+            </div>
+            <div class="box-body">
+                <div class="form-group">
+                    <?php echo Form::select('category_id', $categories, null, [
+                        'class' => 'selectpicker',
+                        'data-width' => 'fit'
+                    ]); ?>
+
+                </div>
+            </div>
+        </div>
+        <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Image</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-group">
+                        IMAGE
+                    </div>
+                </div>
+            </div>
+    </div>
+
 </div>
 <?php $__env->stopSection(); ?>
 

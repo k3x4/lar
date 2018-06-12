@@ -166,6 +166,8 @@ return [
         
         App\Providers\AssetsServiceProvider::class,
 
+        Arrilot\Widgets\ServiceProvider::class,
+
     ],
 
     /*
@@ -222,6 +224,9 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
 
         'BS' => App\Libraries\Bootstrap::class,
+
+        'Widget'       => Arrilot\Widgets\Facade::class,
+        'AsyncWidget'  => Arrilot\Widgets\AsyncFacade::class,
 
     ],
 
