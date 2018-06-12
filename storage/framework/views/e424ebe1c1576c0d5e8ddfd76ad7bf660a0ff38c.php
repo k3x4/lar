@@ -102,7 +102,12 @@
                 <table class="table m_datatable dtable table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th style="width:5px;"><input type="checkbox" class="selectAll"/></th>
+                            <th style="width:5px;">
+                                <label class="m-checkbox m-checkbox--single m-checkbox--all m-checkbox--solid m-checkbox--brand">
+                                    <input type="checkbox" class="selectAll"/>
+                                    <span></span>
+                                </label>
+                            </th>
                             <th style="width: 1%;">ID</th>
                             <th style="width: 20%;">Title</th>
                             <th style="width: 20%;">Slug</th>

@@ -28,12 +28,7 @@ $(document).ready(function () {
             {data: 'slug', name: 'slug'},
             {data: 'content', name: 'content'},
             {data: 'created_at', name: 'created_at'}
-        ],
-        "initComplete": function( settings, json ) {
-            $('input[type="checkbox"]').icheck({
-                checkboxClass: 'icheckbox_minimal-blue',
-            });
-        }
+        ]
     });
 
 });

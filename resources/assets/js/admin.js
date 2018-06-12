@@ -76,10 +76,10 @@ $(document).ready(function () {
         }
 
         if(numberOfChecked == numberAll){
-            $('.dataTable .selectAll').prop('checked', true).icheck('updated');
+            $('.dataTable .selectAll').prop('checked', true);//.icheck('updated');
             //$('.dataTable .selectAll').icheck('check');
         } else {
-            $('.dataTable .selectAll').prop('checked', false).icheck('updated');
+            $('.dataTable .selectAll').prop('checked', false);//.icheck('updated');
             //$('.dataTable .selectAll').icheck('uncheck');
         }
     });
@@ -99,14 +99,15 @@ $(document).ready(function () {
     // });
 
     $(document).on('click','.dataTable .selectAll', {} ,function () {
+        alert("dfg");
         if($(this).is(":checked")){
             $('.dataTable .select').each(function(){
-                $(this).prop('checked', true).icheck('updated');
+                $(this).prop('checked', true);//.icheck('updated');
                 $(".deleteForm input[type='submit']").removeClass("disabled");
             });
         } else {
             $('.dataTable .select').each(function(){
-                $(this).prop('checked', false).icheck('updated');
+                $(this).prop('checked', false);//.icheck('updated');
                 $(".deleteForm input[type='submit']").addClass("disabled");
             });
         }
