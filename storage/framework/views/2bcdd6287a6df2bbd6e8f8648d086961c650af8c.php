@@ -23,6 +23,9 @@
 </div>
 <?php endif; ?>
 
+
+<?php echo Form::open(['route' => 'admin.listings.store','method'=>'POST']); ?>
+
 <div class="row">
 
     <div class="col-lg-8">
@@ -30,8 +33,6 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Create New Listing</h3>
             </div>
-            <?php echo Form::open(['route' => 'admin.listings.store','method'=>'POST']); ?>
-
             <div class="box-body">
                 <div class="form-group">
                     <strong>Title:</strong>
@@ -48,15 +49,22 @@
                     <?php echo Form::textarea('content', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']); ?>
 
                 </div>
-                <button type="submit" class="btn btn-success">Submit</button>
             </div>
-            <?php echo Form::close(); ?>
-
         </div>
     </div>
-
+    
     <div class="col-lg-4">
-        <div class="box box-primary">
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title">Status</h3>
+            </div>
+            <div class="box-body">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+            </div>
+        </div>
+        <div class="box box-default">
             <div class="box-header with-border">
                 <h3 class="box-title">Category</h3>
             </div>
@@ -70,7 +78,7 @@
                 </div>
             </div>
         </div>
-        <div class="box box-primary">
+        <div class="box box-default">
                 <div class="box-header with-border">
                     <h3 class="box-title">Image</h3>
                 </div>
@@ -83,6 +91,9 @@
     </div>
 
 </div>
+<?php echo Form::close(); ?>
+
+
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('footer_scripts'); ?>
