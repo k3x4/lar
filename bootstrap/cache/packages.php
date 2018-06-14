@@ -11,17 +11,6 @@
       'AsyncWidget' => 'Arrilot\\Widgets\\AsyncFacade',
     ),
   ),
-  'zizaco/entrust' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Zizaco\\Entrust\\EntrustServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'Entrust' => 'Zizaco\\Entrust\\EntrustFacade',
-    ),
-  ),
   'fideloper/proxy' => 
   array (
     'providers' => 
@@ -59,6 +48,13 @@
       'Html' => 'Collective\\Html\\HtmlFacade',
     ),
   ),
+  'nunomaduro/collision' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+    ),
+  ),
   'yajra/laravel-datatables-oracle' => 
   array (
     'providers' => 
@@ -70,11 +66,15 @@
       'DataTables' => 'Yajra\\DataTables\\Facades\\DataTables',
     ),
   ),
-  'nunomaduro/collision' => 
+  'zizaco/entrust' => 
   array (
     'providers' => 
     array (
-      0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+      0 => 'Zizaco\\Entrust\\EntrustServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Entrust' => 'Zizaco\\Entrust\\EntrustFacade',
     ),
   ),
 );

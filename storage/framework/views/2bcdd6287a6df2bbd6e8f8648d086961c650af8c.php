@@ -85,7 +85,7 @@
                 </div>
                 <div class="box-body">
                     <div class="form-group">
-                        IMAGE
+                        <?php echo app('arrilot.widget')->run('FeaturedImage'); ?>
                     </div>
                 </div>
             </div>

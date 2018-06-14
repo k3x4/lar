@@ -82,7 +82,7 @@
                 </div>
                 <div class="box-body">
                     <div class="form-group">
-                        IMAGE
+                        @widget('FeaturedImage')
                     </div>
                 </div>
             </div>
