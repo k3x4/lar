@@ -38,7 +38,8 @@
                             <th style="width: 1%;">ID</th>
                             <th style="width: 20%;">Title</th>
                             <th style="width: 20%;">Slug</th>
-                            <th style="width: 50%;">Content</th>
+                            <th style="width: 40%;">Content</th>
+                            <th style="width: 10%;">Status</th>
                             <th style="width: 10%;">Created</th>
                         </tr>
                     </thead>
@@ -67,6 +68,7 @@
             ['data' => 'title', 'name' => 'title'],
             ['data' => 'slug', 'name' => 'slug'],
             ['data' => 'content', 'name' => 'content'],
+            ['data' => 'status', 'name' => 'status'],
             ['data' => 'created_at', 'name' => 'created_at']
         ])
     ])

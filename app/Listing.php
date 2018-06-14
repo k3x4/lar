@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Listing extends Model
 {
-    protected $fillable = ['category_id', 'title', 'slug', 'content'];
+    protected $fillable = ['category_id', 'title', 'slug', 'content', 'status'];
     
     public function category(){
         return $this->belongsTo('App\Category');

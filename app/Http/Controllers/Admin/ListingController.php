@@ -80,6 +80,8 @@ class ListingController extends Controller
         $listing->title = $request->input('title');
         $listing->slug = $slug;
         $listing->content = $request->input('content');
+        $listing->status = $request->input('status');
+
         $listing->save();
 
         // $mediaConverter = new MediaConverter($product);

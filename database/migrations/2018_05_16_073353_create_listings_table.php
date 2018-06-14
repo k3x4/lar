@@ -19,6 +19,7 @@ class CreateListingsTable extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('content')->nullable();
+            $table->string('status')->default('draft');
             $table->timestamps();
         });
     }

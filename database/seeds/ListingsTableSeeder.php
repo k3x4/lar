@@ -22,7 +22,8 @@ class ListingsTableSeeder extends Seeder
                                 .'Sed tristique interdum vestibulum. Phasellus vel nunc sem. '
                                 .'Sed egestas diam felis, faucibus dignissim urna condimentum id. '
                                 .'Duis eu euismod elit. Aliquam vitae dapibus neque. Morbi dapibus '
-                                .'hendrerit velit. Proin et luctus enim.'
+                                .'hendrerit velit. Proin et luctus enim.',
+                'status' => 'publish'
             ],
             [
                 'category_id' => 3,
@@ -32,7 +33,8 @@ class ListingsTableSeeder extends Seeder
                                 .'Sed tristique interdum vestibulum. Phasellus vel nunc sem. '
                                 .'Sed egestas diam felis, faucibus dignissim urna condimentum id. '
                                 .'Duis eu euismod elit. Aliquam vitae dapibus neque. Morbi dapibus '
-                                .'hendrerit velit. Proin et luctus enim.'
+                                .'hendrerit velit. Proin et luctus enim.',
+                'status' => 'publish'
             ],
             [
                 'category_id' => 5,
@@ -42,7 +44,8 @@ class ListingsTableSeeder extends Seeder
                                 .'Sed tristique interdum vestibulum. Phasellus vel nunc sem. '
                                 .'Sed egestas diam felis, faucibus dignissim urna condimentum id. '
                                 .'Duis eu euismod elit. Aliquam vitae dapibus neque. Morbi dapibus '
-                                .'hendrerit velit. Proin et luctus enim.'
+                                .'hendrerit velit. Proin et luctus enim.',
+                'status' => 'publish'
             ],
             [
                 'category_id' => 6,
@@ -52,7 +55,8 @@ class ListingsTableSeeder extends Seeder
                                 .'Sed tristique interdum vestibulum. Phasellus vel nunc sem. '
                                 .'Sed egestas diam felis, faucibus dignissim urna condimentum id. '
                                 .'Duis eu euismod elit. Aliquam vitae dapibus neque. Morbi dapibus '
-                                .'hendrerit velit. Proin et luctus enim.'
+                                .'hendrerit velit. Proin et luctus enim.',
+                'status' => 'publish'
             ],
 
         ];
