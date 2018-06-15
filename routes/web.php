@@ -133,6 +133,12 @@ Route::group([
         'middleware' => ['permission:media-read'],
     ]);
 
+    Route::get('admin/media/datapopup', [
+        'as' => 'admin.media.datapopup',
+        'uses' => 'MediaController@datapopup',
+        'middleware' => ['permission:media-read'],
+    ]);
+
     Route::post('admin/media/store', [
         'as' => 'admin.media.store',
         'uses' => 'MediaController@store',

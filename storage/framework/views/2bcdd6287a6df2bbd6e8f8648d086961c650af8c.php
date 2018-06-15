@@ -2,14 +2,6 @@
 ##parent-placeholder-1a954628a960aaef81d7b2d4521929579f3541e6##
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 
-    <script src="<?php echo e(asset('js/lib/datatables/js/jquery.dataTables.js')); ?>"></script>
-    <script src="<?php echo e(asset('js/lib/datatables/js/dataTables.bootstrap.js')); ?>"></script>
-    <link rel="stylesheet" href="<?php echo e(asset('js/lib/datatables/css/dataTables.bootstrap.css')); ?>">
-
-    <script src="<?php echo e(asset('js/lib/dropzone/min/dropzone.min.js')); ?>"></script>
-    <script src="<?php echo e(asset('js/dropzone-config.js')); ?>"></script>
-    <link rel="stylesheet" href="<?php echo e(asset('js/lib/dropzone/min/dropzone.min.css')); ?>">
-
     <script src="<?php echo e(asset('js/lib/bootstrap-select/js/bootstrap-select.min.js')); ?>"></script>
     <link rel="stylesheet" href="<?php echo e(asset('js/lib/bootstrap-select/css/bootstrap-select.min.css')); ?>">
 <?php $__env->stopSection(); ?>
@@ -112,17 +104,5 @@
             $('.selectpicker').selectpicker('toggle');
         });
     </script>
-
-    <?php echo $__env->make('admin.datatables_script', [
-        'url' => route('admin.media.data'),
-        'columns' => json_encode([
-            ['data' => 'action', 'name' => 'action'],
-            ['data' => 'id', 'name' => 'id'],
-            ['data' => 'thumb', 'name' => 'thumb'],
-            ['data' => 'filename', 'name' => 'filename'],
-            ['data' => 'original_name', 'name' => 'original_name'],
-            ['data' => 'created_at', 'name' => 'created_at']
-        ])
-    ], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin.layout.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

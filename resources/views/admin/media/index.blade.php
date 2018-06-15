@@ -21,7 +21,7 @@
             <div class="box-header with-border">
               <h4 class="box-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
-                  Upload files <span id="counter"></span>
+                  Upload file
                 </a>
               </h4>
             </div>
@@ -86,7 +86,6 @@
             ['data' => 'filename', 'name' => 'filename'],
             ['data' => 'original_name', 'name' => 'original_name'],
             ['data' => 'created_at', 'name' => 'created_at']
-        ]),
-        'data' =>json_encode(['state' => 'popup']),
+        ])
     ])
 @endsection

@@ -1,15 +1,28 @@
-<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
-  Launch Default Modal
-</button>
+<?php $__env->startSection('head'); ?>
+##parent-placeholder-1a954628a960aaef81d7b2d4521929579f3541e6##
+    <script src="<?php echo e(asset('js/lib/datatables/js/jquery.dataTables.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/lib/datatables/js/dataTables.bootstrap.js')); ?>"></script>
+    <link rel="stylesheet" href="<?php echo e(asset('js/lib/datatables/css/dataTables.bootstrap.css')); ?>">
 
-<div class="modal fade" id="modal-default">
+    <script src="<?php echo e(asset('js/lib/dropzone/min/dropzone.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/dropzone-config.js')); ?>"></script>
+    <link rel="stylesheet" href="<?php echo e(asset('js/lib/dropzone/min/dropzone.min.css')); ?>">
+<?php $__env->stopSection(); ?>
+
+<img id="imgPreview" src="" style="display:none;"/>
+
+<a id="modalLink">
+  Select image
+</a>
+
+<div class="modal fade" id="mediamanager">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title">Default Modal</h4>
+        <h4 class="modal-title">Media manager</h4>
       </div>
       <div class="modal-body">
 
@@ -19,7 +32,7 @@
             <div class="box-header with-border">
               <h4 class="box-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
-                  Upload files <span id="counter"></span>
+                  Upload file
                 </a>
               </h4>
             </div>
@@ -74,3 +87,42 @@
   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
+<?php $__env->startSection('footer_scripts'); ?>
+##parent-placeholder-c55a01b0a8ef1d7b211584e96d51bdf8930d1005##
+    <?php echo $__env->make('admin.datatables_script', [
+        'url' => route('admin.media.datapopup'),
+        'columns' => json_encode([
+            ['data' => 'action', 'name' => 'action'],
+            ['data' => 'id', 'name' => 'id'],
+            ['data' => 'thumb', 'name' => 'thumb'],
+            ['data' => 'filename', 'name' => 'filename'],
+            ['data' => 'original_name', 'name' => 'original_name'],
+            ['data' => 'created_at', 'name' => 'created_at']
+        ])
+    ], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+    <script>
+    $( document ).ready(function() {
+     //var modalmm = $('#mediamanager-modal');
+
+      var mm = $('#mediamanager');
+
+      $('#modalLink').click(function (e) {
+        e.preventDefault();
+        mm.modal('show');
+      });
+
+
+      $(document).on('click','.dtable a', {} ,function (e) {
+        e.preventDefault();
+        var imgUrl = $(this).attr("href");
+        $('#imgPreview').show().src = imgUrl;
+        mm.modal('hide');
+        //$('body').removeClass('modal-open');
+        //$('.modal-backdrop').fadeOut(300);
+      });
+
+    });
+    </script>
+<?php $__env->stopSection(); ?>

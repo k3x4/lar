@@ -1,8 +1,21 @@
-<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
-  Launch Default Modal
-</button>
+@section('head')
+@parent
+    <script src="{{ asset('js/lib/datatables/js/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('js/lib/datatables/js/dataTables.bootstrap.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('js/lib/datatables/css/dataTables.bootstrap.css') }}">
 
-<div class="modal fade" id="modal-default">
+    <script src="{{ asset('js/lib/dropzone/min/dropzone.min.js') }}"></script>
+    <script src="{{ asset('js/dropzone-config.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('js/lib/dropzone/min/dropzone.min.css') }}">
+@endsection
+
+<img id="imgPreview" src="" style="display:none;"/>
+
+<a href="#" id="modalLink">
+  Select image
+</a>
+
+<div class="modal fade" id="mediamanager">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -19,7 +32,7 @@
             <div class="box-header with-border">
               <h4 class="box-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
-                  Upload files <span id="counter"></span>
+                  Upload file
                 </a>
               </h4>
             </div>
@@ -68,3 +81,42 @@
   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
+@section('footer_scripts')
+@parent
+    @include('admin.datatables_script', [
+        'url' => route('admin.media.datapopup'),
+        'columns' => json_encode([
+            ['data' => 'action', 'name' => 'action'],
+            ['data' => 'id', 'name' => 'id'],
+            ['data' => 'thumb', 'name' => 'thumb'],
+            ['data' => 'filename', 'name' => 'filename'],
+            ['data' => 'original_name', 'name' => 'original_name'],
+            ['data' => 'created_at', 'name' => 'created_at']
+        ])
+    ])
+
+    <script>
+    $( document ).ready(function() {
+     //var modalmm = $('#mediamanager-modal');
+
+      var mm = $('#mediamanager');
+
+      $('#modalLink').click(function (e) {
+        e.preventDefault();
+        mm.modal('show');
+      });
+
+
+      $(document).on('click','.dtable a', {} ,function (e) {
+        e.preventDefault();
+        var imgUrl = $(this).attr("href");
+        $('#imgPreview').show().src = imgUrl;
+        mm.modal('hide');
+        //$('body').removeClass('modal-open');
+        //$('.modal-backdrop').fadeOut(300);
+      });
+
+    });
+    </script>
+@endsection
