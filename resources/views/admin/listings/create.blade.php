@@ -2,6 +2,16 @@
 
 @section('head')
 @parent
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+
+    <script src="{{ asset('js/lib/datatables/js/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('js/lib/datatables/js/dataTables.bootstrap.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('js/lib/datatables/css/dataTables.bootstrap.css') }}">
+
+    <script src="{{ asset('js/lib/dropzone/min/dropzone.min.js') }}"></script>
+    <script src="{{ asset('js/dropzone-config.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('js/lib/dropzone/min/dropzone.min.css') }}">
+
     <script src="{{ asset('js/lib/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('js/lib/bootstrap-select/css/bootstrap-select.min.css') }}">
 @endsection
@@ -25,8 +35,6 @@
 </div>
 @endif
 
-
-{!! Form::open(['route' => 'admin.listings.store','method'=>'POST']) !!}
 <div class="row">
 
     <div class="col-lg-8">
@@ -58,8 +66,10 @@
             </div>
             <div class="box-body">
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success" name="status" value="publish">Submit</button>
-                    <button type="submit" class="btn btn-default" name="status" value="draft">Save draft</button>
+                    {!! Form::open(['route' => 'admin.listings.store','method'=>'POST']) !!}
+                        <button type="submit" class="btn btn-success" name="status" value="publish">Submit</button>
+                        <button type="submit" class="btn btn-default" name="status" value="draft">Save draft</button>
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
@@ -89,8 +99,6 @@
     </div>
 
 </div>
-{!! Form::close() !!}
-
 @endsection
 
 @section('footer_scripts')
@@ -100,4 +108,16 @@
             $('.selectpicker').selectpicker('toggle');
         });
     </script>
+
+    @include('admin.datatables_script', [
+        'url' => route('admin.media.data'),
+        'columns' => json_encode([
+            ['data' => 'action', 'name' => 'action'],
+            ['data' => 'id', 'name' => 'id'],
+            ['data' => 'thumb', 'name' => 'thumb'],
+            ['data' => 'filename', 'name' => 'filename'],
+            ['data' => 'original_name', 'name' => 'original_name'],
+            ['data' => 'created_at', 'name' => 'created_at']
+        ])
+    ])
 @endsection

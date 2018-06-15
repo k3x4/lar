@@ -56,10 +56,12 @@
 }
 
 table.dtable {
+    width: 100% !important;
     & > tbody{
         & > tr{
             & > td{
                 vertical-align: middle;
+                word-break: break-word;
             }
         }
     }
@@ -107,4 +109,21 @@ table.dtable {
 
 .icheck-item{
     transition: all 0.2s;
+}
+
+@media (min-width: 768px) {
+    .modal .modal-dialog {
+        width: 800px;
+        height: 100%;
+    }
+    .modal .modal-dialog{
+        overflow-y: initial !important
+    }
+    .modal .modal-content{
+        height: 90%;
+    }
+    .modal .modal-body{
+        height: 90%;
+        overflow-y: auto;
+    }
 }

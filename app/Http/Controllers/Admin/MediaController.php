@@ -21,25 +21,44 @@ class MediaController extends Controller
         return view('admin.media.index');
     }
 
-    public function data()
+    public function data(Request $request)
     {
         $medias = Media::all();
-        return Datatables::of($medias)
-            ->addColumn('thumb', function ($media) {
-                $html  = '<div class="dtable-td-wrapper">';
-                $html .= \Html::tag('span', '', ['class' => 'dtable-helper']);
-                $html .= \Html::image('/uploads/' . $media->get('mini'));
-                $html .= '</div>';
-                return $html;
-            })
+
+        $popup = false;
+        if($request->input('state') == 'popup'){
+            $popup = true;
+        }
+
+        $result = Datatables::of($medias)
             ->addColumn('action', function ($media) {
                 $html  = '<div class="dtable-td-wrapper">';
                 $html .= \Form::checkbox('action', $media->id, false, ['class' => 'select']);
                 $html .= '</div>';
                 return $html;
             })
-            ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
-            ->make(true);
+            ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}');
+
+        if($popup){
+            $result->addColumn('thumb', function ($media) {
+                $html  = '<div class="dtable-td-wrapper">';
+                $html .= \Html::tag('span', '', ['class' => 'dtable-helper']);
+                $html .= '<a href="#">' . \Html::image('/uploads/' . $media->get('mini')) . '</a>';
+                $html .= '</div>';
+                return $html;
+            });
+            $result->editColumn('filename', '{!! Html::link("#", $filename) !!}');
+        } else {
+            $result->addColumn('thumb', function ($media) {
+                $html  = '<div class="dtable-td-wrapper">';
+                $html .= \Html::tag('span', '', ['class' => 'dtable-helper']);
+                $html .= \Html::image('/uploads/' . $media->get('mini'));
+                $html .= '</div>';
+                return $html;
+            });
+        }
+        
+        return $result->make(true);
     }
 
     public function store(Request $request)

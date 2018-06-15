@@ -5,7 +5,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 
     <script src="{{ asset('js/lib/dropzone/min/dropzone.min.js') }}"></script>
-    <script src="{{ asset('js/lib/clipboard/clipboard.min.js') }}"></script>
+    <script src="{{ asset('js/dropzone-config.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('js/lib/dropzone/min/dropzone.min.css') }}">
 
     <script src="{{ asset('js/lib/datatables/js/jquery.dataTables.js') }}"></script>
@@ -16,22 +16,28 @@
 @section('content')
 <div class="row">
     <div class="col-lg-12">
-        <div class="box">
+        <div class="box-group" id="accordion">
+          <div class="panel box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Upload files <span id="counter"></span></h3>
+              <h4 class="box-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
+                  Upload files <span id="counter"></span>
+                </a>
+              </h4>
             </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-                {!! Form::open(array('route' => 'admin.media.store', 'enctype' => 'multipart/form-data', 'id' => 'my-dropzone', 'class' => 'dropzone')) !!}
-                    {{ csrf_field() }}
+            <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+              <div class="box-body">
+                {!! Form::open([
+                    'route' => 'admin.media.store',
+                    'enctype' => 'multipart/form-data',
+                    'id' => 'my-dropzone',
+                    'class' => 'dropzone'
+                ]) !!}
                 {!! Form::close() !!}
+              </div>
             </div>
-            <!-- /.box-body -->
-            <div class="box-footer clearfix">
-
-            </div>
+          </div>
         </div>
-        <!-- /.box -->
     </div>
 </div>
 
@@ -80,6 +86,7 @@
             ['data' => 'filename', 'name' => 'filename'],
             ['data' => 'original_name', 'name' => 'original_name'],
             ['data' => 'created_at', 'name' => 'created_at']
-        ])
+        ]),
+        'data' =>json_encode(['state' => 'popup']),
     ])
 @endsection

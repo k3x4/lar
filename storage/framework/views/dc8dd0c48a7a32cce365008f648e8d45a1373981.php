@@ -4,7 +4,11 @@
     $('.dtable').DataTable({
         processing: true,
         serverSide: true,
-        ajax: <?php echo "'" . $url . "'"; ?>,
+        ajax: { 
+            "url": <?php echo "'" . $url . "'"; ?>,
+            <?php echo isset($data) ? '"data": ' . $data : ''; ?>
+
+        },
         order: [
             [ 1, "desc" ]
         ],

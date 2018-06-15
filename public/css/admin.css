@@ -53,8 +53,13 @@
   text-align: center;
 }
 
+table.dtable {
+  width: 100% !important;
+}
+
 table.dtable > tbody > tr > td {
   vertical-align: middle;
+  word-break: break-word;
 }
 
 table.dtable .minsize {
@@ -106,5 +111,25 @@ table.dtable input.select {
 .icheck-item {
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
+}
+
+@media (min-width: 768px) {
+  .modal .modal-dialog {
+    width: 800px;
+    height: 100%;
+  }
+
+  .modal .modal-dialog {
+    overflow-y: initial !important;
+  }
+
+  .modal .modal-content {
+    height: 90%;
+  }
+
+  .modal .modal-body {
+    height: 90%;
+    overflow-y: auto;
+  }
 }
 
