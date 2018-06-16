@@ -9,10 +9,14 @@
     <link rel="stylesheet" href="{{ asset('js/lib/dropzone/min/dropzone.min.css') }}">
 @endsection
 
-<img id="imgPreview" src="" style="display:none;"/>
+<div id="featured-preview"></div>
 
-<a href="#" id="modalLink">
+<a href="#" id="modalLink" style="display:block;" data-toggle="modal" data-target="#mediamanager">
   Select image
+</a>
+
+<a href="#" id="removeLink" style="display:none;">
+  Remove image
 </a>
 
 <div class="modal fade" id="mediamanager">
@@ -98,23 +102,24 @@
 
     <script>
     $( document ).ready(function() {
-     //var modalmm = $('#mediamanager-modal');
-
-      var mm = $('#mediamanager');
-
-      $('#modalLink').click(function (e) {
-        e.preventDefault();
-        mm.modal('show');
-      });
-
 
       $(document).on('click','.dtable a', {} ,function (e) {
         e.preventDefault();
-        var imgUrl = $(this).attr("href");
-        $('#imgPreview').show().src = imgUrl;
-        mm.modal('hide');
-        //$('body').removeClass('modal-open');
-        //$('.modal-backdrop').fadeOut(300);
+        $('#mediamanager').trigger('click');
+        var imgUrl = $(this).attr('href');
+        var imgId = $(this).data('id');
+        $('#featured-preview').css('background-image', 'url(' + imgUrl + ')').slideDown();
+        $('input[name=featuredImage]').val(imgId);
+        $('#modalLink').fadeOut(500);
+        $('#removeLink').fadeIn(1000);
+      });
+
+      $(document).on('click','#removeLink', {} ,function (e) {
+        e.preventDefault();
+        $('#featured-preview').css('background-image', '').slideUp();
+        $('input[name=featuredImage]').val('');
+        $('#removeLink').fadeOut(500);
+        $('#modalLink').fadeIn(1000);
       });
 
     });

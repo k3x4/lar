@@ -22,6 +22,10 @@ class Media extends Model
         return $this->hasMany('App\Thumb');
     }
 
+    public function listing(){
+        return $this->belongsToMany('App\Listing');
+    }
+
     public function get($tag){
         $media_size = MediaSize::where('tag', '=', $tag)->first();
 

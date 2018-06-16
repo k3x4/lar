@@ -23,9 +23,7 @@ class MediaController extends Controller
 
     public function data()
     {
-        $medias = Media::all();
-
-        return Datatables::of($medias)
+        return Datatables::of(Media::all())
             ->addColumn('action', function ($media) {
                 $html  = '<div class="dtable-td-wrapper">';
                 $html .= \Form::checkbox('action', $media->id, false, ['class' => 'select']);
@@ -57,11 +55,11 @@ class MediaController extends Controller
             ->addColumn('thumb', function ($media) {
                 $html  = '<div class="dtable-td-wrapper">';
                 $html .= \Html::tag('span', '', ['class' => 'dtable-helper']);
-                $html .= '<a href="/uploads/' . $media->filename . '">' . \Html::image('/uploads/' . $media->get('mini')) . '</a>';
+                $html .= '<a data-id="' . $media->id . '" href="/uploads/' . $media->filename . '">' . \Html::image('/uploads/' . $media->get('mini')) . '</a>';
                 $html .= '</div>';
                 return $html;
             })
-            ->editColumn('filename', '{!! Html::link("/uploads/" . $filename, $filename) !!}')
+            ->editColumn('filename', '{!! Html::link("/uploads/" . $filename, $filename, ["data-id" => $id]) !!}')
             ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
             ->make(true);
     }

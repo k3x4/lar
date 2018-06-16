@@ -33,6 +33,8 @@
                 <h3 class="box-title">Create New Listing</h3>
             </div>
             <div class="box-body">
+                <?php echo Form::open(['id' => 'contentForm']); ?>
+
                 <div class="form-group">
                     <strong>Title:</strong>
                     <?php echo Form::text('title', null, ['placeholder' => 'Title','class' => 'form-control']); ?>
@@ -48,6 +50,8 @@
                     <?php echo Form::textarea('content', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']); ?>
 
                 </div>
+                <?php echo Form::close(); ?>
+
             </div>
         </div>
     </div>
@@ -59,7 +63,13 @@
             </div>
             <div class="box-body">
                 <div class="form-group">
-                    <?php echo Form::open(['route' => 'admin.listings.store','method'=>'POST']); ?>
+                    <?php echo Form::open([
+                        'route' => 'admin.listings.store',
+                        'method' => 'POST',
+                        'id' => 'mainForm',
+                    ]); ?>
+
+                    <?php echo Form::hidden('featuredImage'); ?>
 
                         <button type="submit" class="btn btn-success" name="status" value="publish">Submit</button>
                         <button type="submit" class="btn btn-default" name="status" value="draft">Save draft</button>
@@ -73,13 +83,19 @@
                 <h3 class="box-title">Category</h3>
             </div>
             <div class="box-body">
+                <?php echo Form::open(['id' => 'categoryForm']); ?>
+
                 <div class="form-group">
-                    <?php echo Form::select('category_id', $categories, null, [
+                    <?php echo Form::select('category_id_real', $categories, null, [
                         'class' => 'selectpicker',
                         'data-width' => 'fit'
                     ]); ?>
 
+                    <?php echo Form::hidden('category_id'); ?>
+
                 </div>
+                <?php echo Form::close(); ?>
+
             </div>
         </div>
         <div class="box box-default">
@@ -87,8 +103,10 @@
                     <h3 class="box-title">Image</h3>
                 </div>
                 <div class="box-body">
-                    <div class="form-group">
-                        <?php echo app('arrilot.widget')->run('FeaturedImage'); ?>
+                    <div id="featuredImageForm">
+                        <div class="form-group">
+                            <?php echo app('arrilot.widget')->run('FeaturedImage'); ?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -100,8 +118,19 @@
 <?php $__env->startSection('footer_scripts'); ?>
 ##parent-placeholder-c55a01b0a8ef1d7b211584e96d51bdf8930d1005##
     <script>
-        $(function () {
+        $( document ).ready(function() {
+
             $('.selectpicker').selectpicker('toggle');
+
+            $('#mainForm').submit(function() {
+                var contentFields = $('#contentForm .form-group').clone().hide(); 
+                var categoryFields = $('#categoryForm .form-group').clone().hide();
+                $(this).append(contentFields);
+                $(this).append(categoryFields);
+                var rr = $('#mainForm .selectpicker').val();
+                alert(rr);
+            });
+
         });
     </script>
 <?php $__env->stopSection(); ?>

@@ -133,3 +133,13 @@ table.dtable input.select {
   }
 }
 
+#featured-preview {
+  display: none;
+  height: 200px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  margin-bottom: 10px;
+}
+

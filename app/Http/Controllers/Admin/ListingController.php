@@ -81,11 +81,11 @@ class ListingController extends Controller
         $listing->slug = $slug;
         $listing->content = $request->input('content');
         $listing->status = $request->input('status');
-
         $listing->save();
 
-        // $mediaConverter = new MediaConverter($product);
-        // $mediaConverter->saveImage($request->input('feature_image'));
+        if($request->input('featuredImage')){
+            $listing->featuredImage()->sync($request->input('featuredImage'));
+        }
 
         return redirect()->route('admin.listings.index')
                         ->with('success','Listing created successfully');
