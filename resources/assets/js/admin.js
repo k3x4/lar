@@ -130,8 +130,5 @@ $(document).ready(function () {
         })
     })
 
-    $(document).on('change','.bootstrap-select .selectpicker', {} ,function () {    
-        $("input[name=category_id]").val($(".bootstrap-select .selectpicker").val());
-    });
 
 });

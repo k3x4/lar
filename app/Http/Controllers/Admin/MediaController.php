@@ -41,6 +41,11 @@ class MediaController extends Controller
             ->make(true);
     }
 
+    public function popup()
+    {
+        return view('admin.media.popup');
+    }
+
     public function datapopup()
     {
         $medias = Media::all();
@@ -171,7 +176,8 @@ class MediaController extends Controller
 
         Media::destroy($ids);
 
-        return redirect()->route('admin.media.index')
+        //return redirect()->route('admin.media.index')
+        return redirect()->back()
                          ->with('success','Media deleted successfully');
     }
 

@@ -27,6 +27,7 @@
 </div>
 @endif
 
+{!! Form::open(['route' => 'admin.listings.store', 'method' => 'POST']) !!}
 <div class="row">
 
     <div class="col-lg-8">
@@ -35,7 +36,6 @@
                 <h3 class="box-title">Create New Listing</h3>
             </div>
             <div class="box-body">
-                {!! Form::open(['id' => 'contentForm']) !!}
                 <div class="form-group">
                     <strong>Title:</strong>
                     {!! Form::text('title', null, ['placeholder' => 'Title','class' => 'form-control']) !!}
@@ -48,7 +48,6 @@
                     <strong>Description:</strong>
                     {!! Form::textarea('content', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']) !!}
                 </div>
-                {!! Form::close() !!}
             </div>
         </div>
     </div>
@@ -60,15 +59,8 @@
             </div>
             <div class="box-body">
                 <div class="form-group">
-                    {!! Form::open([
-                        'route' => 'admin.listings.store',
-                        'method' => 'POST',
-                        'id' => 'mainForm',
-                    ]) !!}
-                    {!! Form::hidden('featuredImage') !!}
-                        <button type="submit" class="btn btn-success" name="status" value="publish">Submit</button>
-                        <button type="submit" class="btn btn-default" name="status" value="draft">Save draft</button>
-                    {!! Form::close() !!}
+                    <button type="submit" class="btn btn-success" name="status" value="publish">Submit</button>
+                    <button type="submit" class="btn btn-default" name="status" value="draft">Save draft</button>
                 </div>
             </div>
         </div>
@@ -77,15 +69,12 @@
                 <h3 class="box-title">Category</h3>
             </div>
             <div class="box-body">
-                {!! Form::open(['id' => 'categoryForm']) !!}
                 <div class="form-group">
-                    {!! Form::select('category_id_list', $categories, null, [
+                    {!! Form::select('category_id', $categories, null, [
                         'class' => 'selectpicker',
                         'data-width' => 'fit'
                     ]) !!}
-                    {!! Form::hidden('category_id') !!}
                 </div>
-                {!! Form::close() !!}
             </div>
         </div>
         <div class="box box-default">
@@ -93,32 +82,23 @@
                     <h3 class="box-title">Image</h3>
                 </div>
                 <div class="box-body">
-                    <div id="featuredImageForm">
-                        <div class="form-group">
-                            @widget('FeaturedImage')
-                        </div>
+                    <div class="form-group">
+                        @widget('FeaturedImage')
                     </div>
                 </div>
             </div>
     </div>
 
 </div>
+{!! Form::close() !!}
+
 @endsection
 
 @section('footer_scripts')
 @parent
     <script>
         $( document ).ready(function() {
-
             $('.selectpicker').selectpicker('toggle');
-
-            $('#mainForm').submit(function() {
-                var contentFields = $('#contentForm .form-group').clone().hide(); 
-                var categoryFields = $('#categoryForm .form-group').clone().hide();
-                $(this).append(contentFields);
-                $(this).append(categoryFields);
-            });
-
         });
     </script>
 @endsection

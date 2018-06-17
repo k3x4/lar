@@ -1,15 +1,5 @@
-@section('head')
-@parent
-    <script src="{{ asset('js/lib/datatables/js/jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('js/lib/datatables/js/dataTables.bootstrap.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('js/lib/datatables/css/dataTables.bootstrap.css') }}">
-
-    <script src="{{ asset('js/lib/dropzone/min/dropzone.min.js') }}"></script>
-    <script src="{{ asset('js/dropzone-config.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('js/lib/dropzone/min/dropzone.min.css') }}">
-@endsection
-
 <div id="featured-preview"></div>
+{!! Form::hidden('featuredImage') !!}
 
 <a href="#" id="modalLink" style="display:block;" data-toggle="modal" data-target="#mediamanager">
   Select image
@@ -29,49 +19,7 @@
         <h4 class="modal-title">Media manager</h4>
       </div>
       <div class="modal-body">
-
-        <div class="box-group" id="accordion">
-          <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
-          <div class="panel box-primary">
-            <div class="box-header with-border">
-              <h4 class="box-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
-                  Upload file
-                </a>
-              </h4>
-            </div>
-            <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-              <div class="box-body">
-                {!! Form::open([
-                    'route' => 'admin.media.store',
-                    'enctype' => 'multipart/form-data',
-                    'id' => 'my-dropzone',
-                    'class' => 'dropzone'
-                ]) !!}
-                {!! Form::close() !!}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <table class="table dtable table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th style="width:5px;"><input type="checkbox" class="selectAll"/></th>
-                    <th style="width: 1%;">ID</th>
-                    <th style="width: 1%;">Image</th>
-                    <th style="width: 30%;">Filename</th>
-                    <th style="width: 58%;">Original filename</th>
-                    <th style="width: 10%;">Uploaded</th>
-                </tr>
-            </thead>
-        </table>
-        @permission('media-delete')
-            {!! Form::open(['method' => 'DELETE', 'route' => ['admin.media.destroy'], 'class' => 'deleteForm']) !!}
-            {!! Form::hidden('ids') !!}
-            {!! Form::submit('Delete', ['class' => 'btn btn-danger disabled', 'data-confirm' => 'Are you sure you want to delete?']) !!}
-            {!! Form::close() !!}
-        @endpermission
+        <iframe src="" width="100%" height="100%" frameborder="0"></iframe>
       </div>
       <div class="modal-footer">
         <!--
@@ -88,20 +36,14 @@
 
 @section('footer_scripts')
 @parent
-    @include('admin.datatables_script', [
-        'url' => route('admin.media.datapopup'),
-        'columns' => json_encode([
-            ['data' => 'action', 'name' => 'action'],
-            ['data' => 'id', 'name' => 'id'],
-            ['data' => 'thumb', 'name' => 'thumb'],
-            ['data' => 'filename', 'name' => 'filename'],
-            ['data' => 'original_name', 'name' => 'original_name'],
-            ['data' => 'created_at', 'name' => 'created_at']
-        ])
-    ])
 
     <script>
     $( document ).ready(function() {
+
+        $('#mediamanager').on('show.bs.modal', function () {
+          $('#mediamanager iframe').attr( "src", {!! "'" . route('admin.media.popup') . "'" !!} );
+        });
+        
 
       $(document).on('click','.dtable a', {} ,function (e) {
         e.preventDefault();
@@ -123,5 +65,6 @@
       });
 
     });
+
     </script>
 @endsection
