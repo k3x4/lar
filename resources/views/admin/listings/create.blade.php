@@ -2,8 +2,6 @@
 
 @section('head')
 @parent
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-
     <script src="{{ asset('js/lib/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('js/lib/bootstrap-select/css/bootstrap-select.min.css') }}">
 @endsection
@@ -78,15 +76,15 @@
             </div>
         </div>
         <div class="box box-default">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Image</h3>
-                </div>
-                <div class="box-body">
-                    <div class="form-group">
-                        @widget('FeaturedImage')
-                    </div>
+            <div class="box-header with-border">
+                <h3 class="box-title">Image</h3>
+            </div>
+            <div class="box-body">
+                <div class="form-group">
+                    @widget('FeaturedImage')
                 </div>
             </div>
+        </div>
     </div>
 
 </div>

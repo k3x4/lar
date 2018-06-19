@@ -141,6 +141,7 @@ class ListingController extends Controller
         }
 
         $listing->update($data);
+        $listing->featuredImage()->sync($request->input('featuredImage'));
 
         return redirect()->route('admin.listings.index')
                         ->with('success','Listing updated successfully');

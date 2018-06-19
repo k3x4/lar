@@ -1,24 +1,37 @@
+@php extract($config) @endphp
+
 @section('head')
 @parent
-      <script src="{{ asset('js/lib/dropzone/min/dropzone.min.js') }}"></script>
-      <script src="{{ asset('js/dropzone-config.js') }}"></script>
-      <link rel="stylesheet" href="{{ asset('js/lib/dropzone/min/dropzone.min.css') }}">
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 
-      <script src="{{ asset('js/lib/datatables/js/jquery.dataTables.js') }}"></script>
-      <script src="{{ asset('js/lib/datatables/js/dataTables.bootstrap.js') }}"></script>
-      <link rel="stylesheet" href="{{ asset('js/lib/datatables/css/dataTables.bootstrap.css') }}">
+    <script src="{{ asset('js/lib/dropzone/min/dropzone.min.js') }}"></script>
+    <script src="{{ asset('js/dropzone-config.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('js/lib/dropzone/min/dropzone.min.css') }}">
+
+    <script src="{{ asset('js/lib/datatables/js/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('js/lib/datatables/js/dataTables.bootstrap.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('js/lib/datatables/css/dataTables.bootstrap.css') }}">
 @endsection
 
-<div id="featured-preview"></div>
 {!! Form::hidden('featuredImage') !!}
 
-<a href="#" id="modalLink" style="display:block;" data-toggle="modal" data-target="#mediamanager">
-  Select image
-</a>
-
-<a href="#" id="removeLink" style="display:none;">
-  Remove image
-</a>
+@if( $listing && count($listing->featuredImage) )
+    <div id="featured-preview" style="display:block;background-image: url(/uploads/{!! $listing->featuredImage[0]->filename !!})"></div>
+    <a href="#" id="modalLink" style="display:none;" data-toggle="modal" data-target="#mediamanager">
+        Select image
+    </a>
+    <a href="#" id="removeLink" style="display:block;">
+        Remove image
+    </a>
+@else
+    <div id="featured-preview"></div>
+    <a href="#" id="modalLink" style="display:block;" data-toggle="modal" data-target="#mediamanager">
+        Select image
+    </a>
+    <a href="#" id="removeLink" style="display:none;">
+        Remove image
+    </a>
+@endif    
 
 <div class="modal fade" id="mediamanager">
   <div class="modal-dialog">

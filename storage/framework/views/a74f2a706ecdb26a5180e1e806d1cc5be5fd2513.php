@@ -1,25 +1,38 @@
+<?php extract($config) ?>
+
 <?php $__env->startSection('head'); ?>
 ##parent-placeholder-1a954628a960aaef81d7b2d4521929579f3541e6##
-      <script src="<?php echo e(asset('js/lib/dropzone/min/dropzone.min.js')); ?>"></script>
-      <script src="<?php echo e(asset('js/dropzone-config.js')); ?>"></script>
-      <link rel="stylesheet" href="<?php echo e(asset('js/lib/dropzone/min/dropzone.min.css')); ?>">
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 
-      <script src="<?php echo e(asset('js/lib/datatables/js/jquery.dataTables.js')); ?>"></script>
-      <script src="<?php echo e(asset('js/lib/datatables/js/dataTables.bootstrap.js')); ?>"></script>
-      <link rel="stylesheet" href="<?php echo e(asset('js/lib/datatables/css/dataTables.bootstrap.css')); ?>">
+    <script src="<?php echo e(asset('js/lib/dropzone/min/dropzone.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/dropzone-config.js')); ?>"></script>
+    <link rel="stylesheet" href="<?php echo e(asset('js/lib/dropzone/min/dropzone.min.css')); ?>">
+
+    <script src="<?php echo e(asset('js/lib/datatables/js/jquery.dataTables.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/lib/datatables/js/dataTables.bootstrap.js')); ?>"></script>
+    <link rel="stylesheet" href="<?php echo e(asset('js/lib/datatables/css/dataTables.bootstrap.css')); ?>">
 <?php $__env->stopSection(); ?>
 
-<div id="featured-preview"></div>
 <?php echo Form::hidden('featuredImage'); ?>
 
 
-<a href="#" id="modalLink" style="display:block;" data-toggle="modal" data-target="#mediamanager">
-  Select image
-</a>
-
-<a href="#" id="removeLink" style="display:none;">
-  Remove image
-</a>
+<?php if( $listing && count($listing->featuredImage) ): ?>
+    <div id="featured-preview" style="display:block;background-image: url(/uploads/<?php echo $listing->featuredImage[0]->filename; ?>)"></div>
+    <a href="#" id="modalLink" style="display:none;" data-toggle="modal" data-target="#mediamanager">
+        Select image
+    </a>
+    <a href="#" id="removeLink" style="display:block;">
+        Remove image
+    </a>
+<?php else: ?>
+    <div id="featured-preview"></div>
+    <a href="#" id="modalLink" style="display:block;" data-toggle="modal" data-target="#mediamanager">
+        Select image
+    </a>
+    <a href="#" id="removeLink" style="display:none;">
+        Remove image
+    </a>
+<?php endif; ?>    
 
 <div class="modal fade" id="mediamanager">
   <div class="modal-dialog">
@@ -44,7 +57,7 @@
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
                     <div class="box-body dropzone-container">
-                    <form></form>
+                    <form></form><!-- FIX CLEAR FIRST NESTED FORM -->
                     <?php if (\Entrust::can('media-create')) : ?>
                         <?php echo Form::open([
                             'route' => 'admin.media.store',

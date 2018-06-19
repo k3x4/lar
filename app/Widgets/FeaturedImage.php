@@ -11,7 +11,9 @@ class FeaturedImage extends AbstractWidget
      *
      * @var array
      */
-    protected $config = [];
+    protected $config = [
+        'listing' => null
+    ];
 
     /**
      * Treat this method as a controller action.
