@@ -41,11 +41,6 @@ class MediaController extends Controller
             ->make(true);
     }
 
-    public function popup()
-    {
-        return view('admin.media.popup');
-    }
-
     public function datapopup()
     {
         $medias = Media::all();

@@ -27,13 +27,15 @@
             </div>
             <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
               <div class="box-body">
-                {!! Form::open([
-                    'route' => 'admin.media.store',
-                    'enctype' => 'multipart/form-data',
-                    'id' => 'my-dropzone',
-                    'class' => 'dropzone'
-                ]) !!}
-                {!! Form::close() !!}
+                @permission('media-create')
+                    {!! Form::open([
+                        'route' => 'admin.media.store',
+                        'enctype' => 'multipart/form-data',
+                        'id' => 'my-dropzone',
+                        'class' => 'dropzone'
+                    ]) !!}
+                    {!! Form::close() !!}
+                @endpermission    
               </div>
             </div>
           </div>

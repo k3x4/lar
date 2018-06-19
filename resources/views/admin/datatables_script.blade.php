@@ -24,8 +24,8 @@
             }
         ],
         columns: {!! $columns !!},
-        "initComplete": function( settings, json ) {
-            $('input[type="checkbox"]').icheck({
+        "drawCallback": function( settings, json ) {
+            $('input[type="checkbox"]:not(".icheck-input")').icheck({
                 checkboxClass: 'icheckbox_flat-blue',
             });
         }

@@ -25,15 +25,17 @@
             </div>
             <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
               <div class="box-body">
-                <?php echo Form::open([
-                    'route' => 'admin.media.store',
-                    'enctype' => 'multipart/form-data',
-                    'id' => 'my-dropzone',
-                    'class' => 'dropzone'
-                ]); ?>
+                <?php if (\Entrust::can('media-create')) : ?>
+                    <?php echo Form::open([
+                        'route' => 'admin.media.store',
+                        'enctype' => 'multipart/form-data',
+                        'id' => 'my-dropzone',
+                        'class' => 'dropzone'
+                    ]); ?>
 
-                <?php echo Form::close(); ?>
+                    <?php echo Form::close(); ?>
 
+                <?php endif; // Entrust::can ?>    
               </div>
             </div>
           </div>
