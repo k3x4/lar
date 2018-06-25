@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-lg-12 margin-bottom">
         <div class="pull-right">
-            <a class="btn btn-primary" href="<?php echo e(route('admin.listings.index')); ?>"> Back</a>
+            <a class="btn btn-primary" href="<?php echo e(route('admin.categories.index')); ?>"> Back</a>
         </div>
     </div>
 </div>
@@ -17,16 +17,15 @@
 </div>
 <?php endif; ?>
 
-<?php echo Form::model($listing, ['method' => 'PATCH','route' => ['admin.listings.update', $listing->id]]); ?>
+<?php echo Form::open(['route' => 'admin.categories.store','method'=>'POST']); ?>
 
 <div class="row">
 
     <div class="col-lg-8">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Edit Listing <strong><?php echo e($listing->title); ?></strong></h3>
+                <h3 class="box-title">Create New Category</h3>
             </div>
-            
             <div class="box-body">
                 <div class="form-group">
                     <strong>Title:</strong>
@@ -40,7 +39,7 @@
                 </div>
                 <div class="form-group">
                     <strong>Description:</strong>
-                    <?php echo Form::textarea('content', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']); ?>
+                    <?php echo Form::textarea('description', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']); ?>
 
                 </div>
             </div>
@@ -49,21 +48,16 @@
     </div>
 
     <div class="col-lg-4">
-
+        
         <?php echo app('arrilot.widget')->run('Status', [
             'title' => 'Status'
         ]); ?>
 
         <?php echo app('arrilot.widget')->run('Category', [
-            'title' => 'Category',
-            'categories' => $categories
+            'title' => 'Parent category',
+            'categories' => [NULL => 'Without parent'] + $categories
         ]); ?>
-
-        <?php echo app('arrilot.widget')->run('FeaturedImage', [
-            'title' => 'Featured image',
-            'listing' => $listing
-        ]); ?>
-               
+        
     </div>
 
 </div>
@@ -75,7 +69,7 @@
 <?php $__env->startSection('footer_scripts'); ?>
 ##parent-placeholder-c55a01b0a8ef1d7b211584e96d51bdf8930d1005##
     <script>
-        $( document ).ready(function() {
+        $(function () {
             $('.selectpicker').selectpicker('toggle');
         });
     </script>

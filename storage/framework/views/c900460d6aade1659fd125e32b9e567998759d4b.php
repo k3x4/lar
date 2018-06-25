@@ -1,0 +1,22 @@
+<?php extract($config) ?>
+
+<?php $__env->startSection('head'); ?>
+##parent-placeholder-1a954628a960aaef81d7b2d4521929579f3541e6##
+    <script src="<?php echo e(asset('js/lib/bootstrap-select/js/bootstrap-select.min.js')); ?>"></script>
+    <link rel="stylesheet" href="<?php echo e(asset('js/lib/bootstrap-select/css/bootstrap-select.min.css')); ?>">
+<?php $__env->stopSection(); ?>
+
+<div class="box box-default">
+    <div class="box-header with-border">
+        <h3 class="box-title"><?php echo e($title); ?></h3>
+    </div>
+    <div class="box-body">
+        <div class="form-group">
+            <?php echo Form::select('category_id', $categories, null, [
+                'class' => 'selectpicker',
+                'data-width' => 'fit'
+            ]); ?>
+
+        </div>
+    </div>
+</div>

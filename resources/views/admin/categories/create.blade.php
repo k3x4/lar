@@ -1,11 +1,5 @@
 @extends('admin.layout.master')
 
-@section('head')
-@parent
-    <script src="{{ asset('js/lib/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('js/lib/bootstrap-select/css/bootstrap-select.min.css') }}">
-@endsection
-
 @section('content')
 <div class="row">
     <div class="col-lg-12 margin-bottom">
@@ -25,13 +19,14 @@
 </div>
 @endif
 
+{!! Form::open(['route' => 'admin.categories.store','method'=>'POST']) !!}
 <div class="row">
-    <div class="col-lg-12">
+
+    <div class="col-lg-8">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Create New Category</h3>
             </div>
-            {!! Form::open(['route' => 'admin.categories.store','method'=>'POST']) !!}
             <div class="box-body">
                 <div class="form-group">
                     <strong>Title:</strong>
@@ -42,19 +37,29 @@
                     {!! Form::text('slug', null, ['placeholder' => 'Slug','class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
-                    <strong>Parent category:</strong>
-                    {!! Form::select('category_id', $categories, null, ['class' => 'selectpicker']) !!}
-                </div>
-                <div class="form-group">
                     <strong>Description:</strong>
                     {!! Form::textarea('description', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']) !!}
                 </div>
-                <button type="submit" class="btn btn-success">Submit</button>
             </div>
-            {!! Form::close() !!}
         </div>
     </div>
+
+    <div class="col-lg-4">
+        
+        @widget('Status', [
+            'title' => 'Status'
+        ])
+
+        @widget('Category', [
+            'title' => 'Parent category',
+            'categories' => [NULL => 'Without parent'] + $categories
+        ])
+        
+    </div>
+
 </div>
+{!! Form::close() !!}
+
 @endsection
 
 @section('footer_scripts')

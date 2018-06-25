@@ -68,6 +68,7 @@
             ['data' => 'slug', 'name' => 'slug'],
             ['data' => 'description', 'name' => 'description'],
             ['data' => 'created_at', 'name' => 'created_at']
-        ])
+        ]),
+        'order' => false
     ])
 @endsection

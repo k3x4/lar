@@ -6,10 +6,14 @@
         serverSide: true,
         ajax: { 
             "url": {!! "'" . $url . "'" !!},
-            {!! isset($data) ? '"data": ' . $data : '' !!}
+            @if (isset($data))
+                {!! '"data": ' . $data !!}
+            @endif    
         },
         order: [
-            [ 1, "desc" ]
+            @if (!isset($order) || $order)
+                {!! '[ 1, "desc" ]' !!}
+            @endif    
         ],
         columnDefs: [
             {

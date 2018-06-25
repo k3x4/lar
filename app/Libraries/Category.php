@@ -13,7 +13,7 @@ class Category
             }
             
             $list[] = $category;
-            $list = $list + self::makeTree($category->childs, $wrap, $list);
+            $list = $list + self::makeTree($category->childs()->orderBy('title', 'ASC')->get(), $wrap, $list);
 
         }
 

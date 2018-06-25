@@ -4,7 +4,7 @@ namespace App\Widgets;
 
 use Arrilot\Widgets\AbstractWidget;
 
-class FeaturedImage extends AbstractWidget
+class Status extends AbstractWidget
 {
     /**
      * The configuration array.
@@ -13,7 +13,6 @@ class FeaturedImage extends AbstractWidget
      */
     protected $config = [
         'title' => '',
-        'listing' => null
     ];
 
     /**
@@ -24,7 +23,7 @@ class FeaturedImage extends AbstractWidget
     {
         //
 
-        return view('widgets.featured_image', [
+        return view('widgets.status', [
             'config' => $this->config,
         ]);
     }

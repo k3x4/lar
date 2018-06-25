@@ -9,8 +9,8 @@
 <div class="row">
     <div class="col-lg-12 margin-bottom">
         <div class="pull-right">
-            <?php if (\Entrust::can('listing-create')) : ?>
-            <a class="btn btn-success" href="<?php echo e(route('admin.listings.create')); ?>"> New Listing</a>
+            <?php if (\Entrust::can('category-create')) : ?>
+            <a class="btn btn-success" href="<?php echo e(route('admin.categories.create')); ?>"> New Category</a>
             <?php endif; // Entrust::can ?>
         </div>
     </div>
@@ -25,26 +25,24 @@
     <div class="col-lg-12">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Listings list</h3>
+                <h3 class="box-title">Categories list</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
                 <table class="table dtable table-bordered table-striped">
-                    <thead>
-                        <tr>
+                    <tr>
+                        <thead>
                             <th style="width:5px;"><input type="checkbox" class="selectAll"/></th>
                             <th style="width: 1%;">ID</th>
-                            <th style="width: 20%;">Title</th>
+                            <th style="width: 20%;">Display Name</th>
                             <th style="width: 20%;">Slug</th>
-                            <th style="width: 30%;">Content</th>
-                            <th style="width: 10%;">Category</th>                            
-                            <th style="width: 10%;">Status</th>
+                            <th style="width: 50%;">Description</th>
                             <th style="width: 10%;">Created</th>
-                        </tr>
-                    </thead>
+                        </thead>
+                    </tr>
                 </table>
-                <?php if (\Entrust::can('listing-delete')) : ?>
-                    <?php echo Form::open(['method' => 'DELETE', 'route' => ['admin.listings.destroy'], 'class' => 'deleteForm']); ?>
+                <?php if (\Entrust::can('category-delete')) : ?>
+                    <?php echo Form::open(['method' => 'DELETE', 'route' => ['admin.categories.destroy'], 'class' => 'deleteForm']); ?>
 
                     <?php echo Form::hidden('ids'); ?>
 
@@ -64,17 +62,17 @@
 <?php $__env->startSection('footer_scripts'); ?>
 ##parent-placeholder-c55a01b0a8ef1d7b211584e96d51bdf8930d1005##
     <?php echo $__env->make('admin.datatables_script', [
-        'url' => route('admin.listings.data'),
+        'url' => route('admin.categories.data'),
         'columns' => json_encode([
             ['data' => 'action', 'name' => 'action'],
             ['data' => 'id', 'name' => 'id'],
             ['data' => 'title', 'name' => 'title'],
             ['data' => 'slug', 'name' => 'slug'],
-            ['data' => 'content', 'name' => 'content'],
-            ['data' => 'category', 'name' => 'category'],
-            ['data' => 'status', 'name' => 'status'],
+            ['data' => 'description', 'name' => 'description'],
             ['data' => 'created_at', 'name' => 'created_at']
-        ])
+        ]),
+        'order' => false
     ], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('admin.layout.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

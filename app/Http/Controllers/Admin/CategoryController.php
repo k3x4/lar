@@ -23,9 +23,9 @@ class CategoryController extends Controller
 
     public function data()
     {
-        $categories = Category::whereNull('category_id')->get();
+        $categories = Category::whereNull('category_id')->orderBy('title', 'ASC')->get();
         $categories = CategoryTools::makeTree($categories);
-        $categories = collect($categories);
+        //$categories = collect($categories);
 
         return Datatables::of($categories)
             ->addColumn('action', function ($category) {
@@ -108,9 +108,9 @@ class CategoryController extends Controller
         $category = Category::find($id);
 
         $categories = Category::whereNull('category_id')->get();
-        $categories = CategoryTools::makeOptions($categories);
+        $categories = CategoryTools::makeOptions($categories, $id);
 
-        return view('admin.categories.edit',compact('category', 'categories'));
+        return view('admin.categories.edit', compact('category', 'categories'));
     }
 
     /**

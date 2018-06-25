@@ -6,11 +6,16 @@
         serverSide: true,
         ajax: { 
             "url": <?php echo "'" . $url . "'"; ?>,
-            <?php echo isset($data) ? '"data": ' . $data : ''; ?>
+            <?php if(isset($data)): ?>
+                <?php echo '"data": ' . $data; ?>
 
+            <?php endif; ?>    
         },
         order: [
-            [ 1, "desc" ]
+            <?php if(!isset($order) || $order): ?>
+                <?php echo '[ 1, "desc" ]'; ?>
+
+            <?php endif; ?>    
         ],
         columnDefs: [
             {

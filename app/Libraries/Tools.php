@@ -76,11 +76,8 @@ class Tools
         return $check;
     }
 
-    public static function slug($text, $greeklish = true) {
-        if($greeklish){
-            $text = self::greeklishSlugs($text);
-        }
-        
+    public static function slug($text) {
+        $text = self::greeklishSlugs($text);
         $text = trim($text);
         $text = strtolower($text);
         $text = preg_replace('/[^a-z0-9 -]+/', '', $text);
@@ -89,6 +86,7 @@ class Tools
 
         $index = 0;
         $tempSlug = $slug;
+
         $exists = self::checkExistsSlug($slug);
         while($exists){
             $index++;
