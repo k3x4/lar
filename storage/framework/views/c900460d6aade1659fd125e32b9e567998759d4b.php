@@ -20,3 +20,12 @@
         </div>
     </div>
 </div>
+
+<?php $__env->startSection('footer_scripts'); ?>
+##parent-placeholder-c55a01b0a8ef1d7b211584e96d51bdf8930d1005##
+    <script>
+        $( document ).ready(function() {
+            $('.selectpicker').selectpicker('toggle');
+        });
+    </script>
+<?php $__env->stopSection(); ?>

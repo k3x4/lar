@@ -17,14 +17,15 @@
 </div>
 <?php endif; ?>
 
+<?php echo Form::open(['route' => 'admin.mediasizes.store','method'=>'POST']); ?>
+
 <div class="row">
-    <div class="col-lg-12">
+
+    <div class="col-lg-8">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Create New Media Size</h3>
             </div>
-            <?php echo Form::open(['route' => 'admin.mediasizes.store','method'=>'POST']); ?>
-
             <div class="box-body">
                 <div class="form-group">
                     <strong>Tag:</strong>
@@ -45,10 +46,10 @@
                     <strong>Crop:</strong>
                     <?php echo Form::hidden('crop', 0);; ?>
 
-                    <?php echo Form::checkbox('crop', 1, true, ['@click' => 'cropCheck = !cropCheck', 'ref' => 'cropField']); ?>
+                    <?php echo Form::checkbox('crop', 1, true, ['id' => 'crop']); ?>
 
                 </div>
-                <div class="form-group" v-show="cropCheck">
+                <div class="form-group" id="cropPos">
                     <strong>Crop Position:</strong>
                     <?php echo Form::select('crop_position', [
                         'top-left' => 'Top left',
@@ -60,7 +61,7 @@
                         'bottom-left' => 'Bottom left',
                         'bottom' => 'Bottom',
                         'bottom-right' => 'Bottom right'
-                        ], 'center', ['class' => 'form-control']); ?>
+                        ], 'center', ['class' => 'form-control select2']); ?>
 
                 </div>
                 <div class="form-group">
@@ -70,27 +71,63 @@
                     <?php echo Form::checkbox('enabled', 1, true); ?>
 
                 </div>
-                <button type="submit" class="btn btn-success">Submit</button>
             </div>
-            <?php echo Form::close(); ?>
-
         </div>
     </div>
+
+    <div class="col-lg-4">
+
+        <?php echo app('arrilot.widget')->run('Status', [
+            'title' => 'Status'
+        ]); ?>
+                
+    </div>
+
 </div>
+<?php echo Form::close(); ?>
+
+
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('footer_scripts'); ?>
 ##parent-placeholder-c55a01b0a8ef1d7b211584e96d51bdf8930d1005##
 <script>
-    new Vue({
-        el: '.content',
-        data: {
-            cropCheck: null
-        },
-        mounted: function () {
-            this.cropCheck = this.$refs.cropField.checked
-        }
+    // new Vue({
+    //     el: '.content',
+    //     data: {
+    //         cropCheck: null
+    //     },
+    //     mounted: function () {
+    //         this.cropCheck = this.$refs.cropField.checked
+    //     }
+    // });
+
+    $(document).ready(function () {
+
+        $("#crop").click(function () {
+            if ($(this).is(":checked")) {
+                //$("#cropPos").slideDown().fadeIn();
+                $("#cropPos")
+                    .css('opacity', 0)
+                    .slideDown()
+                    .animate(
+                        { opacity: 1 },
+                        { queue: false }
+                    );
+            } else {
+                //$("#cropPos").slideUp().fadeOut();
+                $("#cropPos")
+                    .css('opacity', 1)
+                    .slideUp()
+                    .animate(
+                        { opacity: 0 },
+                        { queue: false }
+                    );
+            }
+        });
+
     });
+
 </script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin.layout.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

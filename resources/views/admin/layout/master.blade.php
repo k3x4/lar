@@ -31,8 +31,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
         <!-- Ionicons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-        <!-- Theme style -->
-        <link rel="stylesheet" href="{{ asset('adminlte/dist/css/AdminLTE.min.css') }}">
+        
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -42,6 +41,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <![endif]-->
         
         <link rel="stylesheet" href="{{ asset('adminlte/dist/css/skins/skin-blue.min.css') }}">
+
+        <!-- Select2 -->
+        <link rel="stylesheet" href="{{ asset('adminlte/bower_components/select2/dist/css/select2.min.css') }}">
+
+        <link rel="stylesheet" href="{{ asset('js/lib/icheck-2/skins/flat/blue.css') }}">
+
+        <!-- Theme style -->
+        <link rel="stylesheet" href="{{ asset('adminlte/dist/css/AdminLTE.min.css') }}">
         
         <script src="{{ asset('js/app.js') }}"></script>
 

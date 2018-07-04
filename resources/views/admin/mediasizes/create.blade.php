@@ -19,13 +19,14 @@
 </div>
 @endif
 
+{!! Form::open(['route' => 'admin.mediasizes.store','method'=>'POST']) !!}
 <div class="row">
-    <div class="col-lg-12">
+
+    <div class="col-lg-8">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Create New Media Size</h3>
             </div>
-            {!! Form::open(['route' => 'admin.mediasizes.store','method'=>'POST']) !!}
             <div class="box-body">
                 <div class="form-group">
                     <strong>Tag:</strong>
@@ -42,9 +43,9 @@
                 <div class="form-group">
                     <strong>Crop:</strong>
                     {!! Form::hidden('crop', 0); !!}
-                    {!! Form::checkbox('crop', 1, true, ['@click' => 'cropCheck = !cropCheck', 'ref' => 'cropField']) !!}
+                    {!! Form::checkbox('crop', 1, true, ['id' => 'crop']) !!}
                 </div>
-                <div class="form-group" v-show="cropCheck">
+                <div class="form-group" id="cropPos" style="display:none;">
                     <strong>Crop Position:</strong>
                     {!! Form::select('crop_position', [
                         'top-left' => 'Top left',
@@ -56,7 +57,7 @@
                         'bottom-left' => 'Bottom left',
                         'bottom' => 'Bottom',
                         'bottom-right' => 'Bottom right'
-                        ], 'center', ['class' => 'form-control'])
+                        ], 'center', ['class' => 'form-control select2'])
                     !!}
                 </div>
                 <div class="form-group">
@@ -64,25 +65,52 @@
                     {!! Form::hidden('enabled', 0); !!}
                     {!! Form::checkbox('enabled', 1, true) !!}
                 </div>
-                <button type="submit" class="btn btn-success">Submit</button>
             </div>
-            {!! Form::close() !!}
         </div>
     </div>
+
+    <div class="col-lg-4">
+
+        @widget('Status', [
+            'title' => 'Status'
+        ])
+                
+    </div>
+
 </div>
+{!! Form::close() !!}
+
 @endsection
 
 @section('footer_scripts')
 @parent
 <script>
-    new Vue({
-        el: '.content',
-        data: {
-            cropCheck: null
-        },
-        mounted: function () {
-            this.cropCheck = this.$refs.cropField.checked
+    $(document).ready(function () {
+
+        if ($("#crop").is(":checked")) {
+            $("#cropPos").show();
         }
+
+        $("#crop").click(function () {
+            if ($(this).is(":checked")) {
+                $("#cropPos")
+                    .css('opacity', 0)
+                    .slideDown()
+                    .animate(
+                        { opacity: 1 },
+                        { queue: false }
+                    );
+            } else {
+                $("#cropPos")
+                    .css('opacity', 1)
+                    .slideUp()
+                    .animate(
+                        { opacity: 0 },
+                        { queue: false }
+                    );
+            }
+        });
+
     });
 </script>
 @endsection

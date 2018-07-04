@@ -1,5 +1,3 @@
-<script src="<?php echo e(asset('js/lib/icheck-2/icheck.js')); ?>"></script>
-<link rel="stylesheet" href="<?php echo e(asset('js/lib/icheck-2/skins/flat/blue.css')); ?>">
 <script>
     $('.dtable').DataTable({
         processing: true,

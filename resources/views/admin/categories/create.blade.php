@@ -61,12 +61,3 @@
 {!! Form::close() !!}
 
 @endsection
-
-@section('footer_scripts')
-@parent
-    <script>
-        $(function () {
-            $('.selectpicker').selectpicker('toggle');
-        });
-    </script>
-@endsection

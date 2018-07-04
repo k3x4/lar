@@ -68,13 +68,4 @@
 
 
 <?php $__env->stopSection(); ?>
-
-<?php $__env->startSection('footer_scripts'); ?>
-##parent-placeholder-c55a01b0a8ef1d7b211584e96d51bdf8930d1005##
-    <script>
-        $( document ).ready(function() {
-            $('.selectpicker').selectpicker('toggle');
-        });
-    </script>
-<?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin.layout.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

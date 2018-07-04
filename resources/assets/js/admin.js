@@ -1,6 +1,8 @@
-window.Vue = require('vue');
+/*window.Vue = require('vue');*/
 
 $(document).ready(function () {
+
+    $('.select2').select2();
 
     /*** TINYMCE INIT ***/
 
@@ -128,7 +130,12 @@ $(document).ready(function () {
                 $(this).removeClass('active');
             }
         })
-    })
+    });
+
+    // I-CHECK ALL
+    $('input[type="checkbox"]:not(".icheck-input")').icheck({
+        checkboxClass: 'icheckbox_flat-blue',
+    });
 
 
 });
