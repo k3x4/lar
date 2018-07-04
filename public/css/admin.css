@@ -113,6 +113,20 @@ table.dtable input.select {
   transition: all 0.2s;
 }
 
+.select2-container {
+  width: 30% !important;
+}
+
+#featured-preview {
+  display: none;
+  height: 200px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  margin-bottom: 10px;
+}
+
 @media (min-width: 768px) {
   .modal .modal-dialog {
     width: 800px;
@@ -131,15 +145,5 @@ table.dtable input.select {
     height: 90%;
     overflow-y: auto;
   }
-}
-
-#featured-preview {
-  display: none;
-  height: 200px;
-  overflow: hidden;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100%;
-  margin-bottom: 10px;
 }
 

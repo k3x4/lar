@@ -49,7 +49,7 @@
                     <?php echo Form::checkbox('crop', 1, true, ['id' => 'crop']); ?>
 
                 </div>
-                <div class="form-group" id="cropPos">
+                <div class="form-group" id="cropPos" style="display:none;">
                     <strong>Crop Position:</strong>
                     <?php echo Form::select('crop_position', [
                         'top-left' => 'Top left',
@@ -92,21 +92,14 @@
 <?php $__env->startSection('footer_scripts'); ?>
 ##parent-placeholder-c55a01b0a8ef1d7b211584e96d51bdf8930d1005##
 <script>
-    // new Vue({
-    //     el: '.content',
-    //     data: {
-    //         cropCheck: null
-    //     },
-    //     mounted: function () {
-    //         this.cropCheck = this.$refs.cropField.checked
-    //     }
-    // });
-
     $(document).ready(function () {
+
+        if ($("#crop").is(":checked")) {
+            $("#cropPos").show();
+        }
 
         $("#crop").click(function () {
             if ($(this).is(":checked")) {
-                //$("#cropPos").slideDown().fadeIn();
                 $("#cropPos")
                     .css('opacity', 0)
                     .slideDown()
@@ -115,7 +108,6 @@
                         { queue: false }
                     );
             } else {
-                //$("#cropPos").slideUp().fadeOut();
                 $("#cropPos")
                     .css('opacity', 1)
                     .slideUp()
@@ -127,7 +119,6 @@
         });
 
     });
-
 </script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin.layout.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
