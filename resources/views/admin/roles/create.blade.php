@@ -40,17 +40,48 @@
                     <strong>Description:</strong>
                     {!! Form::textarea('description', null, ['placeholder' => 'Description','class' => 'form-control','style'=>'height:100px']) !!}
                 </div>
-                <div class="form-group">
-                    <strong>Permission:</strong>
-                    <br/>
-                    @foreach($permission as $value)
-                    <label>{{ Form::checkbox('permission[]', $value->id, false, ['class' => 'name']) }}
-                        {{ $value->display_name }}</label>
-                    <br/>
-                    @endforeach
-                </div>
             </div>
         </div>
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Permissions</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                @php $perms = PERM::getPerms() @endphp
+                @php $permsLines = PERM::convertLines($perms) @endphp
+                <table class="table table-striped permTable">
+                    <tr>
+                        <th></th>
+                        @foreach($perms as $key => $value)
+                            <th><input id="{{ 'perm-' . strtolower($key) }}" type="checkbox" class="selectAll"/> {{ $key }}</th>
+                        @endforeach
+                    </tr>
+                    @foreach($permsLines as $permKey => $permLine)
+                        <tr>
+                            <td><strong>{{ ucfirst($permKey) }}</strong></td>
+                            @foreach($permLine as $perm)
+                                <td>
+                                    {{ Form::checkbox(
+                                            'permission[]',
+                                            $perm->id,
+                                            false,
+                                            [
+                                                'class' => 'name select',
+                                                'data-perm' => current(explode('-', $perm->name))
+                                            ]
+                                        )
+                                    }}
+                                    {{ $perm->display_name }}
+                                </td>
+                            @endforeach
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
     </div>
 
     <div class="col-lg-4">

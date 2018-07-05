@@ -78,8 +78,8 @@
                 </table>
             </div>
             <!-- /.box-body -->
-            </div>
-            <!-- /.box -->
+        </div>
+        <!-- /.box -->
     </div>
 
     <div class="col-lg-4">

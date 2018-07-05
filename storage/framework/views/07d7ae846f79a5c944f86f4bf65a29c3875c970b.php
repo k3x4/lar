@@ -42,18 +42,49 @@
                     <?php echo Form::textarea('description', null, ['placeholder' => 'Description','class' => 'form-control','style'=>'height:100px']); ?>
 
                 </div>
-                <div class="form-group">
-                    <strong>Permission:</strong>
-                    <br/>
-                    <?php $__currentLoopData = $permission; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <label><?php echo e(Form::checkbox('permission[]', $value->id, false, ['class' => 'name'])); ?>
-
-                        <?php echo e($value->display_name); ?></label>
-                    <br/>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </div>
             </div>
         </div>
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Permissions</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                <?php $perms = PERM::getPerms() ?>
+                <?php $permsLines = PERM::convertLines($perms) ?>
+                <table class="table table-striped permTable">
+                    <tr>
+                        <th></th>
+                        <?php $__currentLoopData = $perms; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <th><input id="<?php echo e('perm-' . strtolower($key)); ?>" type="checkbox" class="selectAll"/> <?php echo e($key); ?></th>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </tr>
+                    <?php $__currentLoopData = $permsLines; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $permKey => $permLine): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <tr>
+                            <td><strong><?php echo e(ucfirst($permKey)); ?></strong></td>
+                            <?php $__currentLoopData = $permLine; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $perm): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <td>
+                                    <?php echo e(Form::checkbox(
+                                            'permission[]',
+                                            $perm->id,
+                                            false,
+                                            [
+                                                'class' => 'name select',
+                                                'data-perm' => current(explode('-', $perm->name))
+                                            ]
+                                        )); ?>
+
+                                    <?php echo e($perm->display_name); ?>
+
+                                </td>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </tr>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
     </div>
 
     <div class="col-lg-4">
