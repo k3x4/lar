@@ -59,10 +59,14 @@
                             @foreach($permLine as $perm)
                                 <td>
                                     {{ Form::checkbox(
-                                        'permission[]',
-                                        $perm->id,
-                                        in_array($perm->id, $rolePermissions) ? true : false,
-                                        ['class' => 'name select ' . current(explode('-', $perm->name))])
+                                            'permission[]',
+                                            $perm->id,
+                                            in_array($perm->id, $rolePermissions) ? true : false,
+                                            [
+                                                'class' => 'name select',
+                                                'data-perm' => current(explode('-', $perm->name))
+                                            ]
+                                        )
                                     }}
                                     {{ $perm->display_name }}
                                 </td>

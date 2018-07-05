@@ -139,46 +139,57 @@ $(document).ready(function () {
 
 
     // PERMISSIONS-TABLE
+    $('.permTable th .selectAll').each(function(){
+        var className = $(this).attr('id').split('-');
+        className = className[1];
+        var numberAll = $('.permTable .select[data-perm=' + className + ']').length;
+        var numberOfChecked = $('.permTable .select[data-perm=' + className + ']:checked').length;
+        if(numberOfChecked == numberAll){
+            $('.permTable #perm-' + className).prop('checked', true).icheck('updated');
+        } else {
+            $('.permTable #perm-' + className).prop('checked', false).icheck('updated');
+        }
+    });
+    
     $(document).on('click','.permTable .select', {} ,function () {
-        
-        var numberAll = $('.permTable .select').length;
-        var numberOfChecked = $('.permTable .select:checked').length;
+        var className = $(this).data('perm');
+
+        var numberAll = $('.permTable .select[data-perm=' + className + ']').length;
+        var numberOfChecked = $('.permTable .select[data-perm=' + className + ']:checked').length;
 
         var i = 0;
         var vals = [];
-        $('.permTable .select:checked').each(function(){
+        $('.permTable .select[data-perm=' + className + ']:checked').each(function(){
             vals[i++] = $(this).val();
         });
-        $(".deleteForm input[name='ids']").val(vals);
+        //$(".permTable input[name='ids']").val(vals);
         
         if(numberOfChecked == numberAll){
-            $('.permTable .selectAll').prop('checked', true).icheck('updated');
-            //$('.dataTable .selectAll').icheck('check');
+            $('.permTable #perm-' + className).prop('checked', true).icheck('updated');
         } else {
-            $('.permTable .selectAll').prop('checked', false).icheck('updated');
-            //$('.dataTable .selectAll').icheck('uncheck');
+            $('.permTable #perm-' + className).prop('checked', false).icheck('updated');
         }
     });
 
     $(document).on('click','.permTable .selectAll', {} ,function () {
-        var classItem = $(this).attr('id').split('-');
-        classItem = classItem[1];
+        var className = $(this).attr('id').split('-');
+        className = className[1];
         if($(this).is(":checked")){
-            $('.permTable .select.' + classItem).each(function(){
+            $('.permTable .select[data-perm=' + className + ']').each(function(){
                 $(this).prop('checked', true).icheck('updated');
             });
         } else {
-            $('.permTable .select.' + classItem).each(function(){
+            $('.permTable .select[data-perm=' + className + ']').each(function(){
                 $(this).prop('checked', false).icheck('updated');
             });
         }
 
         var i = 0;
         var vals = [];
-        $('.permTable .select.' + classItem + ':checked').each(function(){
+        $('.permTable .select[data-perm=' + className + ']' + ':checked').each(function(){
             vals[i++] = $(this).val();
         });
-        $(".permTable input[name='ids']").val(vals);
+        //$(".permTable input[name='ids']").val(vals);
     });
 
 

@@ -60,10 +60,14 @@
                             <?php $__currentLoopData = $permLine; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $perm): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <td>
                                     <?php echo e(Form::checkbox(
-                                        'permission[]',
-                                        $perm->id,
-                                        in_array($perm->id, $rolePermissions) ? true : false,
-                                        ['class' => 'name select ' . current(explode('-', $perm->name))])); ?>
+                                            'permission[]',
+                                            $perm->id,
+                                            in_array($perm->id, $rolePermissions) ? true : false,
+                                            [
+                                                'class' => 'name select',
+                                                'data-perm' => current(explode('-', $perm->name))
+                                            ]
+                                        )); ?>
 
                                     <?php echo e($perm->display_name); ?>
 
