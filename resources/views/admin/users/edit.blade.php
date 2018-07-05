@@ -19,13 +19,14 @@
 </div>
 @endif
 
+{!! Form::model($user, ['method' => 'PATCH','route' => ['admin.users.update', $user->id]]) !!}
 <div class="row">
-    <div class="col-lg-12 margin-tb">
+
+    <div class="col-lg-8 margin-tb">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Edit User <strong>{{ $user->name }}</strong></h3>
             </div>
-            {!! Form::model($user, ['method' => 'PATCH','route' => ['admin.users.update', $user->id]]) !!}
             <div class="box-body">
                 <div class="form-group">
                     <strong>Name:</strong>
@@ -45,12 +46,22 @@
                 </div>
                 <div class="form-group">
                     <strong>Role:</strong>
-                    {!! Form::select('roles[]', $roles,$userRole, ['class' => 'form-control','multiple']) !!}
+                    {{-- Form::select('roles[]', $roles, $userRole, ['class' => 'form-control select2', 'multiple']) --}}
+                    {!! Form::select('role', $roles, $userRole, ['class' => 'form-control select2']) !!}
                 </div>
-                <button type="submit" class="btn btn-success">Submit</button>
             </div>
-            {!! Form::close() !!}
         </div>
     </div>
+
+    <div class="col-lg-4">
+
+        @widget('Status', [
+            'title' => 'Status'
+        ])
+                
+    </div>
+
 </div>
+{!! Form::close() !!}
+
 @endsection

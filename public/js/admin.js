@@ -201,6 +201,28 @@ $(document).ready(function () {
     $('input[type="checkbox"]:not(".icheck-input")').icheck({
         checkboxClass: 'icheckbox_flat-blue'
     });
+
+    // PERMISSIONS-TABLE
+    $(document).on('click', '.permTable .selectAll', {}, function () {
+        var classItem = $(this).attr('id').split('-');
+        classItem = classItem[1];
+        if ($(this).is(":checked")) {
+            $('.permTable .select.' + classItem).each(function () {
+                $(this).prop('checked', true).icheck('updated');
+            });
+        } else {
+            $('.permTable .select.' + classItem).each(function () {
+                $(this).prop('checked', false).icheck('updated');
+            });
+        }
+
+        var i = 0;
+        var vals = [];
+        $('.permTable .select.' + classItem + ':checked').each(function () {
+            vals[i++] = $(this).val();
+        });
+        $(".permTable input[name='ids']").val(vals);
+    });
 });
 
 /***/ })

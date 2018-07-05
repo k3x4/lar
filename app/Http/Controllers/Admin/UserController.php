@@ -73,16 +73,18 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
-            'roles' => 'required'
+            //'roles' => 'required'
+            'role' => 'required'
         ]);
 
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
 
         $user = User::create($input);
-        foreach ($request->input('roles') as $key => $value) {
-            $user->attachRole($value);
-        }
+        // foreach ($request->input('roles') as $key => $value) {
+        //     $user->attachRole($value);
+        // }
+        $user->attachRole($request->input('role'));
 
         return redirect()->route('admin.users.index')
                         ->with('success','User created successfully');
@@ -128,7 +130,8 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'same:confirm-password',
-            'roles' => 'required'
+            //'roles' => 'required'
+            'role' => 'required'
         ]);
 
         $input = $request->all();
@@ -142,9 +145,10 @@ class UserController extends Controller
         $user->update($input);
         DB::table('role_user')->where('user_id',$id)->delete();
         
-        foreach ($request->input('roles') as $key => $value) {
-            $user->attachRole($value);
-        }
+        // foreach ($request->input('roles') as $key => $value) {
+        //     $user->attachRole($value);
+        // }
+        $user->attachRole($request->input('role'));
 
         return redirect()->route('admin.users.index')
                          ->with('success','User updated successfully');

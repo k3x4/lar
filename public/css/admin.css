@@ -78,8 +78,24 @@ table.dtable .dtable-td-wrapper .dtable-helper {
   vertical-align: middle;
 }
 
+table.dtable .dtable-td-wrapper .label {
+  margin-right: 5px;
+}
+
 table.dtable .dtable-td-wrapper .label-administrator {
   background-color: #dd4b39 !important;
+}
+
+table.dtable .dtable-td-wrapper .label-author {
+  background-color: #f39c12 !important;
+}
+
+table.dtable .dtable-td-wrapper .label-editor {
+  background-color: #00a65a !important;
+}
+
+table.dtable .dtable-td-wrapper .label-user {
+  background-color: #00c0ef !important;
 }
 
 table.dtable input.select {

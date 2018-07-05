@@ -138,4 +138,48 @@ $(document).ready(function () {
     });
 
 
+    // PERMISSIONS-TABLE
+    $(document).on('click','.permTable .select', {} ,function () {
+        
+        var numberAll = $('.permTable .select').length;
+        var numberOfChecked = $('.permTable .select:checked').length;
+
+        var i = 0;
+        var vals = [];
+        $('.permTable .select:checked').each(function(){
+            vals[i++] = $(this).val();
+        });
+        $(".deleteForm input[name='ids']").val(vals);
+        
+        if(numberOfChecked == numberAll){
+            $('.permTable .selectAll').prop('checked', true).icheck('updated');
+            //$('.dataTable .selectAll').icheck('check');
+        } else {
+            $('.permTable .selectAll').prop('checked', false).icheck('updated');
+            //$('.dataTable .selectAll').icheck('uncheck');
+        }
+    });
+
+    $(document).on('click','.permTable .selectAll', {} ,function () {
+        var classItem = $(this).attr('id').split('-');
+        classItem = classItem[1];
+        if($(this).is(":checked")){
+            $('.permTable .select.' + classItem).each(function(){
+                $(this).prop('checked', true).icheck('updated');
+            });
+        } else {
+            $('.permTable .select.' + classItem).each(function(){
+                $(this).prop('checked', false).icheck('updated');
+            });
+        }
+
+        var i = 0;
+        var vals = [];
+        $('.permTable .select.' + classItem + ':checked').each(function(){
+            vals[i++] = $(this).val();
+        });
+        $(".permTable input[name='ids']").val(vals);
+    });
+
+
 });

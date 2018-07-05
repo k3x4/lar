@@ -1,11 +1,5 @@
 @extends('admin.layout.master')
 
-@section('head')
-@parent
-    <script src="{{ asset('js/lib/icheck-2/icheck.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('js/lib/icheck-2/skins/minimal/blue.css') }}">
-@endsection
-
 @section('content')
 <div class="row">
     <div class="col-lg-12 margin-bottom">
@@ -25,13 +19,14 @@
 </div>
 @endif
 
+{!! Form::model($role, ['method' => 'PATCH','route' => ['admin.roles.update', $role->id]]) !!}
 <div class="row">
-    <div class="col-lg-12 margin-tb">
+
+    <div class="col-lg-8 margin-tb">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Edit Role <strong>{{ $role->display_name }}</strong></h3>
             </div>
-            {!! Form::model($role, ['method' => 'PATCH','route' => ['admin.roles.update', $role->id]]) !!}
             <div class="box-body">
                 <div class="form-group">
                     <strong>Name:</strong>
@@ -41,28 +36,55 @@
                     <strong>Description:</strong>
                     {!! Form::textarea('description', null, ['placeholder' => 'Description','class' => 'form-control','style'=>'height:100px']) !!}
                 </div>
-                <div class="form-group">
-                    <strong>Permission:</strong>
-                    <br/>
-                    @foreach($permission as $value)
-                    <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, ['class' => 'name']) }}
-                        {{ $value->display_name }}</label>
-                    <br/>
-                    @endforeach
-                </div>
-                <button type="submit" class="btn btn-success">Submit</button>
             </div>
-            {!! Form::close() !!}
         </div>
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Permissions</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                @php $perms = PERM::getPerms() @endphp
+                @php $permsLines = PERM::convertLines($perms) @endphp
+                <table class="table table-striped permTable">
+                    <tr>
+                        <th></th>
+                        @foreach($perms as $key => $value)
+                            <th><input id="{{ 'perm-' . strtolower($key) }}" type="checkbox" class="selectAll"/> {{ $key }}</th>
+                        @endforeach
+                    </tr>
+                    @foreach($permsLines as $permKey => $permLine)
+                        <tr>
+                            <td><strong>{{ ucfirst($permKey) }}</strong></td>
+                            @foreach($permLine as $perm)
+                                <td>
+                                    {{ Form::checkbox(
+                                        'permission[]',
+                                        $perm->id,
+                                        in_array($perm->id, $rolePermissions) ? true : false,
+                                        ['class' => 'name select ' . current(explode('-', $perm->name))])
+                                    }}
+                                    {{ $perm->display_name }}
+                                </td>
+                            @endforeach
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
+            <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
     </div>
-</div>
-@endsection
 
-@section('footer_scripts')
-@parent
-    <script>
-        $('input[type="checkbox"]').icheck({
-            checkboxClass: 'icheckbox_minimal-blue',
-        });
-    </script>
+    <div class="col-lg-4">
+
+        @widget('Status', [
+            'title' => 'Status'
+        ])
+                
+    </div>
+
+</div>
+{!! Form::close() !!}
+
 @endsection

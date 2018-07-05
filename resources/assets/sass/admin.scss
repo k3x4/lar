@@ -79,8 +79,20 @@ table.dtable {
             height: 100%;
             vertical-align: middle;
         }
+        .label{
+            margin-right: 5px;
+        }
         .label-administrator{
             background-color: #dd4b39 !important;
+        }
+        .label-author{
+            background-color: #f39c12 !important;
+        }
+        .label-editor{
+            background-color: #00a65a !important;
+        }
+        .label-user{
+            background-color: #00c0ef !important;
         }
     }
     input.select{

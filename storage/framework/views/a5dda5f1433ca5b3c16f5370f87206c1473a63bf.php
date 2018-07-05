@@ -61,7 +61,7 @@
                         'bottom-left' => 'Bottom left',
                         'bottom' => 'Bottom',
                         'bottom-right' => 'Bottom right'
-                        ], null, ['class' => 'form-control']); ?>
+                        ], null, ['class' => 'form-control select2']); ?>
 
                 </div>
                 <div class="form-group">

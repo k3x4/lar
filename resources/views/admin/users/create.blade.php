@@ -19,13 +19,14 @@
 </div>
 @endif
 
+{!! Form::open(['route' => 'admin.users.store','method'=>'POST']) !!}
 <div class="row">
-    <div class="col-lg-12">
+
+    <div class="col-lg-8">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Create New User</h3>
             </div>
-            {!! Form::open(['route' => 'admin.users.store','method'=>'POST']) !!}
             <div class="box-body">
                 <div class="form-group">
                     <strong>Name:</strong>
@@ -45,12 +46,22 @@
                 </div>
                 <div class="form-group">
                     <strong>Role:</strong>
-                    {!! Form::select('roles[]', $roles,[], ['class' => 'form-control','multiple']) !!}
+                    {{-- Form::select('roles[]', $roles, [], ['class' => 'form-control select2', 'multiple']) --}}
+                    {!! Form::select('role', $roles, 4, ['class' => 'form-control select2']) !!}
                 </div>
-                <button type="submit" class="btn btn-success">Submit</button>
             </div>
-            {!! Form::close() !!}
         </div>
     </div>
+
+    <div class="col-lg-4">
+
+        @widget('Status', [
+            'title' => 'Status'
+        ])
+                
+    </div>
+
 </div>
+{!! Form::close() !!}
+
 @endsection

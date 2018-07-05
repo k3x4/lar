@@ -224,6 +224,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
 
         'BS' => App\Libraries\Bootstrap::class,
+        'PERM' => App\Libraries\Permissions::class,
 
         'Widget'       => Arrilot\Widgets\Facade::class,
         'AsyncWidget'  => Arrilot\Widgets\AsyncFacade::class,

@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-lg-12 margin-bottom">
         <div class="pull-right">
-            <a class="btn btn-primary" href="<?php echo e(route('admin.listings.index')); ?>"> Back</a>
+            <a class="btn btn-primary" href="<?php echo e(route('admin.users.index')); ?>"> Back</a>
         </div>
     </div>
 </div>
@@ -17,54 +17,52 @@
 </div>
 <?php endif; ?>
 
-<?php echo Form::model($listing, ['method' => 'PATCH','route' => ['admin.listings.update', $listing->id]]); ?>
+<?php echo Form::model($user, ['method' => 'PATCH','route' => ['admin.users.update', $user->id]]); ?>
 
 <div class="row">
 
-    <div class="col-lg-8">
+    <div class="col-lg-8 margin-tb">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Edit Listing <strong><?php echo e($listing->title); ?></strong></h3>
+                <h3 class="box-title">Edit User <strong><?php echo e($user->name); ?></strong></h3>
             </div>
-            
             <div class="box-body">
                 <div class="form-group">
-                    <strong>Title:</strong>
-                    <?php echo Form::text('title', null, ['placeholder' => 'Title','class' => 'form-control']); ?>
+                    <strong>Name:</strong>
+                    <?php echo Form::text('name', null, ['placeholder' => 'Name','class' => 'form-control']); ?>
 
                 </div>
                 <div class="form-group">
-                    <strong>Slug:</strong>
-                    <?php echo Form::text('slug', null, ['placeholder' => 'Slug','class' => 'form-control']); ?>
+                    <strong>Email:</strong>
+                    <?php echo Form::text('email', null, ['placeholder' => 'Email','class' => 'form-control']); ?>
 
                 </div>
                 <div class="form-group">
-                    <strong>Description:</strong>
-                    <?php echo Form::textarea('content', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']); ?>
+                    <strong>Password:</strong>
+                    <?php echo Form::password('password', ['placeholder' => 'Password','class' => 'form-control']); ?>
+
+                </div>
+                <div class="form-group">
+                    <strong>Confirm Password:</strong>
+                    <?php echo Form::password('confirm-password', ['placeholder' => 'Confirm Password','class' => 'form-control']); ?>
+
+                </div>
+                <div class="form-group">
+                    <strong>Role:</strong>
+                    
+                    <?php echo Form::select('role', $roles, $userRole, ['class' => 'form-control select2']); ?>
 
                 </div>
             </div>
-            
         </div>
     </div>
 
     <div class="col-lg-4">
 
         <?php echo app('arrilot.widget')->run('Status', [
-            'title' => 'Status',
-            'draft' => true
+            'title' => 'Status'
         ]); ?>
-
-        <?php echo app('arrilot.widget')->run('Category', [
-            'title' => 'Category',
-            'categories' => $categories
-        ]); ?>
-
-        <?php echo app('arrilot.widget')->run('FeaturedImage', [
-            'title' => 'Featured image',
-            'listing' => $listing
-        ]); ?>
-               
+                
     </div>
 
 </div>

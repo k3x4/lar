@@ -17,14 +17,15 @@
 </div>
 <?php endif; ?>
 
+<?php echo Form::open(['route' => 'admin.roles.store','method'=>'POST']); ?>
+
 <div class="row">
-    <div class="col-lg-12">
+
+    <div class="col-lg-8">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Create New Role</h3>
             </div>
-            <?php echo Form::open(['route' => 'admin.roles.store','method'=>'POST']); ?>
-
             <div class="box-body">
                 <div class="form-group">
                     <strong>Name:</strong>
@@ -51,12 +52,21 @@
                     <br/>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
-                <button type="submit" class="btn btn-success">Submit</button>
             </div>
-            <?php echo Form::close(); ?>
-
         </div>
     </div>
+
+    <div class="col-lg-4">
+
+        <?php echo app('arrilot.widget')->run('Status', [
+            'title' => 'Status'
+        ]); ?>
+                
+    </div>
+
 </div>
+<?php echo Form::close(); ?>
+
+
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin.layout.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

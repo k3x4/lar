@@ -47,7 +47,8 @@
     <div class="col-lg-4">
 
         @widget('Status', [
-            'title' => 'Status'
+            'title' => 'Status',
+            'draft' => true
         ])
         
         @widget('Category', [

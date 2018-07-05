@@ -49,7 +49,8 @@
     <div class="col-lg-4">
 
         <?php echo app('arrilot.widget')->run('Status', [
-            'title' => 'Status'
+            'title' => 'Status',
+            'draft' => true
         ]); ?>
         
         <?php echo app('arrilot.widget')->run('Category', [
