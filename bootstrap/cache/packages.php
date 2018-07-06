@@ -59,6 +59,13 @@
       'Html' => 'Collective\\Html\\HtmlFacade',
     ),
   ),
+  'nunomaduro/collision' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+    ),
+  ),
   'yajra/laravel-datatables-oracle' => 
   array (
     'providers' => 
@@ -68,13 +75,6 @@
     'aliases' => 
     array (
       'DataTables' => 'Yajra\\DataTables\\Facades\\DataTables',
-    ),
-  ),
-  'nunomaduro/collision' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     ),
   ),
 );

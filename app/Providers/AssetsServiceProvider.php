@@ -68,6 +68,11 @@ class AssetsServiceProvider extends ServiceProvider
         $this->publishes([
             base_path('node_modules') . '/datatables.net-bs/css' => public_path('js/lib/datatables/css'),
         ], 'public');
+
+        //CANVAS THEME
+        $this->publishes([
+            base_path('resources') . '/theme' => public_path('theme'),
+        ], 'public');
         
     }
 

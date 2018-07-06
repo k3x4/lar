@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "content-hash": "d87e834dd5caf8216699daa0858584f0",
@@ -2771,16 +2771,16 @@
         },
         {
             "name": "yajra/laravel-datatables-oracle",
-            "version": "v8.7.0",
+            "version": "v8.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables.git",
-                "reference": "34c281691df93374ac2b3d96e8611f0a6abf2b47"
+                "reference": "1643ba54cf9c7556ac7bba90564f5900cc2473fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/34c281691df93374ac2b3d96e8611f0a6abf2b47",
-                "reference": "34c281691df93374ac2b3d96e8611f0a6abf2b47",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/1643ba54cf9c7556ac7bba90564f5900cc2473fe",
+                "reference": "1643ba54cf9c7556ac7bba90564f5900cc2473fe",
                 "shasum": ""
             },
             "require": {
@@ -2838,7 +2838,7 @@
                 "jquery",
                 "laravel"
             ],
-            "time": "2018-06-03T01:33:29+00:00"
+            "time": "2018-07-06T01:19:37+00:00"
         },
         {
             "name": "zizaco/entrust",
