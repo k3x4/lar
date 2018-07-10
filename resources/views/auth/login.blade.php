@@ -739,6 +739,15 @@
 												<a href="#" class="fright">Forgot Password?</a>
 											</div>
 
+                                            <div class="line line-sm"></div>
+
+                                            <div class="center">
+                                                <h4 style="margin-bottom: 15px;">or Login with:</h4>
+                                                <a href="#" class="button button-rounded si-facebook si-colored">Facebook</a>
+                                                <span>or</span>
+                                                <a href="#" class="button button-rounded si-google si-colored">Google</a>
+                                            </div>
+
 										</form>
 									</div>
 								</div>

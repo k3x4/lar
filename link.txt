@@ -1,0 +1,1 @@
+https://tuts.codingo.me/laravel-social-and-email-authentication/

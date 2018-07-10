@@ -29,17 +29,18 @@
     25 => 'Intervention\\Image\\ImageServiceProvider',
     26 => 'Laravel\\Tinker\\TinkerServiceProvider',
     27 => 'Collective\\Html\\HtmlServiceProvider',
-    28 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    29 => 'Yajra\\DataTables\\DataTablesServiceProvider',
-    30 => 'Zizaco\\Entrust\\EntrustServiceProvider',
-    31 => 'Collective\\Html\\HtmlServiceProvider',
-    32 => 'Intervention\\Image\\ImageServiceProvider',
-    33 => 'App\\Providers\\AppServiceProvider',
-    34 => 'App\\Providers\\AuthServiceProvider',
-    35 => 'App\\Providers\\EventServiceProvider',
-    36 => 'App\\Providers\\RouteServiceProvider',
-    37 => 'App\\Providers\\AssetsServiceProvider',
-    38 => 'Arrilot\\Widgets\\ServiceProvider',
+    28 => 'Yajra\\DataTables\\DataTablesServiceProvider',
+    29 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+    30 => 'Laravel\\Socialite\\SocialiteServiceProvider',
+    31 => 'Zizaco\\Entrust\\EntrustServiceProvider',
+    32 => 'Collective\\Html\\HtmlServiceProvider',
+    33 => 'Intervention\\Image\\ImageServiceProvider',
+    34 => 'App\\Providers\\AppServiceProvider',
+    35 => 'App\\Providers\\AuthServiceProvider',
+    36 => 'App\\Providers\\EventServiceProvider',
+    37 => 'App\\Providers\\RouteServiceProvider',
+    38 => 'App\\Providers\\AssetsServiceProvider',
+    39 => 'Arrilot\\Widgets\\ServiceProvider',
   ),
   'eager' => 
   array (
@@ -174,6 +175,7 @@
     'Collective\\Html\\HtmlBuilder' => 'Collective\\Html\\HtmlServiceProvider',
     'Collective\\Html\\FormBuilder' => 'Collective\\Html\\HtmlServiceProvider',
     'NunoMaduro\\Collision\\Contracts\\Provider' => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+    'Laravel\\Socialite\\Contracts\\Factory' => 'Laravel\\Socialite\\SocialiteServiceProvider',
   ),
   'when' => 
   array (
@@ -220,6 +222,9 @@
     array (
     ),
     'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider' => 
+    array (
+    ),
+    'Laravel\\Socialite\\SocialiteServiceProvider' => 
     array (
     ),
   ),
