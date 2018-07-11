@@ -26,7 +26,7 @@
 
 </head>
 
-<body class="stretched">
+<body class="stretched no-transition">
 
 	<div id="wrapper" class="clearfix">
 

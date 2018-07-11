@@ -11,17 +11,6 @@
       'AsyncWidget' => 'Arrilot\\Widgets\\AsyncFacade',
     ),
   ),
-  'zizaco/entrust' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Zizaco\\Entrust\\EntrustServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'Entrust' => 'Zizaco\\Entrust\\EntrustFacade',
-    ),
-  ),
   'fideloper/proxy' => 
   array (
     'providers' => 
@@ -38,6 +27,17 @@
     'aliases' => 
     array (
       'Image' => 'Intervention\\Image\\Facades\\Image',
+    ),
+  ),
+  'laravel/socialite' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Laravel\\Socialite\\SocialiteServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Socialite' => 'Laravel\\Socialite\\Facades\\Socialite',
     ),
   ),
   'laravel/tinker' => 
@@ -59,6 +59,13 @@
       'Html' => 'Collective\\Html\\HtmlFacade',
     ),
   ),
+  'nunomaduro/collision' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+    ),
+  ),
   'yajra/laravel-datatables-oracle' => 
   array (
     'providers' => 
@@ -70,22 +77,15 @@
       'DataTables' => 'Yajra\\DataTables\\Facades\\DataTables',
     ),
   ),
-  'nunomaduro/collision' => 
+  'zizaco/entrust' => 
   array (
     'providers' => 
     array (
-      0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    ),
-  ),
-  'laravel/socialite' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Laravel\\Socialite\\SocialiteServiceProvider',
+      0 => 'Zizaco\\Entrust\\EntrustServiceProvider',
     ),
     'aliases' => 
     array (
-      'Socialite' => 'Laravel\\Socialite\\Facades\\Socialite',
+      'Entrust' => 'Zizaco\\Entrust\\EntrustFacade',
     ),
   ),
 );
