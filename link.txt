@@ -1,1 +1,2 @@
 https://tuts.codingo.me/laravel-social-and-email-authentication/
+https://github.com/laravel/framework/issues/15733

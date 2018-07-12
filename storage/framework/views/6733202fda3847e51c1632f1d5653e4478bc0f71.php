@@ -1,4 +1,4 @@
-<?php $__env->startSection('page_title', 'Login'); ?>
+<?php $__env->startSection('page_title', 'Reset Password'); ?>
 
 <?php $__env->startSection('content'); ?>
 
@@ -27,7 +27,6 @@
                 <label for="email"><?php echo e(__('E-Mail Address')); ?>:</label>
                 <div class="col_full">
                     <input id="email" type="email" class="form-control<?php echo e($errors->has('email') ? ' is-invalid' : ''); ?>" name="email" value="<?php echo e(old('email')); ?>" required>
-
                     <?php if($errors->has('email')): ?>
                         <div class="style-msg errormsg">
 							<div class="sb-msg">

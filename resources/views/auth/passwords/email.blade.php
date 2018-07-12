@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('page_title', 'Login')
+@section('page_title', 'Reset Password')
 
 @section('content')
 
@@ -28,7 +28,6 @@
                 <label for="email">{{ __('E-Mail Address') }}:</label>
                 <div class="col_full">
                     <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
-
                     @if ($errors->has('email'))
                         <div class="style-msg errormsg">
 							<div class="sb-msg">

@@ -57,7 +57,7 @@
                 </div>
 
                 <div class="col_full nobottommargin">
-                    <button class="button button-3d button-black nomargin" id="submit" name="submit" value="register">Register Now</button>
+                    <button class="button button-3d nomargin" id="submit" name="submit" value="register">Register Now</button>
                 </div>
 
             </form>
