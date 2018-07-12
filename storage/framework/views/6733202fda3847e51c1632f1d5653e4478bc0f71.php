@@ -8,9 +8,13 @@
         <div class="card-body" style="padding: 40px;">
 
             <?php if(session('status')): ?>
-                <div class="alert alert-success">
-                    <?php echo e(session('status')); ?>
+                <div class="style-msg successmsg">
+                    <div class="sb-msg">
+                        <i class="icon-thumbs-up"></i>
+                        <?php echo e(session('status')); ?>
 
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                 </div>
             <?php endif; ?>
 
