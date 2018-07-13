@@ -52,6 +52,13 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+        ],
+        [
+            'email.required'        => 'Email is required',
+            'email.email'           => 'Email is invalid',
+            'password.required'     => 'Password is required',
+            'password.min'          => 'Password needs to have at least 6 characters',
+            'password.max'          => 'Password maximum length is 20 characters'
         ]);
     }
 
@@ -66,6 +73,8 @@ class RegisterController extends Controller
         return User::create([
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            //'token' => str_random(64),
+            //'activated' => true.
         ]);
     }
 

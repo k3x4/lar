@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder {
 
         DB::table('users')->insert([
             'email' => 'admin@gmail.com',
-            'password' => bcrypt('admin'),
+            'password' => Hash::make('admin'),
             //'token' => str_random(64),
             //'activated' => true,
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder {
 
         DB::table('users')->insert([
             'email' => 'user@gmail.com',
-            'password' => bcrypt('user'),
+            'password' => Hash::make('user'),
             //'token' => str_random(64),
             //'activated' => true,
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),

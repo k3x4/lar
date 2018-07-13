@@ -1,2 +1,8 @@
 https://tuts.codingo.me/laravel-social-and-email-authentication/
 https://github.com/laravel/framework/issues/15733
+https://www.proy.info/how-to-enable-localhost-https-on-wamp-server/
+
+
+https://curl.haxx.se/docs/caextract.html
+php.ini
+curl.cainfo = "C:\xampp\php\extras\ssl\cacert.pem"

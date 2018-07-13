@@ -17,7 +17,6 @@
 
                 <h3>{{ __('Reset Password') }}</h3>
 
-                <h4 style="color:#999;">{{ __('Email:') }} {{ $email ?? old('email') }}</h4>
                 <input id="email" type="hidden" name="email" value="{{ $email ?? old('email') }}" required readonly>
 
                 <label for="password">{{ __('Password') }}</label>
