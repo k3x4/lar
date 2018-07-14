@@ -34,7 +34,7 @@ class ListingController extends Controller
                 return $html;
             })
             ->editColumn('title', '{!! Html::link(route("admin.listings.edit", [$id]), $title) !!}')
-            ->editColumn('content', '{{ strip_tags($content) }}')
+            //->editColumn('content', '{{ strip_tags($content) }}')
             ->addColumn('category', function ($listing) {
                 if($listing->category){
                     return $listing->category->title;

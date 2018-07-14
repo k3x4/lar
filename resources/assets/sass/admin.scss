@@ -108,7 +108,9 @@ table.dtable {
     .dropdown-menu{
         display: block !important;
         position: relative !important;
-        transform: none !important
+        transform: none !important;
+        min-width: 100% !important;
+        max-height: 300px !important;
     }
     button.dropdown-toggle{
         display: none;

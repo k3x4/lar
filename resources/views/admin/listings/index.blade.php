@@ -36,12 +36,11 @@
                         <tr>
                             <th style="width:5px;"><input type="checkbox" class="selectAll"/></th>
                             <th style="width: 1%;">ID</th>
-                            <th style="width: 20%;">Title</th>
+                            <th style="width: 30%;">Title</th>
                             <th style="width: 20%;">Slug</th>
-                            <th style="width: 30%;">Content</th>
-                            <th style="width: 10%;">Category</th>                            
-                            <th style="width: 10%;">Status</th>
-                            <th style="width: 10%;">Created</th>
+                            <th style="width: 20%;">Category</th>                            
+                            <th style="width: 15%;">Status</th>
+                            <th style="width: 15%;">Created</th>
                         </tr>
                     </thead>
                 </table>
@@ -68,7 +67,6 @@
             ['data' => 'id', 'name' => 'id'],
             ['data' => 'title', 'name' => 'title'],
             ['data' => 'slug', 'name' => 'slug'],
-            ['data' => 'content', 'name' => 'content'],
             ['data' => 'category', 'name' => 'category'],
             ['data' => 'status', 'name' => 'status'],
             ['data' => 'created_at', 'name' => 'created_at']
