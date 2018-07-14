@@ -1,4 +1,5 @@
 <?php $__env->startSection('page_title', 'Reset Password'); ?>
+<?php $__env->startSection('hide_title_wrapper', 'yes'); ?>
 
 <?php $__env->startSection('content'); ?>
 

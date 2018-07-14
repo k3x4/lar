@@ -1,3 +1,5 @@
+<?php if (! empty(trim($__env->yieldContent('hide_title_wrapper')))): ?>
+<?php else: ?>
 <section id="page-title">
 
     <div class="container clearfix">
@@ -12,3 +14,4 @@
     </div>
 
 </section>
+<?php endif; ?>

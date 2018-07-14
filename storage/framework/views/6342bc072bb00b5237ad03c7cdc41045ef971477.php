@@ -1,4 +1,5 @@
 <?php $__env->startSection('page_title', 'Register'); ?>
+<?php $__env->startSection('hide_title_wrapper', 'yes'); ?>
 
 <?php $__env->startSection('content'); ?>
 

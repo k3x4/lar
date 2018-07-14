@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use App\Social;
@@ -34,9 +35,9 @@ class SocialController extends Controller
 
         if (Input::get('denied') != '') {
 
-            return redirect()->to('/login')
-                ->with('status', 'danger')
-                ->with('message', 'You did not share your profile data with our social app.');
+            return redirect()->to('/login');
+                //->with('status', 'danger')
+                //->with('message', 'You did not share your profile data with our social app.');
 
         }
 
@@ -60,9 +61,10 @@ class SocialController extends Controller
         }
         else {
 
-            $sameSocialId = Social::where('social_id', '=', $user->id)
-                ->where('provider', '=', $provider)
-                ->first();
+            $sameSocialId = Social::where([
+                    ['social_id', '=', $user->id],
+                    ['provider', '=', $provider],
+            ])->first();
 
             if (empty($sameSocialId)) {
 
@@ -93,7 +95,7 @@ class SocialController extends Controller
 
         auth()->login($socialUser, true);
         
-        return redirect()->route('/');
+        return redirect()->to('/home');
 
     }
 }

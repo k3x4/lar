@@ -32,8 +32,6 @@
 
         <?php echo $__env->make('layouts.partials.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
-        <?php echo $__env->make('layouts.partials.page_title', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-
 		<section id="content">
 
 			<div class="content-wrap">

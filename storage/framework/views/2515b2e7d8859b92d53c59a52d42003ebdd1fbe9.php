@@ -65,7 +65,7 @@
                     <h4 style="margin-bottom: 15px;">or Login with:</h4>
                     <a href="<?php echo e(url('social/redirect/facebook')); ?>" class="button button-rounded si-facebook si-colored">Facebook</a>
                     <span>or</span>
-                    <a href="#" class="button button-rounded si-google si-colored">Google</a>
+                    <a href="<?php echo e(url('social/redirect/google')); ?>" class="button button-rounded si-google si-colored">Google</a>
                 </div>
 
             </form>

@@ -5,4 +5,27 @@ https://www.proy.info/how-to-enable-localhost-https-on-wamp-server/
 
 https://curl.haxx.se/docs/caextract.html
 php.ini
-curl.cainfo = "C:\xampp\php\extras\ssl\cacert.pem"
+curl.cainfo = "C:\php\extras\ssl\cacert.pem"
+
+
+openssl genrsa -aes256 -out private.key 2048
+
+copy private.key private.key.backup
+openssl rsa -in private.key.backup -out private.key
+
+openssl req -new -x509 -sha1 -key private.key -out certificate.crt -days 36500 -config C:\OpenSSL-Win64\bin\openssl.cfg
+
+
+
+
+<VirtualHost *:443>
+	SSLEngine On
+    SSLCertificateFile "c:/Apache24/conf/key/certificate.crt"
+    SSLCertificateKeyFile "c:/Apache24/conf/key/private.key"
+	
+    ServerAdmin k3x4@k3x4.ml
+    DocumentRoot "c:/Apache24/htdocs/lar/public"
+    ServerName lar.test
+    ErrorLog "c:/Apache24/logs/lartest-error.log"
+    CustomLog "c:/Apache24/logs/lartest-access.log" common
+</VirtualHost>

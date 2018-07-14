@@ -1,3 +1,5 @@
+@hasSection('hide_title_wrapper')
+@else
 <section id="page-title">
 
     <div class="container clearfix">
@@ -12,3 +14,4 @@
     </div>
 
 </section>
+@endif

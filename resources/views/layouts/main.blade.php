@@ -32,8 +32,6 @@
 
         @include('layouts.partials.header')
 
-        @include('layouts.partials.page_title')
-
 		<section id="content">
 
 			<div class="content-wrap">

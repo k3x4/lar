@@ -30,6 +30,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function social(){
+        return $this->hasMany('App\Social');
+    }
 
     public function sendPasswordResetNotification($token)
     {
