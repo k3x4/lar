@@ -7,6 +7,7 @@
 	<title><?php echo $__env->yieldContent('page_title'); ?> | <?php echo e(config('app.name')); ?></title>
 
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
 	<!-- Stylesheets
@@ -20,7 +21,7 @@
 	<link rel="stylesheet" href="<?php echo e(asset('theme/css/magnific-popup.css')); ?>" type="text/css" />
 
 	<link rel="stylesheet" href="<?php echo e(asset('theme/css/responsive.css')); ?>" type="text/css" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="<?php echo e(asset('css/style.css')); ?>" type="text/css" />
 
 	<?php echo $__env->yieldSection(); ?>
 
