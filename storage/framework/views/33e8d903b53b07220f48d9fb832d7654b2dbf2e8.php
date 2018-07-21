@@ -12,6 +12,13 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
+
+<?php if($message = Session::get('success')): ?>
+<div class="alert alert-success">
+    <p><?php echo e($message); ?></p>
+</div>
+<?php endif; ?>
+
 <div class="row">
     <div class="col-lg-12">
         <div class="box-group" id="accordion">
