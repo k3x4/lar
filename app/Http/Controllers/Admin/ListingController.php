@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Listing;
 use App\Category;
+use App\Media;
 use DB;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
@@ -84,15 +85,16 @@ class ListingController extends Controller
         
         $listing = new Listing();
         $listing->category_id = $request->input('category_id');
+        $listing->image_id = $request->input('featuredImage');
         $listing->title = $request->input('title');
         $listing->slug = $slug;
         $listing->content = $request->input('content');
         $listing->status = $request->input('status');
         $listing->save();
 
-        if($request->input('featuredImage')){
-            $listing->featuredImage()->sync($request->input('featuredImage'));
-        }
+        // if($request->input('featuredImage')){
+        //     $listing->featuredImage()->sync($request->input('featuredImage'));
+        // }
 
         return redirect()->route('admin.listings.index')
                         ->with('success','Listing created successfully');
@@ -123,7 +125,10 @@ class ListingController extends Controller
         $categories = Category::whereNull('category_id')->get();
         $categories = CategoryTools::makeOptionGroup($categories);
 
-        return view('admin.listings.edit', compact('listing', 'categories'));
+        $featuredImage = Media::find($listing->image_id);
+        $featuredImage = $featuredImage ? $featuredImage->filename : NULL;
+
+        return view('admin.listings.edit', compact('listing', 'categories', 'featuredImage'));
     }
 
     /**
@@ -148,7 +153,9 @@ class ListingController extends Controller
         }
 
         $listing->update($data);
-        $listing->featuredImage()->sync($request->input('featuredImage'));
+        $listing->image_id = $request->input('featuredImage') ?: NULL;
+        $listing->save();
+        //$listing->featuredImage()->sync($request->input('featuredImage'));
 
         return redirect()->route('admin.listings.index')
                         ->with('success','Listing updated successfully');

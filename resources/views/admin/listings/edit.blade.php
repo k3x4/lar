@@ -60,7 +60,7 @@
 
         @widget('FeaturedImage', [
             'title' => 'Featured image',
-            'listing' => $listing
+            'featuredImage' => $featuredImage
         ])
                
     </div>

@@ -201,30 +201,31 @@ class WpImport
         
     }
 
-    // public function mapFiles(){
-    //     $statement = DB::select("SHOW TABLE STATUS LIKE 'media'");
-    //     $nextId = $statement[0]->Auto_increment;
+    public function mapFiles(){
+        // $statement = DB::select("SHOW TABLE STATUS LIKE 'media'");
+        // $nextId = $statement[0]->Auto_increment;
 
-    //     $files = $this->getItems([
-    //         'name' => 'item',
-    //         'value' => [
-    //             'post_type' => 'attachment',
-    //         ],
-    //     ]);
+        $files = $this->getItems([
+            'name' => 'item',
+            'value' => [
+                'post_type' => 'attachment',
+            ],
+        ]);
 
-    //     $count = count($files);
-    //     $index = 1;
+        $count = count($files);
+        $index = 1;
 
-    //     foreach($files as $file){
-    //         $fileId = intval($file['value']['post_parent']);
+        foreach($files as $file){
+            $fileId = intval($file['value']['post_parent']);
 
-    //         $this->echoing('Map ' . $index++ . '/' . $count . ' Files');
-    //         $this->mapFiles[$fileId] = $nextId++;
-    //     }
-    //     echo PHP_EOL;
-    // }
+            $this->echoing('Map ' . $index++ . '/' . $count . ' Files');
+            $this->mapFiles[$fileId][] = $file['value']['post_id'];
+        }
+        echo PHP_EOL;
+        file_put_contents('map.arr', var_export($this->mapFiles, true));
+    }
 
-    private function copyr($source, $dest){
+    private function copyDir($source, $dest){
         // Check for symlinks
         if (is_link($source)) {
             return symlink(readlink($source), $dest);
@@ -249,7 +250,7 @@ class WpImport
             }
 
             // Deep copy directories
-            $this->copyr("$source/$entry", "$dest/$entry");
+            $this->copyDir("$source/$entry", "$dest/$entry");
         }
 
         // Clean up
@@ -257,13 +258,13 @@ class WpImport
         return true;
     }
 
-    private function rrmdir($dir) { 
+    private function removeDir($dir) { 
         if (is_dir($dir)) { 
           $objects = scandir($dir); 
           foreach ($objects as $object) { 
             if ($object != "." && $object != "..") { 
               if (is_dir($dir."/".$object))
-                $this->rrmdir($dir."/".$object);
+                $this->removeDir($dir."/".$object);
               else
                 unlink($dir."/".$object); 
             } 
@@ -295,10 +296,10 @@ class WpImport
         $tempPath = public_path('temp1');
 
         if (is_dir($tempPath)) {
-            $this->rrmdir($tempPath);
+            $this->removeDir($tempPath);
         }
 
-        $this->copyr($tempPathOrig, $tempPath);
+        $this->copyDir($tempPathOrig, $tempPath);
 
         $count = count($files);
         $index = 1;
@@ -423,11 +424,11 @@ class WpImport
     }
 
     public function import(){
-        $this->importCategories();
-        $this->downloadFiles();
-        //$this->mapFiles();
-        $this->storeFiles();
-        $this->importListings();
+        //$this->importCategories();
+        //$this->downloadFiles();
+        $this->mapFiles();
+        //$this->storeFiles();
+        //$this->importListings();
         return true;
     }
 

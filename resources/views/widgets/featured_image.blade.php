@@ -22,8 +22,8 @@
 
             {!! Form::hidden('featuredImage', '') !!}
 
-            @if( $listing && count($listing->featuredImage) )
-                <div id="featured-preview" style="display:block;background-image: url(/uploads/{!! $listing->featuredImage[0]->filename !!})"></div>
+            @if( isset($featuredImage) )
+                <div id="featured-preview" style="display:block;background-image: url(/uploads/{!! $featuredImage !!})"></div>
                 <a href="#" id="modalLink" style="display:none;" data-toggle="modal" data-target="#mediamanager">
                     Select image
                 </a>

@@ -12,7 +12,7 @@ class Listing extends Model
         return $this->belongsTo('App\Category');
     }
 
-    public function featuredImage(){
-        return $this->belongsToMany('App\Media');
-    }
+    // public function featuredImage(){
+    //     return $this->belongsToMany('App\Media');
+    // }
 }
