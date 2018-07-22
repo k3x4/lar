@@ -13,36 +13,57 @@ class WpImport
 {
 
     private $data;
+    private $listingFiles;
     private $mapFiles;
 
     public function getData($xmlFile){
         setlocale(LC_ALL, 'el_GR.UTF-8');
 
-        $xmlData = file_get_contents($xmlFile);
-        $service = new \Sabre\Xml\Service();
+        $doc = new \DOMDocument();
+        $doc->load($xmlFile);
 
-        $service->elementMap = [
-            '{}item'                                        => '\Sabre\Xml\Deserializer\keyValue',
-            '{http://wordpress.org/export/1.2/}author'      => '\Sabre\Xml\Deserializer\keyValue',
-            '{http://wordpress.org/export/1.2/}category'    => '\Sabre\Xml\Deserializer\keyValue',
-            '{http://wordpress.org/export/1.2/}term'        => '\Sabre\Xml\Deserializer\keyValue',
-            '{http://wordpress.org/export/1.2/}tag'         => '\Sabre\Xml\Deserializer\keyValue',
-            '{http://wordpress.org/export/1.2/}postmeta'    => '\Sabre\Xml\Deserializer\keyValue',
-        ];
+        $root = $doc->getElementsByTagName('channel')->item(0);
+        $this->data = $this->xml_to_array($root);
+        //file_put_contents('aaaa.arr', var_export($this->data, true));exit();
+    }
 
-        $result = $service->parse($xmlData);
-
-        $result = json_encode($result);
-        $result = str_replace('content\/}encoded', '\/}content_encoded', $result);
-        $result = str_replace('excerpt\/}encoded', '\/}excerpt_encoded', $result);
-        $result = preg_replace('/"{[^}]*}/', '"', $result);
-        $result = json_decode($result, true);
-
-        $this->data = $result;
-        $this->mapFiles = [];
-
-        //file_put_contents('ΔέΓουστάρει.txt','f');exit();
-        //file_put_contents('aaaa.arr', var_export($result, true));exit();
+    public function xml_to_array($root) {
+        $result = array();
+    
+        if ($root->hasAttributes()) {
+            $attrs = $root->attributes;
+            foreach ($attrs as $attr) {
+                $result['@attributes'][$attr->name] = $attr->value;
+            }
+        }
+    
+        if ($root->hasChildNodes()) {
+            $children = $root->childNodes;
+            if ($children->length == 1) {
+                $child = $children->item(0);
+                if (in_array($child->nodeType, [XML_TEXT_NODE, XML_CDATA_SECTION_NODE])) {
+                    $result['_value'] = $child->nodeValue;
+                    return count($result) == 1
+                        ? $result['_value']
+                        : $result;
+                }
+            }
+            $groups = array();
+            foreach ($children as $child) {
+                if($child->nodeType == XML_TEXT_NODE && empty(trim($child->nodeValue))) continue;
+                if (!isset($result[$child->nodeName])) {
+                    $result[$child->nodeName] = $this->xml_to_array($child);
+                } else {
+                    if (!isset($groups[$child->nodeName])) {
+                        $result[$child->nodeName] = array($result[$child->nodeName]);
+                        $groups[$child->nodeName] = 1;
+                    }
+                    $result[$child->nodeName][] = $this->xml_to_array($child);
+                }
+            }
+        }
+    
+        return $result;
     }
 
     public function echoing($text){
@@ -51,54 +72,34 @@ class WpImport
         @flush();
     }
 
-    public function itemsFilter($items, $filters){
-        if(!$filters){
-            return $items;
-        }
+    public function itemsFilter($items, $filter){
 
-        foreach($filters as $key => $value){
-            $items = array_filter($items, function($item) use ($key, $value){
-                if(!isset($item[$key])){
-                    return true;
-                }
+        $items = array_filter($items, function($value, $key) use ($filter){
+            $result_array = array_intersect_assoc($value, $filter);
 
-                if(is_array($item[$key])){
-                    $result_array = array_intersect_assoc($item[$key], $value);
+            if(count($result_array) == count($filter)){
+                return true;
+            } 
 
-                    if(count($result_array) == count($value)){
-                        return true;
-                    } else {
-                        return false;
-                    }
-
-                    return count($result_array);
-                }
-
-                return ($item[$key] == $value) ? true : false;
-            }, ARRAY_FILTER_USE_BOTH);
-        }
+            return false;
+        }, ARRAY_FILTER_USE_BOTH);
 
         return $items;
     }
 
-    public function getItems($filters = []){
+    public function getItems($rootElem, $filters){
         if(!$this->data){
             return null;
         }
 
-        $items = $this->data[0]['value'];
-        $items = $this->itemsFilter($items, $filters);
-
+        $items = $this->itemsFilter($this->data[$rootElem], $filters);
         return $items;
     }
 
     public function importCategories(){
-        $parentCategories = $this->getItems([
-            'name' => 'term',
-            'value' => [
-                'term_taxonomy' => 'pointfinderltypes',
-                'term_parent' => '',
-            ],
+        $parentCategories = $this->getItems('wp:term', [
+            'wp:term_taxonomy' => 'pointfinderltypes',
+            'wp:term_parent' => '',
         ]);
 
         $count = count($parentCategories);
@@ -106,8 +107,8 @@ class WpImport
 
         foreach($parentCategories as $categoryItem){
             $category = [
-                'title'     => $categoryItem['value']['term_name'],
-                'slug'      => $categoryItem['value']['term_slug'],
+                'title'     => $categoryItem['wp:term_name'],
+                'slug'      => $categoryItem['wp:term_slug'],
             ];
 
             $this->echoing('Import ' . $index++ . '/' . $count . ' Parent Categories');
@@ -115,26 +116,23 @@ class WpImport
         }
         echo PHP_EOL;
 
-        $allCategories = $this->getItems([
-            'name' => 'term',
-            'value' => [
-                'term_taxonomy' => 'pointfinderltypes',
-            ],
+        $allCategories = $this->getItems('wp:term', [
+            'wp:term_taxonomy' => 'pointfinderltypes',
         ]);
 
         $count = count($allCategories);
         $index = 1;
 
         foreach($allCategories as $categoryItem){
-            if(!$categoryItem['value']['term_parent']){
+            if(!$categoryItem['wp:term_parent']){
                 $count--;
                 continue;
             }
            
-            $parentId = Category::where('slug', '=', $categoryItem['value']['term_parent'])->first()->id;
+            $parentId = Category::where('slug', '=', $categoryItem['wp:term_parent'])->first()->id;
             $category = [
-                'title'     => $categoryItem['value']['term_name'],
-                'slug'      => $categoryItem['value']['term_slug'],
+                'title'     => $categoryItem['wp:term_name'],
+                'slug'      => $categoryItem['wp:term_slug'],
                 'category_id' => $parentId ? $parentId : null
             ];
 
@@ -201,15 +199,13 @@ class WpImport
         
     }
 
-    public function mapFiles(){
+    public function mapListingFiles(){
         // $statement = DB::select("SHOW TABLE STATUS LIKE 'media'");
         // $nextId = $statement[0]->Auto_increment;
 
         $files = $this->getItems([
             'name' => 'item',
-            'value' => [
-                'post_type' => 'attachment',
-            ],
+            'post_type' => 'attachment',
         ]);
 
         $count = count($files);
@@ -219,10 +215,10 @@ class WpImport
             $fileId = intval($file['value']['post_parent']);
 
             $this->echoing('Map ' . $index++ . '/' . $count . ' Files');
-            $this->mapFiles[$fileId][] = $file['value']['post_id'];
+            $this->listingFiles[$fileId][] = intval($file['value']['post_id']);
         }
         echo PHP_EOL;
-        file_put_contents('map.arr', var_export($this->mapFiles, true));
+        //file_put_contents('map.arr', var_export($this->mapFiles, true));
     }
 
     private function copyDir($source, $dest){
@@ -287,9 +283,7 @@ class WpImport
     public function storeFiles(){
         $files = $this->getItems([
             'name' => 'item',
-            'value' => [
-                'post_type' => 'attachment',
-            ],
+            'post_type' => 'attachment',
         ]);
 
         $tempPathOrig = public_path('temp');
@@ -306,8 +300,6 @@ class WpImport
 
         foreach($files as $file){
             $url = $file['value']['attachment_url'];
-            // $filename = explode('/', $url);
-            // $filename = end($filename);
             $filename = parse_url($url);
             $filename = $filename['path'];
             $filename = $tempPath . $filename;
@@ -326,21 +318,9 @@ class WpImport
             );
 
             $this->echoing('Store ' . $index++ . '/' . $count . ' Files');
-            $postId = intval($file['value']['post_parent']);
+            $oldFileId = intval($file['value']['post_id']);
             $fileId = MediaLibrary::store($fileObj);
-
-            if(isset($this->mapFiles[$postId])){
-                if(is_array($this->mapFiles[$postId])){
-                    $this->mapFiles[$postId][] = $fileId;
-                } else {
-                    $arr = [];
-                    $arr[] = $this->mapFiles[$postId];
-                    $arr[] = $fileId;
-                    $this->mapFiles[$postId] = $arr;
-                }
-            } else {
-                $this->mapFiles[$postId] = $fileId;
-            }
+            $this->mapFiles[$oldFileId] = $fileId;
         }
         echo PHP_EOL;
 
@@ -349,11 +329,10 @@ class WpImport
     public function importListings(){
         $listingItems = $this->getItems([
             'name' => 'item',
-            'value' => [
-                'status' => 'publish',
-                'post_type' => 'listing',
-            ],
+            'post_type' => 'listing',
+            'status' => 'publish'
         ]);
+
 
         $files = $this->getItems([
             'name' => 'item',
@@ -380,15 +359,22 @@ class WpImport
                 }
             }
 
+            $featuredImage = null;
+            if(
+                isset($listingItem['value']['postmeta']) &&
+                isset($listingItem['value']['postmeta']['meta_key']// &&
+                )
+            ){
+                $featuredImage = intval($listingItem['value']['postmeta']['_thumbnail_id']);
+            }
+
             // $listing = [
             //     'title'         => $listingItem['value']['title'],
             //     'slug'          => $slug,
             //     'category_id'   => $categoryId,
+            //     'image_id'      => $featuredImage,
             //     'content'       => $listingItem['value']['content_encoded'] ?: null
             // ];
-
-            $fileMapParentId = intval($listingItem['value']['post_id']);
-            $file = isset($this->mapFiles[$fileMapParentId]) ? $this->mapFiles[$fileMapParentId] : null;
 
             $this->echoing('Import ' . $index++ . '/' . $count . ' Listings');
             //Listing::create($listing);
@@ -396,37 +382,18 @@ class WpImport
             $listing->title         = $listingItem['value']['title'];
             $listing->slug          = $slug;
             $listing->category_id   = $categoryId;
+            $listing->image_id      = $featuredImage;
             $listing->content       = $listingItem['value']['content_encoded'] ?: null;
             
             $newListingId = $listing->save();
-
-            if($file){
-                if(is_array($file)){
-                    foreach($file as $f){
-                        $media = Media::find($f);
-                        $filepath = public_path('uploads') . '/' . $media->filename;
-                        if(!$this->isImage($filepath)){
-                            $listing->featuredImage()->attach($media->id);
-                            break;
-                        }
-                    }
-                } else {
-                    $media = Media::find($file);
-                    $filepath = public_path('uploads') . '/' . $media->filename;
-                    if(!$this->isImage($filepath)){
-                        $listing->featuredImage()->attach($media->id);
-                    }
-                }
-            }
-            
         }
         echo PHP_EOL;
     }
 
     public function import(){
-        //$this->importCategories();
+        $this->importCategories();
         //$this->downloadFiles();
-        $this->mapFiles();
+        //$this->mapListingFiles();
         //$this->storeFiles();
         //$this->importListings();
         return true;
