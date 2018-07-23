@@ -7,11 +7,11 @@ use App\Listing;
 use App\Category;
 use App\Media;
 use Illuminate\Http\UploadedFile;
+use App\Libraries\Tools;
 use App\Libraries\Media as MediaLibrary;
 
 class WpImport
 {
-
     private $data;
     private $listingFiles;
     private $mapFiles;
@@ -23,11 +23,11 @@ class WpImport
         $doc->load($xmlFile);
 
         $root = $doc->getElementsByTagName('channel')->item(0);
-        $this->data = $this->xml_to_array($root);
-        //file_put_contents('aaaa.arr', var_export($this->data, true));exit();
+        $this->data = $this->xmlToArray($root);
+        //file_put_contents('all.arr', var_export($this->data, true));//exit();
     }
 
-    public function xml_to_array($root) {
+    public function xmlToArray($root) {
         $result = array();
     
         if ($root->hasAttributes()) {
@@ -52,24 +52,18 @@ class WpImport
             foreach ($children as $child) {
                 if($child->nodeType == XML_TEXT_NODE && empty(trim($child->nodeValue))) continue;
                 if (!isset($result[$child->nodeName])) {
-                    $result[$child->nodeName] = $this->xml_to_array($child);
+                    $result[$child->nodeName] = $this->xmlToArray($child);
                 } else {
                     if (!isset($groups[$child->nodeName])) {
                         $result[$child->nodeName] = array($result[$child->nodeName]);
                         $groups[$child->nodeName] = 1;
                     }
-                    $result[$child->nodeName][] = $this->xml_to_array($child);
+                    $result[$child->nodeName][] = $this->xmlToArray($child);
                 }
             }
         }
     
         return $result;
-    }
-
-    public function echoing($text){
-        echo $text . "\r";
-        @ob_flush();
-        @flush();
     }
 
     public function itemsFilter($items, $filter){
@@ -111,7 +105,7 @@ class WpImport
                 'slug'      => $categoryItem['wp:term_slug'],
             ];
 
-            $this->echoing('Import ' . $index++ . '/' . $count . ' Parent Categories');
+            Tools::echoing('Import ' . $index++ . '/' . $count . ' Parent Categories');
             Category::create($category);
         }
         echo PHP_EOL;
@@ -136,7 +130,7 @@ class WpImport
                 'category_id' => $parentId ? $parentId : null
             ];
 
-            $this->echoing('Import ' . $index++ . '/' . $count . ' Child Categories');
+            Tools::echoing('Import ' . $index++ . '/' . $count . ' Child Categories');
             Category::create($category);
         }
         echo PHP_EOL;
@@ -151,23 +145,17 @@ class WpImport
             return true;
         }
 
-        $files = $this->getItems([
-            'name' => 'item',
-            'value' => [
-                'post_type' => 'attachment',
-            ],
+        $files = $this->getItems('item', [
+            'wp:post_type' => 'attachment'
         ]);
 
         $count = count($files);
         $index = 1;
 
         foreach($files as $file){
-            //if(++$i <= 69) continue;
-            //if($i >= 72) exit();
-            $url = $file['value']['attachment_url'];
+            $url = $file['wp:attachment_url'];
             $url = mb_convert_encoding($url, 'UTF-8', mb_detect_encoding($url, 'UTF-8', true));
-            // $filename = explode('/', $url);
-            // $filename = end($filename);
+
             $filename = parse_url($url);
             $filename = $filename['path'];
             $filename = $tempPath . $filename;
@@ -177,14 +165,8 @@ class WpImport
             }
 
             $url = mb_convert_encoding($url, 'UTF-8', mb_detect_encoding($url, 'UTF-8', true));
-            //$filename = mb_convert_encoding($filename, 'UTF-8', mb_detect_encoding($filename, 'UTF-8', true));
-            //$filename = mb_convert_encoding($filename, 'ASCII//TRANSLIT', mb_detect_encoding($filename, 'UTF-8', true));
-            //$filename = mb_convert_encoding($filename, 'Windows-1253', mb_detect_encoding($filename, 'UTF-8', true));
-            //$filename = iconv("UTF-8", "cp1253", $filename);
 
-            $this->echoing('Download ' . $index++ . '/' . $count . ' File');
-            //file_put_contents('aaa.txt', $filename.PHP_EOL, FILE_APPEND);
-            //file_put_contents($filename , file_get_contents($url));
+            Tools::echoing('Download ' . $index++ . '/' . $count . ' File');
 
             $ch = curl_init($url);
             $fp = fopen($filename, 'wb');
@@ -193,118 +175,57 @@ class WpImport
             $data = curl_exec($ch);
             curl_close($ch);
             fclose($fp);
-            //file_put_contents($filename , $data);
         }
         echo PHP_EOL;
         
     }
 
     public function mapListingFiles(){
-        // $statement = DB::select("SHOW TABLE STATUS LIKE 'media'");
-        // $nextId = $statement[0]->Auto_increment;
-
-        $files = $this->getItems([
-            'name' => 'item',
-            'post_type' => 'attachment',
+        $files = $this->getItems('item',[
+            'wp:post_type' => 'attachment'
         ]);
+
+        $this->listingFiles = [];
 
         $count = count($files);
         $index = 1;
 
         foreach($files as $file){
-            $fileId = intval($file['value']['post_parent']);
+            $fileId = intval($file['wp:post_parent']);
 
-            $this->echoing('Map ' . $index++ . '/' . $count . ' Files');
-            $this->listingFiles[$fileId][] = intval($file['value']['post_id']);
+            Tools::echoing('Map ' . $index++ . '/' . $count . ' Files');
+            $this->listingFiles[$fileId][] = intval($file['wp:post_id']);
         }
         echo PHP_EOL;
-        //file_put_contents('map.arr', var_export($this->mapFiles, true));
+        //file_put_contents('map.arr', var_export($this->listingFiles, true));
     }
-
-    private function copyDir($source, $dest){
-        // Check for symlinks
-        if (is_link($source)) {
-            return symlink(readlink($source), $dest);
-        }
-        
-        // Simple copy for a file
-        if (is_file($source)) {
-            return copy($source, $dest);
-        }
-
-        // Make destination directory
-        if (!is_dir($dest)) {
-            mkdir($dest);
-        }
-
-        // Loop through the folder
-        $dir = dir($source);
-        while (false !== $entry = $dir->read()) {
-            // Skip pointers
-            if ($entry == '.' || $entry == '..') {
-                continue;
-            }
-
-            // Deep copy directories
-            $this->copyDir("$source/$entry", "$dest/$entry");
-        }
-
-        // Clean up
-        $dir->close();
-        return true;
-    }
-
-    private function removeDir($dir) { 
-        if (is_dir($dir)) { 
-          $objects = scandir($dir); 
-          foreach ($objects as $object) { 
-            if ($object != "." && $object != "..") { 
-              if (is_dir($dir."/".$object))
-                $this->removeDir($dir."/".$object);
-              else
-                unlink($dir."/".$object); 
-            } 
-          }
-          rmdir($dir); 
-        } 
-    }
-
-    public function isImage($path){
-		$a = getimagesize($path);
-		$image_type = $a[2];
-     
-		if(in_array($image_type , array(IMAGETYPE_GIF , IMAGETYPE_JPEG ,IMAGETYPE_PNG , IMAGETYPE_BMP)))
-		{
-			return true;
-		}
-		return false;
-	}
 
     public function storeFiles(){
-        $files = $this->getItems([
-            'name' => 'item',
-            'post_type' => 'attachment',
+        $files = $this->getItems('item',[
+            'wp:post_type' => 'attachment',
         ]);
 
         $tempPathOrig = public_path('temp');
         $tempPath = public_path('temp1');
 
         if (is_dir($tempPath)) {
-            $this->removeDir($tempPath);
+            Tools::removeDir($tempPath);
         }
 
-        $this->copyDir($tempPathOrig, $tempPath);
+        Tools::copyDir($tempPathOrig, $tempPath);
+
+        $this->mapFiles = [];
 
         $count = count($files);
         $index = 1;
 
         foreach($files as $file){
-            $url = $file['value']['attachment_url'];
+            $url = $file['wp:attachment_url'];
             $filename = parse_url($url);
             $filename = $filename['path'];
             $filename = $tempPath . $filename;
 
-            // if(!$this->isImage($filename)){
+            // if(!Tools::isImage($filename)){
             //     continue;
             // }
 
@@ -317,8 +238,8 @@ class WpImport
                 true
             );
 
-            $this->echoing('Store ' . $index++ . '/' . $count . ' Files');
-            $oldFileId = intval($file['value']['post_id']);
+            Tools::echoing('Store ' . $index++ . '/' . $count . ' Files');
+            $oldFileId = intval($file['wp:post_id']);
             $fileId = MediaLibrary::store($fileObj);
             $this->mapFiles[$oldFileId] = $fileId;
         }
@@ -327,45 +248,48 @@ class WpImport
     }
 
     public function importListings(){
-        $listingItems = $this->getItems([
-            'name' => 'item',
-            'post_type' => 'listing',
-            'status' => 'publish'
+        $listingItems = $this->getItems('item', [
+            'wp:post_type' => 'listing',
+            'wp:status' => 'publish'
         ]);
 
 
-        $files = $this->getItems([
-            'name' => 'item',
-            'value' => [
-                'post_type' => 'attachment',
-            ],
+        $files = $this->getItems('item', [
+            'wp:post_type' => 'attachment',
         ]);
 
         $count = count($listingItems);
         $index = 1;
 
         foreach($listingItems as $listingItem){
-            $slug = trim($listingItem['value']['link']);
+            $slug = trim($listingItem['link']);
             $slug = trim($slug, '/');
             $slug = explode('/', $slug);
             $slug = end($slug);
 
             $categoryId = null;
             
-            if(isset($listingItem['value']['category'])){
-                $category = Category::where('title', '=', $listingItem['value']['category'])->first();
+            if(
+                isset($listingItem['category']) &&
+                isset($listingItem['category']['@attributes']) &&
+                isset($listingItem['category']['@attributes']['nicename'])
+            ){
+                $category = Category::where('slug', '=', $listingItem['category']['@attributes']['nicename'])->first();
                 if($category){
                     $categoryId = $category->id;
                 }
             }
 
             $featuredImage = null;
-            if(
-                isset($listingItem['value']['postmeta']) &&
-                isset($listingItem['value']['postmeta']['meta_key']// &&
-                )
-            ){
-                $featuredImage = intval($listingItem['value']['postmeta']['_thumbnail_id']);
+            if(isset($listingItem['wp:postmeta'])){
+                $metas = $listingItem['wp:postmeta'];
+                foreach($metas as $meta){
+                    if($meta['wp:meta_key'] == '_thumbnail_id'){
+                        $featuredImage = intval($meta['wp:meta_value']);
+                        $featuredImage = $this->mapFiles[$featuredImage];
+                        break;
+                    }
+                }
             }
 
             // $listing = [
@@ -376,26 +300,35 @@ class WpImport
             //     'content'       => $listingItem['value']['content_encoded'] ?: null
             // ];
 
-            $this->echoing('Import ' . $index++ . '/' . $count . ' Listings');
+            Tools::echoing('Import ' . $index++ . '/' . $count . ' Listings');
             //Listing::create($listing);
             $listing = new Listing();
-            $listing->title         = $listingItem['value']['title'];
+            $listing->title         = $listingItem['title'];
             $listing->slug          = $slug;
             $listing->category_id   = $categoryId;
             $listing->image_id      = $featuredImage;
-            $listing->content       = $listingItem['value']['content_encoded'] ?: null;
+            $listing->content       = $listingItem['content:encoded'] ?: null;
             
             $newListingId = $listing->save();
+
+            $oldPostId = $listingItem['wp:post_id'];
+            if(isset($this->listingFiles[$oldPostId])){
+                $newKeys = [];
+                foreach($this->listingFiles[$oldPostId] as $oldFileKey){
+                    $newKeys[] = $this->mapFiles[$oldFileKey];
+                }
+                $listing->media()->attach($newKeys);
+            }
         }
         echo PHP_EOL;
     }
 
     public function import(){
         $this->importCategories();
-        //$this->downloadFiles();
-        //$this->mapListingFiles();
-        //$this->storeFiles();
-        //$this->importListings();
+        $this->downloadFiles();
+        $this->mapListingFiles();
+        $this->storeFiles();
+        $this->importListings();
         return true;
     }
 

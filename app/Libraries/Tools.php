@@ -69,6 +69,71 @@ class Tools
         return $text;
     }
 
+    public static function echoing($text){
+        echo $text . "\r";
+        @ob_flush();
+        @flush();
+    }
+
+    public static function copyDir($source, $dest){
+        // Check for symlinks
+        if (is_link($source)) {
+            return symlink(readlink($source), $dest);
+        }
+        
+        // Simple copy for a file
+        if (is_file($source)) {
+            return copy($source, $dest);
+        }
+
+        // Make destination directory
+        if (!is_dir($dest)) {
+            mkdir($dest);
+        }
+
+        // Loop through the folder
+        $dir = dir($source);
+        while (false !== $entry = $dir->read()) {
+            // Skip pointers
+            if ($entry == '.' || $entry == '..') {
+                continue;
+            }
+
+            // Deep copy directories
+            self::copyDir("$source/$entry", "$dest/$entry");
+        }
+
+        // Clean up
+        $dir->close();
+        return true;
+    }
+
+    public static function removeDir($dir) { 
+        if (is_dir($dir)) { 
+          $objects = scandir($dir); 
+          foreach ($objects as $object) { 
+            if ($object != "." && $object != "..") { 
+              if (is_dir($dir."/".$object))
+                self::removeDir($dir."/".$object);
+              else
+                unlink($dir."/".$object); 
+            } 
+          }
+          rmdir($dir); 
+        } 
+    }
+
+    public static function isImage($path){
+		$a = getimagesize($path);
+		$image_type = $a[2];
+     
+		if(in_array($image_type , array(IMAGETYPE_GIF , IMAGETYPE_JPEG ,IMAGETYPE_PNG , IMAGETYPE_BMP)))
+		{
+			return true;
+		}
+		return false;
+	}
+
     public static function checkExistsSlug($slug){
         $check = \App\Listing::where('slug', '=', $slug)->exists() ||
                  \App\Category::where('slug', '=', $slug)->exists();

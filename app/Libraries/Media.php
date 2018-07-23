@@ -5,22 +5,11 @@ namespace App\Libraries;
 use App\Media as MediaModel;
 use App\Thumb;
 use App\MediaSize;
+use App\Libraries\Tools;
 use App\Libraries\ImageUtils;
 
 class Media
 {
-
-    public static function isImage($path)
-	{
-		$a = getimagesize($path);
-		$image_type = $a[2];
-     
-		if(in_array($image_type , array(IMAGETYPE_GIF , IMAGETYPE_JPEG ,IMAGETYPE_PNG , IMAGETYPE_BMP)))
-		{
-			return true;
-		}
-		return false;
-	}
 
     public static function store($file)
     {
@@ -40,7 +29,7 @@ class Media
         $media->original_name = basename($file->getClientOriginalName());
         $media->save();
 
-        if(self::isImage($path . '/' . $save_name)){
+        if(Tools::isImage($path . '/' . $save_name)){
             self::makeThumbs($media->id, $save_name, $file->getClientOriginalExtension()); 
         }
 
