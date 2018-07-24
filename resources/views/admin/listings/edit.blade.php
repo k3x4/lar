@@ -47,6 +47,7 @@
                     <ul class="sortable-gallery">
                         @foreach ($gallery as $image)
                             <li class="ui-state-default" data-id="{{ $image->id }}">
+                                <a href="#" class="close-x"></a>
                                 <img src="/uploads/{{ $image->get('mini') }}" />
                             </li>
                         @endforeach

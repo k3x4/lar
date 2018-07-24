@@ -145,11 +145,41 @@ table.dtable {
     padding: 0;
 
     li{
+        position: relative;
         margin: 3px 3px 3px 0;
         padding: 1px;
         float: left;
     }
 }
+
+.sortable-gallery-placeholder{
+    background-color:#eee;
+}
+
+.close-x {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 20px;
+    height: 20px;
+  }
+  .close-x:hover {
+    opacity: 1;
+  }
+  .close-x:before, .close-x:after {
+    position: absolute;
+    left: 5px;
+    content: ' ';
+    height: 20px;
+    width: 4px;
+    background-color: #e30000;
+  }
+  .close-x:before {
+    transform: rotate(45deg);
+  }
+  .close-x:after {
+    transform: rotate(-45deg);
+  }
 
 @media (min-width: 768px) {
     .modal .modal-dialog {

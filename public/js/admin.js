@@ -258,6 +258,8 @@ $(document).ready(function () {
 
     // JQUERY UI SORTABLE
     $('.sortable-gallery').sortable({
+        placeholder: "sortable-gallery-placeholder",
+        forcePlaceholderSize: true,
         update: function update(event, ui) {
             var i = 0;
             var ids = [];

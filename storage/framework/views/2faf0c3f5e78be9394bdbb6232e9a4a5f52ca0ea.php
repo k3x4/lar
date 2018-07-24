@@ -50,6 +50,7 @@
                     <ul class="sortable-gallery">
                         <?php $__currentLoopData = $gallery; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <li class="ui-state-default" data-id="<?php echo e($image->id); ?>">
+                                <a href="#" class="close-x"></a>
                                 <img src="/uploads/<?php echo e($image->get('mini')); ?>" />
                             </li>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
