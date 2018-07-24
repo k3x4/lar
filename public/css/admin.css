@@ -145,6 +145,18 @@ table.dtable input.select {
   margin-bottom: 10px;
 }
 
+.sortable-gallery {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sortable-gallery li {
+  margin: 3px 3px 3px 0;
+  padding: 1px;
+  float: left;
+}
+
 @media (min-width: 768px) {
   .modal .modal-dialog {
     width: 800px;

@@ -2,8 +2,6 @@
 
 @section('head')
 @parent
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-
     <script src="{{ asset('js/lib/dropzone/min/dropzone.min.js') }}"></script>
     <script src="{{ asset('js/dropzone-config.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('js/lib/dropzone/min/dropzone.min.css') }}">

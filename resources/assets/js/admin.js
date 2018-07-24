@@ -193,4 +193,17 @@ $(document).ready(function () {
     });
 
 
+    // JQUERY UI SORTABLE
+    $('.sortable-gallery').sortable({
+        update: function(event, ui) {
+            var i = 0;
+            var ids = [];
+            $('.sortable-gallery li').each(function(){
+                ids[i++] = $(this).data('id');
+            });
+            $('#gallery').val(ids);
+        },
+    });
+
+
 });

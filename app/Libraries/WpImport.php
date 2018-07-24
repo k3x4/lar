@@ -13,7 +13,7 @@ use App\Libraries\Media as MediaLibrary;
 class WpImport
 {
     private $data;
-    private $listingFiles;
+    //private $listingFiles;
     private $mapFiles;
 
     public function getData($xmlFile){
@@ -180,24 +180,51 @@ class WpImport
         
     }
 
-    public function mapListingFiles(){
-        $files = $this->getItems('item',[
-            'wp:post_type' => 'attachment'
-        ]);
+    // public function mapListingFiles(){
+    //     $files = $this->getItems('item',[
+    //         'wp:post_type' => 'attachment'
+    //     ]);
 
-        $this->listingFiles = [];
+    //     $this->listingFiles = [];
 
-        $count = count($files);
-        $index = 1;
+    //     $count = count($files);
+    //     $index = 1;
 
-        foreach($files as $file){
-            $fileId = intval($file['wp:post_parent']);
+    //     foreach($files as $file){
+    //         $fileId = intval($file['wp:post_parent']);
 
-            Tools::echoing('Map ' . $index++ . '/' . $count . ' Files');
-            $this->listingFiles[$fileId][] = intval($file['wp:post_id']);
+    //         Tools::echoing('Map ' . $index++ . '/' . $count . ' Files');
+    //         $this->listingFiles[$fileId][] = intval($file['wp:post_id']);
+    //     }
+    //     echo PHP_EOL;
+    //     //file_put_contents('map.arr', var_export($this->listingFiles, true));
+    // }
+
+    private function filterMeta($item, $metaKey, $integerValues = false, $oldFiles = false){
+        $result = [];
+
+        if(isset($item['wp:postmeta'])){
+            $metas = $item['wp:postmeta'];
+            foreach($metas as $meta){
+                if($meta['wp:meta_key'] == $metaKey){
+                    $result[] = $meta['wp:meta_value'];
+                }
+            }
         }
-        echo PHP_EOL;
-        //file_put_contents('map.arr', var_export($this->listingFiles, true));
+
+        if($integerValues && $result){
+            $result = array_map('intval', $result);
+        }
+
+        if($oldFiles && $result){
+            $result = array_map([$this, 'mapFiles'], $result);
+        }
+
+        return $result ?: null;
+    }
+
+    public function mapFiles($item){
+        return $this->mapFiles[$item];
     }
 
     public function storeFiles(){
@@ -281,16 +308,19 @@ class WpImport
             }
 
             $featuredImage = null;
-            if(isset($listingItem['wp:postmeta'])){
-                $metas = $listingItem['wp:postmeta'];
-                foreach($metas as $meta){
-                    if($meta['wp:meta_key'] == '_thumbnail_id'){
-                        $featuredImage = intval($meta['wp:meta_value']);
-                        $featuredImage = $this->mapFiles[$featuredImage];
-                        break;
-                    }
-                }
-            }
+            $featuredImage = $this->filterMeta($listingItem, '_thumbnail_id', true, true);
+            $featuredImage = $featuredImage ? current($featuredImage) : null;
+
+            // if(isset($listingItem['wp:postmeta'])){
+            //     $metas = $listingItem['wp:postmeta'];
+            //     foreach($metas as $meta){
+            //         if($meta['wp:meta_key'] == '_thumbnail_id'){
+            //             $featuredImage = intval($meta['wp:meta_value']);
+            //             $featuredImage = $this->mapFiles[$featuredImage];
+            //             break;
+            //         }
+            //     }
+            // }
 
             // $listing = [
             //     'title'         => $listingItem['value']['title'],
@@ -308,17 +338,46 @@ class WpImport
             $listing->category_id   = $categoryId;
             $listing->image_id      = $featuredImage;
             $listing->content       = $listingItem['content:encoded'] ?: null;
+            $listing->save();
             
-            $newListingId = $listing->save();
+            //$newListingId = $listing->save();
 
-            $oldPostId = $listingItem['wp:post_id'];
-            if(isset($this->listingFiles[$oldPostId])){
-                $newKeys = [];
-                foreach($this->listingFiles[$oldPostId] as $oldFileKey){
-                    $newKeys[] = $this->mapFiles[$oldFileKey];
-                }
-                $listing->media()->attach($newKeys);
+            // $oldPostId = $listingItem['wp:post_id'];
+            // if(isset($this->listingFiles[$oldPostId])){
+            //     $newKeys = [];
+            //     foreach($this->listingFiles[$oldPostId] as $oldFileKey){
+            //         $newKeys[] = $this->mapFiles[$oldFileKey];
+            //     }
+            //     //$listing->media()->attach($newKeys);
+            // }
+
+            // if(isset($listingItem['wp:postmeta'])){
+            //     $metas = $listingItem['wp:postmeta'];
+            //     $gallery = [];
+            //     foreach($metas as $meta){
+            //         if($meta['wp:meta_key'] == 'webbupointfinder_item_images'){
+            //             $imageId = intval($meta['wp:meta_value']);
+            //             $gallery[] = $this->mapFiles[$imageId];
+            //         }
+            //     }
+            //     if($gallery){
+            //         $listing->meta()->create([
+            //             'meta_key' => 'gallery',
+            //             'meta_value' => serialize($gallery);
+            //         ]);
+            //     }
+            // }
+
+            $gallery = null;
+            $gallery = $this->filterMeta($listingItem, 'webbupointfinder_item_images', true, true);
+
+            if($gallery){
+                $listing->meta()->create([
+                    'meta_key' => 'gallery',
+                    'meta_value' => serialize($gallery)
+                ]);
             }
+
         }
         echo PHP_EOL;
     }
@@ -326,7 +385,7 @@ class WpImport
     public function import(){
         $this->importCategories();
         $this->downloadFiles();
-        $this->mapListingFiles();
+        //$this->mapListingFiles(); // REQUIRED?
         $this->storeFiles();
         $this->importListings();
         return true;

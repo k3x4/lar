@@ -2,8 +2,6 @@
 
 <?php $__env->startSection('head'); ?>
 ##parent-placeholder-1a954628a960aaef81d7b2d4521929579f3541e6##
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-
     <script src="<?php echo e(asset('js/lib/dropzone/min/dropzone.min.js')); ?>"></script>
     <script src="<?php echo e(asset('js/dropzone-config.js')); ?>"></script>
     <link rel="stylesheet" href="<?php echo e(asset('js/lib/dropzone/min/dropzone.min.css')); ?>">

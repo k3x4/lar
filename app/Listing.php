@@ -12,7 +12,15 @@ class Listing extends Model
         return $this->belongsTo('App\Category');
     }
 
-    public function media(){
-        return $this->belongsToMany('App\Media');
+    public function meta(){
+        return $this->hasMany('App\ListingMeta');
     }
+
+    // public function media(){
+    //     return $this->belongsToMany('App\Media');
+    // }
+
+    // public function thumbs(){
+    //     return $this->hasMany('App\Thumb');
+    // }
 }

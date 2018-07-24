@@ -43,6 +43,19 @@
                     <?php echo Form::textarea('content', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']); ?>
 
                 </div>
+                
+                <?php echo Form::hidden('gallery', '', ['id' => 'gallery']); ?>
+
+                <?php if($gallery): ?>
+                    <ul class="sortable-gallery">
+                        <?php $__currentLoopData = $gallery; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <li class="ui-state-default" data-id="<?php echo e($image->id); ?>">
+                                <img src="/uploads/<?php echo e($image->get('mini')); ?>" />
+                            </li>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </ul>
+                <?php endif; ?>
+
             </div>
             
         </div>
@@ -71,5 +84,21 @@
 <?php echo Form::close(); ?>
 
 
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('footer_scripts'); ?>
+##parent-placeholder-c55a01b0a8ef1d7b211584e96d51bdf8930d1005##
+
+<script>
+$( document ).ready(function() {
+    var i = 0;
+    var ids = [];
+    $('.sortable-gallery li').each(function(){
+        ids[i++] = $(this).data('id');
+    });
+    $('#gallery').val(ids);
+});
+
+</script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin.layout.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

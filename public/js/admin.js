@@ -255,6 +255,18 @@ $(document).ready(function () {
         });
         //$(".permTable input[name='ids']").val(vals);
     });
+
+    // JQUERY UI SORTABLE
+    $('.sortable-gallery').sortable({
+        update: function update(event, ui) {
+            var i = 0;
+            var ids = [];
+            $('.sortable-gallery li').each(function () {
+                ids[i++] = $(this).data('id');
+            });
+            $('#gallery').val(ids);
+        }
+    });
 });
 
 /***/ })

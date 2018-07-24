@@ -1,5 +1,6 @@
 @section('footer_scripts')
 
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="{{ asset('adminlte/bower_components/select2/dist/js/select2.full.min.js') }}"></script>
 <script src="{{ asset('js/lib/icheck-2/icheck.js') }}"></script>
 

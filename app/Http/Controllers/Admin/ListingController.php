@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Listing;
+use App\ListingMeta;
 use App\Category;
 use App\Media;
 use DB;
@@ -31,6 +32,16 @@ class ListingController extends Controller
             ->addColumn('action', function ($listing) {
                 $html  = '<div class="dtable-td-wrapper">';
                 $html .= \Form::checkbox('action', $listing->id, false, ['class' => 'select']);
+                $html .= '</div>';
+                return $html;
+            })
+            ->addColumn('thumb', function ($listing) {
+                $media = Media::find($listing->image_id);
+                $html  = '<div class="dtable-td-wrapper">';
+                if($media):
+                    $html .= \Html::tag('span', '', ['class' => 'dtable-helper']);
+                    $html .= \Html::image('/uploads/' . $media->get('mini'));
+                endif;    
                 $html .= '</div>';
                 return $html;
             })
@@ -92,9 +103,12 @@ class ListingController extends Controller
         $listing->status = $request->input('status');
         $listing->save();
 
-        // if($request->input('featuredImage')){
-        //     $listing->featuredImage()->sync($request->input('featuredImage'));
-        // }
+        // $listing->meta()->create([
+        //     'meta_key' => 'gallery',
+        //     'meta_value' => serialize(['a' => 1833, 'b' => 1834])
+        // ]);
+
+        // $variant = $item->variants()->where('text', $result->variant)->update(['price' => $price]);
 
         return redirect()->route('admin.listings.index')
                         ->with('success','Listing created successfully');
@@ -128,7 +142,11 @@ class ListingController extends Controller
         $featuredImage = Media::find($listing->image_id);
         $featuredImage = $featuredImage ? $featuredImage->filename : NULL;
 
-        return view('admin.listings.edit', compact('listing', 'categories', 'featuredImage'));
+        $gallery = $listing->meta()->where('meta_key', 'gallery')->first();
+        $gallery = $gallery ? unserialize($gallery->meta_value) : null;
+        $gallery = $gallery ? Media::find($gallery) : null;
+
+        return view('admin.listings.edit', compact('listing', 'categories', 'featuredImage', 'gallery'));
     }
 
     /**
