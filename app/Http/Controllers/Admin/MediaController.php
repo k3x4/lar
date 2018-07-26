@@ -43,6 +43,11 @@ class MediaController extends Controller
     {
         $medias = Media::all();
 
+        // $posts->map(function ($post) {
+        //     $post['url'] = 'http://your.url/here';
+        //     return $post;
+        // });
+
         return Datatables::of($medias)
             ->addColumn('action', function ($media) {
                 $html  = '<div class="dtable-td-wrapper">';
