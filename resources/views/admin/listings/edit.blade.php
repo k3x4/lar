@@ -41,19 +41,6 @@
                     <strong>Description:</strong>
                     {!! Form::textarea('content', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']) !!}
                 </div>
-                
-                {!! Form::hidden('gallery', '', ['id' => 'gallery']) !!}
-                @if ($gallery)
-                    <ul class="sortable-gallery">
-                        @foreach ($gallery as $image)
-                            <li class="ui-state-default" data-id="{{ $image->id }}">
-                                <a href="#" class="close-x"></a>
-                                <img src="/uploads/{{ $image->get('mini') }}" />
-                            </li>
-                        @endforeach
-                    </ul>
-                @endif
-
             </div>
             
         </div>
@@ -75,26 +62,15 @@
             'title' => 'Featured image',
             'featuredImage' => $featuredImage
         ])
+
+        @widget('ListingGallery', [
+            'title' => 'Extra images',
+            'gallery' => $gallery
+        ])
                
     </div>
 
 </div>
 {!! Form::close() !!}
 
-@endsection
-
-@section('footer_scripts')
-@parent
-
-<script>
-$( document ).ready(function() {
-    var i = 0;
-    var ids = [];
-    $('.sortable-gallery li').each(function(){
-        ids[i++] = $(this).data('id');
-    });
-    $('#gallery').val(ids);
-});
-
-</script>
 @endsection

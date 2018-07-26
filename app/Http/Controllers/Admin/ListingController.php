@@ -140,11 +140,15 @@ class ListingController extends Controller
         $categories = CategoryTools::makeOptionGroup($categories);
 
         $featuredImage = Media::find($listing->image_id);
-        $featuredImage = $featuredImage ? $featuredImage->filename : NULL;
 
         $gallery = $listing->meta()->where('meta_key', 'gallery')->first();
-        $gallery = $gallery ? unserialize($gallery->meta_value) : null;
-        $gallery = $gallery ? Media::find($gallery) : null;
+        if($gallery){
+            $galleryIds = unserialize($gallery->meta_value);
+            $gallery = Media::find($galleryIds);
+            $gallery = $gallery->sortBy(function($model) use ($galleryIds) {
+                return array_search($model->getKey(), $galleryIds);
+            });
+        }
 
         return view('admin.listings.edit', compact('listing', 'categories', 'featuredImage', 'gallery'));
     }
@@ -173,7 +177,15 @@ class ListingController extends Controller
         $listing->update($data);
         $listing->image_id = $request->input('featuredImage') ?: NULL;
         $listing->save();
-        //$listing->featuredImage()->sync($request->input('featuredImage'));
+
+        $gallery = $request->input('gallery');
+        if($gallery){
+            $gallery = explode(',', $gallery);
+            $meta = $listing->meta()->updateOrCreate(
+                                        ['meta_key' => 'gallery'],
+                                        ['meta_value' => serialize($gallery)]
+                                    );        
+        }
 
         return redirect()->route('admin.listings.index')
                         ->with('success','Listing updated successfully');

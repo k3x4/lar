@@ -57,7 +57,13 @@ class MediaController extends Controller
                 $html .= '</div>';
                 return $html;
             })
-            ->editColumn('filename', '{!! Html::link("/uploads/" . $filename, $filename, ["data-id" => $id]) !!}')
+            ->editColumn('filename', function ($media) {
+                $html  = \Html::link('/uploads/' . $media->filename, $media->filename, [
+                    "data-id" => $media->id,
+                    "data-thumb" => $media->get('mini')
+                ]);
+                return $html;
+            })
             ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
             ->make(true);
     }

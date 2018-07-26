@@ -198,14 +198,20 @@ $(document).ready(function () {
         placeholder: "sortable-gallery-placeholder",
         forcePlaceholderSize: true,
         update: function(event, ui) {
-            var i = 0;
-            var ids = [];
-            $('.sortable-gallery li').each(function(){
-                ids[i++] = $(this).data('id');
-            });
-            $('#gallery').val(ids);
+            updateSortable();
         },
     });
+    $('.sortable-gallery').bind('sortupdate', function(event, ui) {
+        updateSortable();
+    });
+    function updateSortable(){
+        var i = 0;
+        var ids = [];
+        $('.sortable-gallery li').each(function(){
+            ids[i++] = $(this).data('id');
+        });
+        $('#gallery').val(ids);
+    }
 
 
 });

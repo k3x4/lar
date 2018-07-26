@@ -1,5 +1,5 @@
 .content .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 .content .form-group > strong {
@@ -142,7 +142,14 @@ table.dtable input.select {
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100%;
-  margin-bottom: 10px;
+}
+
+#featured-select,
+#featured-remove,
+#gallery-select {
+  display: block;
+  clear: both;
+  padding: 10px 0;
 }
 
 .sortable-gallery {
@@ -158,13 +165,17 @@ table.dtable input.select {
   float: left;
 }
 
+.sortable-gallery li img {
+  border: 1px solid #ddd;
+}
+
 .sortable-gallery-placeholder {
-  background-color: #eee;
+  background-color: #bbb;
 }
 
 .close-x {
   position: absolute;
-  right: 5px;
+  right: 0px;
   top: 5px;
   width: 20px;
   height: 20px;
@@ -179,7 +190,7 @@ table.dtable input.select {
   position: absolute;
   left: 5px;
   content: ' ';
-  height: 20px;
+  height: 15px;
   width: 4px;
   background-color: #e30000;
 }
