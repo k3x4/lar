@@ -7,6 +7,9 @@ use App\MediaSize;
 
 class Media extends Model
 {
+    // protected $appends = [
+    //     'mini'
+    // ];
 
     // this is a recommended way to declare event handlers
     protected static function boot() {
@@ -40,5 +43,9 @@ class Media extends Model
         
         return $this->filename;
     }
+
+    // public function getMiniAttribute(){
+    //     return $this->get('mini');
+    // }
 
 }

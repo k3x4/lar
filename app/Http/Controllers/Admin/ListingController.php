@@ -103,6 +103,15 @@ class ListingController extends Controller
         $listing->status = $request->input('status');
         $listing->save();
 
+        $gallery = $request->input('gallery');
+        if($gallery){
+            $gallery = explode(',', $gallery);
+            $meta = $listing->meta()->create([
+                                        'meta_key' => 'gallery',
+                                        'meta_value' => serialize($gallery)
+                                    ]);        
+        }
+
         // $listing->meta()->create([
         //     'meta_key' => 'gallery',
         //     'meta_value' => serialize(['a' => 1833, 'b' => 1834])

@@ -50,20 +50,24 @@ class MediaController extends Controller
                 $html .= '</div>';
                 return $html;
             })
-            ->addColumn('thumb', function ($media) {
-                $html  = '<div class="dtable-td-wrapper">';
-                $html .= \Html::tag('span', '', ['class' => 'dtable-helper']);
-                $html .= '<a data-id="' . $media->id . '" href="/uploads/' . $media->filename . '">' . \Html::image('/uploads/' . $media->get('mini')) . '</a>';
-                $html .= '</div>';
-                return $html;
-            })
-            ->editColumn('filename', function ($media) {
-                $html  = \Html::link('/uploads/' . $media->filename, $media->filename, [
-                    "data-id" => $media->id,
-                    "data-thumb" => $media->get('mini')
-                ]);
-                return $html;
-            })
+            // ->addColumn('thumb', function ($media) {
+            //     $html  = '<div class="dtable-td-wrapper">';
+            //     $html .= \Html::tag('span', '', ['class' => 'dtable-helper']);
+            //     $html .= '<a data-id="' . $media->id . '" href="/uploads/' . $media->filename . '">' . \Html::image('/uploads/' . $media->get('mini')) . '</a>';
+            //     $html .= '</div>';
+            //     return $html;
+            // })
+            ->addColumn('thumb', '{{ $filename }}')
+            // ->editColumn('filename', function ($media) {
+            //     $html  = \Html::link('/uploads/' . $media->filename, $media->filename, [
+            //         "data-id" => $media->id,
+            //         "data-thumb" => $media->get('mini')
+            //     ]);
+            //     return $html;
+            // })
+            //->editColumn('filename', '{{ $filename }}')
+            //->editColumn('filename', 'admin.media.datatables.filename')
+            ->editColumn('filename', '<a href="/uploads/{{ $filename }}" data-id="{{ $id }}">{{ $filename }}</a>')
             ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
             ->make(true);
     }
