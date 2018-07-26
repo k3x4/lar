@@ -48,6 +48,11 @@ class MediaController extends Controller
         //     return $post;
         // });
 
+        $medias->map(function ($media) {
+            $media->thumb = $media->get('mini');
+            return $media;
+        });
+
         return Datatables::of($medias)
             ->addColumn('action', function ($media) {
                 $html  = '<div class="dtable-td-wrapper">';
@@ -72,7 +77,7 @@ class MediaController extends Controller
             // })
             //->editColumn('filename', '{{ $filename }}')
             //->editColumn('filename', 'admin.media.datatables.filename')
-            ->editColumn('filename', '<a href="/uploads/{{ $filename }}" data-id="{{ $id }}">{{ $filename }}</a>')
+            ->editColumn('filename', '<a href="/uploads/{{ $filename }}" data-id="{{ $id }}" data-thumb="{{ $thumb }}">{{ $filename }}</a>')
             ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
             ->make(true);
     }
