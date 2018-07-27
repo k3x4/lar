@@ -15,12 +15,16 @@ class WpImport
     private $data;
     //private $listingFiles;
     private $mapFiles;
+    private $mapFilenames;
 
     public function getData($xmlFile){
         setlocale(LC_ALL, 'el_GR.UTF-8');
 
         $doc = new \DOMDocument();
         $doc->load($xmlFile);
+
+        $this->mapFiles = [];
+        $this->mapFilenames = [];
 
         $root = $doc->getElementsByTagName('channel')->item(0);
         $this->data = $this->xmlToArray($root);
@@ -224,7 +228,14 @@ class WpImport
     }
 
     public function mapFiles($item){
-        return $this->mapFiles[$item];
+        return isset($this->mapFiles[$item]) ? $this->mapFiles[$item] : $item;
+    }
+
+    public function mapFilesContent($content){
+        foreach($this->mapFilenames as $oldPath => $newPath){
+            $content = str_replace($oldPath, $newPath, $content);
+        }
+        return $content;
     }
 
     public function storeFiles(){
@@ -240,8 +251,6 @@ class WpImport
         }
 
         Tools::copyDir($tempPathOrig, $tempPath);
-
-        $this->mapFiles = [];
 
         $count = count($files);
         $index = 1;
@@ -267,8 +276,9 @@ class WpImport
 
             Tools::echoing('Store ' . $index++ . '/' . $count . ' Files');
             $oldFileId = intval($file['wp:post_id']);
-            $fileId = MediaLibrary::store($fileObj);
-            $this->mapFiles[$oldFileId] = $fileId;
+            $newMedia = MediaLibrary::store($fileObj);
+            $this->mapFiles[$oldFileId] = $newMedia->id;
+            $this->mapFilenames[$url] = url('/uploads') . '/' . $newMedia->filename;
         }
         echo PHP_EOL;
 
@@ -311,72 +321,96 @@ class WpImport
             $featuredImage = $this->filterMeta($listingItem, '_thumbnail_id', true, true);
             $featuredImage = $featuredImage ? current($featuredImage) : null;
 
-            // if(isset($listingItem['wp:postmeta'])){
-            //     $metas = $listingItem['wp:postmeta'];
-            //     foreach($metas as $meta){
-            //         if($meta['wp:meta_key'] == '_thumbnail_id'){
-            //             $featuredImage = intval($meta['wp:meta_value']);
-            //             $featuredImage = $this->mapFiles[$featuredImage];
-            //             break;
-            //         }
-            //     }
-            // }
+            $listingContent = $listingItem['content:encoded'] ? $this->mapFilesContent($listingItem['content:encoded']) : null;
+            
+            $dateCreated = \DateTime::createFromFormat('Y-m-d H:i:s', $listingItem['wp:post_date']);
+            $dateCreated = $dateCreated->getTimestamp();
 
-            // $listing = [
-            //     'title'         => $listingItem['value']['title'],
-            //     'slug'          => $slug,
-            //     'category_id'   => $categoryId,
-            //     'image_id'      => $featuredImage,
-            //     'content'       => $listingItem['value']['content_encoded'] ?: null
-            // ];
-
-            Tools::echoing('Import ' . $index++ . '/' . $count . ' Listings');
-            //Listing::create($listing);
             $listing = new Listing();
             $listing->title         = $listingItem['title'];
             $listing->slug          = $slug;
+            $listing->author_id     = 1;
             $listing->category_id   = $categoryId;
             $listing->image_id      = $featuredImage;
-            $listing->content       = $listingItem['content:encoded'] ?: null;
+            $listing->content       = $listingContent;
+            $listing->status        = 'publish';
+            $listing->created_at    = $dateCreated;
+            $listing->updated_at    = $dateCreated;
             $listing->save();
-            
-            //$newListingId = $listing->save();
-
-            // $oldPostId = $listingItem['wp:post_id'];
-            // if(isset($this->listingFiles[$oldPostId])){
-            //     $newKeys = [];
-            //     foreach($this->listingFiles[$oldPostId] as $oldFileKey){
-            //         $newKeys[] = $this->mapFiles[$oldFileKey];
-            //     }
-            //     //$listing->media()->attach($newKeys);
-            // }
-
-            // if(isset($listingItem['wp:postmeta'])){
-            //     $metas = $listingItem['wp:postmeta'];
-            //     $gallery = [];
-            //     foreach($metas as $meta){
-            //         if($meta['wp:meta_key'] == 'webbupointfinder_item_images'){
-            //             $imageId = intval($meta['wp:meta_value']);
-            //             $gallery[] = $this->mapFiles[$imageId];
-            //         }
-            //     }
-            //     if($gallery){
-            //         $listing->meta()->create([
-            //             'meta_key' => 'gallery',
-            //             'meta_value' => serialize($gallery);
-            //         ]);
-            //     }
-            // }
 
             $gallery = null;
             $gallery = $this->filterMeta($listingItem, 'webbupointfinder_item_images', true, true);
-
             if($gallery){
                 $listing->meta()->create([
                     'meta_key' => 'gallery',
                     'meta_value' => serialize($gallery)
                 ]);
             }
+
+            $address = null;
+            $address = $this->filterMeta($listingItem, 'webbupointfinder_items_address');
+            if($address){
+                $listing->meta()->create([
+                    'meta_key' => 'address',
+                    'meta_value' => current($address)
+                ]);
+            }
+
+            $views = null;
+            $views = $this->filterMeta($listingItem, 'views', true);
+            if($views){
+                $listing->meta()->create([
+                    'meta_key' => 'views',
+                    'meta_value' => current($views)
+                ]);
+            }
+
+            $box = null;
+            $box = $this->filterMeta($listingItem, 'webbupointfinder_item_custombox1');
+            if($box){
+                $box = $this->mapFilesContent(current($box));
+                $listing->meta()->create([
+                    'meta_key' => 'custombox1',
+                    'meta_value' => $box
+                ]);
+            }
+
+            $box = null;
+            $box = $this->filterMeta($listingItem, 'webbupointfinder_item_custombox2');
+            if($box){
+                $box = $this->mapFilesContent(current($box));
+                $listing->meta()->create([
+                    'meta_key' => 'custombox2',
+                    'meta_value' => $box
+                ]);
+            }
+
+            $box = null;
+            $box = $this->filterMeta($listingItem, 'webbupointfinder_item_custombox3');
+            if($box){
+                $box = $this->mapFilesContent(current($box));
+                $listing->meta()->create([
+                    'meta_key' => 'custombox3',
+                    'meta_value' => $box
+                ]);
+            }
+
+            $box = null;
+            $box = $this->filterMeta($listingItem, 'webbupointfinder_item_custombox4');
+            if($box){
+                $box = $this->mapFilesContent(current($box));
+                $listing->meta()->create([
+                    'meta_key' => 'custombox4',
+                    'meta_value' => $box
+                ]);
+            }
+
+            
+
+
+
+            Tools::echoing('Import ' . $index++ . '/' . $count . ' Listings');
+            //Listing::create($listing);
 
         }
         echo PHP_EOL;
@@ -386,7 +420,7 @@ class WpImport
         $this->importCategories();
         $this->downloadFiles();
         //$this->mapListingFiles(); // REQUIRED?
-        $this->storeFiles();
+        //$this->storeFiles();
         $this->importListings();
         return true;
     }

@@ -33,7 +33,7 @@ class Media
             self::makeThumbs($media->id, $save_name, $file->getClientOriginalExtension()); 
         }
 
-        return $media->id;
+        return $media;
     }
 
     private static function makeThumbs($media_id, $save_name, $extension){
