@@ -24,15 +24,15 @@
     20 => 'Illuminate\\Validation\\ValidationServiceProvider',
     21 => 'Illuminate\\View\\ViewServiceProvider',
     22 => 'Arrilot\\Widgets\\ServiceProvider',
-    23 => 'Zizaco\\Entrust\\EntrustServiceProvider',
-    24 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
-    25 => 'Intervention\\Image\\ImageServiceProvider',
-    26 => 'Laravel\\Socialite\\SocialiteServiceProvider',
-    27 => 'Laravel\\Tinker\\TinkerServiceProvider',
-    28 => 'Collective\\Html\\HtmlServiceProvider',
-    29 => 'Yajra\\DataTables\\DataTablesServiceProvider',
-    30 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    31 => 'MikeMcLin\\WpPassword\\WpPasswordProvider',
+    23 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
+    24 => 'Intervention\\Image\\ImageServiceProvider',
+    25 => 'Laravel\\Socialite\\SocialiteServiceProvider',
+    26 => 'Laravel\\Tinker\\TinkerServiceProvider',
+    27 => 'Collective\\Html\\HtmlServiceProvider',
+    28 => 'MikeMcLin\\WpPassword\\WpPasswordProvider',
+    29 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+    30 => 'Yajra\\DataTables\\DataTablesServiceProvider',
+    31 => 'Zizaco\\Entrust\\EntrustServiceProvider',
     32 => 'Zizaco\\Entrust\\EntrustServiceProvider',
     33 => 'Collective\\Html\\HtmlServiceProvider',
     34 => 'Intervention\\Image\\ImageServiceProvider',
@@ -57,10 +57,10 @@
     8 => 'Illuminate\\Session\\SessionServiceProvider',
     9 => 'Illuminate\\View\\ViewServiceProvider',
     10 => 'Arrilot\\Widgets\\ServiceProvider',
-    11 => 'Zizaco\\Entrust\\EntrustServiceProvider',
-    12 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
-    13 => 'Intervention\\Image\\ImageServiceProvider',
-    14 => 'Yajra\\DataTables\\DataTablesServiceProvider',
+    11 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
+    12 => 'Intervention\\Image\\ImageServiceProvider',
+    13 => 'Yajra\\DataTables\\DataTablesServiceProvider',
+    14 => 'Zizaco\\Entrust\\EntrustServiceProvider',
     15 => 'Zizaco\\Entrust\\EntrustServiceProvider',
     16 => 'Intervention\\Image\\ImageServiceProvider',
     17 => 'App\\Providers\\AppServiceProvider',
@@ -177,8 +177,8 @@
     'form' => 'Collective\\Html\\HtmlServiceProvider',
     'Collective\\Html\\HtmlBuilder' => 'Collective\\Html\\HtmlServiceProvider',
     'Collective\\Html\\FormBuilder' => 'Collective\\Html\\HtmlServiceProvider',
-    'NunoMaduro\\Collision\\Contracts\\Provider' => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     'MikeMcLin\\WpPassword\\Contracts\\WpPassword' => 'MikeMcLin\\WpPassword\\WpPasswordProvider',
+    'NunoMaduro\\Collision\\Contracts\\Provider' => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
   ),
   'when' => 
   array (
@@ -227,10 +227,10 @@
     'Collective\\Html\\HtmlServiceProvider' => 
     array (
     ),
-    'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider' => 
+    'MikeMcLin\\WpPassword\\WpPasswordProvider' => 
     array (
     ),
-    'MikeMcLin\\WpPassword\\WpPasswordProvider' => 
+    'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider' => 
     array (
     ),
   ),

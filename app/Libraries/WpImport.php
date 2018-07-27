@@ -3,11 +3,12 @@
 namespace App\Libraries;
 
 use DB;
+use App\Media;
 use App\Listing;
 use App\Category;
-use App\Media;
-use Illuminate\Http\UploadedFile;
 use App\Libraries\Tools;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Schema;
 use App\Libraries\Media as MediaLibrary;
 use MikeMcLin\WpPassword\Facades\WpPassword;
 
@@ -29,15 +30,6 @@ class WpImport
 
         $root = $doc->getElementsByTagName('channel')->item(0);
         $this->data = $this->xmlToArray($root);
-
-        $users = DB::table('wp_users')->get();
-        //dd($users[0]);
-
-        if ( WpPassword::check('', $users[0]->user_pass) ) {
-           echo 'TRUE'; exit();
-        } else {
-           echo 'FALSE'; exit();
-        }
 
         //file_put_contents('all.arr', var_export($this->data, true));//exit();
     }
@@ -103,6 +95,28 @@ class WpImport
 
         $items = $this->itemsFilter($this->data[$rootElem], $filters);
         return $items;
+    }
+
+    public function importUsers(){
+        if(!Schema::hasTable('wp_users')){
+            return;
+        }
+
+        $users = DB::table('wp_users')->get();
+        //dd($users[0]);
+        
+        $gmtTimezone = new \DateTimeZone('GMT');
+        $dateCreated = new \DateTime($users[0]->user_registered, $gmtTimezone);
+        $timezone = config('app.timezone');
+        $dateCreated->setTimezone(new \DateTimeZone($timezone));   
+        echo $dateCreated->format('Y-m-d H:i:s');exit();
+
+
+        if ( WpPassword::check('', $users[0]->user_pass) ) {
+           echo 'TRUE'; exit();
+        } else {
+           echo 'FALSE'; exit();
+        }
     }
 
     public function importCategories(){
@@ -428,6 +442,7 @@ class WpImport
     }
 
     public function import(){
+        $this->importUsers();exit();
         $this->importCategories();
         $this->downloadFiles();
         //$this->mapListingFiles(); // REQUIRED?

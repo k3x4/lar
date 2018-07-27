@@ -11,17 +11,6 @@
       'AsyncWidget' => 'Arrilot\\Widgets\\AsyncFacade',
     ),
   ),
-  'zizaco/entrust' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Zizaco\\Entrust\\EntrustServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'Entrust' => 'Zizaco\\Entrust\\EntrustFacade',
-    ),
-  ),
   'fideloper/proxy' => 
   array (
     'providers' => 
@@ -70,6 +59,24 @@
       'Html' => 'Collective\\Html\\HtmlFacade',
     ),
   ),
+  'mikemclin/laravel-wp-password' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'MikeMcLin\\WpPassword\\WpPasswordProvider',
+    ),
+    'aliases' => 
+    array (
+      'WpPassword' => 'MikeMcLin\\WpPassword\\Facades\\WpPassword',
+    ),
+  ),
+  'nunomaduro/collision' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+    ),
+  ),
   'yajra/laravel-datatables-oracle' => 
   array (
     'providers' => 
@@ -81,22 +88,15 @@
       'DataTables' => 'Yajra\\DataTables\\Facades\\DataTables',
     ),
   ),
-  'nunomaduro/collision' => 
+  'zizaco/entrust' => 
   array (
     'providers' => 
     array (
-      0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    ),
-  ),
-  'mikemclin/laravel-wp-password' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'MikeMcLin\\WpPassword\\WpPasswordProvider',
+      0 => 'Zizaco\\Entrust\\EntrustServiceProvider',
     ),
     'aliases' => 
     array (
-      'WpPassword' => 'MikeMcLin\\WpPassword\\Facades\\WpPassword',
+      'Entrust' => 'Zizaco\\Entrust\\EntrustFacade',
     ),
   ),
 );
