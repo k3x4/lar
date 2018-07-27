@@ -9,6 +9,7 @@ use App\Media;
 use Illuminate\Http\UploadedFile;
 use App\Libraries\Tools;
 use App\Libraries\Media as MediaLibrary;
+use MikeMcLin\WpPassword\Facades\WpPassword;
 
 class WpImport
 {
@@ -28,6 +29,16 @@ class WpImport
 
         $root = $doc->getElementsByTagName('channel')->item(0);
         $this->data = $this->xmlToArray($root);
+
+        $users = DB::table('wp_users')->get();
+        //dd($users[0]);
+
+        if ( WpPassword::check('', $users[0]->user_pass) ) {
+           echo 'TRUE'; exit();
+        } else {
+           echo 'FALSE'; exit();
+        }
+
         //file_put_contents('all.arr', var_export($this->data, true));//exit();
     }
 

@@ -32,15 +32,17 @@
     28 => 'Collective\\Html\\HtmlServiceProvider',
     29 => 'Yajra\\DataTables\\DataTablesServiceProvider',
     30 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    31 => 'Zizaco\\Entrust\\EntrustServiceProvider',
-    32 => 'Collective\\Html\\HtmlServiceProvider',
-    33 => 'Intervention\\Image\\ImageServiceProvider',
-    34 => 'App\\Providers\\AppServiceProvider',
-    35 => 'App\\Providers\\AuthServiceProvider',
-    36 => 'App\\Providers\\EventServiceProvider',
-    37 => 'App\\Providers\\RouteServiceProvider',
-    38 => 'App\\Providers\\AssetsServiceProvider',
-    39 => 'Arrilot\\Widgets\\ServiceProvider',
+    31 => 'MikeMcLin\\WpPassword\\WpPasswordProvider',
+    32 => 'Zizaco\\Entrust\\EntrustServiceProvider',
+    33 => 'Collective\\Html\\HtmlServiceProvider',
+    34 => 'Intervention\\Image\\ImageServiceProvider',
+    35 => 'App\\Providers\\AppServiceProvider',
+    36 => 'App\\Providers\\AuthServiceProvider',
+    37 => 'App\\Providers\\EventServiceProvider',
+    38 => 'App\\Providers\\RouteServiceProvider',
+    39 => 'App\\Providers\\AssetsServiceProvider',
+    40 => 'Arrilot\\Widgets\\ServiceProvider',
+    41 => 'MikeMcLin\\WpPassword\\WpPasswordProvider',
   ),
   'eager' => 
   array (
@@ -176,6 +178,7 @@
     'Collective\\Html\\HtmlBuilder' => 'Collective\\Html\\HtmlServiceProvider',
     'Collective\\Html\\FormBuilder' => 'Collective\\Html\\HtmlServiceProvider',
     'NunoMaduro\\Collision\\Contracts\\Provider' => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+    'MikeMcLin\\WpPassword\\Contracts\\WpPassword' => 'MikeMcLin\\WpPassword\\WpPasswordProvider',
   ),
   'when' => 
   array (
@@ -225,6 +228,9 @@
     array (
     ),
     'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider' => 
+    array (
+    ),
+    'MikeMcLin\\WpPassword\\WpPasswordProvider' => 
     array (
     ),
   ),

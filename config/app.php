@@ -167,6 +167,7 @@ return [
         App\Providers\AssetsServiceProvider::class,
 
         Arrilot\Widgets\ServiceProvider::class,
+        MikeMcLin\WpPassword\WpPasswordProvider::class,
 
     ],
 

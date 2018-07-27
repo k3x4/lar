@@ -88,4 +88,15 @@
       0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     ),
   ),
+  'mikemclin/laravel-wp-password' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'MikeMcLin\\WpPassword\\WpPasswordProvider',
+    ),
+    'aliases' => 
+    array (
+      'WpPassword' => 'MikeMcLin\\WpPassword\\Facades\\WpPassword',
+    ),
+  ),
 );
