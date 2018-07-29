@@ -2,6 +2,7 @@
 
 namespace App\Libraries;
 
+use Auth;
 use App\Media as MediaModel;
 use App\Thumb;
 use App\MediaSize;
@@ -27,6 +28,11 @@ class Media
         $media = new MediaModel();
         $media->filename = $save_name;
         $media->original_name = basename($file->getClientOriginalName());
+
+        if (Auth::check()){
+            $media->author_id = Auth::user()->id;
+        }
+
         $media->save();
 
         if(Tools::isImage($path . '/' . $save_name)){

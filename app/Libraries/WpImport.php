@@ -3,6 +3,7 @@
 namespace App\Libraries;
 
 use DB;
+use App\User;
 use App\Media;
 use App\Listing;
 use App\Category;
@@ -15,9 +16,10 @@ use MikeMcLin\WpPassword\Facades\WpPassword;
 class WpImport
 {
     private $data;
-    //private $listingFiles;
     private $mapFiles;
     private $mapFilenames;
+    private $oldUsers;
+    private $mapUsers;
 
     public function getData($xmlFile){
         setlocale(LC_ALL, 'el_GR.UTF-8');
@@ -103,20 +105,41 @@ class WpImport
         }
 
         $users = DB::table('wp_users')->get();
+        $this->oldUsers = $users;
         //dd($users[0]);
         
         $gmtTimezone = new \DateTimeZone('GMT');
         $dateCreated = new \DateTime($users[0]->user_registered, $gmtTimezone);
         $timezone = config('app.timezone');
-        $dateCreated->setTimezone(new \DateTimeZone($timezone));   
-        echo $dateCreated->format('Y-m-d H:i:s');exit();
+        $dateCreated->setTimezone(new \DateTimeZone($timezone));
 
+        //dd($users[0]);
 
-        if ( WpPassword::check('', $users[0]->user_pass) ) {
-           echo 'TRUE'; exit();
-        } else {
-           echo 'FALSE'; exit();
+        $gmtTimezone = new \DateTimeZone('GMT');
+        $timezone = config('app.timezone');
+
+        foreach($users as $user){
+            $dateCreated = new \DateTime($user->user_registered, $gmtTimezone);
+            $dateCreated->setTimezone(new \DateTimeZone($timezone));
+            $dateCreated = $dateCreated->format('Y-m-d H:i:s');
+
+            $newUser = new User();
+            $newUser->email = $user->user_email;
+            $newUser->password = $user->user_pass;
+            $newUser->created_at = $dateCreated;
+            $newUser->updated_at = $dateCreated;
+            $this->mapUsers[$user->ID] = $newUser->save();
         }
+
+        exit();
+
+        //echo $dateCreated->format('Y-m-d H:i:s');exit();
+
+        // if ( WpPassword::check('', $users[0]->user_pass) ) {
+        //    echo 'TRUE'; exit();
+        // } else {
+        //    echo 'FALSE'; exit();
+        // }
     }
 
     public function importCategories(){
@@ -442,11 +465,11 @@ class WpImport
     }
 
     public function import(){
-        $this->importUsers();exit();
+        $this->importUsers();
         $this->importCategories();
         $this->downloadFiles();
         //$this->mapListingFiles(); // REQUIRED?
-        //$this->storeFiles();
+        $this->storeFiles();
         $this->importListings();
         return true;
     }
