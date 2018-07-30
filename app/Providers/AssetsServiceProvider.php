@@ -17,15 +17,15 @@ class AssetsServiceProvider extends ServiceProvider
 
         // ADMIN LTE
         $this->publishes([
-            base_path('vendor') . '/almasaeed2010/adminlte/dist' => public_path('adminlte/dist'),
+            base_path('node_modules') . '/admin-lte/dist' => public_path('adminlte/dist'),
         ], 'public');
         
         $this->publishes([
-            base_path('vendor') . '/almasaeed2010/adminlte/bower_components' => public_path('adminlte/bower_components'),
+            base_path('node_modules') . '/admin-lte/bower_components' => public_path('adminlte/bower_components'),
         ], 'public');
         
         $this->publishes([
-            base_path('vendor') . '/almasaeed2010/adminlte/plugins' => public_path('adminlte/plugins'),
+            base_path('node_modules') . '/admin-lte/plugins' => public_path('adminlte/plugins'),
         ], 'public');
         
         // JQUERY
