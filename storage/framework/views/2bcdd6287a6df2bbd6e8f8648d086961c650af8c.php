@@ -61,6 +61,10 @@
         <?php echo app('arrilot.widget')->run('FeaturedImage', [
             'title' => 'Featured image',
         ]); ?>
+
+        <?php echo app('arrilot.widget')->run('ListingGallery', [
+            'title' => 'Extra images'
+        ]); ?>
               
     </div>
 

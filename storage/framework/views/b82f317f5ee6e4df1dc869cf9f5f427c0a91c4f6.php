@@ -9,7 +9,7 @@
             <?php echo Form::hidden('gallery', '', ['id' => 'gallery']); ?>
 
             <ul class="sortable-gallery">
-            <?php if($gallery): ?>
+            <?php if(isset($gallery)): ?>
                 <?php $__currentLoopData = $gallery; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <li class="ui-state-default" data-id="<?php echo e($image->id); ?>">
                         <a href="#" class="close-x"></a>

@@ -106,6 +106,9 @@
         var $invoker = $(e.relatedTarget);
         $(this).attr('data-related', $invoker.attr('id'))
     });
+    $('#mediamanager').on('hidden.bs.modal', function (e) {
+        $(this).data('bs.modal', null);
+    });
 </script>
 
 <?php $__env->stopSection(); ?>

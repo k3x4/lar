@@ -59,6 +59,10 @@
         @widget('FeaturedImage', [
             'title' => 'Featured image',
         ])
+
+        @widget('ListingGallery', [
+            'title' => 'Extra images'
+        ])
               
     </div>
 

@@ -7,7 +7,7 @@
     <div class="box-body">
         <div class="form-group">
 
-            <?php echo Form::hidden('featuredImage', $featuredImage->id); ?>
+            <?php echo Form::hidden('featuredImage', isset($featuredImage) ? $featuredImage->id : null); ?>
 
 
             <?php if( isset($featuredImage) ): ?>

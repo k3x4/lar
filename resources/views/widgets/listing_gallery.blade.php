@@ -8,7 +8,7 @@
         <div class="form-group">
             {!! Form::hidden('gallery', '', ['id' => 'gallery']) !!}
             <ul class="sortable-gallery">
-            @if ($gallery)
+            @if (isset($gallery))
                 @foreach ($gallery as $image)
                     <li class="ui-state-default" data-id="{{ $image->id }}">
                         <a href="#" class="close-x"></a>

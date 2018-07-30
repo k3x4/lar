@@ -7,7 +7,7 @@
     <div class="box-body">
         <div class="form-group">
 
-            {!! Form::hidden('featuredImage', $featuredImage->id) !!}
+            {!! Form::hidden('featuredImage', isset($featuredImage) ? $featuredImage->id : null) !!}
 
             @if( isset($featuredImage) )
                 <div id="featured-preview" style="display:block;background-image: url(/uploads/{!! $featuredImage->filename !!});"></div>

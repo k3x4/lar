@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Auth;
 use App\Http\Controllers\Controller;
 use App\Listing;
 use App\ListingMeta;
@@ -93,9 +94,15 @@ class ListingController extends Controller
         } else {
             $slug = Tools::slug($request->input('title'));
         }
+
+        $author_id = 1;
+        if (Auth::check()){
+            $author_id = Auth::user()->id;
+        }
         
         $listing = new Listing();
         $listing->category_id = $request->input('category_id');
+        $listing->author_id = $author_id;
         $listing->image_id = $request->input('featuredImage');
         $listing->title = $request->input('title');
         $listing->slug = $slug;
@@ -106,11 +113,17 @@ class ListingController extends Controller
         $gallery = $request->input('gallery');
         if($gallery){
             $gallery = explode(',', $gallery);
-            $meta = $listing->meta()->create([
-                                        'meta_key' => 'gallery',
-                                        'meta_value' => serialize($gallery)
-                                    ]);        
+            $meta = $listing->meta()->create(['meta_key' => 'gallery', 'meta_value' => serialize($gallery)]);
+            $gallery = array_map('intval', $gallery);
+        } else {
+            $gallery = [];
         }
+
+        if($request->input('featuredImage')){
+            $gallery[] = intval($request->input('featuredImage'));
+        }
+
+        $listing->media()->sync($gallery);
 
         // $listing->meta()->create([
         //     'meta_key' => 'gallery',
@@ -190,11 +203,17 @@ class ListingController extends Controller
         $gallery = $request->input('gallery');
         if($gallery){
             $gallery = explode(',', $gallery);
-            $meta = $listing->meta()->updateOrCreate(
-                                        ['meta_key' => 'gallery'],
-                                        ['meta_value' => serialize($gallery)]
-                                    );        
+            $meta = $listing->meta()->updateOrCreate(['meta_key' => 'gallery'], ['meta_value' => serialize($gallery)]);
+            $gallery = array_map('intval', $gallery);
+        } else {
+            $gallery = [];
         }
+
+        if($request->input('featuredImage')){
+            $gallery[] = intval($request->input('featuredImage'));
+        }
+
+        $listing->media()->sync($gallery);
 
         return redirect()->route('admin.listings.index')
                         ->with('success','Listing updated successfully');
