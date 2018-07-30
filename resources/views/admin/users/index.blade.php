@@ -34,8 +34,7 @@
                         <thead>
                             <th style="width:5px;"><input type="checkbox" class="selectAll"/></th>
                             <th style="width: 1%;">ID</th>
-                            <th style="width: 20%;">Name</th>
-                            <th style="width: 20%;">Email</th>
+                            <th style="width: 40%;">Email</th>
                             <th style="width: 50%;">Roles</th>
                             <th style="width: 10%;">Created</th>
                         </thead>    
@@ -62,7 +61,6 @@
         'columns' => json_encode([
             ['data' => 'action', 'name' => 'action'],
             ['data' => 'id', 'name' => 'id'],
-            ['data' => 'name', 'name' => 'name'],
             ['data' => 'email', 'name' => 'email'],
             ['data' => 'roles', 'name' => 'roles'],
             ['data' => 'created_at', 'name' => 'created_at']
