@@ -8,6 +8,11 @@
         <div class="form-group">
             <?php echo Form::hidden('gallery', '', ['id' => 'gallery']); ?>
 
+
+            <?php if(old('gallery')): ?>
+                <?php $gallery = App\Media::getUnsorted(explode(',', old('gallery'))) ?>
+            <?php endif; ?>
+
             <ul class="sortable-gallery">
             <?php if(isset($gallery)): ?>
                 <?php $__currentLoopData = $gallery; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

@@ -44,6 +44,15 @@ class Media extends Model
         return $this->filename;
     }
 
+    public static function getUnsorted($ids){
+        $gallery = self::find($ids);
+        $gallery = $gallery->sortBy(function($model) use ($ids) {
+            return array_search($model->getKey(), $ids);
+        });
+
+        return $gallery;
+    }
+
     // public function getMiniAttribute(){
     //     return $this->get('mini');
     // }

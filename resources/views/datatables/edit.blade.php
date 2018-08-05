@@ -1,0 +1,1 @@
+<a href="{{ route($edit, [$id]) }}">{{ $title }}</a>

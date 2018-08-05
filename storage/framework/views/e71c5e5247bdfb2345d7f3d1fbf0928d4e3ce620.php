@@ -1,0 +1,1 @@
+<?php echo e(date("d/m/Y H:i", strtotime($created_at))); ?>

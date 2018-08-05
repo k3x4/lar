@@ -7,8 +7,12 @@
     <div class="box-body">
         <div class="form-group">
 
-            <?php echo Form::hidden('featuredImage', isset($featuredImage) ? $featuredImage->id : null); ?>
+            <?php echo Form::hidden('featuredImage', isset($featuredImage) ? $featuredImage->id : old('featuredImage')); ?>
 
+
+            <?php if(old('featuredImage')): ?>
+                <?php $featuredImage = App\Media::find(old('featuredImage')) ?>
+            <?php endif; ?>
 
             <?php if( isset($featuredImage) ): ?>
                 <div id="featured-preview" style="display:block;background-image: url(/uploads/<?php echo $featuredImage->filename; ?>);"></div>
@@ -26,9 +30,7 @@
                 <a href="#" id="featured-remove" style="display:none;">
                     Remove image
                 </a>
-            <?php endif; ?>    
-
-            <?php echo $__env->make('admin.media.mediamanager', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+            <?php endif; ?>
 
         </div>
     </div>

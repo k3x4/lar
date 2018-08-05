@@ -40,7 +40,7 @@
                 </div>
                 <div class="form-group">
                     <strong>Description:</strong>
-                    <?php echo Form::textarea('content', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']); ?>
+                    <?php echo Form::textarea('content', old('content'), ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']); ?>
 
                 </div>
             </div>
@@ -71,6 +71,8 @@
         ]); ?>
                
     </div>
+
+    <?php echo $__env->make('admin.media.mediamanager', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
 </div>
 <?php echo Form::close(); ?>

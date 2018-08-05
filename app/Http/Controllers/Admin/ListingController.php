@@ -26,36 +26,28 @@ class ListingController extends Controller
         return view('admin.listings.index');
     }
 
+    private function getListings(){
+        $listings = Listing::all();
+
+        $listings->map(function ($item) {
+            $item->thumb = $item->image_id ? Media::find($item->image_id)->get('mini') : null;
+            $item->category = $item->category_id ? Category::find($item->category_id) : null;
+            $item->edit = 'admin.listings.edit';
+            return $item;
+        });
+
+        return $listings;
+    }
+
     public function data()
     {
-        $listings = Listing::all();
+        $listings = $this->getListings();
         return Datatables::of($listings)
-            ->addColumn('action', function ($listing) {
-                $html  = '<div class="dtable-td-wrapper">';
-                $html .= \Form::checkbox('action', $listing->id, false, ['class' => 'select']);
-                $html .= '</div>';
-                return $html;
-            })
-            ->addColumn('thumb', function ($listing) {
-                $media = Media::find($listing->image_id);
-                $html  = '<div class="dtable-td-wrapper">';
-                if($media):
-                    $html .= \Html::tag('span', '', ['class' => 'dtable-helper']);
-                    $html .= \Html::image('/uploads/' . $media->get('mini'));
-                endif;    
-                $html .= '</div>';
-                return $html;
-            })
-            ->editColumn('title', '{!! Html::link(route("admin.listings.edit", [$id]), $title) !!}')
-            //->editColumn('content', '{{ strip_tags($content) }}')
-            ->addColumn('category', function ($listing) {
-                if($listing->category){
-                    return $listing->category->title;
-                } else {
-                    return '<span style="color:red;">Without category</span>';
-                }
-            })
-            ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
+            ->addColumn('action', 'datatables.action')
+            ->addColumn('thumb', 'datatables.thumb')
+            ->editColumn('title', 'datatables.edit')
+            ->addColumn('category', 'datatables.listing.category')
+            ->editColumn('created_at', 'datatables.created_at')
             ->make(true);
     }
 
@@ -166,10 +158,7 @@ class ListingController extends Controller
         $gallery = $listing->meta()->where('meta_key', 'gallery')->first();
         if($gallery){
             $galleryIds = unserialize($gallery->meta_value);
-            $gallery = Media::find($galleryIds);
-            $gallery = $gallery->sortBy(function($model) use ($galleryIds) {
-                return array_search($model->getKey(), $galleryIds);
-            });
+            $gallery = Media::getUnsorted($galleryIds);
         }
 
         return view('admin.listings.edit', compact('listing', 'categories', 'featuredImage', 'gallery'));

@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-group">
                     <strong>Description:</strong>
-                    {!! Form::textarea('content', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']) !!}
+                    {!! Form::textarea('content', old('content'), ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']) !!}
                 </div>
             </div>
         </div>
@@ -65,6 +65,8 @@
         ])
               
     </div>
+
+    @include('admin.media.mediamanager')
 
 </div>
 {!! Form::close() !!}

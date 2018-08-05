@@ -7,6 +7,11 @@
     <div class="box-body">
         <div class="form-group">
             {!! Form::hidden('gallery', '', ['id' => 'gallery']) !!}
+
+            @if(old('gallery'))
+                @php $gallery = App\Media::getUnsorted(explode(',', old('gallery'))) @endphp
+            @endif
+
             <ul class="sortable-gallery">
             @if (isset($gallery))
                 @foreach ($gallery as $image)

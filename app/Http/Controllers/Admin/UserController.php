@@ -22,30 +22,29 @@ class UserController extends Controller
         return view('admin.users.index');
     }
 
+    private function getUsers(){
+        $users = User::all();
+
+        $users->map(function ($item) {
+            $item->title = $item->email;
+            $item->edit = 'admin.users.edit';
+            $item->action_exclude = [1];
+            $item->user_roles = $item->roles;
+            return $item;
+        });
+
+        return $users;
+    }
+
     public function data()
     {
-        $users = User::all();
+        $users = $this->getUsers();
+
         return Datatables::of($users)
-            ->addColumn('roles', function ($user) {
-                $html  = '<div class="dtable-td-wrapper" style="text-align:left;">';
-                if(!empty($user->roles)){
-                    foreach($user->roles as $v){
-                        $class = 'label-' . strtolower($v->display_name);
-                        $html .= '<label class="label label-success ' . $class . '">' . $v->display_name . '</label>';
-                    }
-                }
-                $html .= '</div>';
-                return $html;
-            })
-            ->addColumn('action', function ($user) {
-                $html  = '<div class="dtable-td-wrapper">';
-                if(!in_array($user->id, [1])){
-                    $html .= \Form::checkbox('action', $user->id, false, ['class' => 'select']);
-                }
-                $html .= '</div>';
-                return $html;
-            })
-            ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
+            ->editColumn('email', 'datatables.edit')
+            ->addColumn('roles', 'datatables.user.roles')
+            ->addColumn('action', 'datatables.action')
+            ->editColumn('created_at', 'datatables.created_at')
             ->make(true);
     }
 
@@ -69,7 +68,6 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
             //'roles' => 'required'
@@ -126,7 +124,6 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'same:confirm-password',
             //'roles' => 'required'

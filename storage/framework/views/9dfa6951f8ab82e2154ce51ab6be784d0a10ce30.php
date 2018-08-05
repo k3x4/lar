@@ -1,0 +1,1 @@
+<?php echo e(strip_tags($description)); ?>

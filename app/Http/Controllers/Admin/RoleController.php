@@ -20,20 +20,27 @@ class RoleController extends Controller {
         return view('admin.roles.index');
     }
 
+    private function getRoles(){
+        $roles = Role::all();
+
+        $roles->map(function ($item) {
+            $item->title = $item->name;
+            $item->edit = 'admin.roles.edit';
+            $item->action_exclude = [1, 2];
+            return $item;
+        });
+
+        return $roles;
+    }
+
     public function data()
     {
-        $roles = Role::all();
+        $roles = $this->getRoles();
+
         return Datatables::of($roles)
-            ->addColumn('action', function ($role) {
-                $html  = '<div class="dtable-td-wrapper">';
-                if(!in_array($role->id, [1, 4])){
-                    $html .= \Form::checkbox('action', $role->id, false, ['class' => 'select']);
-                }
-                $html .= '</div>';
-                return $html;
-            })
-            ->editColumn('name', '{!! Html::link(route("admin.roles.edit", [$id]), $name) !!}')
-            ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
+            ->addColumn('action', 'datatables.action')
+            ->editColumn('name', 'datatables.edit')
+            ->editColumn('created_at', 'datatables.created_at')
             ->make(true);
     }
 

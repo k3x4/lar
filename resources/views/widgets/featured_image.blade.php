@@ -7,7 +7,11 @@
     <div class="box-body">
         <div class="form-group">
 
-            {!! Form::hidden('featuredImage', isset($featuredImage) ? $featuredImage->id : null) !!}
+            {!! Form::hidden('featuredImage', isset($featuredImage) ? $featuredImage->id : old('featuredImage')) !!}
+
+            @if(old('featuredImage'))
+                @php $featuredImage = App\Media::find(old('featuredImage')) @endphp
+            @endif
 
             @if( isset($featuredImage) )
                 <div id="featured-preview" style="display:block;background-image: url(/uploads/{!! $featuredImage->filename !!});"></div>
@@ -25,9 +29,7 @@
                 <a href="#" id="featured-remove" style="display:none;">
                     Remove image
                 </a>
-            @endif    
-
-            @include('admin.media.mediamanager')
+            @endif
 
         </div>
     </div>

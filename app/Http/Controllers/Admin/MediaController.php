@@ -19,66 +19,37 @@ class MediaController extends Controller
         return view('admin.media.index');
     }
 
+    private function getMedia(){
+        $media = Media::all();
+
+        $media->map(function ($item) {
+            $item->thumb = $item->get('mini');
+            return $item;
+        });
+
+        return $media;
+    }
+
     public function data()
     {
-        return Datatables::of(Media::all())
-            ->addColumn('action', function ($media) {
-                $html  = '<div class="dtable-td-wrapper">';
-                $html .= \Form::checkbox('action', $media->id, false, ['class' => 'select']);
-                $html .= '</div>';
-                return $html;
-            })
-            ->addColumn('thumb', function ($media) {
-                $html  = '<div class="dtable-td-wrapper">';
-                $html .= \Html::tag('span', '', ['class' => 'dtable-helper']);
-                $html .= \Html::image('/uploads/' . $media->get('mini'));
-                $html .= '</div>';
-                return $html;
-            })
-            ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
+        $media = $this->getMedia();
+
+        return Datatables::of($media)
+            ->addColumn('action', 'datatables.action')
+            ->addColumn('thumb', 'datatables.thumb')
+            ->editColumn('created_at', 'datatables.created_at')
             ->make(true);
     }
 
     public function datapopup()
     {
-        $medias = Media::all();
+        $media = $this->getMedia();
 
-        // $posts->map(function ($post) {
-        //     $post['url'] = 'http://your.url/here';
-        //     return $post;
-        // });
-
-        $medias->map(function ($media) {
-            $media->thumb = $media->get('mini');
-            return $media;
-        });
-
-        return Datatables::of($medias)
-            ->addColumn('action', function ($media) {
-                $html  = '<div class="dtable-td-wrapper">';
-                $html .= \Form::checkbox('action', $media->id, false, ['class' => 'select']);
-                $html .= '</div>';
-                return $html;
-            })
-            // ->addColumn('thumb', function ($media) {
-            //     $html  = '<div class="dtable-td-wrapper">';
-            //     $html .= \Html::tag('span', '', ['class' => 'dtable-helper']);
-            //     $html .= '<a data-id="' . $media->id . '" href="/uploads/' . $media->filename . '">' . \Html::image('/uploads/' . $media->get('mini')) . '</a>';
-            //     $html .= '</div>';
-            //     return $html;
-            // })
-            ->addColumn('thumb', '{{ $filename }}')
-            // ->editColumn('filename', function ($media) {
-            //     $html  = \Html::link('/uploads/' . $media->filename, $media->filename, [
-            //         "data-id" => $media->id,
-            //         "data-thumb" => $media->get('mini')
-            //     ]);
-            //     return $html;
-            // })
-            //->editColumn('filename', '{{ $filename }}')
-            //->editColumn('filename', 'admin.media.datatables.filename')
-            ->editColumn('filename', '<a href="/uploads/{{ $filename }}" data-id="{{ $id }}" data-thumb="{{ $thumb }}">{{ $filename }}</a>')
-            ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
+        return Datatables::of($media)
+            ->addColumn('action', 'datatables.action')
+            ->addColumn('thumb', 'datatables.thumblink')
+            ->editColumn('filename', 'datatables.media.filename')
+            ->editColumn('created_at', 'datatables.created_at')
             ->make(true);
     }
 

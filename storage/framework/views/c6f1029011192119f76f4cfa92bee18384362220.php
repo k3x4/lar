@@ -28,11 +28,6 @@
             </div>
             <div class="box-body">
                 <div class="form-group">
-                    <strong>Name:</strong>
-                    <?php echo Form::text('name', null, ['placeholder' => 'Name','class' => 'form-control']); ?>
-
-                </div>
-                <div class="form-group">
                     <strong>Email:</strong>
                     <?php echo Form::text('email', null, ['placeholder' => 'Email','class' => 'form-control']); ?>
 

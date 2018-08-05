@@ -23,20 +23,28 @@ class MediaSizeController extends Controller
         // return Datatables::of(User::all())->make(true);
     }
 
+    private function getMediaSizes(){
+        $mediaSizes = MediaSize::all();
+
+        $mediaSizes->map(function ($item) {
+            $item->title = $item->tag;
+            $item->edit = 'admin.mediasizes.edit';
+            $item->action_exclude = [1, 2, 3, 4];
+            return $item;
+        });
+
+        return $mediaSizes;
+    }
+
     public function data()
     {
-        return Datatables::of(MediaSize::all())
-            ->editColumn('tag', '<a href="{{ route(\'admin.mediasizes.edit\', $id) }}">{{ $tag }}</a>')
-            ->editColumn('crop', '{{ $crop ? "yes" : "no" }}')
-            ->editColumn('enabled', '{{ $enabled ? "yes" : "no" }}')
-            ->addColumn('action', function($media_size){
-                $html  = '<div class="dtable-td-wrapper">';
-                if(!in_array($media_size->id, [1, 2, 3, 4])){
-                    $html .= \Form::checkbox('action', $media_size->id, false, ['class' => 'select']);
-                }
-                $html .= '</div>';
-                return $html;
-            })
+        $mediaSizes = $this->getMediaSizes();
+
+        return Datatables::of($mediaSizes)
+            ->addColumn('action', 'datatables.action')
+            ->editColumn('tag', 'datatables.edit')
+            ->editColumn('crop', 'datatables.mediasize.crop')
+            ->editColumn('enabled', 'datatables.mediasize.enabled')
             ->make(true);
     }
 

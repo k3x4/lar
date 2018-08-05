@@ -1,0 +1,1 @@
+<?php echo e($enabled ? "yes" : "no"); ?>

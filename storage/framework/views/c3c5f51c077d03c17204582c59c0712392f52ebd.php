@@ -1,5 +1,4 @@
-<?php echo Html::link('/uploads/' . $filename,
-                $filename, [
-                     "data-id" => $id,
-                     "data-thumb" => $mini
-                ]);; ?>
+<a href="/uploads/<?php echo e($filename); ?>" data-id="<?php echo e($id); ?>" data-thumb="<?php echo e($thumb); ?>">
+    <?php echo e($filename); ?>
+
+</a>

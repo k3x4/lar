@@ -98,10 +98,7 @@
 <script>
     $('#mediamanager').on('show.bs.modal', function (e) {
         var $invoker = $(e.relatedTarget);
-        $(this).attr('data-related', $invoker.attr('id'))
-    });
-    $('#mediamanager').on('hidden.bs.modal', function (e) {
-        $(this).data('bs.modal', null);
+        $(this).data('related', $invoker.attr('id'))
     });
 </script>
 

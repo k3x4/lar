@@ -21,23 +21,28 @@ class CategoryController extends Controller
         return view('admin.categories.index');
     }
 
-    public function data()
-    {
+    private function getCategories(){
         $categories = Category::whereNull('category_id')->orderBy('title', 'ASC')->get();
         $categories = CategoryTools::makeTree($categories);
-        //$categories = collect($categories);
+        $categories = collect($categories);
+
+        $categories->map(function ($item) {
+            $item->edit = 'admin.categories.edit';
+            return $item;
+        });
+
+        return $categories;
+    }
+
+    public function data()
+    {
+        $categories = $this->getCategories();
 
         return Datatables::of($categories)
-            ->addColumn('action', function ($category) {
-                $html  = '<div class="dtable-td-wrapper">';
-                $html .= \Form::checkbox('action', $category->id, false, ['class' => 'select']);
-                $html .= '</div>';
-                return $html;
-            })
-            //->editColumn('title', '<div class="space">{{ $category_id ? str_pad("", $level - 1, "\t", STR_PAD_LEFT) . "└── " . $title : $title }}</div>')
-            ->editColumn('title', '{!! Html::link(route("admin.categories.edit", [$id]), $title) !!}')
-            ->editColumn('description', '{{ strip_tags($description) }}')
-            ->editColumn('created_at', '{{ date("d/m/Y H:i", strtotime($created_at)) }}')
+            ->addColumn('action', 'datatables.action')
+            ->editColumn('title', 'datatables.edit')
+            ->editColumn('description', 'datatables.description')
+            ->editColumn('created_at', 'datatables.created_at')
             ->make(true);
     }
 
