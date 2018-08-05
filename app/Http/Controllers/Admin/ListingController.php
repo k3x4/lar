@@ -26,26 +26,12 @@ class ListingController extends Controller
         return view('admin.listings.index');
     }
 
-    private function getListings(){
-        $listings = Listing::all();
-
-        $listings->map(function ($item) {
-            $item->thumb = $item->image_id ? Media::find($item->image_id)->get('mini') : null;
-            $item->category = $item->category_id ? Category::find($item->category_id) : null;
-            $item->edit = 'admin.listings.edit';
-            return $item;
-        });
-
-        return $listings;
-    }
-
-    public function data()
+    public function data(Request $request)
     {
-        $listings = $this->getListings();
-        return Datatables::of($listings)
+        return Datatables::of(Listing::query())
             ->addColumn('action', 'datatables.action')
             ->addColumn('thumb', 'datatables.thumb')
-            ->editColumn('title', 'datatables.edit')
+            ->editColumn('title', 'datatables.listing.edit')
             ->addColumn('category', 'datatables.listing.category')
             ->editColumn('created_at', 'datatables.created_at')
             ->make(true);

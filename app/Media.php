@@ -7,9 +7,9 @@ use App\MediaSize;
 
 class Media extends Model
 {
-    // protected $appends = [
-    //     'mini'
-    // ];
+    protected $appends = [
+        'thumb'
+    ];
 
     // this is a recommended way to declare event handlers
     protected static function boot() {
@@ -53,8 +53,8 @@ class Media extends Model
         return $gallery;
     }
 
-    // public function getMiniAttribute(){
-    //     return $this->get('mini');
-    // }
+    public function getThumbAttribute(){
+        return $this->get('mini');
+    }
 
 }

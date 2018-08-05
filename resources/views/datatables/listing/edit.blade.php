@@ -1,0 +1,1 @@
+<a href="{{ route('admin.listings.edit', [$id]) }}">{{ $title }}</a>

@@ -12,7 +12,7 @@ use App\Libraries\ImageUtils;
 class Media
 {
 
-    public static function store($file)
+    public static function store($file, $author_id = 1)
     {
         $path = public_path('uploads');
 
@@ -29,6 +29,7 @@ class Media
         $media->filename = $save_name;
         $media->original_name = basename($file->getClientOriginalName());
 
+        $media->author_id = $author_id;
         if (Auth::check()){
             $media->author_id = Auth::user()->id;
         }

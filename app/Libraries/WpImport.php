@@ -131,7 +131,7 @@ class WpImport
             $this->mapUsers[$user->ID] = $newUser->save();
         }
 
-        exit();
+        //exit();
 
         //echo $dateCreated->format('Y-m-d H:i:s');exit();
 
@@ -324,7 +324,7 @@ class WpImport
 
             Tools::echoing('Store ' . $index++ . '/' . $count . ' Files');
             $oldFileId = intval($file['wp:post_id']);
-            $newMedia = MediaLibrary::store($fileObj);
+            $newMedia = MediaLibrary::store($fileObj, 1);
             $this->mapFiles[$oldFileId] = $newMedia->id;
             $this->mapFilenames[$url] = url('/uploads') . '/' . $newMedia->filename;
         }
@@ -394,6 +394,10 @@ class WpImport
                     'meta_value' => serialize($gallery)
                 ]);
             }
+            if($featuredImage){
+                $gallery[] = intval($featuredImage);
+            }
+            $listing->media()->sync($gallery);
 
             $address = null;
             $address = $this->filterMeta($listingItem, 'webbupointfinder_items_address');

@@ -19,22 +19,9 @@ class MediaController extends Controller
         return view('admin.media.index');
     }
 
-    private function getMedia(){
-        $media = Media::all();
-
-        $media->map(function ($item) {
-            $item->thumb = $item->get('mini');
-            return $item;
-        });
-
-        return $media;
-    }
-
     public function data()
     {
-        $media = $this->getMedia();
-
-        return Datatables::of($media)
+        return Datatables::of(Media::query())
             ->addColumn('action', 'datatables.action')
             ->addColumn('thumb', 'datatables.thumb')
             ->editColumn('created_at', 'datatables.created_at')
@@ -43,9 +30,7 @@ class MediaController extends Controller
 
     public function datapopup()
     {
-        $media = $this->getMedia();
-
-        return Datatables::of($media)
+        return Datatables::of(Media::query())
             ->addColumn('action', 'datatables.action')
             ->addColumn('thumb', 'datatables.thumblink')
             ->editColumn('filename', 'datatables.media.filename')

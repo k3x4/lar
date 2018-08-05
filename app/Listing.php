@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Listing extends Model
 {
     protected $fillable = ['category_id', 'title', 'slug', 'content', 'status'];
+
+    protected $appends = [
+        'thumb',
+        'category'
+    ];
     
     public function category(){
         return $this->belongsTo('App\Category');
@@ -18,6 +23,17 @@ class Listing extends Model
 
     public function media(){
         return $this->belongsToMany('App\Media');
+    }
+
+    public function getThumbAttribute(){
+        $thumb = $this->image_id ? Media::find($this->image_id)->get('mini') : null;
+        return $thumb;
+    }
+
+    public function getCategoryAttribute(){
+        $category = $this->category_id ? Category::find(51) : null;
+        if(!isset($category) || !isset($category->title)) dd($category);
+        return $category;
     }
 
     // public function thumbs(){

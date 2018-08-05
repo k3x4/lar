@@ -21,26 +21,14 @@ class CategoryController extends Controller
         return view('admin.categories.index');
     }
 
-    private function getCategories(){
-        $categories = Category::whereNull('category_id')->orderBy('title', 'ASC')->get();
-        $categories = CategoryTools::makeTree($categories);
-        $categories = collect($categories);
-
-        $categories->map(function ($item) {
-            $item->edit = 'admin.categories.edit';
-            return $item;
-        });
-
-        return $categories;
-    }
-
     public function data()
     {
-        $categories = $this->getCategories();
+        $categories = Category::whereNull('category_id')->orderBy('title', 'ASC')->get();
+        $categories = CategoryTools::makeTree($categories);
 
         return Datatables::of($categories)
             ->addColumn('action', 'datatables.action')
-            ->editColumn('title', 'datatables.edit')
+            ->editColumn('title', 'datatables.category.edit')
             ->editColumn('description', 'datatables.description')
             ->editColumn('created_at', 'datatables.created_at')
             ->make(true);
