@@ -1,0 +1,1 @@
+<a href="{{ route('admin.roles.edit', [$id]) }}">{{ $name }}</a>

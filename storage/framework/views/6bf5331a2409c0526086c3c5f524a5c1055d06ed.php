@@ -1,0 +1,1 @@
+<a href="<?php echo e(route('admin.roles.edit', [$id])); ?>"><?php echo e($name); ?></a>

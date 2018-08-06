@@ -4,6 +4,7 @@ namespace App\Libraries;
 
 use DB;
 use App\User;
+use App\Role;
 use App\Media;
 use App\Listing;
 use App\Category;
@@ -118,10 +119,17 @@ class WpImport
         $gmtTimezone = new \DateTimeZone('GMT');
         $timezone = config('app.timezone');
 
+        $count = count($users);
+        $index = 1;
+
+        $userRole = Role::where('name', 'user')->get()->first();
+
         foreach($users as $user){
             $dateCreated = new \DateTime($user->user_registered, $gmtTimezone);
             $dateCreated->setTimezone(new \DateTimeZone($timezone));
             $dateCreated = $dateCreated->format('Y-m-d H:i:s');
+
+            Tools::echoing('Import ' . $index++ . '/' . $count . ' Users');
 
             $newUser = new User();
             $newUser->email = $user->user_email;
@@ -129,7 +137,10 @@ class WpImport
             $newUser->created_at = $dateCreated;
             $newUser->updated_at = $dateCreated;
             $this->mapUsers[$user->ID] = $newUser->save();
+
+            $newUser->attachRole($userRole);
         }
+        echo PHP_EOL;
 
         //exit();
 

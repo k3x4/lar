@@ -16,33 +16,14 @@ class MediaSizeController extends Controller
      */
     public function index()
     {
-        //$mediaSizes = MediaSize::orderBy('id', 'ASC')->get();
-        //return view('admin.mediasizes', compact('mediaSizes'));
-
         return view('admin.mediasizes.index');
-        // return Datatables::of(User::all())->make(true);
-    }
-
-    private function getMediaSizes(){
-        $mediaSizes = MediaSize::all();
-
-        $mediaSizes->map(function ($item) {
-            $item->title = $item->tag;
-            $item->edit = 'admin.mediasizes.edit';
-            $item->action_exclude = [1, 2, 3, 4];
-            return $item;
-        });
-
-        return $mediaSizes;
     }
 
     public function data()
     {
-        $mediaSizes = $this->getMediaSizes();
-
-        return Datatables::of($mediaSizes)
-            ->addColumn('action', 'datatables.action')
-            ->editColumn('tag', 'datatables.edit')
+        return Datatables::of(MediaSize::query())
+            ->addColumn('action', 'datatables.mediasize.action')
+            ->editColumn('tag', 'datatables.mediasize.edit')
             ->editColumn('crop', 'datatables.mediasize.crop')
             ->editColumn('enabled', 'datatables.mediasize.enabled')
             ->make(true);

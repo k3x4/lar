@@ -22,28 +22,12 @@ class UserController extends Controller
         return view('admin.users.index');
     }
 
-    private function getUsers(){
-        $users = User::all();
-
-        $users->map(function ($item) {
-            $item->title = $item->email;
-            $item->edit = 'admin.users.edit';
-            $item->action_exclude = [1];
-            $item->user_roles = $item->roles;
-            return $item;
-        });
-
-        return $users;
-    }
-
     public function data()
     {
-        $users = $this->getUsers();
-
-        return Datatables::of($users)
-            ->editColumn('email', 'datatables.edit')
+        return Datatables::of(User::query())
+            ->editColumn('email', 'datatables.user.edit')
             ->addColumn('roles', 'datatables.user.roles')
-            ->addColumn('action', 'datatables.action')
+            ->addColumn('action', 'datatables.user.action')
             ->editColumn('created_at', 'datatables.created_at')
             ->make(true);
     }

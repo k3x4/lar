@@ -1,0 +1,1 @@
+<a href="<?php echo e(route('admin.users.edit', [$id])); ?>"><?php echo e($email); ?></a>

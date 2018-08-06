@@ -20,26 +20,11 @@ class RoleController extends Controller {
         return view('admin.roles.index');
     }
 
-    private function getRoles(){
-        $roles = Role::all();
-
-        $roles->map(function ($item) {
-            $item->title = $item->name;
-            $item->edit = 'admin.roles.edit';
-            $item->action_exclude = [1, 2];
-            return $item;
-        });
-
-        return $roles;
-    }
-
     public function data()
     {
-        $roles = $this->getRoles();
-
-        return Datatables::of($roles)
-            ->addColumn('action', 'datatables.action')
-            ->editColumn('name', 'datatables.edit')
+        return Datatables::of(Role::query())
+            ->addColumn('action', 'datatables.role.action')
+            ->editColumn('name', 'datatables.role.edit')
             ->editColumn('created_at', 'datatables.created_at')
             ->make(true);
     }

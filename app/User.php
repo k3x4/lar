@@ -21,6 +21,10 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
+    protected $appends = [
+        'user_roles',
+    ];
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -37,6 +41,10 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPassword($token));
+    }
+
+    public function getUserRolesAttribute(){
+        return $this->roles;
     }
     
 }

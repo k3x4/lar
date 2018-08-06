@@ -31,8 +31,7 @@ class Listing extends Model
     }
 
     public function getCategoryAttribute(){
-        $category = $this->category_id ? Category::find(51) : null;
-        if(!isset($category) || !isset($category->title)) dd($category);
+        $category = $this->category_id ? Category::find($this->category_id) : null;
         return $category;
     }
 

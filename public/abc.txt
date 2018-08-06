@@ -1,0 +1,35 @@
+array (
+  'id' => 55,
+  'category_id' => 6,
+  'title' => 'Κοσμήματα - Αξεσουάρ',
+  'slug' => 'jewellery',
+  'description' => NULL,
+  'created_at' => '2018-08-06 12:08:59',
+  'updated_at' => '2018-08-06 12:08:59',
+  'level' => 1,
+  'parent' => 
+  array (
+    'id' => 6,
+    'category_id' => NULL,
+    'title' => 'Πωλούνται',
+    'slug' => 'sale',
+    'description' => NULL,
+    'created_at' => '2018-08-06 12:08:59',
+    'updated_at' => '2018-08-06 12:08:59',
+    'level' => 0,
+    'parent' => NULL,
+  ),
+)|||
+
+array (
+  'id' => 1,
+  'category_id' => NULL,
+  'title' => 'Auto - Moto',
+  'slug' => 'auto-moto',
+  'description' => NULL,
+  'created_at' => '2018-08-06 12:08:59',
+  'updated_at' => '2018-08-06 12:08:59',
+  'level' => 0,
+  'parent' => NULL,
+)|||
+

@@ -1,5 +1,5 @@
 @if($category)
-    {{ $category->title }}
+    {{ $category['title'] }}
 @else    
     <span style="color:red;">Without category</span>
 @endif
