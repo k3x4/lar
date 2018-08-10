@@ -214,6 +214,12 @@ Route::group([
         'middleware' => ['permission:listing-read'],
     ]);
 
+    Route::get('admin/listings/author/{id}', [
+        'as' => 'admin.listings.indexByAuthor',
+        'uses' => 'ListingController@indexByAuthor',
+        'middleware' => ['permission:listing-read'],
+    ]);
+
     Route::get('admin/listings/data', [
         'as' => 'admin.listings.data',
         'uses' => 'ListingController@data',

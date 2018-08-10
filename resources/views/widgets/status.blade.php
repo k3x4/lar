@@ -6,6 +6,9 @@
     </div>
     <div class="box-body">
         <div class="form-group">
+            @if ($author)
+                <p>Author: {{ $author }}</p>
+            @endif
             <button type="submit" class="btn btn-success" name="status" value="publish">Submit</button>
             @if ($draft)
                 <button type="submit" class="btn btn-default" name="status" value="draft">Save draft</button>

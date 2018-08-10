@@ -136,7 +136,9 @@ class WpImport
             $newUser->password = $user->user_pass;
             $newUser->created_at = $dateCreated;
             $newUser->updated_at = $dateCreated;
-            $this->mapUsers[$user->ID] = $newUser->save();
+            $newUser->save();
+
+            $this->mapUsers[$user->user_login] = $newUser->id;
 
             $newUser->attachRole($userRole);
         }
@@ -385,10 +387,13 @@ class WpImport
             $dateCreated = \DateTime::createFromFormat('Y-m-d H:i:s', $listingItem['wp:post_date']);
             $dateCreated = $dateCreated->getTimestamp();
 
+            $oldAuthor = $listingItem['dc:creator'];
+            $authorId = $this->mapUsers[$oldAuthor];
+
             $listing = new Listing();
             $listing->title         = $listingItem['title'];
             $listing->slug          = $slug;
-            $listing->author_id     = 1;
+            $listing->author_id     = $authorId;
             $listing->category_id   = $categoryId;
             $listing->image_id      = $featuredImage;
             $listing->content       = $listingContent;
@@ -409,6 +414,15 @@ class WpImport
                 $gallery[] = intval($featuredImage);
             }
             $listing->media()->sync($gallery);
+            
+            // author media
+            $mediaGallery = Media::find($gallery);
+            if($mediaGallery){
+                foreach($mediaGallery as $media){
+                    $media->author_id = $authorId;
+                    $media->save();
+                }
+            }
 
             $address = null;
             $address = $this->filterMeta($listingItem, 'webbupointfinder_items_address');

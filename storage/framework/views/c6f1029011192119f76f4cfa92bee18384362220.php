@@ -44,8 +44,7 @@
                 </div>
                 <div class="form-group">
                     <strong>Role:</strong>
-                    
-                    <?php echo Form::select('role', $roles, $userRole, ['class' => 'form-control select2']); ?>
+                    <?php echo Form::select('role', $roles, $userRole, ['class' => 'form-control select2', 'style' => 'width: 30%;']); ?>
 
                 </div>
             </div>

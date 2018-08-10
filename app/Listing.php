@@ -10,7 +10,8 @@ class Listing extends Model
 
     protected $appends = [
         'thumb',
-        'category'
+        'category',
+        'author'
     ];
     
     public function category(){
@@ -33,6 +34,11 @@ class Listing extends Model
     public function getCategoryAttribute(){
         $category = $this->category_id ? Category::find($this->category_id) : null;
         return $category;
+    }
+
+    public function getAuthorAttribute(){
+        $author = $this->author_id ? User::find($this->author_id) : null;
+        return $author;
     }
 
     // public function thumbs(){

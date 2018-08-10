@@ -23,16 +23,44 @@ class ListingController extends Controller
      */
     public function index(Request $request)
     {
-        return view('admin.listings.index');
+        $categories = Category::whereNull('category_id')->get();
+        $categories = CategoryTools::makeOptionGroup($categories);
+
+        return view('admin.listings.index', compact('categories'));
+    }
+
+    public function indexByAuthor(Request $request)
+    {
+        $categories = Category::whereNull('category_id')->get();
+        $categories = CategoryTools::makeOptionGroup($categories);
+
+        $author = $request->id;
+
+        return view('admin.listings.index_author', compact('categories', 'author'));
     }
 
     public function data(Request $request)
     {
-        return Datatables::of(Listing::query())
+        $query = Listing::query();
+
+        if($request->filled('category')){
+            $query = $query->where('category_id', $request->category);
+        }
+
+        if($request->filled('status')){
+            $query = $query->where('status', $request->status);
+        }
+
+        if($request->filled('author')){
+            $query = $query->where('author_id', $request->author);
+        }
+
+        return Datatables::of($query)
             ->addColumn('action', 'datatables.action')
             ->addColumn('thumb', 'datatables.thumb')
             ->editColumn('title', 'datatables.listing.edit')
             ->addColumn('category', 'datatables.listing.category')
+            ->addColumn('author', 'datatables.listing.author')
             ->editColumn('created_at', 'datatables.created_at')
             ->make(true);
     }

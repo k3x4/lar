@@ -1,0 +1,1 @@
+<a href="{{ route('admin.listings.indexByAuthor', [$author['id']]) }}">{{ $author['email'] }} ({{ $author['listings_count'] }})</a>

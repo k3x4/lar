@@ -42,8 +42,7 @@
                 </div>
                 <div class="form-group">
                     <strong>Role:</strong>
-                    {{-- Form::select('roles[]', $roles, $userRole, ['class' => 'form-control select2', 'multiple']) --}}
-                    {!! Form::select('role', $roles, $userRole, ['class' => 'form-control select2']) !!}
+                    {!! Form::select('role', $roles, $userRole, ['class' => 'form-control select2', 'style' => 'width: 30%;']) !!}
                 </div>
             </div>
         </div>

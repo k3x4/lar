@@ -6,6 +6,9 @@
     </div>
     <div class="box-body">
         <div class="form-group">
+            <?php if($author): ?>
+                <p>Author: <?php echo e($author); ?></p>
+            <?php endif; ?>
             <button type="submit" class="btn btn-success" name="status" value="publish">Submit</button>
             <?php if($draft): ?>
                 <button type="submit" class="btn btn-default" name="status" value="draft">Save draft</button>

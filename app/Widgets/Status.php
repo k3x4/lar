@@ -13,7 +13,8 @@ class Status extends AbstractWidget
      */
     protected $config = [
         'title' => '',
-        'draft' => false
+        'draft' => false,
+        'author' => null
     ];
 
     /**

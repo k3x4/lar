@@ -52,6 +52,7 @@
 
         <?php echo app('arrilot.widget')->run('Status', [
             'title' => 'Status',
+            'author' => $listing->author['email'],
             'draft' => true
         ]); ?>
 

@@ -24,11 +24,18 @@ class UserController extends Controller
 
     public function data()
     {
-        return Datatables::of(User::query())
+        $query = User::query()
+            ->select('users.*')
+            ->addSelect(
+                DB::raw('(SELECT COUNT(*) FROM listings WHERE author_id IS NOT NULL AND users.id = listings.author_id) AS li_count')
+            );
+        return Datatables::of($query)
             ->editColumn('email', 'datatables.user.edit')
+            ->addColumn('listings', 'datatables.user.listings')
             ->addColumn('roles', 'datatables.user.roles')
             ->addColumn('action', 'datatables.user.action')
             ->editColumn('created_at', 'datatables.created_at')
+            ->orderColumn('listings','li_count $1')
             ->make(true);
     }
 

@@ -34,8 +34,9 @@
                         <thead>
                             <th style="width:5px;"><input type="checkbox" class="selectAll"/></th>
                             <th style="width: 1%;">ID</th>
-                            <th style="width: 40%;">Email</th>
-                            <th style="width: 50%;">Roles</th>
+                            <th style="width: 30%;">Email</th>
+                            <th style="width: 20%;">Listings</th>
+                            <th style="width: 40%;">Roles</th>
                             <th style="width: 10%;">Created</th>
                         </thead>    
                     </tr>
@@ -62,8 +63,9 @@
             ['data' => 'action', 'name' => 'action'],
             ['data' => 'id', 'name' => 'id'],
             ['data' => 'email', 'name' => 'email'],
+            ['data' => 'listings', 'name' => 'listings'],
             ['data' => 'roles', 'name' => 'roles'],
-            ['data' => 'created_at', 'name' => 'created_at']
+            ['data' => 'created_at', 'name' => 'created_at'],
         ])
     ])
 @endsection

@@ -50,6 +50,7 @@
 
         @widget('Status', [
             'title' => 'Status',
+            'author' => $listing->author['email'],
             'draft' => true
         ])
 

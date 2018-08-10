@@ -1,0 +1,1 @@
+<a href="<?php echo e(route('admin.listings.indexByAuthor', [$id])); ?>"><?php echo e($listings_count); ?></a>

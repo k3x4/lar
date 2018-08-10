@@ -23,6 +23,7 @@ class User extends Authenticatable
 
     protected $appends = [
         'user_roles',
+        'listings_count'
     ];
 
     /**
@@ -33,6 +34,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function listings(){
+        return $this->hasMany('App\Listing', 'author_id');
+    }
 
     public function social(){
         return $this->hasMany('App\Social');
@@ -45,6 +50,10 @@ class User extends Authenticatable
 
     public function getUserRolesAttribute(){
         return $this->roles;
+    }
+
+    public function getListingsCountAttribute(){
+        return $this->listings()->count();
     }
     
 }

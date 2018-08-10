@@ -29,6 +29,24 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+                <div class="form-group filter-options">
+                    <b>Category:</b>
+                    <?php echo Form::select('categories', [NULL => ''] + $categories, null, [
+                        'class' => 'form-control select2 dt-filter',
+                        'style' => 'width: 200px;',
+                        'data-key' => 'category'
+                    ]); ?>
+
+                </div>
+                <div class="form-group filter-options">
+                    <b>Status:</b>
+                    <?php echo Form::select('status', [NULL => '', 'publish' => 'Publish', 'draft' => 'Draft'], null, [
+                        'class' => 'form-control select2 dt-filter',
+                        'style' => 'width: 200px;',
+                        'data-key' => 'status'
+                    ]); ?>
+
+                </div>
                 <table class="table dtable table-bordered table-striped">
                     <thead>
                         <tr>
@@ -36,9 +54,10 @@
                             <th style="width: 1%;">ID</th>
                             <th style="width: 10%;">Image</th>
                             <th style="width: 30%;">Title</th>
-                            <th style="width: 20%;">Slug</th>
-                            <th style="width: 20%;">Category</th>                            
-                            <th style="width: 10%;">Status</th>
+                            <th style="width: 15%;">Slug</th>
+                            <th style="width: 15%;">Category</th>
+                            <th style="width: 15%;">Author</th>
+                            <th style="width: 5%;">Status</th>
                             <th style="width: 10%;">Created</th>
                         </tr>
                     </thead>
@@ -72,6 +91,7 @@
             ['data' => 'title', 'name' => 'title'],
             ['data' => 'slug', 'name' => 'slug'],
             ['data' => 'category', 'name' => 'category'],
+            ['data' => 'author', 'name' => 'author'],
             ['data' => 'status', 'name' => 'status'],
             ['data' => 'created_at', 'name' => 'created_at']
         ])
