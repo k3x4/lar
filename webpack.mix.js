@@ -11,7 +11,8 @@ let mix = require('laravel-mix');
  |
  */
 
-mix     .js('resources/assets/js/app.js', 'public/js')
+mix     //.js('resources/assets/js/app.js', 'public/js')
+        .js('resources/assets/js/scripts.js', 'public/js')
         .js('resources/assets/js/admin.js', 'public/js')
         .js('resources/assets/js/dropzone-config.js', 'public/js')
         //.js('resources/assets/js/elfinder.js', 'public/js')

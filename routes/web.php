@@ -30,6 +30,20 @@ Route::get('/social/handle/{provider}', [
             'uses' => 'Auth\SocialController@getSocialHandle'
 ]);
 
+
+// LISTINGS
+Route::get('/listing/{slug}', [
+    'as' => 'listing.show', 
+    'uses' => 'ListingController@show', 
+]);
+
+// LISTINGS CATEGORIES
+Route::get('/category/{slug}', [
+    'as' => 'category.show', 
+    'uses' => 'CategoryController@show', 
+]);
+
+
 Route::group([
     'namespace' => 'Admin',
     'middleware' => ['auth'],

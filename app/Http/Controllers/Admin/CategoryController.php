@@ -120,9 +120,12 @@ class CategoryController extends Controller
         ]);
 
         $category = Category::find($id);
+        $slug = $category->slug;
 
         if($request->input('slug')){
-            $slug = Tools::slug($request->input('slug'));
+            if($slug != $request->input('slug')){
+                $slug = Tools::slug($request->input('slug'));
+            }
         } else {
             $slug = Tools::slug($request->input('title'));
         }

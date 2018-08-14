@@ -34,7 +34,7 @@ class WpImport
         $root = $doc->getElementsByTagName('channel')->item(0);
         $this->data = $this->xmlToArray($root);
 
-        //file_put_contents('all.arr', var_export($this->data, true));//exit();
+        //file_put_contents('all.arr', var_export($this->data, true));exit();
     }
 
     public function xmlToArray($root) {
@@ -345,6 +345,48 @@ class WpImport
 
     }
 
+    private function getCategoryItem($listingItemCategory){
+        if(
+            isset($listingItemCategory['@attributes']) &&
+            isset($listingItemCategory['@attributes']['nicename']) &&
+            isset($listingItemCategory['@attributes']['domain']) == 'pointfinderltypes'
+        ){
+            $category = Category::where('slug', '=', $listingItemCategory['@attributes']['nicename'])->first();
+            if($category){
+                return $category->id;
+            }
+        }
+
+        return null;
+    }
+
+    private function getListingCategory($listingItem){
+        $categoryId = null;
+            
+        if(!isset($listingItem['category'])){
+            return null;
+        }
+
+        if(!is_array($listingItem['category'])){
+            return null;
+        }
+
+        $categoryItemsCount = count($listingItem['category']);
+
+        if(isset($listingItem['category']['@attributes'])){ // 1 ITEM
+            return $this->getCategoryItem($listingItem['category']);
+        } else {
+            foreach($listingItem['category'] as $categoryItem){
+                $categoryId = $this->getCategoryItem($categoryItem);
+                if($categoryId){
+                    break;
+                }
+            }
+        }
+
+        return $categoryId;
+    }
+
     public function importListings(){
         $listingItems = $this->getItems('item', [
             'wp:post_type' => 'listing',
@@ -365,18 +407,10 @@ class WpImport
             $slug = explode('/', $slug);
             $slug = end($slug);
 
-            $categoryId = null;
-            
-            if(
-                isset($listingItem['category']) &&
-                isset($listingItem['category']['@attributes']) &&
-                isset($listingItem['category']['@attributes']['nicename'])
-            ){
-                $category = Category::where('slug', '=', $listingItem['category']['@attributes']['nicename'])->first();
-                if($category){
-                    $categoryId = $category->id;
-                }
-            }
+            $slug = urldecode($slug);
+            $slug = Tools::slug($slug);
+
+            $categoryId = $this->getListingCategory($listingItem);
 
             $featuredImage = null;
             $featuredImage = $this->filterMeta($listingItem, '_thumbnail_id', true, true);

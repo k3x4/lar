@@ -55,6 +55,22 @@ class Category
         return $list;
     }
 
+    public static function makeListSlugs($parentCategories, $list = []){
+        setlocale(LC_ALL, 'el_GR.UTF-8');
+        foreach($parentCategories as $category){
+
+            $list[$category->title . '|' . $category->slug] = [];
+            foreach($category->childs as $child){
+                $list[$category->title . '|' . $category->slug][$child->slug] = $child->title;
+                //usort($list[$category->title . '|' . $category->slug], 'App\Libraries\Category::sortByTitle');
+                array_multisort($list[$category->title . '|' . $category->slug], SORT_ASC, SORT_LOCALE_STRING);
+            }
+        
+        }
+
+        return $list;
+    }
+
     public static function wrapTag($text, $level, $tag, $class){
         $html = '';
         // $htmlWrapBegin = '<' . $tag . ' class="' . $class . '">';
@@ -71,6 +87,10 @@ class Category
         // }
 
         return $html;
+    }
+
+    public static function sortByTitle($a, $b) {
+        return strcmp($a, $b);
     }
 
 

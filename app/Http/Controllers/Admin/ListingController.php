@@ -193,15 +193,26 @@ class ListingController extends Controller
         ]);
 
         $listing = Listing::find($id);
-        
-        $data = $request->all();
-        if(!$data['slug']){
-            $data['slug'] = Tools::slug($data['title']);
+        $slug = $listing->slug;
+
+        if($request->input('slug')){
+            if($slug != $request->input('slug')){
+                $slug = Tools::slug($request->input('slug'));
+            }
+        } else {
+            $slug = Tools::slug($request->input('title'));
         }
 
-        $listing->update($data);
-        $listing->image_id = $request->input('featuredImage') ?: NULL;
-        $listing->save();
+        $fillable = [
+            'title' => $request->input('title'),
+            'slug' => $slug,
+            'category_id' => $request->input('category_id'),
+            'image_id' => $request->input('featuredImage') ?: NULL,
+            'content' => $request->input('content'),
+            'status' => $request->input('status'),
+        ];
+
+        $listing->update($fillable);
 
         $gallery = $request->input('gallery');
         if($gallery){

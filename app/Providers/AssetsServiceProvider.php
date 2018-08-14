@@ -73,6 +73,11 @@ class AssetsServiceProvider extends ServiceProvider
         $this->publishes([
             base_path('resources') . '/theme' => public_path('theme'),
         ], 'public');
+
+        //IMAGES
+        $this->publishes([
+            base_path('resources') . '/assets/img' => public_path('img'),
+        ], 'public');
         
     }
 

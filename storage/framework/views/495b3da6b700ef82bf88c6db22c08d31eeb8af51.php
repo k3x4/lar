@@ -9,8 +9,8 @@
             <!-- Logo
             ============================================= -->
             <div id="logo">
-                <a href="index.html" class="standard-logo" data-dark-logo="<?php echo e(asset('theme/images/logo-dark.png')); ?>"><img src="<?php echo e(asset('theme/images/logo.png')); ?>" alt="Logo"></a>
-                <a href="index.html" class="retina-logo" data-dark-logo="<?php echo e(asset('theme/images/logo-dark@2x.png')); ?>"><img src="<?php echo e(asset('theme/images/logo@2x.png')); ?>" alt="Logo"></a>
+                <a href="index.html" class="standard-logo" data-dark-logo="<?php echo e(asset('img/logo-dark.png')); ?>"><img src="<?php echo e(asset('img/logo.png')); ?>" alt="Logo"></a>
+                <a href="index.html" class="retina-logo" data-dark-logo="<?php echo e(asset('img/logo-dark@2x.png')); ?>"><img src="<?php echo e(asset('img/logo@2x.png')); ?>" alt="Logo"></a>
             </div><!-- #logo end -->
 
             <!-- Primary Navigation

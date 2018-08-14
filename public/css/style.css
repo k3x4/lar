@@ -1,0 +1,31 @@
+/* GENERAL */
+
+.nav-tree li a {
+  text-transform: none;
+}
+
+.postcontent.bothsidebar {
+  left: 26%;
+  /* 22% sidebar width + 4% margin sidebar */
+}
+
+.sidebar.leftsidebar {
+  right: 52%;
+  /* 48% content width + 4% margin sidebar */
+}
+
+.sidebar.rightsidebar {
+  left: 0%;
+}
+
+@media (max-width: 991px) {
+  .postcontent.bothsidebar,
+  .sidebar.rightsidebar {
+    left: auto;
+  }
+
+  .sidebar.leftsidebar {
+    right: auto;
+  }
+}
+
