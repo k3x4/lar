@@ -1,6 +1,6 @@
 <header id="header" data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyStartAt': 55, 'stickySetTop': '-55px', 'stickyChangeLogo': true}">
     <div class="header-body">
-        <div class="header-container container">
+        <div class="header-container container-fluid">
             <div class="header-row">
                 <div class="header-column">
                     <div class="header-row">

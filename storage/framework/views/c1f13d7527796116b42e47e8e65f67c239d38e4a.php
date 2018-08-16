@@ -6,18 +6,17 @@
 
     <div class="row">
 
-        <div class="col-lg-3">
+        <div class="col-lg-2">
             <aside class="sidebar">
-                <?php echo app('arrilot.widget')->run('CategoriesMenu'); ?>
+                <?php echo app('arrilot.widget')->run('CategoriesMenu', [
+                    'listing' => $listing
+                ]); ?>
             </aside>
         </div>
 
-        <div class="col-lg-6">
+        <div class="col-lg-7">
 
-            <h2>Left and Right <strong>Sidebars</strong> Page</h2>
-
-
-            <h4><?php echo e($listing->title); ?></h4>
+            <h2><?php echo e($listing->title); ?></h2>
 
             <?php if(isset($gallery) && $gallery): ?>
                 <div class="fslider flex-thumb-grid grid-10 bottommargin-sm" data-arrows="true" data-animation="slide" data-thumbs="true">

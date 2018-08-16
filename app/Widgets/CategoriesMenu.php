@@ -15,6 +15,7 @@ class CategoriesMenu extends AbstractWidget
      */
     protected $config = [
         'categories' => [],
+        'listing' => null,
     ];
 
     /**

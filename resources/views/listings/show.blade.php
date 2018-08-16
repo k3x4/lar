@@ -8,18 +8,17 @@
 
     <div class="row">
 
-        <div class="col-lg-3">
+        <div class="col-lg-2">
             <aside class="sidebar">
-                @widget('CategoriesMenu')
+                @widget('CategoriesMenu', [
+                    'listing' => $listing
+                ])
             </aside>
         </div>
 
-        <div class="col-lg-6">
+        <div class="col-lg-7">
 
-            <h2>Left and Right <strong>Sidebars</strong> Page</h2>
-
-
-            <h4>{{ $listing->title }}</h4>
+            <h2>{{ $listing->title }}</h2>
 
             @if (isset($gallery) && $gallery)
                 <div class="fslider flex-thumb-grid grid-10 bottommargin-sm" data-arrows="true" data-animation="slide" data-thumbs="true">
