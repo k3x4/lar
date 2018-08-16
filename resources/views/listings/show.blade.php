@@ -4,283 +4,181 @@
 
 @section('content')
 
-<div class="container-fullwidth clearfix">
+<div class="container-fluid">
 
-    <!-- Post Content
-    ============================================= -->
-    <div class="postcontent bothsidebar nobottommargin clearfix">
+    <div class="row">
 
-        <h4>{{ $listing->title }}</h4>
+        <div class="col-lg-3">
+            <aside class="sidebar">
+                @widget('CategoriesMenu')
+            </aside>
+        </div>
 
-        {!! htmlspecialchars_decode($listing->content) !!}
+        <div class="col-lg-6">
 
-        @if (isset($gallery) && $gallery)
-            <div class="fslider flex-thumb-grid grid-10 bottommargin-sm" data-arrows="true" data-animation="slide" data-thumbs="true">
-                <div class="flexslider">
-                    <div class="slider-wrap">
-                        @foreach ($gallery as $image)
-                            <div class="slide" data-thumb="/uploads/{{ $image->get('mini') }}">
-                                <img src="/uploads/{{ $image->filename }}" />
-                            </div>
-                        @endforeach
+            <h2>Left and Right <strong>Sidebars</strong> Page</h2>
+
+
+            <h4>{{ $listing->title }}</h4>
+
+            @if (isset($gallery) && $gallery)
+                <div class="fslider flex-thumb-grid grid-10 bottommargin-sm" data-arrows="true" data-animation="slide" data-thumbs="true">
+                    <div class="flexslider">
+                        <div class="slider-wrap">
+                            @foreach ($gallery as $image)
+                                <div class="slide" data-thumb="/uploads/{{ $image->get('mini') }}">
+                                    <img src="/uploads/{{ $image->filename }}" />
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
+            @endif
+
+            {!! htmlspecialchars_decode($listing->content) !!}
+
+
+
+            <div class="row">
+                <div class="col">
+                    <p class="lead">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rutrum pellentesque imperdiet. Nulla lacinia iaculis nulla non pulvinar. Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut eu risus enim, ut pulvinar lectus. Sed hendrerit nibh metus.
+                    </p>
+                </div>
             </div>
-        @endif
-        
-        
 
-    </div><!-- .postcontent end -->
+            <hr class="tall">
 
-    <!-- Sidebar
-    ============================================= -->
-    <div class="sidebar leftsidebar nobottommargin clearfix">
-        <div class="sidebar-widgets-wrap">
-
-            @widget('CategoriesMenu')
-
-            <div class="widget clearfix">
-
-                <h4>Instagram Photos</h4>
-                <div id="instagram-photos" class="instagram-photos masonry-thumbs" data-user="5834720953" data-count="16" data-type="user"></div>
-
+            <div class="row">
+                <div class="col">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque neque eget diam posuere porta. Quisque ut nulla at nunc <a href="#">vehicula</a> lacinia. Proin adipiscing porta tellus, ut feugiat nibh adipiscing sit amet. In eu justo a felis faucibus ornare vel id metus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In eu libero ligula. Fusce eget metus lorem, ac viverra leo. Nullam convallis, arcu vel pellentesque sodales, nisi est varius diam, ac ultrices sem ante quis sem. Proin ultricies volutpat sapien, nec scelerisque ligula mollis lobortis.</p>
+                    <img class="float-left img-fluid" width="300" height="211" src="img/device.png" alt="Device">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque neque eget diam posuere porta. Quisque ut nulla at nunc <a href="#">vehicula</a> lacinia. Proin adipiscing porta tellus, ut feugiat nibh adipiscing sit amet. In eu justo a felis faucibus ornare vel id metus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In eu libero ligula. Fusce eget metus lorem, ac viverra leo. Nullam convallis, arcu vel pellentesque sodales, nisi est varius diam, ac ultrices sem ante quis sem. Proin ultricies volutpat sapien, nec scelerisque ligula mollis lobortis.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque neque eget diam posuere porta. Quisque ut nulla at nunc <a href="#">vehicula</a> lacinia. Proin adipiscing porta tellus, ut feugiat nibh adipiscing sit amet. In eu justo a felis faucibus ornare vel id metus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In eu libero ligula. Fusce eget metus lorem, ac viverra leo. Nullam convallis, arcu vel pellentesque sodales, nisi est varius diam, ac ultrices sem ante quis sem. Proin ultricies volutpat sapien, nec scelerisque ligula mollis lobortis.</p>
+                </div>
             </div>
 
         </div>
-    </div><!-- .sidebar end -->
 
-    <!-- Sidebar
-    ============================================= -->
-    <div class="sidebar rightsidebar nobottommargin col_last clearfix">
-        <div class="sidebar-widgets-wrap">
+        <div class="col-lg-3">
+            <aside class="sidebar">
 
-            <div class="widget widget-twitter-feed clearfix">
-
-                <h4>Twitter Feed</h4>
-                <ul class="iconlist twitter-feed" data-username="envato" data-count="2">
-                    <li></li>
-                </ul>
-
-                <a href="#" class="btn btn-secondary btn-sm fright">Follow Us on Twitter</a>
-
-            </div>
-
-            <div class="widget clearfix">
-
-                <h4>Flickr Photostream</h4>
-                <div id="flickr-widget" class="flickr-feed masonry-thumbs" data-id="613394@N22" data-count="16" data-type="group" data-lightbox="gallery"></div>
-
-            </div>
-
-            <div class="widget clearfix">
-
-                <div class="tabs nobottommargin clearfix" id="sidebar-tabs">
-
-                    <ul class="tab-nav clearfix">
-                        <li><a href="#tabs-1">Popular</a></li>
-                        <li><a href="#tabs-2">Recent</a></li>
-                        <li><a href="#tabs-3"><i class="icon-comments-alt norightmargin"></i></a></li>
+                <div class="tabs mb-4 pb-2">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item active"><a class="nav-link" href="#popularPosts" data-toggle="tab"><i class="fas fa-star"></i> Popular</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#recentPosts" data-toggle="tab">Recent</a></li>
                     </ul>
-
-                    <div class="tab-container">
-
-                        <div class="tab-content clearfix" id="tabs-1">
-                            <div id="popular-post-list-sidebar">
-
-                                <div class="spost clearfix">
-                                    <div class="entry-image">
-                                        <a href="#" class="nobg"><img class="rounded-circle" src="images/magazine/small/3.jpg" alt=""></a>
-                                    </div>
-                                    <div class="entry-c">
-                                        <div class="entry-title">
-                                            <h4><a href="#">Debitis nihil placeat, illum est nisi</a></h4>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="popularPosts">
+                            <ul class="simple-post-list">
+                                <li>
+                                    <div class="post-image">
+                                        <div class="img-thumbnail d-block">
+                                            <a href="blog-post.html">
+                                                <img src="img/blog/blog-thumb-1.jpg" alt="">
+                                            </a>
                                         </div>
-                                        <ul class="entry-meta">
-                                            <li><i class="icon-comments-alt"></i> 35 Comments</li>
-                                        </ul>
                                     </div>
-                                </div>
-
-                                <div class="spost clearfix">
-                                    <div class="entry-image">
-                                        <a href="#" class="nobg"><img class="rounded-circle" src="images/magazine/small/2.jpg" alt=""></a>
-                                    </div>
-                                    <div class="entry-c">
-                                        <div class="entry-title">
-                                            <h4><a href="#">Elit Assumenda vel amet dolorum quasi</a></h4>
+                                    <div class="post-info">
+                                        <a href="blog-post.html">Nullam Vitae Nibh Un Odiosters</a>
+                                        <div class="post-meta">
+                                            Jan 10, 2017
                                         </div>
-                                        <ul class="entry-meta">
-                                            <li><i class="icon-comments-alt"></i> 24 Comments</li>
-                                        </ul>
                                     </div>
-                                </div>
-
-                                <div class="spost clearfix">
-                                    <div class="entry-image">
-                                        <a href="#" class="nobg"><img class="rounded-circle" src="images/magazine/small/1.jpg" alt=""></a>
-                                    </div>
-                                    <div class="entry-c">
-                                        <div class="entry-title">
-                                            <h4><a href="#">Lorem ipsum dolor sit amet, consectetur</a></h4>
+                                </li>
+                                <li>
+                                    <div class="post-image">
+                                        <div class="img-thumbnail d-block">
+                                            <a href="blog-post.html">
+                                                <img src="img/blog/blog-thumb-2.jpg" alt="">
+                                            </a>
                                         </div>
-                                        <ul class="entry-meta">
-                                            <li><i class="icon-comments-alt"></i> 19 Comments</li>
-                                        </ul>
                                     </div>
-                                </div>
-
-                            </div>
+                                    <div class="post-info">
+                                        <a href="blog-post.html">Vitae Nibh Un Odiosters</a>
+                                        <div class="post-meta">
+                                            Jan 10, 2017
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="post-image">
+                                        <div class="img-thumbnail d-block">
+                                            <a href="blog-post.html">
+                                                <img src="img/blog/blog-thumb-3.jpg" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="post-info">
+                                        <a href="blog-post.html">Odiosters Nullam Vitae</a>
+                                        <div class="post-meta">
+                                            Jan 10, 2017
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
-                        <div class="tab-content clearfix" id="tabs-2">
-                            <div id="recent-post-list-sidebar">
-
-                                <div class="spost clearfix">
-                                    <div class="entry-image">
-                                        <a href="#" class="nobg"><img class="rounded-circle" src="images/magazine/small/1.jpg" alt=""></a>
-                                    </div>
-                                    <div class="entry-c">
-                                        <div class="entry-title">
-                                            <h4><a href="#">Lorem ipsum dolor sit amet, consectetur</a></h4>
+                        <div class="tab-pane" id="recentPosts">
+                            <ul class="simple-post-list">
+                                <li>
+                                    <div class="post-image">
+                                        <div class="img-thumbnail d-block">
+                                            <a href="blog-post.html">
+                                                <img src="img/blog/blog-thumb-2.jpg" alt="">
+                                            </a>
                                         </div>
-                                        <ul class="entry-meta">
-                                            <li>10th July 2014</li>
-                                        </ul>
                                     </div>
-                                </div>
-
-                                <div class="spost clearfix">
-                                    <div class="entry-image">
-                                        <a href="#" class="nobg"><img class="rounded-circle" src="images/magazine/small/2.jpg" alt=""></a>
-                                    </div>
-                                    <div class="entry-c">
-                                        <div class="entry-title">
-                                            <h4><a href="#">Elit Assumenda vel amet dolorum quasi</a></h4>
+                                    <div class="post-info">
+                                        <a href="blog-post.html">Vitae Nibh Un Odiosters</a>
+                                        <div class="post-meta">
+                                            Jan 10, 2017
                                         </div>
-                                        <ul class="entry-meta">
-                                            <li>10th July 2014</li>
-                                        </ul>
                                     </div>
-                                </div>
-
-                                <div class="spost clearfix">
-                                    <div class="entry-image">
-                                        <a href="#" class="nobg"><img class="rounded-circle" src="images/magazine/small/3.jpg" alt=""></a>
-                                    </div>
-                                    <div class="entry-c">
-                                        <div class="entry-title">
-                                            <h4><a href="#">Debitis nihil placeat, illum est nisi</a></h4>
+                                </li>
+                                <li>
+                                    <div class="post-image">
+                                        <div class="img-thumbnail d-block">
+                                            <a href="blog-post.html">
+                                                <img src="img/blog/blog-thumb-3.jpg" alt="">
+                                            </a>
                                         </div>
-                                        <ul class="entry-meta">
-                                            <li>10th July 2014</li>
-                                        </ul>
                                     </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="tab-content clearfix" id="tabs-3">
-                            <div id="recent-post-list-sidebar">
-
-                                <div class="spost clearfix">
-                                    <div class="entry-image">
-                                        <a href="#" class="nobg"><img class="rounded-circle" src="images/icons/avatar.jpg" alt=""></a>
+                                    <div class="post-info">
+                                        <a href="blog-post.html">Odiosters Nullam Vitae</a>
+                                        <div class="post-meta">
+                                            Jan 10, 2017
+                                        </div>
                                     </div>
-                                    <div class="entry-c">
-                                        <strong>John Doe:</strong> Veritatis recusandae sunt repellat distinctio...
+                                </li>
+                                <li>
+                                    <div class="post-image">
+                                        <div class="img-thumbnail d-block">
+                                            <a href="blog-post.html">
+                                                <img src="img/blog/blog-thumb-1.jpg" alt="">
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div class="spost clearfix">
-                                    <div class="entry-image">
-                                        <a href="#" class="nobg"><img class="rounded-circle" src="images/icons/avatar.jpg" alt=""></a>
+                                    <div class="post-info">
+                                        <a href="blog-post.html">Nullam Vitae Nibh Un Odiosters</a>
+                                        <div class="post-meta">
+                                            Jan 10, 2017
+                                        </div>
                                     </div>
-                                    <div class="entry-c">
-                                        <strong>Mary Jane:</strong> Possimus libero, earum officia architecto maiores....
-                                    </div>
-                                </div>
-
-                                <div class="spost clearfix">
-                                    <div class="entry-image">
-                                        <a href="#" class="nobg"><img class="rounded-circle" src="images/icons/avatar.jpg" alt=""></a>
-                                    </div>
-                                    <div class="entry-c">
-                                        <strong>Site Admin:</strong> Deleniti magni labore laboriosam odio...
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="widget clearfix">
-
-                <h4>Portfolio Carousel</h4>
-                <div id="oc-portfolio-sidebar" class="owl-carousel carousel-widget" data-items="1" data-margin="10" data-loop="true" data-nav="false" data-autoplay="5000">
-
-                    <div class="oc-item">
-                        <div class="iportfolio">
-                            <div class="portfolio-image">
-                                <a href="#">
-                                    <img src="images/portfolio/4/3.jpg" alt="Mac Sunglasses">
-                                </a>
-                                <div class="portfolio-overlay">
-                                    <a href="http://vimeo.com/89396394" class="center-icon" data-lightbox="iframe"><i class="icon-line-play"></i></a>
-                                </div>
-                            </div>
-                            <div class="portfolio-desc center nobottompadding">
-                                <h3><a href="portfolio-single-video.html">Mac Sunglasses</a></h3>
-                                <span><a href="#">Graphics</a>, <a href="#">UI Elements</a></span>
-                            </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-
-                    <div class="oc-item">
-                        <div class="iportfolio">
-                            <div class="portfolio-image">
-                                <a href="portfolio-single.html">
-                                    <img src="images/portfolio/4/1.jpg" alt="Open Imagination">
-                                </a>
-                                <div class="portfolio-overlay">
-                                    <a href="images/blog/full/1.jpg" class="center-icon" data-lightbox="image"><i class="icon-line-plus"></i></a>
-                                </div>
-                            </div>
-                            <div class="portfolio-desc center nobottompadding">
-                                <h3><a href="portfolio-single.html">Open Imagination</a></h3>
-                                <span><a href="#">Media</a>, <a href="#">Icons</a></span>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
 
-            </div>
+                <hr>
 
-            <div class="widget clearfix">
+                <h4 class="heading-primary">About Us</h4>
+                <p>Nulla nunc dui, tristique in semper vel, congue sed ligula. Nam dolor ligula, faucibus id sodales in, auctor fringilla libero. Nulla nunc dui, tristique in semper vel. Nam dolor ligula, faucibus id sodales in, auctor fringilla libero. </p>
 
-                <h4>Tag Cloud</h4>
-                <div class="tagcloud">
-                    <a href="#">general</a>
-                    <a href="#">videos</a>
-                    <a href="#">music</a>
-                    <a href="#">media</a>
-                    <a href="#">photography</a>
-                    <a href="#">parallax</a>
-                    <a href="#">ecommerce</a>
-                    <a href="#">terms</a>
-                    <a href="#">coupons</a>
-                    <a href="#">modern</a>
-                </div>
-
-            </div>
-
+            </aside>
         </div>
 
-    </div><!-- .sidebar end -->
+    </div>
 
 </div>
 

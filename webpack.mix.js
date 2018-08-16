@@ -17,6 +17,10 @@ mix     //.js('resources/assets/js/app.js', 'public/js')
         .js('resources/assets/js/dropzone-config.js', 'public/js')
         //.js('resources/assets/js/elfinder.js', 'public/js')
 
-        .sass('resources/theme/style.scss', 'public/theme')
+        .sass('resources/theme/sass/theme.scss', 'public/theme/css')
+        .sass('resources/theme/sass/theme-blog.scss', 'public/theme/css')
+        .sass('resources/theme/sass/theme-elements.scss', 'public/theme/css')
+        .sass('resources/theme/sass/theme-shop.scss', 'public/theme/css')
+        
         .sass('resources/assets/sass/style.scss', 'public/css')
         .sass('resources/assets/sass/admin.scss', 'public/css');

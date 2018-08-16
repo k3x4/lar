@@ -69,7 +69,6 @@ class CategoryController extends Controller
             'category_id' => $request->input('category_id'),
             'title' => $request->input('title'),
             'slug' => $slug,
-            'icon' => $request->input('icon'),
             'description' => $request->input('description'),
         ];
         
@@ -135,7 +134,6 @@ class CategoryController extends Controller
             'category_id' => $request->input('category_id'),
             'title' => $request->input('title'),
             'slug' => $slug,
-            'icon' => $request->input('icon'),
             'description' => $request->input('description'),
         ];
         

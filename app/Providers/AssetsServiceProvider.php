@@ -77,12 +77,18 @@ class AssetsServiceProvider extends ServiceProvider
             base_path('node_modules') . '/datatables.net-bs/css' => public_path('js/lib/datatables/css'),
         ], 'public');
 
-        //CANVAS THEME
+        //PORTO HTML THEME
         $this->publishes([
-            base_path('resources') . '/theme/css' => public_path('theme/css'),
+            base_path('resources') . '/theme/vendor' => public_path('theme/vendor'),
         ], 'public');
         $this->publishes([
             base_path('resources') . '/theme/js' => public_path('theme/js'),
+        ], 'public');
+        $this->publishes([
+            base_path('resources') . '/theme/fonts' => public_path('fonts'),
+        ], 'public');
+        $this->publishes([
+            base_path('resources') . '/theme/skins/default.css' => public_path('theme/css/skins/default.css'),
         ], 'public');
 
         //IMAGES

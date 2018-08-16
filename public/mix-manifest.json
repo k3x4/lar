@@ -1,6 +1,9 @@
 {
     "/js/scripts.js": "/js/scripts.js",
-    "/theme/style.css": "/theme/style.css",
+    "/theme/css/theme.css": "/theme/css/theme.css",
+    "/theme/css/theme-blog.css": "/theme/css/theme-blog.css",
+    "/theme/css/theme-elements.css": "/theme/css/theme-elements.css",
+    "/theme/css/theme-shop.css": "/theme/css/theme-shop.css",
     "/css/style.css": "/css/style.css",
     "/css/admin.css": "/css/admin.css",
     "/js/dropzone-config.js": "/js/dropzone-config.js",

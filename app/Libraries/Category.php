@@ -59,8 +59,7 @@ class Category
         setlocale(LC_ALL, 'el_GR.UTF-8');
         foreach($parentCategories as $category){
 
-            $parentKey  = '<i class="fa ' . $category->icon . '"></i>';
-            $parentKey .= $category->title . ' (' . $category->listings_count . ') ' . '|' . $category->slug;
+            $parentKey = $category->title . ' (' . $category->listings_count . ') ' . '|' . $category->slug;
             $list[$parentKey] = [];
             foreach($category->childs as $child){
                 $childKey = $category->slug . '/' . $child->slug;

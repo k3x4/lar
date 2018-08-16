@@ -1,59 +1,29 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en-US">
-<head>
+<html>
+	<head>
 
-    @section('head')
+		@include('layouts.partials.head')
 
-	<title>@yield('page_title') | {{ config('app.name') }}</title>
+	</head>
+	<body>
 
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<meta name="csrf-token" content="{{ csrf_token() }}">
+		<div class="body">
 
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+            @include('layouts.partials.header')
 
-	<!-- Stylesheets
-	============================================= -->
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700&amp;subset=greek|Raleway:300,400,500,600,700|Crete+Round:400i" rel="stylesheet" type="text/css" />
-	<link rel="stylesheet" href="{{ asset('theme/css/bootstrap.css') }}" type="text/css" />
-	<link rel="stylesheet" href="{{ asset('theme/style.css') }}" type="text/css" />
-	<link rel="stylesheet" href="{{ asset('theme/css/dark.css') }}" type="text/css" />
-	<link rel="stylesheet" href="{{ asset('theme/css/font-icons.css') }}" type="text/css" />
-	<link rel="stylesheet" href="{{ asset('theme/css/animate.css') }}" type="text/css" />
-	<link rel="stylesheet" href="{{ asset('theme/css/magnific-popup.css') }}" type="text/css" />
+			<div role="main" class="main">
 
-	<link rel="stylesheet" href="{{ asset('theme/css/responsive.css') }}" type="text/css" />
-	<link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css" />
-
-	@show
-
-</head>
-
-<body class="stretched no-transition">
-
-	<div id="wrapper" class="clearfix">
-
-        @include('layouts.partials.header')
-
-		<section id="content">
-
-			<div class="content-wrap">
+				@include('layouts.partials.page_header')
 
 				@yield('content')
 
-			</div>
+            </div>
+            
+            @include('layouts.partials.footer')
 
-		</section>
+		</div>
 
-        @include('layouts.partials.footer')
+        @include('layouts.partials.footer_scripts')
 
-	</div><!-- #wrapper end -->
-
-	<!-- Go To Top
-	============================================= -->
-    <div id="gotoTop" class="icon-angle-up"></div>
-    
-    @include('layouts.partials.footer_scripts')
-
-</body>
+	</body>
 </html>
