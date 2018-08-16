@@ -527,13 +527,34 @@ class WpImport
         echo PHP_EOL;
     }
 
+    public function addCategoryIcons(){
+        $cateogoryIcons = [
+            'auto-moto'     => 'fa-car',
+            'real-estate'   => 'fa-home',
+            'education'     => 'fa-graduation-cap',
+            'biz'           => 'fa-store',
+            'jobs'          => 'fa-tasks',
+            'sale'          => 'fa-shopping-cart',
+            'services'      => 'fa-user-cog',
+            'donate'        => 'fa-gift'
+        ];
+
+        $categories = Category::whereNull('category_id')->get();
+
+        foreach($categories as $category){
+            $category->icon = $cateogoryIcons[$category->slug];
+            $category->save();
+        }
+    }
+
     public function import(){
-        $this->importUsers();
-        $this->importCategories();
-        $this->downloadFiles();
-        //$this->mapListingFiles(); // REQUIRED?
-        $this->storeFiles();
-        $this->importListings();
+        // $this->importUsers();
+        // $this->importCategories();
+        // $this->downloadFiles();
+        // //$this->mapListingFiles(); // REQUIRED?
+        // $this->storeFiles();
+        // $this->importListings();
+        $this->addCategoryIcons();
         return true;
     }
 

@@ -38,6 +38,11 @@
 
                 </div>
                 <div class="form-group">
+                    <strong>Icon: (fa-*)</strong>
+                    <?php echo Form::text('icon', null, ['placeholder' => 'Icon (only fa-*)','class' => 'form-control']); ?>
+
+                </div>
+                <div class="form-group">
                     <strong>Description:</strong>
                     <?php echo Form::textarea('description', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']); ?>
 

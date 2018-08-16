@@ -3,6 +3,8 @@
 namespace App\Widgets;
 
 use Arrilot\Widgets\AbstractWidget;
+use App\Category;
+use App\Libraries\Category as CategoryTools;
 
 class CategoriesMenu extends AbstractWidget
 {
@@ -12,7 +14,6 @@ class CategoriesMenu extends AbstractWidget
      * @var array
      */
     protected $config = [
-        'title' => '',
         'categories' => [],
     ];
 
@@ -22,7 +23,9 @@ class CategoriesMenu extends AbstractWidget
      */
     public function run()
     {
-        //
+        $categories = Category::whereNull('category_id')->get();
+        $categories = CategoryTools::makeListSlugs($categories);
+        $this->config['categories'] = $categories;
 
         return view('widgets.categories_menu', [
             'config' => $this->config,

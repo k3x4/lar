@@ -26,6 +26,10 @@ class Listing extends Model
         return $this->belongsToMany('App\Media');
     }
 
+    public function image(){
+        return $this->hasOne('App\Media', 'id', 'image_id');
+    }
+
     public function getThumbAttribute(){
         $thumb = $this->image_id ? Media::find($this->image_id)->get('mini') : null;
         return $thumb;

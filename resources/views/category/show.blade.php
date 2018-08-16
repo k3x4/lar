@@ -198,10 +198,7 @@
     <div class="sidebar leftsidebar nobottommargin clearfix">
         <div class="sidebar-widgets-wrap">
 
-            @widget('CategoriesMenu', [
-                'title' => 'Categories',
-                'categories' => $categories,
-            ])
+            @widget('CategoriesMenu')
 
             <div class="widget clearfix">
 

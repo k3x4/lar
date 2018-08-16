@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->integer('category_id')->unsigned()->nullable();
             $table->string('title');
             $table->string('slug')->unique();
+            $table->string('icon')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
             

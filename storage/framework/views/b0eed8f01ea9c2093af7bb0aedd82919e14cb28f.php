@@ -1,1 +1,1 @@
-<a href="<?php echo e(route('admin.categories.edit', [$id])); ?>"><?php echo e($title); ?></a>
+<a href="<?php echo e(route('admin.categories.edit', [$id])); ?>"><?php echo e($title); ?> (<?php echo e($listings_count); ?>)</a>

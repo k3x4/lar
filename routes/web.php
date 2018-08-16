@@ -38,9 +38,14 @@ Route::get('/listing/{slug}', [
 ]);
 
 // LISTINGS CATEGORIES
-Route::get('/category/{slug}', [
-    'as' => 'category.show', 
-    'uses' => 'CategoryController@show', 
+Route::get('/category/{parent}', [
+    'as' => 'category.showParent', 
+    'uses' => 'CategoryController@showParent', 
+]);
+
+Route::get('/category/{parent}/{child}', [
+    'as' => 'category.showChild', 
+    'uses' => 'CategoryController@showChild', 
 ]);
 
 

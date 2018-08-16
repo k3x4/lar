@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Http\Controllers\Controller;
 use App\Listing;
+use App\Media;
 use App\Category;
 use App\Libraries\Category as CategoryTools;
 use Illuminate\Http\Request;
@@ -31,14 +32,22 @@ class ListingController extends Controller
     {
         $listing = Listing::where('slug', $slug)->first();
 
-        $categories = Category::whereNull('category_id')->get();
-        $categories = CategoryTools::makeListSlugs($categories);
-        //dd($categories);
+        $gallery = $listing->meta()->where('meta_key', 'gallery')->first();
+        if($gallery){
+            $galleryIds = unserialize($gallery->meta_value);
+            $gallery = Media::getUnsorted($galleryIds);
+        } else {
+            $gallery = collect();
+        }
+
+        if($listing->image){
+            $gallery->prepend($listing->image);
+        }
 
         if($listing){
-            return view('listings.show', compact('listing', 'categories'));
+            return view('listings.show', compact('listing', 'gallery'));
         } else {
-            return view('listings.404', compact('listing', 'categories'));
+            return view('listings.404', compact('listing'));
         }
         
     }

@@ -10,7 +10,25 @@
     ============================================= -->
     <div class="postcontent bothsidebar nobottommargin clearfix">
 
+        <h4>{{ $listing->title }}</h4>
+
         {!! htmlspecialchars_decode($listing->content) !!}
+
+        @if (isset($gallery) && $gallery)
+            <div class="fslider flex-thumb-grid grid-10 bottommargin-sm" data-arrows="true" data-animation="slide" data-thumbs="true">
+                <div class="flexslider">
+                    <div class="slider-wrap">
+                        @foreach ($gallery as $image)
+                            <div class="slide" data-thumb="/uploads/{{ $image->get('mini') }}">
+                                <img src="/uploads/{{ $image->filename }}" />
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        @endif
+        
+        
 
     </div><!-- .postcontent end -->
 
@@ -19,79 +37,12 @@
     <div class="sidebar leftsidebar nobottommargin clearfix">
         <div class="sidebar-widgets-wrap">
 
-            @widget('CategoriesMenu', [
-                'title' => 'Categories',
-                'categories' => $categories,
-            ])
-
-            <div class="widget clearfix">
-
-                <h4>Testimonials</h4>
-                <div class="fslider testimonial noborder nopadding noshadow" data-animation="slide" data-arrows="false">
-                    <div class="flexslider">
-                        <div class="slider-wrap">
-                            <div class="slide">
-                                <div class="testi-image">
-                                    <a href="#"><img src="images/testimonials/3.jpg" alt="Customer Testimonails"></a>
-                                </div>
-                                <div class="testi-content">
-                                    <p>Similique fugit repellendus expedita excepturi iure perferendis provident quia eaque. Repellendus, vero numquam?</p>
-                                    <div class="testi-meta">
-                                        Steve Jobs
-                                        <span>Apple Inc.</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="slide">
-                                <div class="testi-image">
-                                    <a href="#"><img src="images/testimonials/2.jpg" alt="Customer Testimonails"></a>
-                                </div>
-                                <div class="testi-content">
-                                    <p>Natus voluptatum enim quod necessitatibus quis expedita harum provident eos obcaecati id culpa corporis molestias.</p>
-                                    <div class="testi-meta">
-                                        Collis Ta'eed
-                                        <span>Envato Inc.</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="slide">
-                                <div class="testi-image">
-                                    <a href="#"><img src="images/testimonials/1.jpg" alt="Customer Testimonails"></a>
-                                </div>
-                                <div class="testi-content">
-                                    <p>Incidunt deleniti blanditiis quas aperiam recusandae consequatur ullam quibusdam cum libero illo rerum!</p>
-                                    <div class="testi-meta">
-                                        John Doe
-                                        <span>XYZ Inc.</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+            @widget('CategoriesMenu')
 
             <div class="widget clearfix">
 
                 <h4>Instagram Photos</h4>
                 <div id="instagram-photos" class="instagram-photos masonry-thumbs" data-user="5834720953" data-count="16" data-type="user"></div>
-
-            </div>
-
-            <div class="widget quick-contact-widget clearfix">
-
-                <h4>Quick Contact</h4>
-                <div class="quick-contact-form-result"></div>
-                <form id="quick-contact-form" name="quick-contact-form" action="include/quickcontact.php" method="post" class="quick-contact-form nobottommargin">
-                    <div class="form-process"></div>
-
-                    <input type="text" class="required sm-form-control input-block-level" id="quick-contact-form-name" name="quick-contact-form-name" value="" placeholder="Full Name" />
-                    <input type="text" class="required sm-form-control email input-block-level" id="quick-contact-form-email" name="quick-contact-form-email" value="" placeholder="Email Address" />
-                    <textarea class="required sm-form-control input-block-level short-textarea" id="quick-contact-form-message" name="quick-contact-form-message" rows="4" cols="30" placeholder="Message"></textarea>
-                    <input type="text" class="hidden" id="quick-contact-form-botcheck" name="quick-contact-form-botcheck" value="" />
-                    <button type="submit" id="quick-contact-form-submit" name="quick-contact-form-submit" class="button button-small button-3d nomargin" value="submit">Send Email</button>
-                </form>
 
             </div>
 

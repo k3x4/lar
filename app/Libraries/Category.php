@@ -28,7 +28,7 @@ class Category
                 continue;
             }
 
-            $list[$category->id] = $category->title;
+            $list[$category->id] = $category->title . ' (' . $category->listings_count . ')';
         }
 
         return $list;
@@ -47,7 +47,7 @@ class Category
                     continue;
                 }
 
-                $list[$category->title][$child->id] = $child->title;
+                $list[$category->title][$child->id] = $child->title . ' (' . $child->listings_count . ')';
             }
         
         }
@@ -59,11 +59,13 @@ class Category
         setlocale(LC_ALL, 'el_GR.UTF-8');
         foreach($parentCategories as $category){
 
-            $list[$category->title . '|' . $category->slug] = [];
+            $parentKey  = '<i class="fa ' . $category->icon . '"></i>';
+            $parentKey .= $category->title . ' (' . $category->listings_count . ') ' . '|' . $category->slug;
+            $list[$parentKey] = [];
             foreach($category->childs as $child){
-                $list[$category->title . '|' . $category->slug][$child->slug] = $child->title;
-                //usort($list[$category->title . '|' . $category->slug], 'App\Libraries\Category::sortByTitle');
-                array_multisort($list[$category->title . '|' . $category->slug], SORT_ASC, SORT_LOCALE_STRING);
+                $childKey = $category->slug . '/' . $child->slug;
+                $list[$parentKey][$childKey] = $child->title . ' (' . $child->listings_count . ')';
+                array_multisort($list[$parentKey], SORT_ASC, SORT_LOCALE_STRING);
             }
         
         }

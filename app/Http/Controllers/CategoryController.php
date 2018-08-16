@@ -6,7 +6,6 @@ use Auth;
 use App\Http\Controllers\Controller;
 use App\Listing;
 use App\Category;
-use App\Libraries\Category as CategoryTools;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -27,24 +26,29 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function showParent($parent)
     {
-        $categories = Category::whereNull('category_id')->get();
-        $categories = CategoryTools::makeListSlugs($categories);
-
-        $category = Category::where('slug', $slug)->first();
+        $category = Category::where('slug', $parent)->first();
         if(!$category){
-            return view('category.404', compact('categories'));
+            return view('category.404');
         }
 
-        if($category->category_id){
-            $listings = Listing::where('category_id', $category->id)->get();
-        } else {
-            $ids = Category::where('category_id', $category->id)->get()->pluck('id')->toArray();
-            $listings = Listing::whereIn('category_id', $ids)->get();
+        $ids = Category::where('category_id', $category->id)->get()->pluck('id')->toArray();
+        $listings = Listing::whereIn('category_id', $ids)->get();
+
+        return view('category.show', compact('category', 'listings'));
+    }
+
+    public function showChild($parent, $child)
+    {
+        $category = Category::where('slug', $child)->first();
+        if(!$category){
+            return view('category.404');
         }
 
-        return view('category.show', compact('category', 'categories', 'listings'));
+        $listings = $category->listings;//Listing::where('category_id', $category->id)->get();
+
+        return view('category.show', compact('category', 'listings'));
     }
 
     /**

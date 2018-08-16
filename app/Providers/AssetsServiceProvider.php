@@ -53,6 +53,14 @@ class AssetsServiceProvider extends ServiceProvider
             base_path('node_modules') . '/bootstrap-select/dist' => public_path('js/lib/bootstrap-select'),
         ], 'public');
 
+        // FONT AWESOME
+        $this->publishes([
+            base_path('node_modules') . '/font-awesome/css' => public_path('css/lib/font-awesome/css'),
+        ], 'public');
+        $this->publishes([
+            base_path('node_modules') . '/font-awesome/fonts' => public_path('css/lib/font-awesome/fonts'),
+        ], 'public');
+
         // ICHECK-2
         $this->publishes([
             base_path('node_modules') . '/icheck-2' => public_path('js/lib/icheck-2'),
@@ -71,12 +79,15 @@ class AssetsServiceProvider extends ServiceProvider
 
         //CANVAS THEME
         $this->publishes([
-            base_path('resources') . '/theme' => public_path('theme'),
+            base_path('resources') . '/theme/css' => public_path('theme/css'),
+        ], 'public');
+        $this->publishes([
+            base_path('resources') . '/theme/js' => public_path('theme/js'),
         ], 'public');
 
         //IMAGES
         $this->publishes([
-            base_path('resources') . '/assets/img' => public_path('img'),
+            base_path('resources') . '/assets/images' => public_path('images'),
         ], 'public');
         
     }

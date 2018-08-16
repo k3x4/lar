@@ -1,9 +1,6 @@
 /* GENERAL */
 
-.nav-tree li a{
-    text-transform: none;
-}
-
+/* LAYOUT */
 
 .postcontent.bothsidebar{
     left: 26%; /* 22% sidebar width + 4% margin sidebar */
@@ -16,6 +13,29 @@
 .sidebar.rightsidebar{
     left: 0%;
 }
+
+
+/* LEFT MENU */
+
+.nav-tree li a {
+    text-transform: none;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+
+/* FLEXSLIDER */
+
+.flexslider .slider-wrap > div:first-child {
+    display: block;
+    -webkit-backface-visibility: visible;
+} 
+
+
+/* MEDIA */
+
+/** MEDIA LAYOUT **/
 
 @media (max-width: 991px){
     .postcontent.bothsidebar,

@@ -1,1 +1,1 @@
-<a href="{{ route('admin.categories.edit', [$id]) }}">{{ $title }}</a>
+<a href="{{ route('admin.categories.edit', [$id]) }}">{{ $title }} ({{ $listings_count }})</a>

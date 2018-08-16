@@ -196,10 +196,7 @@
     <div class="sidebar leftsidebar nobottommargin clearfix">
         <div class="sidebar-widgets-wrap">
 
-            <?php echo app('arrilot.widget')->run('CategoriesMenu', [
-                'title' => 'Categories',
-                'categories' => $categories,
-            ]); ?>
+            <?php echo app('arrilot.widget')->run('CategoriesMenu'); ?>
 
             <div class="widget clearfix">
 

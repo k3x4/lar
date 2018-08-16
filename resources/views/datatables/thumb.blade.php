@@ -4,9 +4,9 @@
         @if (file_exists(public_path('/uploads/' . $thumb)))
             <img src="/uploads/{{ $thumb }}" />
         @else
-            <img src="/img/img-deleted.jpg" />
+            <img src="/images/img-deleted.jpg" />
         @endif
     @else
-        <img src="/img/no-img.jpg" />
+        <img src="/images/no-img.jpg" />
     @endif
 </div>

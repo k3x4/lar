@@ -6,8 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $fillable = ['category_id', 'title', 'slug', 'description'];
-    protected $appends = ['level'];
+    protected $fillable = ['category_id', 'title', 'slug', 'icon', 'description'];
+    
+    protected $appends = [
+        'level',
+        'listings_count'
+    ];
     
     public function listings(){
         return $this->hasMany('App\Listing');
@@ -32,6 +36,15 @@ class Category extends Model
 
     public function getLevelAttribute(){
         return $this->getLevel(0);
+    }
+
+    public function getListingsCountAttribute(){
+        if($this->category_id){
+            return $this->listings()->count();
+        } else {
+            $ids = Category::where('category_id', $this->id)->get()->pluck('id')->toArray();
+            return Listing::whereIn('category_id', $ids)->count();
+        }
     }
 
 
