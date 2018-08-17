@@ -1,0 +1,1 @@
+<a href="{{ route('admin.featuregroups.edit', [$id]) }}">{{ $title }}</a>

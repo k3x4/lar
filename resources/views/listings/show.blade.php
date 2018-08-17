@@ -43,6 +43,9 @@
                 </div>
             @endif
 
+            <hr class="tall">
+            
+            <h4 class="heading-primary">{{ __('Περιγραφή') }}</h4>
 
             {!! htmlspecialchars_decode($listing->content) !!}
 

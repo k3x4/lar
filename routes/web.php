@@ -281,7 +281,7 @@ Route::group([
         'as' => 'admin.categories.index', 
         'uses' => 'CategoryController@index', 
         'middleware' => ['permission:category-read|category-create|category-edit|category-delete']
-        ]);
+    ]);
 
     Route::get('admin/categories/data', [
         'as' => 'admin.categories.data',
@@ -293,31 +293,119 @@ Route::group([
         'as' => 'admin.categories.create', 
         'uses' => 'CategoryController@create', 
         'middleware' => ['permission:category-create']
-        ]);
+    ]);
     
     Route::post('admin/categories/create', [
         'as' => 'admin.categories.store', 
         'uses' => 'CategoryController@store', 
         'middleware' => ['permission:category-create']
-        ]);
+    ]);
     
     Route::get('admin/categories/{id}/edit', [
         'as' => 'admin.categories.edit', 
         'uses' => 'CategoryController@edit', 
         'middleware' => ['permission:category-edit']
-        ]);
+    ]);
     
     Route::patch('admin/categories/{id}', [
         'as' => 'admin.categories.update', 
         'uses' => 'CategoryController@update', 
         'middleware' => ['permission:category-edit']
-        ]);
+    ]);
     
     Route::delete('admin/categories/destroy', [
         'as' => 'admin.categories.destroy', 
         'uses' => 'CategoryController@destroy', 
         'middleware' => ['permission:category-delete']
-        ]);
+    ]);
+
+
+    //FEATURES
+    Route::get('admin/features', [
+        'as' => 'admin.features.index',
+        'uses' => 'FeatureController@index',
+        'middleware' => ['permission:feature-read'],
+    ]);
+
+    Route::get('admin/features/data', [
+        'as' => 'admin.features.data',
+        'uses' => 'FeatureController@data',
+        'middleware' => ['permission:feature-read'],
+    ]);
+
+    Route::get('admin/features/create', [
+        'as' => 'admin.features.create',
+        'uses' => 'FeatureController@create',
+        'middleware' => ['permission:feature-create'],
+    ]);
+
+    Route::post('admin/features/create', [
+        'as' => 'admin.features.store',
+        'uses' => 'FeatureController@store',
+        'middleware' => ['permission:feature-create'],
+    ]);
+
+    Route::get('admin/features/{id}/edit', [
+        'as' => 'admin.features.edit',
+        'uses' => 'FeatureController@edit',
+        'middleware' => ['permission:feature-edit'],
+    ]);
+
+    Route::patch('admin/features/{id}', [
+        'as' => 'admin.features.update',
+        'uses' => 'FeatureController@update',
+        'middleware' => ['permission:feature-edit'],
+    ]);
+
+    Route::delete('admin/features/destroy', [
+        'as' => 'admin.features.destroy',
+        'uses' => 'FeatureController@destroy',
+        'middleware' => ['permission:feature-delete'],
+    ]);
+
+
+    //FEATURE GROUPS
+    Route::get('admin/featuregroups', [
+        'as' => 'admin.featuregroups.index', 
+        'uses' => 'FeatureGroupController@index', 
+        'middleware' => ['permission:featuregroup-read|featuregroup-create|featuregroup-edit|featuregroup-delete']
+    ]);
+
+    Route::get('admin/featuregroups/data', [
+        'as' => 'admin.featuregroups.data',
+        'uses' => 'FeatureGroupController@data',
+        'middleware' => ['permission:featuregroup-read'],
+    ]);    
+    
+    Route::get('admin/featuregroups/create', [
+        'as' => 'admin.featuregroups.create', 
+        'uses' => 'FeatureGroupController@create', 
+        'middleware' => ['permission:featuregroup-create']
+    ]);
+    
+    Route::post('admin/featuregroups/create', [
+        'as' => 'admin.featuregroups.store', 
+        'uses' => 'FeatureGroupController@store', 
+        'middleware' => ['permission:featuregroup-create']
+    ]);
+    
+    Route::get('admin/featuregroups/{id}/edit', [
+        'as' => 'admin.featuregroups.edit', 
+        'uses' => 'FeatureGroupController@edit', 
+        'middleware' => ['permission:featuregroup-edit']
+    ]);
+    
+    Route::patch('admin/featuregroups/{id}', [
+        'as' => 'admin.featuregroups.update', 
+        'uses' => 'FeatureGroupController@update', 
+        'middleware' => ['permission:featuregroup-edit']
+    ]);
+    
+    Route::delete('admin/featuregroups/destroy', [
+        'as' => 'admin.featuregroups.destroy', 
+        'uses' => 'FeatureGroupController@destroy', 
+        'middleware' => ['permission:featuregroup-delete']
+    ]);
 
 
 }

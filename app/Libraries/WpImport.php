@@ -554,7 +554,6 @@ class WpImport
         // //$this->mapListingFiles(); // REQUIRED?
         // $this->storeFiles();
         // $this->importListings();
-        $this->addCategoryIcons();
         return true;
     }
 

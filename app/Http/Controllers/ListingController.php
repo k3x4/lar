@@ -30,7 +30,7 @@ class ListingController extends Controller
      */
     public function show($slug)
     {
-        $listing = Listing::where('slug', $slug)->first();
+        $listing = Listing::where('status', 'publish')->where('slug', $slug)->first();
 
         $gallery = $listing->meta()->where('meta_key', 'gallery')->first();
         if($gallery){

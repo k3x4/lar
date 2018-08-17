@@ -41,6 +41,9 @@
                 </div>
             <?php endif; ?>
 
+            <hr class="tall">
+            
+            <h4 class="heading-primary"><?php echo e(__('Περιγραφή')); ?></h4>
 
             <?php echo htmlspecialchars_decode($listing->content); ?>
 

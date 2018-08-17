@@ -77,6 +77,29 @@
                     </li>
                 </ul>    
             </li>
+
+            <li <?php echo BS::activeClass(['admin.features.index', 'admin.featuregroups.index']);; ?>>
+                <a href="<?php echo e(route('admin.features.index')); ?>"><i class="fa fa-link"></i> <span>Features</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li <?php echo BS::activeClass(['admin.features.index']);; ?>><a href="<?php echo e(route('admin.features.index')); ?>">All Features</a></li>
+                    <li <?php echo BS::activeClass(['admin.features.create']);; ?>><a href="<?php echo e(route('admin.features.create')); ?>">Create Feature</a></li>
+                    <li <?php echo BS::activeClass(['admin.featuregroups.index']); ?>>
+                        <a href="<?php echo e(route('admin.featuregroups.index')); ?>"> <span>Feature groups</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li <?php echo BS::activeClass(['admin.featuregroups.index']); ?>><a href="<?php echo e(route('admin.featuregroups.index')); ?>">All Feature groups</a></li>
+                            <li <?php echo BS::activeClass(['admin.featuregroups.create']); ?>><a href="<?php echo e(route('admin.featuregroups.create')); ?>">Create Feature group</a></li>
+                        </ul>
+                    </li>
+                </ul>    
+            </li>
                 
             <li <?php echo BS::activeClass(['admin.users.index', 'admin.roles.index']);; ?>>
                 <a href="<?php echo e(route('admin.users.index')); ?>"><i class="fa fa-link"></i> <span>Users</span>

@@ -34,7 +34,7 @@ class CategoryController extends Controller
         }
 
         $ids = Category::where('category_id', $category->id)->get()->pluck('id')->toArray();
-        $listings = Listing::whereIn('category_id', $ids)->get();
+        $listings = Listing::where('status', 'publish')->whereIn('category_id', $ids)->get();
 
         return view('category.show', compact('category', 'listings'));
     }
@@ -46,7 +46,7 @@ class CategoryController extends Controller
             return view('category.404');
         }
 
-        $listings = $category->listings;//Listing::where('category_id', $category->id)->get();
+        $listings = $category->listings()->where('status', 'publish')->get();//Listing::where('category_id', $category->id)->get();
 
         return view('category.show', compact('category', 'listings'));
     }

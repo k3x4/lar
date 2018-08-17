@@ -13,6 +13,7 @@ class PermissionRoleTableSeeder extends Seeder
      */
     public function run()
     {
+        /*
         $admin = Role::where('name','=','admin')->get()->first();
         
         $userRead = Permission::where('name','=','user-read')->get()->first();
@@ -74,6 +75,36 @@ class PermissionRoleTableSeeder extends Seeder
         $admin->attachPermission($listingCreate);
         $admin->attachPermission($listingEdit);
         $admin->attachPermission($listingDelete);
+
+        */
+
+        $permission_items = [
+            'listing',
+            'category',
+            'feature',
+            'featuregroup',
+            'media',
+            'mediasize',
+            'user',
+            'role',
+        ];
+
+        $permission_types = [
+            'read',
+            'create',
+            'edit',
+            'delete',
+        ];
+
+        $admin = Role::where('name', 'admin')->get()->first();
+
+        foreach ($permission_items as $item) {
+            foreach($permission_types as $type){
+                $permName = $item . '-' . $type;
+                $perm = Permission::where('name', $permName)->get()->first();
+                $admin->attachPermission($perm);
+            }
+        }
         
     }
 }
