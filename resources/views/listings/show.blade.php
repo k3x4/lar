@@ -21,18 +21,28 @@
             <h2>{{ $listing->title }}</h2>
 
             @if (isset($gallery) && $gallery)
-                <div class="fslider flex-thumb-grid grid-10 bottommargin-sm" data-arrows="true" data-animation="slide" data-thumbs="true">
-                    <div class="flexslider">
-                        <div class="slider-wrap">
-                            @foreach ($gallery as $image)
-                                <div class="slide" data-thumb="/uploads/{{ $image->get('mini') }}">
-                                    <img src="/uploads/{{ $image->filename }}" />
-                                </div>
-                            @endforeach
-                        </div>
+                <div class="thumb-gallery">
+                    <div class="owl-carousel owl-theme manual thumb-gallery-detail show-nav-hover" id="thumbGalleryDetail">
+                        @foreach ($gallery as $image)
+                            <div>
+                                <span class="img-thumbnail d-block">
+                                    <span class="v-helper"></span><img src="/uploads/{{ $image->filename }}" class="img-fluid">
+                                </span>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="owl-carousel owl-theme manual thumb-gallery-thumbs mt" id="thumbGalleryThumbs">
+                        @foreach ($gallery as $image)
+                            <div>
+                                <span class="img-thumbnail d-block cur-pointer">
+                                    <img src="/uploads/{{ $image->get('mini') }}" class="img-fluid">
+                                </span>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             @endif
+
 
             {!! htmlspecialchars_decode($listing->content) !!}
 

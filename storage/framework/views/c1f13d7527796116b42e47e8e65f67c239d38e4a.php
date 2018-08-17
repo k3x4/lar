@@ -19,18 +19,28 @@
             <h2><?php echo e($listing->title); ?></h2>
 
             <?php if(isset($gallery) && $gallery): ?>
-                <div class="fslider flex-thumb-grid grid-10 bottommargin-sm" data-arrows="true" data-animation="slide" data-thumbs="true">
-                    <div class="flexslider">
-                        <div class="slider-wrap">
-                            <?php $__currentLoopData = $gallery; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <div class="slide" data-thumb="/uploads/<?php echo e($image->get('mini')); ?>">
-                                    <img src="/uploads/<?php echo e($image->filename); ?>" />
-                                </div>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        </div>
+                <div class="thumb-gallery">
+                    <div class="owl-carousel owl-theme manual thumb-gallery-detail show-nav-hover" id="thumbGalleryDetail">
+                        <?php $__currentLoopData = $gallery; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div>
+                                <span class="img-thumbnail d-block">
+                                    <span class="v-helper"></span><img src="/uploads/<?php echo e($image->filename); ?>" class="img-fluid">
+                                </span>
+                            </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </div>
+                    <div class="owl-carousel owl-theme manual thumb-gallery-thumbs mt" id="thumbGalleryThumbs">
+                        <?php $__currentLoopData = $gallery; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div>
+                                <span class="img-thumbnail d-block cur-pointer">
+                                    <img src="/uploads/<?php echo e($image->get('mini')); ?>" class="img-fluid">
+                                </span>
+                            </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                 </div>
             <?php endif; ?>
+
 
             <?php echo htmlspecialchars_decode($listing->content); ?>
 

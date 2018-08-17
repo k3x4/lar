@@ -27,11 +27,30 @@
   display: none;
 }
 
-/* FLEXSLIDER */
+/* OWL CAROUSEL */
 
-.flexslider .slider-wrap > div:first-child {
-  display: block;
-  -webkit-backface-visibility: visible;
+.owl-carousel .owl-item .img-thumbnail {
+  padding: 0;
+  border: none;
+}
+
+#thumbGalleryDetail .owl-item .img-thumbnail {
+  text-align: center;
+  height: 500px;
+  background-color: #000;
+}
+
+#thumbGalleryDetail .owl-item .img-thumbnail .v-helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+#thumbGalleryDetail .owl-item .img-thumbnail img {
+  display: inline-block;
+  vertical-align: middle;
+  width: auto;
+  max-height: 500px;
 }
 
 /* MEDIA */
