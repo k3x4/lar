@@ -33,7 +33,7 @@
             <!--<li class="header">HEADER</li>-->
             <!-- Optionally, you can add icons to the links -->
 
-            <li {!! BS::activeClass(['admin.media.index']); !!}>
+            <li {!! BS::activeClass(['admin.media.index'], true); !!}>
                 <a href="{{ route('admin.media.index') }}"><i class="fa fa-link"></i> <span>Media</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
@@ -41,7 +41,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li {!! BS::activeClass(['admin.media.index']) !!}><a href="{{ route('admin.media.index') }}">All media</a></li>
-                    <li {!! BS::activeClass(['admin.mediasizes.index']) !!}>
+                    <li {!! BS::activeClass(['admin.mediasizes.index'], true) !!}>
                         <a href="{{ route('admin.mediasizes.index') }}"> <span>Media Sizes</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
@@ -55,7 +55,7 @@
                 </ul>
             </li>
 
-            <li {!! BS::activeClass(['admin.listings.index', 'admin.categories.index']); !!}>
+            <li {!! BS::activeClass(['admin.listings.index', 'admin.categories.index'], true); !!}>
                 <a href="{{ route('admin.listings.index') }}"><i class="fa fa-link"></i> <span>Listings</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
@@ -64,7 +64,7 @@
                 <ul class="treeview-menu">
                     <li {!! BS::activeClass(['admin.listings.index']); !!}><a href="{{ route('admin.listings.index') }}">All listings</a></li>
                     <li {!! BS::activeClass(['admin.listings.create']); !!}><a href="{{ route('admin.listings.create') }}">Create listing</a></li>
-                    <li {!! BS::activeClass(['admin.categories.index']) !!}>
+                    <li {!! BS::activeClass(['admin.categories.index'], true) !!}>
                         <a href="{{ route('admin.categories.index') }}"> <span>Listing categories</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
@@ -78,7 +78,7 @@
                 </ul>    
             </li>
 
-            <li {!! BS::activeClass(['admin.features.index', 'admin.featuregroups.index']); !!}>
+            <li {!! BS::activeClass(['admin.features.index', 'admin.featuregroups.index'], true); !!}>
                 <a href="{{ route('admin.features.index') }}"><i class="fa fa-link"></i> <span>Features</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
@@ -87,7 +87,7 @@
                 <ul class="treeview-menu">
                     <li {!! BS::activeClass(['admin.features.index']); !!}><a href="{{ route('admin.features.index') }}">All Features</a></li>
                     <li {!! BS::activeClass(['admin.features.create']); !!}><a href="{{ route('admin.features.create') }}">Create Feature</a></li>
-                    <li {!! BS::activeClass(['admin.featuregroups.index']) !!}>
+                    <li {!! BS::activeClass(['admin.featuregroups.index'], true) !!}>
                         <a href="{{ route('admin.featuregroups.index') }}"> <span>Feature groups</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
@@ -101,7 +101,7 @@
                 </ul>    
             </li>
                 
-            <li {!! BS::activeClass(['admin.users.index', 'admin.roles.index']); !!}>
+            <li {!! BS::activeClass(['admin.users.index', 'admin.roles.index'], true); !!}>
                 <a href="{{ route('admin.users.index') }}"><i class="fa fa-link"></i> <span>Users</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
@@ -110,7 +110,7 @@
                 <ul class="treeview-menu">
                     <li {!! BS::activeClass(['admin.users.index']); !!}><a href="{{ route('admin.users.index') }}">All users</a></li>
                     <li {!! BS::activeClass(['admin.users.create']); !!}><a href="{{ route('admin.users.create') }}">Create user</a></li>
-                    <li {!! BS::activeClass(['admin.roles.index']); !!}>
+                    <li {!! BS::activeClass(['admin.roles.index'], true); !!}>
                         <a href="{{ route('admin.roles.index') }}"> <span>Roles</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>

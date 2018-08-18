@@ -36,8 +36,8 @@
                         <thead>
                             <th style="width:5px;"><input type="checkbox" class="selectAll"/></th>
                             <th style="width: 1%;">ID</th>
-                            <th style="width: 30%;">Title</th>
-                            <th style="width: 60%;">Description</th>
+                            <th style="width: 90%;">Title</th>
+                            <!-- <th style="width: 60%;">Description</th> -->
                             <th style="width: 10%;">Created</th>
                         </thead>
                     </tr>
@@ -64,9 +64,7 @@
             ['data' => 'action', 'name' => 'action'],
             ['data' => 'id', 'name' => 'id'],
             ['data' => 'title', 'name' => 'title'],
-            ['data' => 'description', 'name' => 'description'],
             ['data' => 'created_at', 'name' => 'created_at']
-        ]),
-        'order' => false
+        ])
     ])
 @endsection

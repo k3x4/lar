@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Category;
 use App\FeatureGroup;
 use Yajra\Datatables\Datatables;
 
@@ -23,7 +24,6 @@ class FeatureGroupController extends Controller
         return Datatables::of(FeatureGroup::query())
             ->addColumn('action', 'datatables.action')
             ->editColumn('title', 'datatables.featuregroups.edit')
-            ->editColumn('description', 'datatables.description')
             ->editColumn('created_at', 'datatables.created_at')
             ->make(true);
     }
@@ -36,7 +36,15 @@ class FeatureGroupController extends Controller
     public function create()
     {
         $featureGroups = FeatureGroup::all();
-        return view('admin.featuregroups.create', compact('featureGroups'));
+
+        $parentCategories = Category::whereNull('category_id')->get();
+        $categoriesTable = [];
+        
+        foreach($parentCategories as $parentCategory){
+            $categoriesTable[$parentCategory->title] = $parentCategory->childs()->get();
+        }
+
+        return view('admin.featuregroups.create', compact('featureGroups', 'categoriesTable'));
     }
 
     /**
@@ -48,10 +56,14 @@ class FeatureGroupController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required'
+            'title' => 'required',
         ]);
         
-        FeatureGroup::create($request->all());
+        $featureGroup = new FeatureGroup();
+        $featureGroup->title = $request->input('title');
+        $featureGroup->save();
+
+        $featureGroup->categories()->sync($request->input('categories'));
 
         return redirect()->route('admin.featuregroups.index')
                         ->with('success','Feature group created successfully');
@@ -78,7 +90,20 @@ class FeatureGroupController extends Controller
     public function edit($id)
     {
         $featureGroup = FeatureGroup::find($id);
-        return view('admin.featuregroups.edit', compact('featureGroup'));
+
+        $parentCategories = Category::whereNull('category_id')->get();
+        $categoriesTable = [];
+        
+        foreach($parentCategories as $parentCategory){
+            $categoriesTable[$parentCategory->title] = $parentCategory->childs()->get();
+        }
+
+        $attachCategories = $featureGroup->categories()->get()->pluck('id')->toArray();
+
+        // $attachCategories = DB::table("category_feature_group")->where("feature_group_id", $id)
+        //     ->pluck('category_id')->toArray();
+
+        return view('admin.featuregroups.edit', compact('featureGroup', 'categoriesTable', 'attachCategories'));
     }
 
     /**
@@ -96,6 +121,8 @@ class FeatureGroupController extends Controller
 
         $featureGroup = FeatureGroup::find($id);   
         $featureGroup->update($request->all());
+
+        $featureGroup->categories()->sync($request->input('categories'));
 
         return redirect()->route('admin.featuregroups.index')
                         ->with('success','Feature group updated successfully');

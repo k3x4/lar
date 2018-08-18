@@ -17,6 +17,10 @@ class Category extends Model
         return $this->hasMany('App\Listing');
     }
 
+    public function featureGroups(){
+        return $this->belongsToMany('App\FeatureGroup');
+    }
+
     public function parent(){
         return $this->belongsTo('App\Category', 'category_id');
     }

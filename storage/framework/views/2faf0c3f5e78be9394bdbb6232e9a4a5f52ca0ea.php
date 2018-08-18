@@ -44,8 +44,34 @@
 
                 </div>
             </div>
-            
         </div>
+
+        <?php if(count($featureGroups)): ?>
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title"><?php echo e(__('Χαρακτηριστικά')); ?></h3>
+            </div>
+            
+            <div class="box-body">
+                <?php $__currentLoopData = $featureGroups; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $featureGroup): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__currentLoopData = $featureGroup->features; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $feature): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <span class="feature-cat-item">
+                        <?php echo e(Form::checkbox(
+                                'features[]',
+                                $feature->id,
+                                false //in_array($category->id, $attachCategories) ? true : false
+                            )); ?>
+
+                        <?php echo e($feature->title); ?>
+
+                        </span>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <hr>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </div>
+        </div>
+        <?php endif; ?>
+
     </div>
 
     <div class="col-lg-4">

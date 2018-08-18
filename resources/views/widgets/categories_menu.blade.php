@@ -12,13 +12,13 @@
             @foreach ($categories as $parentCategory => $children)
             @php list($pCategoryTitle, $pCategorySlug) = explode('|', $parentCategory) @endphp
             <li class="nav-item">
-                <a {!! BS::activeClass(['category/' . $pCategorySlug], 'nav-link') !!} href="{{ route('category.showParent', [$pCategorySlug]) }}">
+                <a {!! BS::activeClass(['category/' . $pCategorySlug], true, 'nav-link') !!} href="{{ route('category.showParent', [$pCategorySlug]) }}">
                     {!! $pCategoryTitle !!}
                 </a>
                 <ul {!! BS::showBlock(['category/' . $pCategorySlug]) !!}>
                     @foreach ($children as $slug => $categoryTitle)
                         <li class="nav-item">
-                            <a {!! BS::activeClass(['category/' . $slug], 'nav-link') !!} href="{{ url('/category/' . $slug) }}">{{ $categoryTitle }}</a>
+                            <a {!! BS::activeClass(['category/' . $slug], false, 'nav-link') !!} href="{{ url('/category/' . $slug) }}">{{ $categoryTitle }}</a>
                         </li>
                     @endforeach
                 </ul>

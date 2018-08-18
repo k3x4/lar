@@ -226,6 +226,7 @@ return [
 
         'BS' => App\Libraries\Bootstrap::class,
         'PERM' => App\Libraries\Permissions::class,
+        'CAT' => App\Libraries\Category::class,
 
         'Widget'       => Arrilot\Widgets\Facade::class,
         'AsyncWidget'  => Arrilot\Widgets\AsyncFacade::class,

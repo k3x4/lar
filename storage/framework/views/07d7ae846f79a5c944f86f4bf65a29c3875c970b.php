@@ -44,6 +44,21 @@
                 </div>
             </div>
         </div>
+        <!-- /.box -->
+    </div>
+
+    <div class="col-lg-4">
+
+        <?php echo app('arrilot.widget')->run('Status', [
+            'title' => 'Status'
+        ]); ?>
+                
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title">Permissions</h3>
@@ -52,11 +67,11 @@
             <div class="box-body no-padding">
                 <?php $perms = PERM::getPerms() ?>
                 <?php $permsLines = PERM::convertLines($perms) ?>
-                <table class="table table-striped permTable">
+                <table class="table table-striped checkTable">
                     <tr>
                         <th></th>
                         <?php $__currentLoopData = $perms; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <th><input id="<?php echo e('perm-' . strtolower($key)); ?>" type="checkbox" class="selectAll"/> <?php echo e($key); ?></th>
+                            <th><input id="<?php echo e('parent-' . strtolower($key)); ?>" type="checkbox" class="selectAll"/> <?php echo e($key); ?></th>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tr>
                     <?php $__currentLoopData = $permsLines; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $permKey => $permLine): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -70,7 +85,7 @@
                                             false,
                                             [
                                                 'class' => 'name select',
-                                                'data-perm' => current(explode('-', $perm->name))
+                                                'data-parent' => current(explode('-', $perm->name))
                                             ]
                                         )); ?>
 
@@ -84,18 +99,9 @@
             </div>
             <!-- /.box-body -->
         </div>
-        <!-- /.box -->
     </div>
-
-    <div class="col-lg-4">
-
-        <?php echo app('arrilot.widget')->run('Status', [
-            'title' => 'Status'
-        ]); ?>
-                
-    </div>
-
 </div>
+
 <?php echo Form::close(); ?>
 
 

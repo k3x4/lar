@@ -20,7 +20,7 @@ class Bootstrap
         }
     }
 
-    private static function checkActiveRoute($routePath){//, $parent){
+    private static function checkActiveRoute($routePath, $parent){
         if(Route::has($routePath)){
             $routePath = \URL::route($routePath, [], false);
         }
@@ -28,7 +28,11 @@ class Bootstrap
         $routePath = ltrim($routePath, '/');
         $routePath = preg_replace('#\.index$#', '', $routePath);
 
-        $requestCheck = Request::is($routePath) || Request::is($routePath . '*');
+        $requestCheck = Request::is($routePath);
+        if($parent){
+            $requestCheck = Request::is($routePath) || Request::is($routePath . '*');
+        }
+
         if(self::$listingCategoryRoute){
             if(strpos(self::$listingCategoryRoute, $routePath) !== FALSE){
                 $requestCheck = true;
@@ -38,12 +42,12 @@ class Bootstrap
         return $requestCheck;
     }
 
-    public static function activeClass($routeNames, $extraClasses = '')//$parent = false, $extraClasses = '')
+    public static function activeClass($routeNames, $parent = false, $extraClasses = '')
     {
         $classes = $extraClasses;
 
         foreach ($routeNames as $routePath) {
-            $requestCheck = self::checkActiveRoute($routePath);//, $parent);
+            $requestCheck = self::checkActiveRoute($routePath, $parent);//, $parent);
 
             if ($requestCheck){//} || Request::is($routePath . '*')) {
                 $classes .= ' ' . 'active';

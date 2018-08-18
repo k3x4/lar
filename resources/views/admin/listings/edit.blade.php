@@ -42,8 +42,33 @@
                     {!! Form::textarea('content', old('content'), ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']) !!}
                 </div>
             </div>
-            
         </div>
+
+        @if(count($featureGroups))
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{ __('Χαρακτηριστικά') }}</h3>
+            </div>
+            
+            <div class="box-body">
+                @foreach($featureGroups as $featureGroup)
+                    @foreach($featureGroup->features as $feature)
+                        <span class="feature-cat-item">
+                        {{ Form::checkbox(
+                                'features[]',
+                                $feature->id,
+                                false //in_array($category->id, $attachCategories) ? true : false
+                            )
+                        }}
+                        {{ $feature->title }}
+                        </span>
+                    @endforeach
+                    <hr>
+                @endforeach
+            </div>
+        </div>
+        @endif
+
     </div>
 
     <div class="col-lg-4">

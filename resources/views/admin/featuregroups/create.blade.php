@@ -32,10 +32,6 @@
                     <strong>Title:</strong>
                     {!! Form::text('title', null, ['placeholder' => 'Title','class' => 'form-control']) !!}
                 </div>
-                <div class="form-group">
-                    <strong>Description:</strong>
-                    {!! Form::textarea('description', null, ['placeholder' => 'Description','class' => 'form-control tinymce-textarea','style'=>'height:100px']) !!}
-                </div>
             </div>
         </div>
     </div>
@@ -50,6 +46,36 @@
     </div>
 
 </div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Use in categories</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                @foreach($categoriesTable as $parentCategory => $childCategories)
+                    <strong class="feature-cat-title">{{ $parentCategory }}:</strong>
+                    @foreach($childCategories as $category)
+                        <span class="feature-cat-item">
+                        {{ Form::checkbox(
+                                'categories[]',
+                                $category->id,
+                                false
+                            )
+                        }}
+                        {{ $category->title }}
+                        </span>
+                    @endforeach
+                    <hr>
+                @endforeach
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+</div>
+
 {!! Form::close() !!}
 
 @endsection

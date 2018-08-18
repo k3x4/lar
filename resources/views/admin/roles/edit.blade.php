@@ -38,6 +38,20 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="col-lg-4">
+
+        @widget('Status', [
+            'title' => 'Status'
+        ])
+                
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-lg-12 margin-tb">
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title">Permissions</h3>
@@ -46,11 +60,11 @@
             <div class="box-body no-padding">
                 @php $perms = PERM::getPerms() @endphp
                 @php $permsLines = PERM::convertLines($perms) @endphp
-                <table class="table table-striped permTable">
+                <table class="table table-striped checkTable">
                     <tr>
                         <th></th>
                         @foreach($perms as $key => $value)
-                            <th><input id="{{ 'perm-' . strtolower($key) }}" type="checkbox" class="selectAll"/> {{ $key }}</th>
+                            <th><input id="{{ 'parent-' . strtolower($key) }}" type="checkbox" class="selectAll"/> {{ $key }}</th>
                         @endforeach
                     </tr>
                     @foreach($permsLines as $permKey => $permLine)
@@ -64,7 +78,7 @@
                                             in_array($perm->id, $rolePermissions) ? true : false,
                                             [
                                                 'class' => 'name select',
-                                                'data-perm' => current(explode('-', $perm->name))
+                                                'data-parent' => current(explode('-', $perm->name))
                                             ]
                                         )
                                     }}
@@ -77,17 +91,7 @@
             </div>
             <!-- /.box-body -->
         </div>
-        <!-- /.box -->
     </div>
-
-    <div class="col-lg-4">
-
-        @widget('Status', [
-            'title' => 'Status'
-        ])
-                
-    </div>
-
 </div>
 {!! Form::close() !!}
 

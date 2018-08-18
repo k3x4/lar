@@ -32,6 +32,10 @@ class ListingController extends Controller
     {
         $listing = Listing::where('status', 'publish')->where('slug', $slug)->first();
 
+        if(!$listing){
+            return view('listings.404');
+        }
+
         $gallery = $listing->meta()->where('meta_key', 'gallery')->first();
         if($gallery){
             $galleryIds = unserialize($gallery->meta_value);
@@ -44,12 +48,7 @@ class ListingController extends Controller
             $gallery->prepend($listing->image);
         }
 
-        if($listing){
-            return view('listings.show', compact('listing', 'gallery'));
-        } else {
-            return view('listings.404', compact('listing'));
-        }
-        
+        return view('listings.show', compact('listing', 'gallery'));
     }
 
     /**

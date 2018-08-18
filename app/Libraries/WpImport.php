@@ -8,6 +8,8 @@ use App\Role;
 use App\Media;
 use App\Listing;
 use App\Category;
+use App\Feature;
+use App\FeatureGroup;
 use App\Libraries\Tools;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Schema;
@@ -199,6 +201,62 @@ class WpImport
             Category::create($category);
         }
         echo PHP_EOL;
+    }
+
+    public function importFeatures(){
+        // $features = $this->getItems('wp:term', [
+        //     'wp:term_taxonomy' => 'pointfinderfeatures',
+        // ]);
+
+        // foreach($features as $feature){
+        //     file_put_contents('fe.arr', $feature['wp:term_name'] . PHP_EOL, FILE_APPEND);
+        // }
+        // exit();
+
+        $featureMapGroup = [
+            'ABS'                                   => 2,
+            'Air Condition'                         => 2,
+            'Air Condition'                         => 1,
+            'Bluetooth'                             => 2,
+            'CD Player'                             => 2,
+            'DVD Player'                            => 2,
+            'ESP'                                   => 2,
+            'Immobilizer'                           => 2,
+            'Ανεμιστήρας οροφής'                    => 1,
+            'Αποθήκη'                               => 1,
+            'Αυτόματος κλιματισμός'                 => 2,
+            'Βεράντα'                               => 1,
+            'Βιβλίο service'                        => 2,
+            'Διπλά τζάμια'                          => 1,
+            'Ενεργή Σύνδεση Ηλεκτρικού Ρεύματος'    => 1,
+            'Ζάντες αλουμινίου'                     => 2,
+            'Ηλεκτρικοί καθρέπτες'                  => 2,
+            'Θέρμανση'                              => 1,
+            'Κεντρικό κλείδωμα'                     => 2,
+            'Μπάρμπεκιου'                           => 1,
+            'Πάρκινγκ'                              => 1,
+            'Πισίνα'                                => 1,
+            'Πλοηγός'                               => 2,
+            'Πόρτα ασφαλείας'                       => 1,
+            'Προβολείς ομίχλης'                     => 2,
+            'Σοφίτα'                                => 1,
+            'Τζάκι'                                 => 1,
+            'Υδραυλικό τιμόνι'                      => 2,
+            'Υποβοήθηση φρένων'                     => 2,
+        ];
+
+        $count = count($featureMapGroup);
+        $index = 1;
+
+        FeatureGroup::create(['title' => 'Σπίτι']);
+        FeatureGroup::create(['title' => 'Αυτοκίνητο']);
+        
+        foreach($featureMapGroup as $featureTitle => $groupId){
+            Tools::echoing('Import ' . $index++ . '/' . $count . ' Features');
+            Feature::create(['title' => $featureTitle, 'feature_group_id' => $groupId]);
+        }
+        echo PHP_EOL;
+
     }
 
     public function downloadFiles(){
@@ -550,6 +608,7 @@ class WpImport
     public function import(){
         // $this->importUsers();
         // $this->importCategories();
+        $this->importFeatures();
         // $this->downloadFiles();
         // //$this->mapListingFiles(); // REQUIRED?
         // $this->storeFiles();

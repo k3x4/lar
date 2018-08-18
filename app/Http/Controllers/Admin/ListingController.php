@@ -175,7 +175,10 @@ class ListingController extends Controller
             $gallery = Media::getUnsorted($galleryIds);
         }
 
-        return view('admin.listings.edit', compact('listing', 'categories', 'featuredImage', 'gallery'));
+        $category = Category::find($listing->category_id);
+        $featureGroups = $category->featureGroups()->get();
+
+        return view('admin.listings.edit', compact('listing', 'categories', 'featuredImage', 'gallery', 'featureGroups'));
     }
 
     /**
