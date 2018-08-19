@@ -30,10 +30,6 @@ class FeatureController extends Controller
             $query = $query->where('feature_group_id', $request->feature_group);
         }
 
-        if($request->filled('status')){
-            $query = $query->where('status', $request->status);
-        }
-
         return Datatables::of($query)
             ->addColumn('action', 'datatables.action')
             ->editColumn('title', 'datatables.feature.edit')

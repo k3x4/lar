@@ -11,8 +11,8 @@
 <div class="row">
     <div class="col-lg-12 margin-bottom">
         <div class="pull-right">
-            @permission('feature-create')
-            <a class="btn btn-success" href="{{ route('admin.features.create') }}"> New Feature</a>
+            @permission('fieldgroup-create')
+            <a class="btn btn-success" href="{{ route('admin.fieldgroups.create') }}"> New Field Group</a>
             @endpermission
         </div>
     </div>
@@ -27,31 +27,22 @@
     <div class="col-lg-12">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Features list</h3>
+                <h3 class="box-title">Field groups list</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <div class="form-group filter-options">
-                    <b>Feature group:</b>
-                    {!! Form::select('feature_group', [NULL => ''] + $featureGroups, null, [
-                        'class' => 'form-control select2 dt-filter',
-                        'style' => 'width: 200px;',
-                        'data-key' => 'feature_group'
-                    ]) !!}
-                </div>
                 <table class="table dtable table-bordered table-striped">
-                    <thead>
-                        <tr>
+                    <tr>
+                        <thead>
                             <th style="width:5px;"><input type="checkbox" class="selectAll"/></th>
                             <th style="width: 1%;">ID</th>
-                            <th style="width: 45%;">Title</th>
-                            <th style="width: 45%;">Group</th>
+                            <th style="width: 90%;">Title</th>
                             <th style="width: 10%;">Created</th>
-                        </tr>
-                    </thead>
+                        </thead>
+                    </tr>
                 </table>
-                @permission('feature-delete')
-                    {!! Form::open(['method' => 'DELETE', 'route' => ['admin.features.destroy'], 'class' => 'deleteForm']) !!}
+                @permission('fieldgroup-delete')
+                    {!! Form::open(['method' => 'DELETE', 'route' => ['admin.fieldgroups.destroy'], 'class' => 'deleteForm']) !!}
                     {!! Form::hidden('ids') !!}
                     {!! Form::submit('Delete', ['class' => 'btn btn-danger disabled', 'data-confirm' => 'Are you sure you want to delete?']) !!}
                     {!! Form::close() !!}
@@ -67,12 +58,11 @@
 @section('footer_scripts')
 @parent
     @include('admin.datatables_script', [
-        'url' => route('admin.features.data'),
+        'url' => route('admin.fieldgroups.data'),
         'columns' => json_encode([
             ['data' => 'action', 'name' => 'action'],
             ['data' => 'id', 'name' => 'id'],
             ['data' => 'title', 'name' => 'title'],
-            ['data' => 'feature_group', 'name' => 'feature_group'],
             ['data' => 'created_at', 'name' => 'created_at']
         ])
     ])

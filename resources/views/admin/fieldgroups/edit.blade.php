@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-lg-12 margin-bottom">
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('admin.featuregroups.index') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('admin.fieldgroups.index') }}"> Back</a>
         </div>
     </div>
 </div>
@@ -19,13 +19,13 @@
 </div>
 @endif
 
-{!! Form::model($featureGroup, ['method' => 'PATCH', 'route' => ['admin.featuregroups.update', $featureGroup->id]]) !!}
+{!! Form::model($fieldGroup, ['method' => 'PATCH', 'route' => ['admin.fieldgroups.update', $fieldGroup->id]]) !!}
 <div class="row">
 
     <div class="col-lg-8">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Edit Feature Group <strong>{{ $featureGroup->title }}</strong></h3>
+                <h3 class="box-title">Edit Field Group <strong>{{ $fieldGroup->title }}</strong></h3>
             </div>
             <div class="box-body">
                 <div class="form-group">

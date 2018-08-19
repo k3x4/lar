@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-lg-12 margin-bottom">
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('admin.featuregroups.index') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('admin.fieldgroups.index') }}"> Back</a>
         </div>
     </div>
 </div>
@@ -19,13 +19,13 @@
 </div>
 @endif
 
-{!! Form::model($featureGroup, ['method' => 'PATCH', 'route' => ['admin.featuregroups.update', $featureGroup->id]]) !!}
+{!! Form::open(['route' => 'admin.fieldgroups.store', 'method'=>'POST']) !!}
 <div class="row">
 
     <div class="col-lg-8">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Edit Feature Group <strong>{{ $featureGroup->title }}</strong></h3>
+                <h3 class="box-title">Create New Field Group</h3>
             </div>
             <div class="box-body">
                 <div class="form-group">
@@ -37,11 +37,11 @@
     </div>
 
     <div class="col-lg-4">
-
+        
         @widget('Status', [
             'title' => 'Status',
         ])
-
+        
     </div>
 
 </div>
@@ -61,7 +61,7 @@
                         {{ Form::checkbox(
                                 'categories[]',
                                 $category->id,
-                                in_array($category->id, $attachCategories) ? true : false
+                                false
                             )
                         }}
                         {{ $category->title }}

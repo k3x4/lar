@@ -22,6 +22,10 @@ class Listing extends Model
         return $this->hasMany('App\ListingMeta');
     }
 
+    public function features(){
+        return $this->belongsToMany('App\Feature');
+    }
+
     public function media(){
         return $this->belongsToMany('App\Media');
     }

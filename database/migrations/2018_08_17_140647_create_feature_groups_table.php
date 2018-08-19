@@ -16,7 +16,6 @@ class CreateFeatureGroupsTable extends Migration
         Schema::create('feature_groups', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->string('status')->default('draft');
             $table->timestamps();
         });
     }

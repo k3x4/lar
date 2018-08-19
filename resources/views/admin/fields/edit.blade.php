@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-lg-12 margin-bottom">
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('admin.features.index') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('admin.fields.index') }}"> Back</a>
         </div>
     </div>
 </div>
@@ -19,13 +19,13 @@
 </div>
 @endif
 
-{!! Form::model($feature, ['method' => 'PATCH','route' => ['admin.features.update', $feature->id]]) !!}
+{!! Form::model($field, ['method' => 'PATCH','route' => ['admin.fields.update', $field->id]]) !!}
 <div class="row">
 
     <div class="col-lg-8">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Edit Feature <strong>{{ $feature->title }}</strong></h3>
+                <h3 class="box-title">Edit Field <strong>{{ $field->title }}</strong></h3>
             </div>
             
             <div class="box-body">
@@ -44,9 +44,9 @@
             'title' => 'Status',
         ])
 
-        @widget('FeatureGroup', [
-            'title' => 'Feature group',
-            'featureGroups' => $featureGroups
+        @widget('FieldGroup', [
+            'title' => 'Field group',
+            'fieldGroups' => $fieldGroups
         ])
                
     </div>

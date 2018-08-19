@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFeaturesTable extends Migration
+class CreateFieldGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateFeaturesTable extends Migration
      */
     public function up()
     {
-        Schema::create('features', function (Blueprint $table) {
+        Schema::create('field_groups', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('feature_group_id')->unsigned();
             $table->string('title');
             $table->timestamps();
         });
@@ -28,6 +27,6 @@ class CreateFeaturesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('features');
+        Schema::dropIfExists('field_groups');
     }
 }

@@ -57,7 +57,7 @@
                         {{ Form::checkbox(
                                 'features[]',
                                 $feature->id,
-                                false //in_array($category->id, $attachCategories) ? true : false
+                                in_array($feature->id, $features) ? true : false
                             )
                         }}
                         {{ $feature->title }}

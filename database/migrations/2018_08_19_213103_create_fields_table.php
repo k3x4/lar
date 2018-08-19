@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFeaturesTable extends Migration
+class CreateFieldsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateFeaturesTable extends Migration
      */
     public function up()
     {
-        Schema::create('features', function (Blueprint $table) {
+        Schema::create('fields', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('feature_group_id')->unsigned();
+            $table->integer('field_group_id')->unsigned();
             $table->string('title');
+            $table->string('type');
+            $table->text('values')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateFeaturesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('features');
+        Schema::dropIfExists('fields');
     }
 }

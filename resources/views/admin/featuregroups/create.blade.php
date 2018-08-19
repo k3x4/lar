@@ -40,7 +40,6 @@
         
         @widget('Status', [
             'title' => 'Status',
-            'draft' => true
         ])
         
     </div>

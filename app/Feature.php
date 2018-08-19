@@ -16,6 +16,10 @@ class Feature extends Model
         return $this->belongsTo('App\FeatureGroup');
     }
 
+    public function listings(){
+        return $this->belongsToMany('App\Listing');
+    }
+
     public function getFeatureGroupAttribute(){
         $feature_group = $this->featureGroup()->first();
         return $feature_group;
