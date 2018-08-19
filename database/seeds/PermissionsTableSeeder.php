@@ -154,6 +154,8 @@ class PermissionsTableSeeder extends Seeder {
             'category',
             'feature',
             'featuregroup',
+            'field',
+            'fieldgroup',
             'media',
             'mediasize',
             'user',

@@ -408,5 +408,93 @@ Route::group([
     ]);
 
 
+    //FIELDS
+    Route::get('admin/fields', [
+        'as' => 'admin.fields.index',
+        'uses' => 'FieldController@index',
+        'middleware' => ['permission:field-read'],
+    ]);
+
+    Route::get('admin/fields/data', [
+        'as' => 'admin.fields.data',
+        'uses' => 'FieldController@data',
+        'middleware' => ['permission:field-read'],
+    ]);
+
+    Route::get('admin/fields/create', [
+        'as' => 'admin.fields.create',
+        'uses' => 'FieldController@create',
+        'middleware' => ['permission:field-create'],
+    ]);
+
+    Route::post('admin/fields/create', [
+        'as' => 'admin.fields.store',
+        'uses' => 'FieldController@store',
+        'middleware' => ['permission:field-create'],
+    ]);
+
+    Route::get('admin/fields/{id}/edit', [
+        'as' => 'admin.fields.edit',
+        'uses' => 'FieldController@edit',
+        'middleware' => ['permission:field-edit'],
+    ]);
+
+    Route::patch('admin/fields/{id}', [
+        'as' => 'admin.fields.update',
+        'uses' => 'FieldController@update',
+        'middleware' => ['permission:field-edit'],
+    ]);
+
+    Route::delete('admin/fields/destroy', [
+        'as' => 'admin.fields.destroy',
+        'uses' => 'FieldController@destroy',
+        'middleware' => ['permission:field-delete'],
+    ]);
+
+
+    //FEILD GROUPS
+    Route::get('admin/fieldgroups', [
+        'as' => 'admin.fieldgroups.index', 
+        'uses' => 'FieldGroupController@index', 
+        'middleware' => ['permission:fieldgroup-read|fieldgroup-create|fieldgroup-edit|fieldgroup-delete']
+    ]);
+
+    Route::get('admin/fieldgroups/data', [
+        'as' => 'admin.fieldgroups.data',
+        'uses' => 'FieldGroupController@data',
+        'middleware' => ['permission:fieldgroup-read'],
+    ]);    
+    
+    Route::get('admin/fieldgroups/create', [
+        'as' => 'admin.fieldgroups.create', 
+        'uses' => 'FieldGroupController@create', 
+        'middleware' => ['permission:fieldgroup-create']
+    ]);
+    
+    Route::post('admin/fieldgroups/create', [
+        'as' => 'admin.fieldgroups.store', 
+        'uses' => 'FieldGroupController@store', 
+        'middleware' => ['permission:fieldgroup-create']
+    ]);
+    
+    Route::get('admin/fieldgroups/{id}/edit', [
+        'as' => 'admin.fieldgroups.edit', 
+        'uses' => 'FieldGroupController@edit', 
+        'middleware' => ['permission:fieldgroup-edit']
+    ]);
+    
+    Route::patch('admin/fieldgroups/{id}', [
+        'as' => 'admin.fieldgroups.update', 
+        'uses' => 'FieldGroupController@update', 
+        'middleware' => ['permission:fieldgroup-edit']
+    ]);
+    
+    Route::delete('admin/fieldgroups/destroy', [
+        'as' => 'admin.fieldgroups.destroy', 
+        'uses' => 'FieldGroupController@destroy', 
+        'middleware' => ['permission:fieldgroup-delete']
+    ]);
+
+
 }
 );

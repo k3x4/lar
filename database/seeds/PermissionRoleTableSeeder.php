@@ -83,6 +83,8 @@ class PermissionRoleTableSeeder extends Seeder
             'category',
             'feature',
             'featuregroup',
+            'field',
+            'fieldgroup',
             'media',
             'mediasize',
             'user',
