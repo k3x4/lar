@@ -100,6 +100,29 @@
                     </li>
                 </ul>    
             </li>
+
+            <li {!! BS::activeClass(['admin.fields.index', 'admin.fieldgroups.index'], true); !!}>
+                <a href="{{ route('admin.fields.index') }}"><i class="fa fa-link"></i> <span>Fields</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li {!! BS::activeClass(['admin.fields.index']); !!}><a href="{{ route('admin.fields.index') }}">All Fields</a></li>
+                    <li {!! BS::activeClass(['admin.fields.create']); !!}><a href="{{ route('admin.fields.create') }}">Create Field</a></li>
+                    <li {!! BS::activeClass(['admin.fieldgroups.index'], true) !!}>
+                        <a href="{{ route('admin.fieldgroups.index') }}"> <span>Field groups</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li {!! BS::activeClass(['admin.fieldgroups.index']) !!}><a href="{{ route('admin.fieldgroups.index') }}">All Field groups</a></li>
+                            <li {!! BS::activeClass(['admin.fieldgroups.create']) !!}><a href="{{ route('admin.fieldgroups.create') }}">Create Field group</a></li>
+                        </ul>
+                    </li>
+                </ul>    
+            </li>
                 
             <li {!! BS::activeClass(['admin.users.index', 'admin.roles.index'], true); !!}>
                 <a href="{{ route('admin.users.index') }}"><i class="fa fa-link"></i> <span>Users</span>

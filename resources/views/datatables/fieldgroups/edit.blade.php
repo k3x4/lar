@@ -1,0 +1,1 @@
+<a href="{{ route('admin.fieldgroups.edit', [$id]) }}">{{ $title }} ({{ $count }})</a>

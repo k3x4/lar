@@ -1,0 +1,1 @@
+<a href="<?php echo e(route('admin.fields.edit', [$id])); ?>"><?php echo e($title); ?></a>

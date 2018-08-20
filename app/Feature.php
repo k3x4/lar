@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Feature extends Model
 {
-    protected $fillable = ['feature_group_id', 'title', 'status'];
+    protected $fillable = ['feature_group_id', 'title'];
 
     protected $appends = [
         'feature_group',

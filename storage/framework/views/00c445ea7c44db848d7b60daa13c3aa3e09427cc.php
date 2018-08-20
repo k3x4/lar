@@ -1,0 +1,1 @@
+<a href="<?php echo e(route('admin.fieldgroups.edit', [$id])); ?>"><?php echo e($title); ?> (<?php echo e($count); ?>)</a>
