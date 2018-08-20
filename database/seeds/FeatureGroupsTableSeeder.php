@@ -16,11 +16,9 @@ class FeatureGroupsTableSeeder extends Seeder
             
             [
                 'title' => 'Group1',
-                'status' => 'publish'
             ],
             [
                 'title' => 'Group2',
-                'status' => 'publish'
             ],
 
         ];

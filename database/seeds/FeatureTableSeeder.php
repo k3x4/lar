@@ -17,28 +17,23 @@ class FeatureTableSeeder extends Seeder
             [
                 'title' => 'Air Condition',
                 'feature_group_id' => '1',
-                'status' => 'publish'
             ],
             [
                 'title' => 'Αποθήκη',
                 'feature_group_id' => '1',
-                'status' => 'publish'
             ],
 
             [
                 'title' => 'Πάρκινγκ',
                 'feature_group_id' => '2',
-                'status' => 'publish'
             ],
             [
                 'title' => 'Υδραυλικό τιμόνι',
                 'feature_group_id' => '2',
-                'status' => 'publish'
             ],
             [
                 'title' => 'Ζάντες αλουμινίου',
                 'feature_group_id' => '2',
-                'status' => 'publish'
             ],
 
         ];
