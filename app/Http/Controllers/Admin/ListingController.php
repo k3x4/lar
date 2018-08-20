@@ -176,8 +176,10 @@ class ListingController extends Controller
         }
 
         $category = Category::find($listing->category_id);
+        $fieldGroups = $category->fieldGroups()->get();
         $featureGroups = $category->featureGroups()->get();
 
+        $fields = $listing->fields()->pluck('field_id')->toArray();
         $features = $listing->features()->pluck('feature_id')->toArray();
 
         return view('admin.listings.edit', compact(
@@ -185,7 +187,9 @@ class ListingController extends Controller
             'categories',
             'featuredImage',
             'gallery',
+            'fieldGroups',
             'featureGroups',
+            'fields',
             'features'
         ));
     }
@@ -240,6 +244,11 @@ class ListingController extends Controller
         }
 
         $listing->media()->sync($gallery);
+
+        $fields = $request->input('fields');
+        if($fields){
+            $listing->fields()->sync($fields);
+        }
 
         $features = $request->input('features');
         if($features){

@@ -17,6 +17,10 @@ class Category extends Model
         return $this->hasMany('App\Listing');
     }
 
+    public function fieldGroups(){
+        return $this->belongsToMany('App\FieldGroup');
+    }
+
     public function featureGroups(){
         return $this->belongsToMany('App\FeatureGroup');
     }

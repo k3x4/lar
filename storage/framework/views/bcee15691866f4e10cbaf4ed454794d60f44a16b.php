@@ -40,7 +40,6 @@
 
         <?php echo app('arrilot.widget')->run('Status', [
             'title' => 'Status',
-            'draft' => true
         ]); ?>
 
     </div>

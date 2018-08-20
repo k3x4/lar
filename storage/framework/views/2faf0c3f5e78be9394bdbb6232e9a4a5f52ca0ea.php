@@ -46,6 +46,32 @@
             </div>
         </div>
 
+        <?php if(count($fieldGroups)): ?>
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title"><?php echo e(__('Ειδικά πεδία')); ?></h3>
+            </div>
+            
+            <div class="box-body">
+                <?php $__currentLoopData = $fieldGroups; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $fieldGroup): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__currentLoopData = $fieldGroup->fields; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $field): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <span class="feature-cat-item">
+                        <?php echo e(Form::checkbox(
+                                'fields[]',
+                                $field->id,
+                                in_array($field->id, $fields) ? true : false
+                            )); ?>
+
+                        <?php echo e($field->title); ?>
+
+                        </span>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <hr>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </div>
+        </div>
+        <?php endif; ?>
+
         <?php if(count($featureGroups)): ?>
         <div class="box box-primary">
             <div class="box-header with-border">

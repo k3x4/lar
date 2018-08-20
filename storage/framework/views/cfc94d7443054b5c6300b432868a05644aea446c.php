@@ -32,6 +32,14 @@
                     <?php echo Form::text('title', null, ['placeholder' => 'Title','class' => 'form-control']); ?>
 
                 </div>
+                <div class="form-group">
+                    <strong>Type:</strong>
+                    <?php echo Form::select('type', $types, 'textbox', ['id' => 'type-select', 'class' => 'form-control select2']); ?>
+
+                </div>
+                <span id="loading" style="text-align:center;display:block;"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></span>
+                <div id="type-options">
+                </div>
             </div>
         </div>
     </div>
@@ -52,6 +60,37 @@
 </div>
 <?php echo Form::close(); ?>
 
+<?php $__env->stopSection(); ?>
 
+<?php $__env->startSection('footer_scripts'); ?>
+##parent-placeholder-c55a01b0a8ef1d7b211584e96d51bdf8930d1005##
+    <script>
+        $(document).ready(function() {
+            $('#type-select').change(function() {
+                $.ajax({
+                    url: '<?php echo route("admin.fields.options"); ?>',
+                    type: 'GET',
+                    data: {
+                        type : $('#type-select').val()
+                    },
+                    success: function(data) {
+                        $('#type-options').html(data);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            });
+            $("#type-select").change();
+
+            $(document).ajaxStart(function() {
+                $("#loading").show();
+            });
+
+            $(document).ajaxStop(function() {
+                $("#loading").hide();
+            });
+        });
+    </script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin.layout.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

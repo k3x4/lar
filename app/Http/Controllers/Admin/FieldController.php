@@ -38,6 +38,16 @@ class FieldController extends Controller
             ->make(true);
     }
 
+    public function options(Request $request)
+    {
+        $type = $request->get('type');
+        if($type){
+            return view('admin.fields.options.' . $type);
+        } else {
+            return '';
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -46,7 +56,18 @@ class FieldController extends Controller
     public function create()
     {
         $fieldGroups = FieldGroup::all()->pluck('title', 'id')->toArray();
-        return view('admin.fields.create', compact('fieldGroups'));
+        $types = [
+            'textbox'   => 'Textbox',
+            'textarea'  => 'Textarea',
+            'number'    => 'Number',
+            'select'    => 'Select',
+            'checkbox'  => 'Checkbox',
+            'radio'     => 'Radio',
+            'url'       => 'URL',
+            'email'     => 'Email',
+        ];
+
+        return view('admin.fields.create', compact('fieldGroups', 'types'));
     }
 
     /**
@@ -60,9 +81,29 @@ class FieldController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'field_group_id' => 'required',
+            'type' => 'required',
         ]);
-        
-        Field::create($request->all());
+
+        $optionsMap = [
+            'textbox' => ['default', 'placeholder']
+        ];
+
+        $type = $request->input('type');
+        $optionsRequest = $request->all();
+        $options = [];
+
+        if(isset($optionsMap[$type])){
+            foreach($optionsMap[$type] as $optionKey){
+                $options[$optionKey] = $optionsRequest[$optionKey];
+            }
+        }
+
+        $field = new Field();
+        $field->title = $request->input('title');
+        $field->field_group_id = $request->input('field_group_id');
+        $field->type = $request->input('type');
+        $field->options = serialize($options);
+        $field->save();
 
         return redirect()->route('admin.fields.index')
                         ->with('success','Field created successfully');

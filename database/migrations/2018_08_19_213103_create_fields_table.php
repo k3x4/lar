@@ -18,7 +18,7 @@ class CreateFieldsTable extends Migration
             $table->integer('field_group_id')->unsigned();
             $table->string('title');
             $table->string('type');
-            $table->text('values')->nullable();
+            $table->text('options');
             $table->timestamps();
         });
     }

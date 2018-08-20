@@ -38,23 +38,13 @@
                     ]); ?>
 
                 </div>
-                <div class="form-group filter-options">
-                    <b>Status:</b>
-                    <?php echo Form::select('status', [NULL => '', 'publish' => 'Publish', 'draft' => 'Draft'], null, [
-                        'class' => 'form-control select2 dt-filter',
-                        'style' => 'width: 200px;',
-                        'data-key' => 'status'
-                    ]); ?>
-
-                </div>
                 <table class="table dtable table-bordered table-striped">
                     <thead>
                         <tr>
                             <th style="width:5px;"><input type="checkbox" class="selectAll"/></th>
                             <th style="width: 1%;">ID</th>
                             <th style="width: 45%;">Title</th>
-                            <th style="width: 40%;">Group</th>
-                            <th style="width: 5%;">Status</th>
+                            <th style="width: 45%;">Group</th>
                             <th style="width: 10%;">Created</th>
                         </tr>
                     </thead>
@@ -86,7 +76,6 @@
             ['data' => 'id', 'name' => 'id'],
             ['data' => 'title', 'name' => 'title'],
             ['data' => 'feature_group', 'name' => 'feature_group'],
-            ['data' => 'status', 'name' => 'status'],
             ['data' => 'created_at', 'name' => 'created_at']
         ])
     ], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

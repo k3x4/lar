@@ -32,6 +32,13 @@
                     <strong>Title:</strong>
                     {!! Form::text('title', null, ['placeholder' => 'Title','class' => 'form-control']) !!}
                 </div>
+                <div class="form-group">
+                    <strong>Type:</strong>
+                    {!! Form::select('type', $types, 'textbox', ['id' => 'type-select', 'class' => 'form-control select2']) !!}
+                </div>
+                <span id="loading" style="text-align:center;display:block;"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></span>
+                <div id="type-options">
+                </div>
             </div>
         </div>
     </div>
@@ -51,5 +58,36 @@
 
 </div>
 {!! Form::close() !!}
+@endsection
 
+@section('footer_scripts')
+@parent
+    <script>
+        $(document).ready(function() {
+            $('#type-select').change(function() {
+                $.ajax({
+                    url: '{!! route("admin.fields.options") !!}',
+                    type: 'GET',
+                    data: {
+                        type : $('#type-select').val()
+                    },
+                    success: function(data) {
+                        $('#type-options').html(data);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            });
+            $("#type-select").change();
+
+            $(document).ajaxStart(function() {
+                $("#loading").show();
+            });
+
+            $(document).ajaxStop(function() {
+                $("#loading").hide();
+            });
+        });
+    </script>
 @endsection

@@ -421,6 +421,12 @@ Route::group([
         'middleware' => ['permission:field-read'],
     ]);
 
+    Route::get('admin/fields/options', [
+        'as' => 'admin.fields.options',
+        'uses' => 'FieldController@options',
+        'middleware' => ['permission:field-read'],
+    ]);
+
     Route::get('admin/fields/create', [
         'as' => 'admin.fields.create',
         'uses' => 'FieldController@create',

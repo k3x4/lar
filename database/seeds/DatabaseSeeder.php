@@ -23,6 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(FeatureGroupsTableSeeder::class);
         $this->call(FeatureTableSeeder::class);
         $this->call(FieldGroupsTableSeeder::class);
-        $this->call(FieldTableSeeder::class);
+        //$this->call(FieldTableSeeder::class);
     }
 }

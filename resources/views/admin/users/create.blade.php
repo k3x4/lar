@@ -42,7 +42,6 @@
                 </div>
                 <div class="form-group">
                     <strong>Role:</strong>
-                    {{-- Form::select('roles[]', $roles, [], ['class' => 'form-control select2', 'multiple']) --}}
                     {!! Form::select('role', $roles, 4, ['class' => 'form-control select2']) !!}
                 </div>
             </div>

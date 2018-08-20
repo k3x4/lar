@@ -65,7 +65,7 @@
                     <tr>
                         <th></th>
                         <?php $__currentLoopData = $perms; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <th><input id="<?php echo e('check-' . strtolower($key)); ?>" type="checkbox" class="selectAll"/> <?php echo e($key); ?></th>
+                            <th><input id="<?php echo e('parent-' . strtolower($key)); ?>" type="checkbox" class="selectAll"/> <?php echo e($key); ?></th>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tr>
                     <?php $__currentLoopData = $permsLines; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $permKey => $permLine): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -79,7 +79,7 @@
                                             in_array($perm->id, $rolePermissions) ? true : false,
                                             [
                                                 'class' => 'name select',
-                                                'data-check' => current(explode('-', $perm->name))
+                                                'data-parent' => current(explode('-', $perm->name))
                                             ]
                                         )); ?>
 

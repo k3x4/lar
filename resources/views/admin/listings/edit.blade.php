@@ -44,6 +44,31 @@
             </div>
         </div>
 
+        @if(count($fieldGroups))
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{ __('Ειδικά πεδία') }}</h3>
+            </div>
+            
+            <div class="box-body">
+                @foreach($fieldGroups as $fieldGroup)
+                    @foreach($fieldGroup->fields as $field)
+                        <span class="feature-cat-item">
+                        {{ Form::checkbox(
+                                'fields[]',
+                                $field->id,
+                                in_array($field->id, $fields) ? true : false
+                            )
+                        }}
+                        {{ $field->title }}
+                        </span>
+                    @endforeach
+                    <hr>
+                @endforeach
+            </div>
+        </div>
+        @endif
+
         @if(count($featureGroups))
         <div class="box box-primary">
             <div class="box-header with-border">
