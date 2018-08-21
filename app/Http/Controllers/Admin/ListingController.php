@@ -6,6 +6,7 @@ use Auth;
 use App\Http\Controllers\Controller;
 use App\Listing;
 use App\ListingMeta;
+use App\Field;
 use App\Category;
 use App\Media;
 use DB;
@@ -65,6 +66,41 @@ class ListingController extends Controller
             ->make(true);
     }
 
+    public function fields(Request $request)
+    {
+        $category = $request->get('category');
+        $category = Category::find($category);
+        
+        $fieldGroups = $category->fieldGroups()->get();
+        $fields = collect();
+        foreach($fieldGroups as $fieldGroup){
+            $childFields = $fieldGroup->fields()->get();
+            foreach($childFields as $childField){
+                $fields->push($childField);
+            }
+        }
+
+        $fields = $fields->map(function ($item, $key) {
+            $item->options = unserialize($item->options);
+            return $item;
+        });
+
+        if($request->get('listing_id')){
+            $listingId = $request->get('listing_id');
+            $listingFields = Listing::find($listingId)->fields()->pluck('value', 'field_id')->toArray();
+            $fields = $fields->map(function ($item, $key) use ($listingFields) {
+                $item->value = $listingFields[$item->id];
+                return $item;
+            });
+        }
+
+        if($fields){
+            return view('admin.fields.show', compact('fields'));
+        } else {
+            return '';
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -75,7 +111,19 @@ class ListingController extends Controller
         $categories = Category::whereNull('category_id')->get();
         $categories = CategoryTools::makeOptionGroup($categories);
 
-        return view('admin.listings.create', compact('categories'));
+        //$category = Category::find($listing->category_id);
+        //$fieldGroups = $category->fieldGroups()->get();
+
+        // $fields = $listing->fields()->get();//->pluck('field_id')->all();
+        // $fields = $fields->map(function ($item, $key) {
+        //     $item->options = unserialize(Field::find($item->id)->options);
+        //     return $item;
+        // });
+
+        // $category = Category::find('2');
+        // $fields = $category->fields()->get();
+
+        return view('admin.listings.create', compact('categories'));//, 'fields'));
     }
 
     /**
@@ -131,6 +179,12 @@ class ListingController extends Controller
 
         $listing->media()->sync($gallery);
 
+        if($request->input('fields')){
+            $fields = $request->input('fields');
+            array_walk($fields, [$this, 'fieldsValues']);
+            $listing->fields()->sync($fields);
+        }
+
         // $listing->meta()->create([
         //     'meta_key' => 'gallery',
         //     'meta_value' => serialize(['a' => 1833, 'b' => 1834])
@@ -140,6 +194,10 @@ class ListingController extends Controller
 
         return redirect()->route('admin.listings.index')
                         ->with('success','Listing created successfully');
+    }
+
+    private function fieldsValues(&$value, $key){
+        $value = ['value' => $value];
     }
 
     /**
@@ -176,10 +234,16 @@ class ListingController extends Controller
         }
 
         $category = Category::find($listing->category_id);
-        $fieldGroups = $category->fieldGroups()->get();
+        //$fieldGroups = $category->fieldGroups()->get();
         $featureGroups = $category->featureGroups()->get();
 
-        $fields = $listing->fields()->pluck('field_id')->toArray();
+        // $fields = $listing->fields()->get();//->pluck('field_id')->all();
+        // $fields = $fields->map(function ($item, $key) {
+        //     $item->options = unserialize(Field::find($item->id)->options);
+        //     return $item;
+        // });
+
+        //dd($fields);
         $features = $listing->features()->pluck('feature_id')->toArray();
 
         return view('admin.listings.edit', compact(
@@ -187,9 +251,9 @@ class ListingController extends Controller
             'categories',
             'featuredImage',
             'gallery',
-            'fieldGroups',
+            //'fieldGroups',
             'featureGroups',
-            'fields',
+            //'fields',
             'features'
         ));
     }
@@ -245,8 +309,9 @@ class ListingController extends Controller
 
         $listing->media()->sync($gallery);
 
-        $fields = $request->input('fields');
-        if($fields){
+        if($request->input('fields')){
+            $fields = $request->input('fields');
+            array_walk($fields, [$this, 'fieldsValues']);
             $listing->fields()->sync($fields);
         }
 

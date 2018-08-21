@@ -23,7 +23,7 @@ class Listing extends Model
     }
 
     public function fields(){
-        return $this->belongsToMany('App\Field');
+        return $this->belongsToMany('App\Field')->withPivot('value');
     }
 
     public function features(){

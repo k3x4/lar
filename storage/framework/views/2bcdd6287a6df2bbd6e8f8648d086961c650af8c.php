@@ -45,6 +45,18 @@
             </div>
         </div>
 
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title"><?php echo e(__('Ειδικά πεδία')); ?></h3>
+            </div>
+            
+            <div class="box-body">
+                <span id="loading" style="text-align:center;display:block;"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></span>
+                <div id="fields-show">
+                </div>
+            </div>
+        </div>
+
     </div>
     
     <div class="col-lg-4">
@@ -74,6 +86,37 @@
 </div>
 <?php echo Form::close(); ?>
 
+<?php $__env->stopSection(); ?>
 
+<?php $__env->startSection('footer_scripts'); ?>
+##parent-placeholder-c55a01b0a8ef1d7b211584e96d51bdf8930d1005##
+    <script>
+        $(document).ready(function() {
+            $('#category-select').change(function() {
+                $.ajax({
+                    url: '<?php echo route("admin.listings.fields"); ?>',
+                    type: 'GET',
+                    data: {
+                        category: $('#category-select').val()
+                    },
+                    success: function(data) {
+                        $('#fields-show').html(data);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            });
+            $("#category-select").change();
+
+            $(document).ajaxStart(function() {
+                $("#loading").show();
+            });
+
+            $(document).ajaxStop(function() {
+                $("#loading").hide();
+            });
+        });
+    </script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin.layout.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

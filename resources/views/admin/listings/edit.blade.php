@@ -44,30 +44,17 @@
             </div>
         </div>
 
-        @if(count($fieldGroups))
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">{{ __('Ειδικά πεδία') }}</h3>
             </div>
             
             <div class="box-body">
-                @foreach($fieldGroups as $fieldGroup)
-                    @foreach($fieldGroup->fields as $field)
-                        <span class="feature-cat-item">
-                        {{ Form::checkbox(
-                                'fields[]',
-                                $field->id,
-                                in_array($field->id, $fields) ? true : false
-                            )
-                        }}
-                        {{ $field->title }}
-                        </span>
-                    @endforeach
-                    <hr>
-                @endforeach
+                <span id="loading" style="text-align:center;display:block;"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></span>
+                <div id="fields-show">
+                </div>
             </div>
         </div>
-        @endif
 
         @if(count($featureGroups))
         <div class="box box-primary">
@@ -125,5 +112,37 @@
 
 </div>
 {!! Form::close() !!}
+@endsection
 
+@section('footer_scripts')
+@parent
+    <script>
+        $(document).ready(function() {
+            $('#category-select').change(function() {
+                $.ajax({
+                    url: '{!! route("admin.listings.fields") !!}',
+                    type: 'GET',
+                    data: {
+                        category: $('#category-select').val(),
+                        listing_id: {!! $listing->id !!}
+                    },
+                    success: function(data) {
+                        $('#fields-show').html(data);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            });
+            $("#category-select").change();
+
+            $(document).ajaxStart(function() {
+                $("#loading").show();
+            });
+
+            $(document).ajaxStop(function() {
+                $("#loading").hide();
+            });
+        });
+    </script>
 @endsection

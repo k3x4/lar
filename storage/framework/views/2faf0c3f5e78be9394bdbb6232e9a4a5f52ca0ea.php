@@ -46,31 +46,17 @@
             </div>
         </div>
 
-        <?php if(count($fieldGroups)): ?>
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title"><?php echo e(__('Ειδικά πεδία')); ?></h3>
             </div>
             
             <div class="box-body">
-                <?php $__currentLoopData = $fieldGroups; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $fieldGroup): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <?php $__currentLoopData = $fieldGroup->fields; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $field): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <span class="feature-cat-item">
-                        <?php echo e(Form::checkbox(
-                                'fields[]',
-                                $field->id,
-                                in_array($field->id, $fields) ? true : false
-                            )); ?>
-
-                        <?php echo e($field->title); ?>
-
-                        </span>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                    <hr>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <span id="loading" style="text-align:center;display:block;"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></span>
+                <div id="fields-show">
+                </div>
             </div>
         </div>
-        <?php endif; ?>
 
         <?php if(count($featureGroups)): ?>
         <div class="box box-primary">
@@ -130,6 +116,39 @@
 </div>
 <?php echo Form::close(); ?>
 
+<?php $__env->stopSection(); ?>
 
+<?php $__env->startSection('footer_scripts'); ?>
+##parent-placeholder-c55a01b0a8ef1d7b211584e96d51bdf8930d1005##
+    <script>
+        $(document).ready(function() {
+            $('#category-select').change(function() {
+                $.ajax({
+                    url: '<?php echo route("admin.listings.fields"); ?>',
+                    type: 'GET',
+                    data: {
+                        category: $('#category-select').val(),
+                        listing_id: <?php echo $listing->id; ?>
+
+                    },
+                    success: function(data) {
+                        $('#fields-show').html(data);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            });
+            $("#category-select").change();
+
+            $(document).ajaxStart(function() {
+                $("#loading").show();
+            });
+
+            $(document).ajaxStop(function() {
+                $("#loading").hide();
+            });
+        });
+    </script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin.layout.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

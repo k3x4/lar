@@ -43,6 +43,18 @@
             </div>
         </div>
 
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{ __('Ειδικά πεδία') }}</h3>
+            </div>
+            
+            <div class="box-body">
+                <span id="loading" style="text-align:center;display:block;"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></span>
+                <div id="fields-show">
+                </div>
+            </div>
+        </div>
+
     </div>
     
     <div class="col-lg-4">
@@ -71,5 +83,36 @@
 
 </div>
 {!! Form::close() !!}
+@endsection
 
+@section('footer_scripts')
+@parent
+    <script>
+        $(document).ready(function() {
+            $('#category-select').change(function() {
+                $.ajax({
+                    url: '{!! route("admin.listings.fields") !!}',
+                    type: 'GET',
+                    data: {
+                        category: $('#category-select').val()
+                    },
+                    success: function(data) {
+                        $('#fields-show').html(data);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            });
+            $("#category-select").change();
+
+            $(document).ajaxStart(function() {
+                $("#loading").show();
+            });
+
+            $(document).ajaxStop(function() {
+                $("#loading").hide();
+            });
+        });
+    </script>
 @endsection

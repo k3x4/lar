@@ -42,7 +42,7 @@ class FieldController extends Controller
     {
         $type = $request->get('type');
         $id = $request->get('id');
-        $options = unserialize(Field::find($id)->options);
+        $options = $id ? unserialize(Field::find($id)->options) : null;
 
         if($type){
             return view('admin.fields.options.' . $type, compact('options'));
@@ -88,7 +88,7 @@ class FieldController extends Controller
         ]);
 
         $optionsMap = [
-            'textbox' => ['default', 'placeholder']
+            'textbox' => ['label', 'default', 'placeholder']
         ];
 
         $type = $request->input('type');
@@ -164,7 +164,7 @@ class FieldController extends Controller
         ]);
 
         $optionsMap = [
-            'textbox' => ['default', 'placeholder']
+            'textbox' => ['label', 'default', 'placeholder']
         ];
 
         $type = $request->input('type');

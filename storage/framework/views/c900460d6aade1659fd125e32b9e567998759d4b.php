@@ -13,6 +13,7 @@
     <div class="box-body">
         <div class="form-group">
             <?php echo Form::select('category_id', $categories, null, [
+                'id' => 'category-select',
                 'class' => 'selectpicker',
                 'data-width' => 'fit'
             ]); ?>
