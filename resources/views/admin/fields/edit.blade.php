@@ -69,7 +69,8 @@
                     url: '{!! route("admin.fields.options") !!}',
                     type: 'GET',
                     data: {
-                        type : $('#type-select').val()
+                        id: {!! $field->id !!},
+                        type: $('#type-select').val()
                     },
                     success: function(data) {
                         $('#type-options').html(data);

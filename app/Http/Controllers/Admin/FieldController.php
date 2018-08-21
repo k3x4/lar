@@ -41,8 +41,11 @@ class FieldController extends Controller
     public function options(Request $request)
     {
         $type = $request->get('type');
+        $id = $request->get('id');
+        $options = unserialize(Field::find($id)->options);
+
         if($type){
-            return view('admin.fields.options.' . $type);
+            return view('admin.fields.options.' . $type, compact('options'));
         } else {
             return '';
         }
@@ -131,8 +134,18 @@ class FieldController extends Controller
     {
         $field = Field::find($id);
         $fieldGroups = FieldGroup::all()->pluck('title', 'id')->toArray();
+        $types = [
+            'textbox'   => 'Textbox',
+            'textarea'  => 'Textarea',
+            'number'    => 'Number',
+            'select'    => 'Select',
+            'checkbox'  => 'Checkbox',
+            'radio'     => 'Radio',
+            'url'       => 'URL',
+            'email'     => 'Email',
+        ];
 
-        return view('admin.fields.edit', compact('field', 'fieldGroups'));
+        return view('admin.fields.edit', compact('field', 'fieldGroups', 'types'));
     }
 
     /**
@@ -147,10 +160,29 @@ class FieldController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'field_group_id' => 'required',
+            'type' => 'required',
         ]);
 
+        $optionsMap = [
+            'textbox' => ['default', 'placeholder']
+        ];
+
+        $type = $request->input('type');
+        $optionsRequest = $request->all();
+        $options = [];
+
+        if(isset($optionsMap[$type])){
+            foreach($optionsMap[$type] as $optionKey){
+                $options[$optionKey] = $optionsRequest[$optionKey];
+            }
+        }
+
         $field = Field::find($id);
-        $field->update($request->all());
+        $field->title = $request->input('title');
+        $field->field_group_id = $request->input('field_group_id');
+        $field->type = $request->input('type');
+        $field->options = serialize($options);
+        $field->save();
 
         return redirect()->route('admin.fields.index')
                         ->with('success','Field updated successfully');
