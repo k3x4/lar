@@ -10,6 +10,7 @@ class Field extends Model
 
     protected $appends = [
         'field_group',
+        //'default_options'
     ];
 
     public function fieldGroup(){
@@ -24,4 +25,9 @@ class Field extends Model
         $field_group = $this->fieldGroup()->first();
         return $field_group;
     }
+
+    // public function getDefaultOptionsAttribute(){
+    //     return unserialize($this->options);
+    // }
+
 }

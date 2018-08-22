@@ -1,3 +1,4 @@
+@php $field->options = unserialize($field->options) @endphp
 <div class="form-group">
     <strong>{{ $field->options['label'] }}:</strong>
     {!! Form::text(

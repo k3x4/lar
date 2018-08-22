@@ -71,28 +71,24 @@ class ListingController extends Controller
         $category = $request->get('category');
         $category = Category::find($category);
         
-        $fieldGroups = $category->fieldGroups()->get();
-        $fields = collect();
-        foreach($fieldGroups as $fieldGroup){
-            $childFields = $fieldGroup->fields()->get();
-            foreach($childFields as $childField){
-                $fields->push($childField);
-            }
-        }
+        $fieldGroups = $category->fieldGroups()->get()->pluck('id')->toArray();
 
-        $fields = $fields->map(function ($item, $key) {
-            $item->options = unserialize($item->options);
-            return $item;
-        });
+        $fields = DB::table('fields')
+            ->leftJoin('field_listing', 'field_listing.field_id', '=', 'fields.id')
+            ->select('fields.*', 'field_listing.value')
+            ->whereIn('fields.field_group_id', $fieldGroups)
+            ->get();
 
-        if($request->get('listing_id')){
-            $listingId = $request->get('listing_id');
-            $listingFields = Listing::find($listingId)->fields()->pluck('value', 'field_id')->toArray();
-            $fields = $fields->map(function ($item, $key) use ($listingFields) {
-                $item->value = $listingFields[$item->id];
-                return $item;
-            });
-        }
+        // if($request->get('listing_id')){
+        //     $listingId = $request->get('listing_id');
+        //     $listingFields = Listing::find($listingId)->fields()->pluck('value', 'field_id')->toArray();
+        //     if($listingFields){
+        //         $fields = $fields->map(function ($item, $key) use ($listingFields) {
+        //             $item->value = $listingFields[$item->id];
+        //             return $item;
+        //         });
+        //     }
+        // }
 
         if($fields){
             return view('admin.fields.show', compact('fields'));
