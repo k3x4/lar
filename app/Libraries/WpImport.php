@@ -23,6 +23,7 @@ class WpImport
     private $mapFilenames;
     private $oldUsers;
     private $mapUsers;
+    private $mapFeatures;
 
     public function getData($xmlFile){
         setlocale(LC_ALL, 'el_GR.UTF-8');
@@ -253,7 +254,12 @@ class WpImport
         
         foreach($featureMapGroup as $featureTitle => $groupId){
             Tools::echoing('Import ' . $index++ . '/' . $count . ' Features');
-            Feature::create(['title' => $featureTitle, 'feature_group_id' => $groupId]);
+            //Feature::create(['title' => $featureTitle, 'feature_group_id' => $groupId]);
+            $feature = new Feature();
+            $feature->title = $featureTitle;
+            $feature->feature_group_id = $groupId;
+            $feature->save();
+            $this->mapFeatures[$featureTitle] = $feature->id;
         }
         echo PHP_EOL;
 
@@ -575,8 +581,24 @@ class WpImport
             }
 
             
-
-
+            // FEATURES 
+            $features = [];
+            if(isset($listingItem['category']) && is_array($listingItem['category'])){
+                if(isset($listingItem['category']['@attributes'])){ // 1 ITEM
+                    if($listingItem['category']['@attributes']['domain'] == 'pointfinderfeatures'){
+                        $featureTitle = $listingItem['category']['_value'];
+                        $features[] = $this->mapFeatures[$featureTitle];
+                    }
+                } else {
+                    foreach($listingItem['category'] as $categoryItem){
+                        if($categoryItem['@attributes']['domain'] == 'pointfinderfeatures'){
+                            $featureTitle = $categoryItem['_value'];
+                            $features[] = $this->mapFeatures[$featureTitle];
+                        }
+                    }
+                }
+            }
+            $listing->features()->sync($features);
 
             Tools::echoing('Import ' . $index++ . '/' . $count . ' Listings');
             //Listing::create($listing);
@@ -606,13 +628,13 @@ class WpImport
     }
 
     public function import(){
-        // $this->importUsers();
-        // $this->importCategories();
+        $this->importUsers();
+        $this->importCategories();
         $this->importFeatures();
-        // $this->downloadFiles();
-        // //$this->mapListingFiles(); // REQUIRED?
-        // $this->storeFiles();
-        // $this->importListings();
+        $this->downloadFiles();
+        //$this->mapListingFiles(); // REQUIRED?
+        $this->storeFiles();
+        $this->importListings();
         return true;
     }
 
