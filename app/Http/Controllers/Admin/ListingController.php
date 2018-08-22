@@ -232,6 +232,7 @@ class ListingController extends Controller
         $category = Category::find($listing->category_id);
         //$fieldGroups = $category->fieldGroups()->get();
         $featureGroups = $category->featureGroups()->get();
+        //dd($featureGroups);
 
         // $fields = $listing->fields()->get();//->pluck('field_id')->all();
         // $fields = $fields->map(function ($item, $key) {

@@ -251,6 +251,8 @@ class WpImport
 
         FeatureGroup::create(['title' => 'Σπίτι']);
         FeatureGroup::create(['title' => 'Αυτοκίνητο']);
+
+        $this->mapFeatures = [];
         
         foreach($featureMapGroup as $featureTitle => $groupId){
             Tools::echoing('Import ' . $index++ . '/' . $count . ' Features');
@@ -454,7 +456,7 @@ class WpImport
     public function importListings(){
         $listingItems = $this->getItems('item', [
             'wp:post_type' => 'listing',
-            'wp:status' => 'publish'
+            //'wp:status' => 'publish'
         ]);
 
 
@@ -466,13 +468,23 @@ class WpImport
         $index = 1;
 
         foreach($listingItems as $listingItem){
-            $slug = trim($listingItem['link']);
-            $slug = trim($slug, '/');
-            $slug = explode('/', $slug);
-            $slug = end($slug);
+            if($listingItem['wp:status'] == 'draft'){
+                if(is_array($listingItem['title'])){
+                    continue;
+                }
+                $slug = Tools::slug($listingItem['title']);
+            } else {
+                if(!trim($listingItem['title'])){
+                    continue;
+                }
+                $slug = trim($listingItem['link']);
+                $slug = trim($slug, '/');
+                $slug = explode('/', $slug);
+                $slug = end($slug);
 
-            $slug = urldecode($slug);
-            $slug = Tools::slug($slug);
+                $slug = urldecode($slug);
+                $slug = Tools::slug($slug);
+            }
 
             $categoryId = $this->getListingCategory($listingItem);
 
@@ -485,8 +497,12 @@ class WpImport
             $dateCreated = \DateTime::createFromFormat('Y-m-d H:i:s', $listingItem['wp:post_date']);
             $dateCreated = $dateCreated->getTimestamp();
 
-            $oldAuthor = $listingItem['dc:creator'];
-            $authorId = $this->mapUsers[$oldAuthor];
+            $oldAuthor = trim($listingItem['dc:creator']);
+            if($oldAuthor){
+                $authorId = $this->mapUsers[$oldAuthor];
+            } else {
+                $authorId = 1;
+            }
 
             $listing = new Listing();
             $listing->title         = $listingItem['title'];
@@ -495,7 +511,7 @@ class WpImport
             $listing->category_id   = $categoryId;
             $listing->image_id      = $featuredImage;
             $listing->content       = $listingContent;
-            $listing->status        = 'publish';
+            $listing->status        = $listingItem['wp:status'];
             $listing->created_at    = $dateCreated;
             $listing->updated_at    = $dateCreated;
             $listing->save();
