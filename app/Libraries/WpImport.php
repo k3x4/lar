@@ -291,6 +291,7 @@ class WpImport
                 'type'      => 'number',
                 'options'   => [
                     'label' => 'Τιμή',
+                    'placeholder' => 'Τιμή',
                     'prefix' => null,
                     'suffix' => '€',
                     'default' => null
@@ -326,6 +327,7 @@ class WpImport
                 'type'      => 'number',
                 'options'   => [
                     'label' => 'Τετρ. Μέτρα',
+                    'placeholder' => 'Τετρ. Μέτρα',
                     'prefix' => null,
                     'suffix' => 'τμ',
                     'default' => null
@@ -336,6 +338,7 @@ class WpImport
                 'type'      => 'number',
                 'options'   => [
                     'label' => 'Δωμάτια',
+                    'placeholder' => 'Δωμάτια',
                     'prefix' => null,
                     'suffix' => null,
                     'default' => null
