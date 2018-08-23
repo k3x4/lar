@@ -13,14 +13,14 @@
             <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $parentCategory => $children): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <?php list($pCategoryTitle, $pCategorySlug) = explode('|', $parentCategory) ?>
             <li class="nav-item">
-                <a <?php echo BS::activeClass(['category/' . $pCategorySlug], 'nav-link'); ?> href="<?php echo e(route('category.showParent', [$pCategorySlug])); ?>">
+                <a <?php echo BS::activeClass(['category/' . $pCategorySlug], true, 'nav-link'); ?> href="<?php echo e(route('category.showParent', [$pCategorySlug])); ?>">
                     <?php echo $pCategoryTitle; ?>
 
                 </a>
                 <ul <?php echo BS::showBlock(['category/' . $pCategorySlug]); ?>>
                     <?php $__currentLoopData = $children; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $slug => $categoryTitle): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <li class="nav-item">
-                            <a <?php echo BS::activeClass(['category/' . $slug], 'nav-link'); ?> href="<?php echo e(url('/category/' . $slug)); ?>"><?php echo e($categoryTitle); ?></a>
+                            <a <?php echo BS::activeClass(['category/' . $slug], false, 'nav-link'); ?> href="<?php echo e(url('/category/' . $slug)); ?>"><?php echo e($categoryTitle); ?></a>
                         </li>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </ul>

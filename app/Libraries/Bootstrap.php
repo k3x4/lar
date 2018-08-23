@@ -20,7 +20,7 @@ class Bootstrap
         }
     }
 
-    private static function checkActiveRoute($routePath, $parent){
+    private static function checkActiveRoute($routePath, $parent = false){
         if(Route::has($routePath)){
             $routePath = \URL::route($routePath, [], false);
         }

@@ -64,7 +64,7 @@ class Media
             $image_size_max = ($image_width > $image_height) ? $image_width : $image_height;
             $media_size_max = ($media_width > $media_height) ? $media_width : $media_height;
 
-            if ($image_size_max <= $media_size_max) {
+            if ( ($image_size_max <= $media_size_max) && !$media_size->upsize) {
                 continue;
             }
     

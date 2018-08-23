@@ -35,7 +35,13 @@ class MediaSizesTableSeeder extends Seeder
                 'tag' => 'large',
                 'width' => 1024,
                 'height' => 1024
-            ]
+            ],
+            [
+                'tag' => 'gallery',
+                'width' => 890,
+                'height' => 500,
+                'upsize' => true
+            ],
 
         ];
         
