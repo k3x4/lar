@@ -10,6 +10,8 @@ use App\Listing;
 use App\Category;
 use App\Feature;
 use App\FeatureGroup;
+use App\Field;
+use App\FieldGroup;
 use App\Libraries\Tools;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Schema;
@@ -24,6 +26,7 @@ class WpImport
     private $oldUsers;
     private $mapUsers;
     private $mapFeatures;
+    private $mapFields;
 
     public function getData($xmlFile){
         setlocale(LC_ALL, 'el_GR.UTF-8');
@@ -249,7 +252,7 @@ class WpImport
         $count = count($featureMapGroup);
         $index = 1;
 
-        FeatureGroup::create(['title' => 'Σπίτι']);
+        FeatureGroup::create(['title' => 'Ακίνητο']);
         FeatureGroup::create(['title' => 'Αυτοκίνητο']);
 
         $this->mapFeatures = [];
@@ -262,6 +265,122 @@ class WpImport
             $feature->feature_group_id = $groupId;
             $feature->save();
             $this->mapFeatures[$featureTitle] = $feature->id;
+        }
+        echo PHP_EOL;
+
+    }
+
+    public function importCustomFields(){
+        $customFields = [
+            'Τύπος'         => [
+                'oldField'  => 'webbupointfinder_item_field_proptype',
+                'type'      => 'select',
+                'options'   => [
+                    'values' => [
+                        '1' => 'Studio / Γκαρσονιέρα',
+                        '2' => 'Διαμέρισμα',
+                        '3' => 'Μεζονέτα',
+                        '4' => 'Μονοκατοικία',
+                    ],
+                    'default' => '1'
+                ]
+            ],
+            'Τιμή'          => [
+                'oldField'  => 'webbupointfinder_item_field283070149872418420000',
+                'type'      => 'number',
+                'options'   => [
+                    'prefix' => null,
+                    'suffix' => '€',
+                    'default' => null
+                ]
+            ],
+            'Όροφος'        => [
+                'oldField'  => 'webbupointfinder_item_field70165663575622040000',
+                'type'      => 'select',
+                'options'   => [
+                    'values' => [
+                        ''  => 'Επιλέξτε',
+                        '1' => 'Υπόγειο',
+                        '2' => 'Ημιυπόγειο',
+                        '3' => 'Ισόγειο',
+                        '4' => 'Ημιώροφος',
+                        '5' => '1ος',
+                        '6' => '2ος',
+                        '7' => '3ος',
+                        '8' => '4ος',
+                        '9' => '5ος',
+                        '10' => '6ος',
+                        '11' => '7ος',
+                        '12' => '8ος',
+                        '13' => '9ος',
+                        '14' => '10ος',
+                    ],
+                    'default' => null
+                ]
+            ],
+            'Τετρ. Μέτρα'   => [
+                'oldField'  => 'webbupointfinder_item_field287084981110235630000',
+                'type'      => 'number',
+                'options'   => [
+                    'prefix' => null,
+                    'suffix' => 'τμ',
+                    'default' => null
+                ]
+            ],
+            'Δωμάτια'       => [
+                'oldField'  => 'webbupointfinder_item_field930250379806436500000',
+                'type'      => 'number',
+                'options'   => [
+                    'prefix' => null,
+                    'suffix' => null,
+                    'default' => null
+                ]
+            ],
+            'Θέρμανση'      => [
+                'oldField'  => 'webbupointfinder_item_field377217164104565400000',
+                'type'      => 'select',
+                'options'   => [
+                    'values' => [
+                        '1' => 'Χωρίς Θέρμανση',
+                        '2' => 'Με κλιματιστικά',
+                        '3' => 'Αυτόνομη θέρμανση',
+                        '4' => 'Κεντρική θέρμανση',
+                        '5' => 'Θέρμανση με χρήση υγραερίου',
+                        '6' => 'Σόμπα',
+                        '7' => 'Θερμοσυσσωρευτής',
+                    ],
+                    'default' => '1'
+                ]
+            ],
+            'Διεύθυνση'     => [
+                'oldField'  => 'webbupointfinder_item_field454305059116910000000',
+                'type'      => 'textbox',
+                'options'   => [
+                    'prefix' => null,
+                    'suffix' => null,
+                    'placeholder' => 'Διεύθυνση',
+                    'default' => null,
+                ]
+            ]
+        ];
+        
+        $count = count($customFields);
+        $index = 1;
+
+        FieldGroup::create(['title' => 'Ακίνητο']);
+
+        $this->mapFields = [];
+        
+        foreach($customFields as $fieldTitle => $fieldArray){
+            Tools::echoing('Import ' . $index++ . '/' . $count . ' Fields');
+            $field = new Field();
+            $field->title = $fieldTitle;
+            $field->field_group_id = 1;
+            $field->type = $fieldArray['type'];
+            $field->options = serialize($fieldArray['options']);
+            $field->save();
+            $oldField = $fieldArray['oldField'];
+            $this->mapFields[$oldField] = $field->id;
         }
         echo PHP_EOL;
 
@@ -351,7 +470,7 @@ class WpImport
             $result = array_map([$this, 'mapFiles'], $result);
         }
 
-        return $result ?: null;
+        return $result ? $result : null;
     }
 
     public function mapFiles($item){
@@ -616,6 +735,20 @@ class WpImport
             }
             $listing->features()->sync($features);
 
+
+            // FIELDS
+            foreach($this->mapFields as $fieldOldValue => $fieldNewKey){
+                $fieldValues = $this->filterMeta($listingItem, $fieldOldValue);
+                if($fieldValues){
+                    $listing->fields()->attach([
+                        $fieldNewKey => [
+                            'value' => current($fieldValues)
+                        ]
+                    ]);
+                }
+            }
+            
+
             Tools::echoing('Import ' . $index++ . '/' . $count . ' Listings');
             //Listing::create($listing);
 
@@ -647,6 +780,7 @@ class WpImport
         $this->importUsers();
         $this->importCategories();
         $this->importFeatures();
+        $this->importCustomFields();
         $this->downloadFiles();
         //$this->mapListingFiles(); // REQUIRED?
         $this->storeFiles();
