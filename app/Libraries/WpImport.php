@@ -282,6 +282,7 @@ class WpImport
                         '3' => 'Μεζονέτα',
                         '4' => 'Μονοκατοικία',
                     ],
+                    'label' => 'Τύπος',
                     'default' => '1'
                 ]
             ],
@@ -289,6 +290,7 @@ class WpImport
                 'oldField'  => 'webbupointfinder_item_field283070149872418420000',
                 'type'      => 'number',
                 'options'   => [
+                    'label' => 'Τιμή',
                     'prefix' => null,
                     'suffix' => '€',
                     'default' => null
@@ -315,6 +317,7 @@ class WpImport
                         '13' => '9ος',
                         '14' => '10ος',
                     ],
+                    'label' => 'Όροφος',
                     'default' => null
                 ]
             ],
@@ -322,6 +325,7 @@ class WpImport
                 'oldField'  => 'webbupointfinder_item_field287084981110235630000',
                 'type'      => 'number',
                 'options'   => [
+                    'label' => 'Τετρ. Μέτρα',
                     'prefix' => null,
                     'suffix' => 'τμ',
                     'default' => null
@@ -331,6 +335,7 @@ class WpImport
                 'oldField'  => 'webbupointfinder_item_field930250379806436500000',
                 'type'      => 'number',
                 'options'   => [
+                    'label' => 'Δωμάτια',
                     'prefix' => null,
                     'suffix' => null,
                     'default' => null
@@ -349,6 +354,7 @@ class WpImport
                         '6' => 'Σόμπα',
                         '7' => 'Θερμοσυσσωρευτής',
                     ],
+                    'label' => 'Θέρμανση',
                     'default' => '1'
                 ]
             ],
@@ -356,6 +362,7 @@ class WpImport
                 'oldField'  => 'webbupointfinder_item_field454305059116910000000',
                 'type'      => 'textbox',
                 'options'   => [
+                    'label' => 'Διεύθυνση',
                     'prefix' => null,
                     'suffix' => null,
                     'placeholder' => 'Διεύθυνση',
