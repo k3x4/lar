@@ -265,7 +265,7 @@ class WpImport
             'Πώληση Κατοικίας'
         ];
         foreach($attachCategoriesHouse as $attachCategory){
-            Category::where('title', $attachCategory)->first()->fieldGroups()->attach($featureGroupHouse->id);
+            Category::where('title', $attachCategory)->first()->featureGroups()->attach($featureGroupHouse->id);
         }
 
         $attachCategoriesAuto = [
@@ -273,7 +273,7 @@ class WpImport
             'Επαγγελματικά',
         ];
         foreach($attachCategoriesAuto as $attachCategory){
-            Category::where('title', $attachCategory)->first()->fieldGroups()->attach($featureGroupAuto->id);
+            Category::where('title', $attachCategory)->first()->featureGroups()->attach($featureGroupAuto->id);
         }
 
         $this->mapFeatures = [];
