@@ -217,49 +217,72 @@ class WpImport
         // }
         // exit();
 
+        $featureGroupHouse = new FeatureGroup();
+        $featureGroupHouse->title = 'Ακίνητο';
+        $featureGroupHouse->save();
+
+        $featureGroupAuto = new FeatureGroup();
+        $featureGroupAuto->title = 'Αυτοκίνητο';
+        $featureGroupAuto->save();
+
         $featureMapGroup = [
-            'ABS'                                   => 2,
-            'Air Condition'                         => 2,
-            'Air Condition'                         => 1,
-            'Bluetooth'                             => 2,
-            'CD Player'                             => 2,
-            'DVD Player'                            => 2,
-            'ESP'                                   => 2,
-            'Immobilizer'                           => 2,
-            'Ανεμιστήρας οροφής'                    => 1,
-            'Αποθήκη'                               => 1,
-            'Αυτόματος κλιματισμός'                 => 2,
-            'Βεράντα'                               => 1,
-            'Βιβλίο service'                        => 2,
-            'Διπλά τζάμια'                          => 1,
-            'Ενεργή Σύνδεση Ηλεκτρικού Ρεύματος'    => 1,
-            'Ζάντες αλουμινίου'                     => 2,
-            'Ηλεκτρικοί καθρέπτες'                  => 2,
-            'Θέρμανση'                              => 1,
-            'Κεντρικό κλείδωμα'                     => 2,
-            'Μπάρμπεκιου'                           => 1,
-            'Πάρκινγκ'                              => 1,
-            'Πισίνα'                                => 1,
-            'Πλοηγός'                               => 2,
-            'Πόρτα ασφαλείας'                       => 1,
-            'Προβολείς ομίχλης'                     => 2,
-            'Σοφίτα'                                => 1,
-            'Τζάκι'                                 => 1,
-            'Υδραυλικό τιμόνι'                      => 2,
-            'Υποβοήθηση φρένων'                     => 2,
+            'ABS'                                   => $featureGroupAuto->id,
+            'Air Condition'                         => $featureGroupAuto->id,
+            'Air Condition'                         => $featureGroupHouse->id,
+            'Bluetooth'                             => $featureGroupAuto->id,
+            'CD Player'                             => $featureGroupAuto->id,
+            'DVD Player'                            => $featureGroupAuto->id,
+            'ESP'                                   => $featureGroupAuto->id,
+            'Immobilizer'                           => $featureGroupAuto->id,
+            'Ανεμιστήρας οροφής'                    => $featureGroupHouse->id,
+            'Αποθήκη'                               => $featureGroupHouse->id,
+            'Αυτόματος κλιματισμός'                 => $featureGroupAuto->id,
+            'Βεράντα'                               => $featureGroupHouse->id,
+            'Βιβλίο service'                        => $featureGroupAuto->id,
+            'Διπλά τζάμια'                          => $featureGroupHouse->id,
+            'Ενεργή Σύνδεση Ηλεκτρικού Ρεύματος'    => $featureGroupHouse->id,
+            'Ζάντες αλουμινίου'                     => $featureGroupAuto->id,
+            'Ηλεκτρικοί καθρέπτες'                  => $featureGroupAuto->id,
+            'Θέρμανση'                              => $featureGroupHouse->id,
+            'Κεντρικό κλείδωμα'                     => $featureGroupAuto->id,
+            'Μπάρμπεκιου'                           => $featureGroupHouse->id,
+            'Πάρκινγκ'                              => $featureGroupHouse->id,
+            'Πισίνα'                                => $featureGroupHouse->id,
+            'Πλοηγός'                               => $featureGroupAuto->id,
+            'Πόρτα ασφαλείας'                       => $featureGroupHouse->id,
+            'Προβολείς ομίχλης'                     => $featureGroupAuto->id,
+            'Σοφίτα'                                => $featureGroupHouse->id,
+            'Τζάκι'                                 => $featureGroupHouse->id,
+            'Υδραυλικό τιμόνι'                      => $featureGroupAuto->id,
+            'Υποβοήθηση φρένων'                     => $featureGroupAuto->id,
         ];
+
+        $attachCategoriesHouse = [
+            'Ενοικίαση γραφείου',
+            'Ενοικίαση Επαγγελματικού Χώρου',
+            'Ενοικίαση Κατοικίας',
+            'Πώληση Επαγγελματικού Χώρου',
+            'Πώληση Κατοικίας'
+        ];
+        foreach($attachCategoriesHouse as $attachCategory){
+            Category::where('title', $attachCategory)->first()->fieldGroups()->attach($featureGroupHouse->id);
+        }
+
+        $attachCategoriesAuto = [
+            'Αυτοκίνητα',
+            'Επαγγελματικά',
+        ];
+        foreach($attachCategoriesAuto as $attachCategory){
+            Category::where('title', $attachCategory)->first()->fieldGroups()->attach($featureGroupAuto->id);
+        }
+
+        $this->mapFeatures = [];
 
         $count = count($featureMapGroup);
         $index = 1;
-
-        FeatureGroup::create(['title' => 'Ακίνητο']);
-        FeatureGroup::create(['title' => 'Αυτοκίνητο']);
-
-        $this->mapFeatures = [];
         
         foreach($featureMapGroup as $featureTitle => $groupId){
             Tools::echoing('Import ' . $index++ . '/' . $count . ' Features');
-            //Feature::create(['title' => $featureTitle, 'feature_group_id' => $groupId]);
             $feature = new Feature();
             $feature->title = $featureTitle;
             $feature->feature_group_id = $groupId;
@@ -377,7 +400,21 @@ class WpImport
         $count = count($customFields);
         $index = 1;
 
-        FieldGroup::create(['title' => 'Ακίνητο']);
+        //FieldGroup::create(['title' => 'Ακίνητο']);
+        $fieldGroup = new FieldGroup();
+        $fieldGroup->title = 'Ακίνητο';
+        $fieldGroup->save();
+
+        $attachCategories = [
+            'Ενοικίαση γραφείου',
+            'Ενοικίαση Επαγγελματικού Χώρου',
+            'Ενοικίαση Κατοικίας',
+            'Πώληση Επαγγελματικού Χώρου',
+            'Πώληση Κατοικίας'
+        ];
+        foreach($attachCategories as $attachCategory){
+            Category::where('title', $attachCategory)->first()->fieldGroups()->attach($fieldGroup->id);
+        }
 
         $this->mapFields = [];
         
@@ -385,7 +422,7 @@ class WpImport
             Tools::echoing('Import ' . $index++ . '/' . $count . ' Fields');
             $field = new Field();
             $field->title = $fieldTitle;
-            $field->field_group_id = 1;
+            $field->field_group_id = $fieldGroup->id;
             $field->type = $fieldArray['type'];
             $field->options = serialize($fieldArray['options']);
             $field->save();

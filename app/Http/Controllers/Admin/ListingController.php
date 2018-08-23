@@ -70,12 +70,15 @@ class ListingController extends Controller
     {
         $category = $request->get('category');
         $category = Category::find($category);
+
+        $listingId = $request->get('listing_id');
         
         $fieldGroups = $category->fieldGroups()->get()->pluck('id')->toArray();
 
         $fields = DB::table('fields')
-            ->leftJoin('field_listing', 'field_listing.field_id', '=', 'fields.id')
             ->select('fields.*', 'field_listing.value')
+            ->leftJoin('field_listing', 'field_listing.field_id', '=', 'fields.id')
+            ->where('field_listing.listing_id', $listingId)
             ->whereIn('fields.field_group_id', $fieldGroups)
             ->get();
 

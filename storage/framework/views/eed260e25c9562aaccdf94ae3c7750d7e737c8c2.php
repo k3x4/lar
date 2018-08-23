@@ -5,8 +5,9 @@
         'fields[' . $field->id . ']',
         intval($field->value) ?: intval($field->options['default']) ?: null,
         [
-            'placeholder' => '',//$field->options['placeholder'],
-            'class' => 'form-control'
+            'placeholder' => $field->options['placeholder'],
+            'class' => 'form-control',
+            'style' => 'width: 30%;'
         ]
     ); ?>
 
