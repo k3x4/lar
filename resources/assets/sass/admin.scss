@@ -1,3 +1,17 @@
+.block{
+    display: block;
+}
+
+.show-hover{
+    opacity: 0;
+    position: absolute;
+    bottom: 5px;
+    color: green !important;
+    &:hover{
+        opacity: 1;
+    }
+}
+
 .content {
     .form-group {
         margin-bottom: 0px;
@@ -80,6 +94,12 @@
 table.dtable {
     width: 100% !important;
     position: relative;
+    tr td{
+        position: relative;
+        &:hover .show-hover{
+            opacity: 1;
+        }
+    }
     & > tbody{
         position: relative;
         & > tr{

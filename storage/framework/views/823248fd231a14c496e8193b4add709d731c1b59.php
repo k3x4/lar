@@ -1,1 +1,2 @@
-<a href="<?php echo e(route('admin.listings.edit', [$id])); ?>"><?php echo e($title); ?></a>
+<a href="<?php echo e(route('admin.listings.edit', [$id])); ?>" class="block"><?php echo e($title); ?></a>
+<a href="<?php echo e(url('listing/' . $slug)); ?>" class="block show-hover" target="_blank"><?php echo e(__('Show')); ?></a>
