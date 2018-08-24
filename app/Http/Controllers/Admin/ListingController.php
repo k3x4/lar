@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Listing;
 use App\ListingMeta;
 use App\Field;
+use App\Feature;
 use App\Category;
 use App\Media;
 use DB;
@@ -74,27 +75,42 @@ class ListingController extends Controller
         $listingId = $request->get('listing_id');
         
         $fieldGroups = $category->fieldGroups()->get()->pluck('id')->toArray();
+        
+        if($listingId){
+            $fields = DB::table('fields')
+                ->select('fields.*', 'field_listing.value')
+                ->leftJoin('field_listing', 'field_listing.field_id', '=', 'fields.id')
+                ->where('field_listing.listing_id', $listingId)
+                ->whereIn('fields.field_group_id', $fieldGroups)
+                ->get();
+        } else {
+            $fields = Field::all();
+        }
 
-        $fields = DB::table('fields')
-            ->select('fields.*', 'field_listing.value')
-            ->leftJoin('field_listing', 'field_listing.field_id', '=', 'fields.id')
-            ->where('field_listing.listing_id', $listingId)
-            ->whereIn('fields.field_group_id', $fieldGroups)
-            ->get();
-
-        // if($request->get('listing_id')){
-        //     $listingId = $request->get('listing_id');
-        //     $listingFields = Listing::find($listingId)->fields()->pluck('value', 'field_id')->toArray();
-        //     if($listingFields){
-        //         $fields = $fields->map(function ($item, $key) use ($listingFields) {
-        //             $item->value = $listingFields[$item->id];
-        //             return $item;
-        //         });
-        //     }
-        // }
-
-        if($fields){
+        if($fieldGroups){
             return view('admin.fields.show', compact('fields'));
+        } else {
+            return '';
+        }
+    }
+
+    public function features(Request $request)
+    {
+        $category = $request->get('category');
+        $category = Category::find($category);
+
+        $featureGroups = $category->featureGroups()->get()->pluck('id')->toArray();
+        $features = Feature::whereIn('feature_group_id', $featureGroups)->get();
+
+        $attachFeatures = [];
+        $listingId = $request->get('listing_id');
+        if($listingId){
+            $listing = Listing::find($listingId);
+            $attachFeatures = $listing->features()->pluck('feature_id')->toArray();
+        }
+
+        if($featureGroups){
+            return view('admin.features.show', compact('features', 'attachFeatures'));
         } else {
             return '';
         }
@@ -109,18 +125,6 @@ class ListingController extends Controller
     {
         $categories = Category::whereNull('category_id')->get();
         $categories = CategoryTools::makeOptionGroup($categories);
-
-        //$category = Category::find($listing->category_id);
-        //$fieldGroups = $category->fieldGroups()->get();
-
-        // $fields = $listing->fields()->get();//->pluck('field_id')->all();
-        // $fields = $fields->map(function ($item, $key) {
-        //     $item->options = unserialize(Field::find($item->id)->options);
-        //     return $item;
-        // });
-
-        // $category = Category::find('2');
-        // $fields = $category->fields()->get();
 
         return view('admin.listings.create', compact('categories'));//, 'fields'));
     }
@@ -137,8 +141,6 @@ class ListingController extends Controller
             'title' => 'required',
             'category_id' => 'required',
         ]);
-        
-        //$product = Product::create($request->except('feature_image'));
 
         $slug = $request->input('slug');
 
@@ -178,18 +180,14 @@ class ListingController extends Controller
 
         $listing->media()->sync($gallery);
 
+        $fields = $request->input('fields');
         if($request->input('fields')){
-            $fields = $request->input('fields');
             array_walk($fields, [$this, 'fieldsValues']);
-            $listing->fields()->sync($fields);
         }
+        $listing->fields()->sync($fields);
 
-        // $listing->meta()->create([
-        //     'meta_key' => 'gallery',
-        //     'meta_value' => serialize(['a' => 1833, 'b' => 1834])
-        // ]);
-
-        // $variant = $item->variants()->where('text', $result->variant)->update(['price' => $price]);
+        $features = $request->input('features');
+        $listing->features()->sync($features);
 
         return redirect()->route('admin.listings.index')
                         ->with('success','Listing created successfully');
@@ -232,29 +230,11 @@ class ListingController extends Controller
             $gallery = Media::getUnsorted($galleryIds);
         }
 
-        $category = Category::find($listing->category_id);
-        //$fieldGroups = $category->fieldGroups()->get();
-        $featureGroups = $category->featureGroups()->get();
-        //dd($featureGroups);
-
-        // $fields = $listing->fields()->get();//->pluck('field_id')->all();
-        // $fields = $fields->map(function ($item, $key) {
-        //     $item->options = unserialize(Field::find($item->id)->options);
-        //     return $item;
-        // });
-
-        //dd($fields);
-        $features = $listing->features()->pluck('feature_id')->toArray();
-
         return view('admin.listings.edit', compact(
             'listing',
             'categories',
             'featuredImage',
-            'gallery',
-            //'fieldGroups',
-            'featureGroups',
-            //'fields',
-            'features'
+            'gallery'
         ));
     }
 
@@ -309,16 +289,14 @@ class ListingController extends Controller
 
         $listing->media()->sync($gallery);
 
+        $fields = $request->input('fields');
         if($request->input('fields')){
-            $fields = $request->input('fields');
             array_walk($fields, [$this, 'fieldsValues']);
-            $listing->fields()->sync($fields);
         }
+        $listing->fields()->sync($fields);
 
         $features = $request->input('features');
-        if($features){
-            $listing->features()->sync($features);
-        }
+        $listing->features()->sync($features);
 
         return redirect()->route('admin.listings.index')
                         ->with('success','Listing updated successfully');

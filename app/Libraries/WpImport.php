@@ -545,6 +545,10 @@ class WpImport
 
         Tools::copyDir($tempPathOrig, $tempPath);
 
+        if (is_dir(public_path('uploads'))) {
+            Tools::removeDir(public_path('uploads'));
+        }
+
         $count = count($files);
         $index = 1;
 

@@ -80,8 +80,6 @@ module.exports = __webpack_require__(9);
 
 $(document).ready(function () {
 
-    $('.select2').select2();
-
     /*** TINYMCE INIT ***/
 
     tinymce.init({
@@ -99,6 +97,9 @@ $(document).ready(function () {
         templates: [{ title: 'Test template 1', content: 'Test 1' }, { title: 'Test template 2', content: 'Test 2' }]
 
     });
+
+    // SELECT2
+    $('.select2').select2();
 
     /*** DELETE CONFIRM ***/
 
@@ -200,6 +201,12 @@ $(document).ready(function () {
     // I-CHECK ALL
     $('input[type="checkbox"]:not(".icheck-input")').icheck({
         checkboxClass: 'icheckbox_flat-blue'
+    });
+
+    $(document).ajaxStop(function () {
+        $('input[type="checkbox"]:not(".icheck-input")').icheck({
+            checkboxClass: 'icheckbox_flat-blue'
+        });
     });
 
     // CHECKS TABLE

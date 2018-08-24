@@ -2,8 +2,6 @@
 
 $(document).ready(function () {
 
-    $('.select2').select2();
-
     /*** TINYMCE INIT ***/
 
     tinymce.init({
@@ -30,6 +28,8 @@ $(document).ready(function () {
 
     });
 
+    // SELECT2
+    $('.select2').select2();
 
 
     /*** DELETE CONFIRM ***/
@@ -137,6 +137,11 @@ $(document).ready(function () {
         checkboxClass: 'icheckbox_flat-blue',
     });
 
+    $(document).ajaxStop(function() {
+        $('input[type="checkbox"]:not(".icheck-input")').icheck({
+            checkboxClass: 'icheckbox_flat-blue',
+        });
+    });
 
     // CHECKS TABLE
     $('.checkTable th .selectAll').each(function(){

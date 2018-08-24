@@ -51,8 +51,24 @@
             </div>
             
             <div class="box-body">
-                <span id="loading" style="text-align:center;display:block;"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></span>
+                <span id="fields-loading" style="text-align:center;display:block;">
+                    <i class="fa fa-4x fa-cog fa-spin"></i>
+                </span>
                 <div id="fields-show">
+                </div>
+            </div>
+        </div>
+
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title"><?php echo e(__('Χαρακτηριστικά')); ?></h3>
+            </div>
+            
+            <div class="box-body">
+                <span id="features-loading" style="text-align:center;display:block;">
+                    <i class="fa fa-4x fa-cog fa-spin"></i>
+                </span>
+                <div id="features-show">
                 </div>
             </div>
         </div>
@@ -92,6 +108,7 @@
 ##parent-placeholder-c55a01b0a8ef1d7b211584e96d51bdf8930d1005##
     <script>
         $(document).ready(function() {
+            
             $('#category-select').change(function() {
                 $.ajax({
                     url: '<?php echo route("admin.listings.fields"); ?>',
@@ -99,7 +116,11 @@
                     data: {
                         category: $('#category-select').val()
                     },
+                    beforeSend: function() {
+                        $("#fields-loading").show();
+                    },
                     success: function(data) {
+                        $("#fields-loading").hide();
                         $('#fields-show').html(data);
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
@@ -107,15 +128,29 @@
                     }
                 });
             });
+
+            $('#category-select').change(function() {
+                $.ajax({
+                    url: '<?php echo route("admin.listings.features"); ?>',
+                    type: 'GET',
+                    data: {
+                        category: $('#category-select').val()
+                    },
+                    beforeSend: function() {
+                        $("#features-loading").show();
+                    },
+                    success: function(data) {
+                        $("#features-loading").hide();
+                        $('#features-show').html(data);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            });
+
             $("#category-select").change();
 
-            $(document).ajaxStart(function() {
-                $("#loading").show();
-            });
-
-            $(document).ajaxStop(function() {
-                $("#loading").hide();
-            });
         });
     </script>
 <?php $__env->stopSection(); ?>

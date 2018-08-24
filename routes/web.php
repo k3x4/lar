@@ -251,6 +251,12 @@ Route::group([
         'middleware' => ['permission:listing-read'],
     ]);
 
+    Route::get('admin/listings/features', [
+        'as' => 'admin.listings.features',
+        'uses' => 'ListingController@features',
+        'middleware' => ['permission:listing-read'],
+    ]);
+
     Route::get('admin/listings/create', [
         'as' => 'admin.listings.create',
         'uses' => 'ListingController@create',

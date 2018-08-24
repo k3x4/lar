@@ -50,36 +50,27 @@
             </div>
             
             <div class="box-body">
-                <span id="loading" style="text-align:center;display:block;"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></span>
+                <span id="fields-loading" style="text-align:center;display:block;">
+                    <i class="fa fa-4x fa-cog fa-spin"></i>
+                </span>
                 <div id="fields-show">
                 </div>
             </div>
         </div>
 
-        @if(count($featureGroups))
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">{{ __('Χαρακτηριστικά') }}</h3>
             </div>
             
             <div class="box-body">
-                @foreach($featureGroups as $featureGroup)
-                    @foreach($featureGroup->features as $feature)
-                        <span class="feature-cat-item">
-                        {{ Form::checkbox(
-                                'features[]',
-                                $feature->id,
-                                in_array($feature->id, $features) ? true : false
-                            )
-                        }}
-                        {{ $feature->title }}
-                        </span>
-                    @endforeach
-                    <hr>
-                @endforeach
+                <span id="features-loading" style="text-align:center;display:block;">
+                    <i class="fa fa-4x fa-cog fa-spin"></i>
+                </span>
+                <div id="features-show">
+                </div>
             </div>
         </div>
-        @endif
 
     </div>
 
@@ -118,6 +109,7 @@
 @parent
     <script>
         $(document).ready(function() {
+            
             $('#category-select').change(function() {
                 $.ajax({
                     url: '{!! route("admin.listings.fields") !!}',
@@ -126,7 +118,11 @@
                         category: $('#category-select').val(),
                         listing_id: {!! $listing->id !!}
                     },
+                    beforeSend: function() {
+                        $("#fields-loading").show();
+                    },
                     success: function(data) {
+                        $("#fields-loading").hide();
                         $('#fields-show').html(data);
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
@@ -134,15 +130,30 @@
                     }
                 });
             });
+
+            $('#category-select').change(function() {
+                $.ajax({
+                    url: '{!! route("admin.listings.features") !!}',
+                    type: 'GET',
+                    data: {
+                        category: $('#category-select').val(),
+                        listing_id: {!! $listing->id !!}
+                    },
+                    beforeSend: function() {
+                        $("#features-loading").show();
+                    },
+                    success: function(data) {
+                        $("#features-loading").hide();
+                        $('#features-show').html(data);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            });
+
             $("#category-select").change();
 
-            $(document).ajaxStart(function() {
-                $("#loading").show();
-            });
-
-            $(document).ajaxStop(function() {
-                $("#loading").hide();
-            });
         });
     </script>
 @endsection
